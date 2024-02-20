@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('modelo')->nullable();
             $table->text('descripcion')->nullable();
             $table->tinyInteger('baja')->default(0);
-            $table->integer('aula_id');
+            $table->unsignedBigInteger('aula_id');
             $table->integer('puesto')->nullable();
             $table->timestamps();
 

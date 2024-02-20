@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('texto');
             $table->datetime('fechahora');
-            $table->integer('incidencia_num');
-            $table->integer('personal_id');
+            $table->unsignedBigInteger('incidencia_num');
+            $table->unsignedBigInteger('personal_id');
             $table->text('adjunto_url')->nullable();
             $table->timestamps();
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('perfiles', function (Blueprint $table) {
             $table->id();
-            $table->integer('personal_id');
+            $table->unsignedBigInteger('personal_id');
             $table->string('dominio', 15)->nullable();
             $table->string('educantabria', 50)->nullable();
             $table->char('password', 32)->nullable();

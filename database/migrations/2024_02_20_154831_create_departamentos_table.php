@@ -16,7 +16,7 @@ return new class extends Migration
             $table->char('cod', 6);
             $table->string('nombre', 45);
             $table->tinyInteger('activo')->default(1);
-            $table->integer('jefedep_id')->nullable();
+            $table->unsignedBigInteger('jefedep_id')->nullable();
             $table->timestamps();
 
             $table->foreign('jefedep_id')->references('id')->on('personal');

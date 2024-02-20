@@ -22,10 +22,10 @@ return new class extends Migration
             $table->char('cp', 5)->nullable();
             $table->char('tlf', 9)->nullable();
             $table->tinyInteger('activo')->default(1);
-            $table->integer('departamento_id')->nullable();
+            $table->unsignedBigInteger('departamento_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('departamento_id')->references('id')->on('departamentos');
+            //$table->foreign('departamento_id')->references('id')->on('departamentos');
         });
     }
 
