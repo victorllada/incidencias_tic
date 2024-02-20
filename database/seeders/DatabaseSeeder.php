@@ -3,6 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Aula;
+use App\Models\Comentario;
+use App\Models\Equipo;
+use App\Models\Incidencia;
+use App\Models\IncidenciaSubtipo;
+use App\Models\Perfil;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +25,21 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // Factories
+        IncidenciaSubtipo::factory(20)->create();
+        Aula::factory(10)->create();
+        Equipo::factory(15)->create();
+
+        // Seeders
+        $this->call([
+            PersonalDepartamentoSeeder::class,
+            //PerfilSeeder::class,
+        ]);
+
+        // Factories
+        Incidencia::factory(40)->create();
+        Comentario::factory(30)->create();
+        Perfil::factory(25)->create();
     }
 }
