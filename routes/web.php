@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IncidenciaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Incidencias
+Route::resource('incidencias', IncidenciaController::class)->parameters([
+    'incidencias' => 'incidencia'
+]);
 
 Route::middleware([
     'auth:sanctum',
