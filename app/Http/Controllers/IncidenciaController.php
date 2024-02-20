@@ -10,7 +10,7 @@ class IncidenciaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()//Si usamos la opcion comentada debemos de usar como parametro: Request $request
     {
         //Soy @cesartg11
         //Dejo comentada esta parte, la cual trata de "filtrar" por request, si es de ajax devuelve el json, y si no es ajax devuelve vista y coleccion/array de incidencias
