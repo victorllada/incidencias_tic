@@ -8,14 +8,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        table {
-            border: 1px solid black;
-        }
-
-        th {
-            border: 1px solid black;
-        }
-
+        table,
+        th,
         td {
             border: 1px solid black;
         }

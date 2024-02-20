@@ -13,8 +13,7 @@ class IncidenciaController extends Controller
     public function index(Request $request) //Si usamos la opcion comentada debemos de usar como parametro: Request $request
     {
         //Soy @cesartg11
-        //Dejo esta parte, la cual trata de "filtra" por request, si es de ajax devuelve el json, y si no es ajax devuelve vista y coleccion/array de incidencias
-        //Lo dejo aquí por si en un futuro es necesario, dado que actualmente no sabemos realmente como hacerlo.
+        //Dejo esta parte que devuelve la vista y el JSON si el request es ajax o acepta JSON
 
         // Recogemos todas las incidencias
         $incidencias = Incidencia::all();
@@ -27,8 +26,25 @@ class IncidenciaController extends Controller
         // Devuelve tambien la vista
         return view('incidencias.index');
 
-        /*
-        //En esta parte que esta comentada, independientemente de la solicitud, devuelve colección, JSON y vista
+
+
+        /*En este caso recogemos todas las incidencias y ademas con el resto de tablas relacionadas con incidencias
+
+        // Recogemos todas las incidencias con relaciones cargadas
+        $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
+
+        // Si es una solicitud AJAX o acepta JSON, devolvemos JSON
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($incidencias);
+        }
+
+        // Si no es una solicitud AJAX, devolvemos la vista y el JSON
+        return view('incidencias.index', ['incidencias' => $incidencias, 'jsonIncidencias' => $incidencias->toJson()]);
+        */
+
+
+
+        /*En esta parte que esta comentada, independientemente de la solicitud, devuelve colección, JSON y vista
 
         // Recogemos todas las incidencias
         $incidencias = Incidencia::all();
