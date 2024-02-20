@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IncidenciaController;
+use App\Http\Controllers\InicioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Inicio
+Route::get('/', InicioController::class)->name('inicio');
 
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
