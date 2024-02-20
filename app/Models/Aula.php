@@ -26,5 +26,3 @@ class Aula extends Model
         return $this->hasMany(Equipo::class, 'aula_id');
     }
 }
-
-//Hola esto es un comentario de prueba para entender issues
