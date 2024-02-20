@@ -24,8 +24,6 @@ return new class extends Migration
             $table->tinyInteger('activo')->default(1);
             $table->unsignedBigInteger('departamento_id')->nullable();
             $table->timestamps();
-
-            //$table->foreign('departamento_id')->references('id')->on('departamentos');
         });
     }
 
