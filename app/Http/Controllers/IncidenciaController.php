@@ -29,7 +29,7 @@ class IncidenciaController extends Controller
         return view('incidencias.index', ['incidencias' => $incidencias, 'jsonIncidencias' => $incidencias->toJson()]);
         */
 
-        //En esta parte que no esta comentada, independientemente de la solicitud, devuelve JSON y vista
+        //En esta parte que no esta comentada, independientemente de la solicitud, devuelve colección, JSON y vista
 
         // Recogemos todas las incidencias
         $incidencias = Incidencia::all();
