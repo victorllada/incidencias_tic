@@ -23,7 +23,7 @@ Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
 ]);
 
-Route::middleware([
+/*Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
@@ -31,4 +31,4 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
+});*/
