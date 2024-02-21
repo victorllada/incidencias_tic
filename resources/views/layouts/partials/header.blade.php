@@ -6,7 +6,7 @@
                     <use xlink:href="#bootstrap"></use>
                 </svg>
             </a>
-
+            <!--s-->
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="#" class="nav-link px-4 link-body-emphasis fs-4 text-white">Inicio</a></li>
                 <li><a href="#" class="nav-link px-4 link-body-emphasis fs-4 text-white">Crear incidencia</a></li>
