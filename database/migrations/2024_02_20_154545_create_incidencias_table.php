@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->text('actuaciones');
             $table->enum('estado', ['abierta', 'asignada', 'en proceso', 'enviada a Infortec', 'resuelta', 'cerrada']);
+            $table->enum('prioridad', ['baja', 'media', 'alta', 'urgente']);
             $table->text('adjunto_url')->nullable();
             $table->unsignedBigInteger('creador_id');
             $table->unsignedBigInteger('responsable_id')->nullable();

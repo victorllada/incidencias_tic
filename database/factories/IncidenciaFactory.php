@@ -32,6 +32,7 @@ class IncidenciaFactory extends Factory
             'descripcion' => $this->faker->sentence,
             'actuaciones' => $this->faker->sentence,
             'estado' => $this->faker->randomElement(['abierta', 'asignada', 'en proceso', 'enviada a Infortec', 'resuelta', 'cerrada']),
+            'prioridad' => $this->faker->randomElement(['baja', 'media', 'alta', 'urgente']),
             'adjunto_url' => $this->faker->optional()->url,
             'creador_id' => $this->faker->randomElement($personas),
             'responsable_id' => $this->faker->optional()->randomElement($personas),
