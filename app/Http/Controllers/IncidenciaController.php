@@ -16,13 +16,12 @@ class IncidenciaController extends Controller
         return view('incidencias.index', compact('incidencias'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('incidencias.create');
     }
 
     /**
@@ -44,9 +43,9 @@ class IncidenciaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Incidencia $incidencia)
     {
-        //
+        return view('incidencias.edit', compact('animal'));
     }
 
     /**
