@@ -14,3 +14,26 @@
 .aquamarine-700{
     background-color: $aquamarine-700;
 }
+
+footer
+{
+    color: white;
+    height: 100px;
+    gap: 10px;
+}
+
+footer>div
+{
+    width: 500px;
+}
+
+footer a
+{
+    text-decoration:none;
+    color: white;
+}
+
+footer>div:first-child
+{
+    gap:30px;
+}
