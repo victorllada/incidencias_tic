@@ -16,5 +16,5 @@
         @yield('contenido')
     </main>
 
-    {{-- @include('layouts.partials.footer') --}}
+    @include('layouts.partials.footer')
 </body>
