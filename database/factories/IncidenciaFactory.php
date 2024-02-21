@@ -17,7 +17,7 @@ class IncidenciaFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition(): array //a
     {
         $subtipos = IncidenciaSubtipo::pluck('id')->toArray();
         $personas = Personal::pluck('id')->toArray();
