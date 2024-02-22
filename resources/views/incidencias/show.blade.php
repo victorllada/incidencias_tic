@@ -7,12 +7,13 @@
         <a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a> -> Incidencia {{ $incidencia->id }}
     </div>
     <div class="fs-5 mb-5">
-        <div class="row">
-            <div class="col aquamarine-100">Id: {{ $incidencia->id }}</div>
+        <div class="row p-3 aquamarine-100">
+            <div class="col ">Id: {{ $incidencia->id }}</div>
         </div>
-        <div class="row">
-            <div class="col aquamarine-100">Tipo: {{ $incidencia->tipo }}</div>
-            <div class="col aquamarine-100">Subtipo: {{ $incidencia->subtipo->subtipo_nombre }}</div>
+        <div class="row p-3 aquamarine-100"">
+            <div class="col">Tipo: {{ $incidencia->tipo }}</div>
+            <div class="col">Subtipo: {{ $incidencia->subtipo->subtipo_nombre }}</div>
+            <div class="col">Subtipo: {{ $incidencia->subtipo->subtipo_nombre }}</div>
         </div>
         <div class="row">
             <div class="col aquamarine-100">Fecha de creación: {{ $incidencia->fecha_creacion }}</div>

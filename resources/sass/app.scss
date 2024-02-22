@@ -10,6 +10,12 @@
 // Iconos
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
+html{
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: $aquamarine-700 $aquamarine-400;
+}
+
 .aquamarine-50{
     background-color: $aquamarine-50;
 }
