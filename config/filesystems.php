@@ -44,6 +44,19 @@ return [
             'throw' => false,
         ],
 
+        /*
+        Ejemplo de uso:
+        $request->imagen->store('imagenes', 'discoAssets');
+
+        'imagenes': nombre de la carpeta dentro de assets.
+        'discoAssets': nombre del disco creado.
+        */
+        'discoAssets' => [
+            'driver' => 'local',
+            'root' => public_path('assets'),
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
