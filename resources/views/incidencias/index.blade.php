@@ -12,20 +12,20 @@
 
     {{-- Encabezado de la lista de incidencias --}}
     <div class="container text-left mb-4">
-        <div class="row aquamarine-400 border rounded-top sticky-top">
-            <div class="col bolder fw-bolder p-3">Usuario</div>
-            <div class="col border fw-bolder p-3">Tipo</div>
-            <div class="col bolder fw-bolder p-3">Subtipo</div>
-            <div class="col border fw-bolder p-3">Descripción</div>
-            <div class="col border fw-bolder p-3">Estado</div>
+        <div class="row sticky-top mb-2">
+            <div class="col fw-bolder border rounded-start p-3 aquamarine-400">Usuario</div>
+            <div class="col fw-bolder border p-3 aquamarine-400">Tipo</div>
+            <div class="col fw-bolder border p-3 aquamarine-400">Subtipo</div>
+            <div class="col fw-bolder border p-3 aquamarine-400">Descripción</div>
+            <div class="col fw-bolder border rounded-end p-3 aquamarine-400">Estado</div>
         </div>
 
         {{-- Lista de incidencias --}}
         @forelse ($incidencias as $incidencia)
-            <div class=" row lista-incidencias">
+            <div class=" row lista-incidencias mb-4">
                 <a href="{{ route('incidencias.show', $incidencia) }}">
-                    <div class="row justify-content-between flex-nowrap">
-                        <div class="col border p-3">
+                    <div class="row justify-content-between flex-nowrap rounded">
+                        <div class="col border rounded-start p-3">
                             {{ $incidencia->creador->nombre }}
                             {{ $incidencia->creador->apellido1 }}
                             {{ $incidencia->creador->apellido2 }}
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col border p-3">
                             {{ $incidencia->descripcion }}</div>
-                        <div class="col border p-3">
+                        <div class="col border rounded-end p-3">
                             {{ $incidencia->estado }}
                         </div>
                     </div>

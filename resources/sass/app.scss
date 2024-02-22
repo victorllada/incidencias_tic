@@ -58,12 +58,12 @@ footer>div:first-child
     gap:30px;
 }
 
-.lista-incidencias:nth-child(even){
+.lista-incidencias:nth-child(even) .col {
     background-color: $aquamarine-50;
     border-color: $aquamarine-50;
 }
 
-.lista-incidencias:nth-child(odd){
+.lista-incidencias:nth-child(odd) .col {
     background-color: $aquamarine-200;
     border-color: $aquamarine-200;
 }
@@ -73,11 +73,11 @@ a{
     color: inherit;
 }
 
-.lista-incidencias>a{
+.lista-incidencias .col{
  transition: box-shadow 0.3s ease-in-out;
 }
 
-.lista-incidencias:hover {
+.lista-incidencias .row:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     color: inherit;
 }
