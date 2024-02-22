@@ -41,5 +41,8 @@ class DatabaseSeeder extends Seeder
         Incidencia::factory(40)->create();
         Comentario::factory(30)->create();
         Perfil::factory(25)->create();
+
+        //Usuario para comprobar jetsTream
+        $this->call(UserSeeder::class);
     }
 }

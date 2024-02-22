@@ -12,8 +12,17 @@ class IncidenciaController extends Controller
      */
     public function index()
     {
+        //$incidencias = Incidencia::all();
         $incidencias = Incidencia::all();
-        return view('incidencias.index', compact('incidencias'));
+        return view("incidencias.index", compact('incidencias'));
+        //return view('incidencias.index', compact('incidencias'));
+        //return response()->json($incidencias);
+    }
+
+    public function datosIndex()
+    {
+        $incidencias = Incidencia::all();
+        return response()->json($incidencias);
     }
 
     /**
@@ -35,10 +44,27 @@ class IncidenciaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Incidencia $incidencia)
+    public function show(Request $request, Incidencia $incidencia)
     {
-        return view('incidencias.show', compact('incidencia'));
+        //return view('incidencias.show');
+        if ($request->ajax() || $request->wantsJson()) {
+            if (!$incidencia) {
+                return response()->json(['error' => 'Incidencia no encontrada'], 404);
+            }
+
+            return response()->json($incidencia);
+        }
+
+        return view('incidencias.show');
     }
+
+    /* Esta funcion sirve para enviar datos JSON a AJAX, demomento la dejamos por si la de arriba no funciona
+    public function datosShow(int $id)
+    {
+        $incidencias = Incidencia::where('id', '=', $id)->firstOrFail();
+        return response()->json($incidencias);
+    }*/
+
 
     /**
      * Show the form for editing the specified resource.
