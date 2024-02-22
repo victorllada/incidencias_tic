@@ -2,7 +2,11 @@
 @section('titulo', 'Incidencias - show')
 @section('contenido')
 
-    <h1>Incidencias show</h1>
+    {{-- Migas de pan --}}
+    <div class="fs-3">
+        <a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a> -> Incidencia {{ $incidencia->id }}
+    </div>
+
     <div>
         <ul>
             <li>Id:{{ $incidencia->id }}</li>
