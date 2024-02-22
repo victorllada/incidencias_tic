@@ -3,8 +3,36 @@
 @section('contenido')
 
     <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- Marca y botón de alternancia para pantallas pequeñas -->
+                <a class="navbar-brand" href="#">Mi Menú</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Elementos del menú -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Acerca de</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         {{-- Contenedor del boton filtrar y los botones exportar --}}
-        <div class="d-flex justify-content-between align-items-center mb-5">
+        <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
 
             {{-- Boton y desplegable para los filtros --}}
             <nav class="navbar bg-body-tertiary px-0" aria-label="Light offcanvas navbar">
@@ -19,18 +47,27 @@
                         </svg>
                     </button>
 
+                    {{-- Desplegable con los filtros --}}
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarLight"
                         aria-labelledby="offcanvasNavbarLightLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Opciones de filtrado</h5>
+
+                            {{-- Boton para cerrar el desplegable --}}
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
+
+                        {{-- Contendor con los filtros y boton de filtrado --}}
                         <div class="offcanvas-body d-flex flex-column justify-between gap-4">
+
+                            {{-- Filtro usuario --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Usuario</label>
                                 <input class="form-control" type="search" placeholder="Introduce nombre del usuario">
                             </div>
+
+                            {{-- Filtro tipo --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Tipo</label>
                                 <select class="form-select" id="inputGroupSelect01">
@@ -40,6 +77,8 @@
                                     <option value="3">Three</option>
                                 </select>
                             </div>
+
+                            {{-- Filtro subtipo --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Subtipo</label>
                                 <select class="form-select" id="inputGroupSelect01">
@@ -49,10 +88,14 @@
                                     <option value="3">Three</option>
                                 </select>
                             </div>
+
+                            {{-- Filtro descripción --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Descripción</label>
                                 <input class="form-control" type="search" placeholder="Introduce la descripción">
                             </div>
+
+                            {{-- Filtro prioridad --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Prioridad</label>
                                 <select class="form-select" id="inputGroupSelect01">
@@ -62,6 +105,8 @@
                                     <option value="3">Three</option>
                                 </select>
                             </div>
+
+                            {{-- Filtro estado --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Estado</label>
                                 <select class="form-select" id="inputGroupSelect01">
@@ -71,6 +116,8 @@
                                     <option value="3">Three</option>
                                 </select>
                             </div>
+
+                            {{-- Boton de filtrado --}}
                             <button class="btn aquamarine-400" type="submit" data-bs-dismiss="offcanvas"
                                 aria-label="Close">Filtrar</button>
                         </div>
