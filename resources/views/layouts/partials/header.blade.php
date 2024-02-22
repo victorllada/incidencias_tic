@@ -1,4 +1,4 @@
-<header class="p-3 mb-3 border-bottom aquamarine-700">
+<header class="p-3 mb-3 border-bottom aquamarine-700 sticky-top ">
     <div class="mx-5">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
@@ -8,9 +8,12 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ route('incidencias.index') }}" class="nav-link px-4 link-body-emphasis fs-4 text-white">Inicio</a></li>
-                <li><a href="{{ route('incidencias.create') }}" class="nav-link px-4 link-body-emphasis fs-4 text-white">Crear incidencia</a></li>
-                <li><a href="#" class="nav-link px-4 link-body-emphasis fs-4 text-white">Administrar usuarios</a></li>
+                <li><a href="{{ route('incidencias.index') }}"
+                        class="nav-link px-4 link-body-emphasis fs-4 text-white">Inicio</a></li>
+                <li><a href="{{ route('incidencias.create') }}"
+                        class="nav-link px-4 link-body-emphasis fs-4 text-white">Crear incidencia</a></li>
+                <li><a href="#" class="nav-link px-4 link-body-emphasis fs-4 text-white">Administrar usuarios</a>
+                </li>
                 <li><a href="#" class="nav-link px-4 link-body-emphasis fs-4 text-white">Informes</a></li>
             </ul>
 

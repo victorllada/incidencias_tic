@@ -26,6 +26,9 @@
             <textarea name="" id="" cols="30" rows="10" class="col">{{ $incidencia->descripcion }}</textarea>
             <textarea name="" id="" cols="30" rows="10" class="col">{{ $incidencia->actuaciones }}</textarea>
         </div>
+        <div class="row">
+
+        </div>
 
         <ul class="list-group">
             <li class="list-group-item aquamarine-100">Duración: {{ $incidencia->duracion }}</li>
