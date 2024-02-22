@@ -11,7 +11,7 @@
                 <div>
                     <button class="btn aquamarine-400" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
-                        aria-label="Toggle navigation py-2">
+                        aria-label="Toggle navigation py-2">Filtrar
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="bi bi-filter" viewBox="0 0 16 16">
                             <path
@@ -22,29 +22,57 @@
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarLight"
                         aria-labelledby="offcanvasNavbarLightLabel">
                         <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Filtros</h5>
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Opciones de filtrado</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-center flex-grow-1 ps-3">
-                                <li class="nav-item">
-                                    <div class="col fw-bolder d-flex justify-content-between align-items-center gap-2">
-                                        <input type="text" placeholder="Usuario" class="filtros">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                                        </svg>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                </li>
-                                <li class="nav-item">
-                                </li>
-                            </ul>
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        <div class="offcanvas-body d-flex flex-column justify-between gap-4">
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Usuario</label>
+                                <input class="form-control" type="search" placeholder="Introduce nombre del usuario">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Tipo</label>
+                                <select class="form-select" id="inputGroupSelect01">
+                                    <option selected>Selecciona el tipo</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Subtipo</label>
+                                <select class="form-select" id="inputGroupSelect01">
+                                    <option selected>Selecciona el subtipo</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Descripción</label>
+                                <input class="form-control" type="search" placeholder="Introduce la descripción">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Prioridad</label>
+                                <select class="form-select" id="inputGroupSelect01">
+                                    <option selected>Selecciona la prioridad</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Estado</label>
+                                <select class="form-select" id="inputGroupSelect01">
+                                    <option selected>Selecciona el estado</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <button class="btn aquamarine-400" type="submit" data-bs-dismiss="offcanvas"
+                                aria-label="Close">Filtrar</button>
                         </div>
                     </div>
                 </div>
@@ -66,41 +94,23 @@
             <div class="row mb-4">
                 <div
                     class="col fw-bolder border rounded-start p-3 aquamarine-400 d-flex justify-content-between align-items-center gap-2">
-                    <input type="text" placeholder="Usuario" class="filtros aquamarine-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                    </svg>
+                    Usuario
                 </div>
                 <div class="col fw-bolder border p-3 aquamarine-400">
-                    <select name="" id="" class="filtros aquamarine-400">
-                        <option value="">Tipo</option>
-                    </select>
+                    Tipo
                 </div>
                 <div class="col fw-bolder border p-3 aquamarine-400">
-                    <select name="" id="" class="filtros aquamarine-400">
-                        <option value="">Subtipo</option>
-                    </select>
+                    Subtipo
                 </div>
                 <div
                     class="col fw-bolder border p-3 aquamarine-400 d-flex justify-content-between align-items-center gap-2">
-                    <input type="text" placeholder="Descripción" class="filtros aquamarine-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                    </svg>
+                    Descripción
                 </div>
                 <div class="col fw-bolder border p-3 aquamarine-400">
-                    <select name="" id="" class="filtros aquamarine-400">
-                        <option value="">Prioridad</option>
-                    </select>
+                    Prioridad
                 </div>
                 <div class="col fw-bolder border rounded-end p-3 aquamarine-400">
-                    <select name="" id="" class="filtros aquamarine-400">
-                        <option value="">Estado</option>
-                    </select>
+                    Estado
                 </div>
             </div>
 

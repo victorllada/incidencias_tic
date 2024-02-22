@@ -48,20 +48,10 @@ class IncidenciaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Incidencia $incidencia)
+    public function show(Incidencia $incidencia)
     {
-        //return view('incidencias.show');
-        if ($request->ajax() || $request->wantsJson()) {
-            if (!$incidencia) {
-                return response()->json(['error' => 'Incidencia no encontrada'], 404);
-            }
+        return view("incidencias.show", compact('incidencia'));
 
-            $datosIncidencia = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->findOrFail($incidencia);
-
-            return response()->json($datosIncidencia);
-        }
-
-        return view('incidencias.show');
     }
 
     /**
