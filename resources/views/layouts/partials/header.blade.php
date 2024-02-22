@@ -1,5 +1,5 @@
 <header class="p-3 mb-3 border-bottom aquamarine-700 sticky-top">
-    <div class="mx-5">
+    <div class="mx-4">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
                 <svg class="bi me-2" width="200" height="32" role="img" aria-label="Bootstrap">

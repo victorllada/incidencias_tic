@@ -18,9 +18,12 @@ class IncidenciaController extends Controller
 
         $incidencias = Incidencia::all();
 
+        /*
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json($incidencias);
         }
+        */
+        return view("incidencias.index", compact('incidencias'));
 
         return view('incidencias.index');
     }
