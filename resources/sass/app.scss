@@ -18,6 +18,10 @@
     background-color: $aquamarine-200;
 }
 
+.aquamarine-400{
+    background-color: $aquamarine-400;
+}
+
 .aquamarine-700{
     background-color: $aquamarine-700;
 }
@@ -54,14 +58,18 @@ footer>div:first-child
     background-color: $aquamarine-50;
     border-color: $aquamarine-50;
 }
+
 .lista-incidencias:nth-child(odd){
     background-color: $aquamarine-200;
     border-color: $aquamarine-200;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
 .lista-incidencias>a{
- text-decoration: none;
- color: inherit;
  transition: box-shadow 0.3s ease-in-out;
 }
 

@@ -2,7 +2,12 @@
 @section('titulo', 'Incidencias - Inicio')
 @section('contenido')
 
-    <h1>Incidencias index</h1>
+    <div class="d-flex justify-content-end align-items-center mb-5 gap-2">
+        <div>Exportar a:</div>
+        <button type="button" class="btn aquamarine-400">PDF</button>
+        <button type="button" class="btn aquamarine-400">EXCEL</button>
+        <button type="button" class="btn aquamarine-400">CSV</button>
+    </div>
     @forelse ($incidencias as $incidencia)
         <div class="mb-4 lista-incidencias">
             <a href="{{ route('incidencias.show', $incidencia) }}">
