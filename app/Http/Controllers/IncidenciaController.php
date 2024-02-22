@@ -10,13 +10,19 @@ class IncidenciaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //$incidencias = Incidencia::all();
-        $incidencias = Incidencia::all();
-        return view("incidencias.index", compact('incidencias'));
         //return view('incidencias.index', compact('incidencias'));
         //return response()->json($incidencias);
+
+        $incidencias = Incidencia::all();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($incidencias);
+        }
+
+        return view('incidencias.index');
     }
 
     public function datosIndex()
