@@ -16,19 +16,14 @@ class IncidenciaController extends Controller
         //return view('incidencias.index', compact('incidencias'));
         //return response()->json($incidencias);
 
-        $incidencias = Incidencia::all();
+        //$incidencias = Incidencia::all();
+        $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json($incidencias);
         }
 
         return view('incidencias.index');
-    }
-
-    public function datosIndex()
-    {
-        $incidencias = Incidencia::all();
-        return response()->json($incidencias);
     }
 
     /**
@@ -58,26 +53,20 @@ class IncidenciaController extends Controller
                 return response()->json(['error' => 'Incidencia no encontrada'], 404);
             }
 
-            return response()->json($incidencia);
+            $datosIncidencia = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->findOrFail($incidencia);
+
+            return response()->json($datosIncidencia);
         }
 
         return view('incidencias.show');
     }
-
-    /* Esta funcion sirve para enviar datos JSON a AJAX, demomento la dejamos por si la de arriba no funciona
-    public function datosShow(int $id)
-    {
-        $incidencias = Incidencia::where('id', '=', $id)->firstOrFail();
-        return response()->json($incidencias);
-    }*/
-
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Incidencia $incidencia)
     {
-        return view('incidencias.edit', compact('animal'));
+        return view('incidencias.edit', compact('incidencia'));
     }
 
     /**
