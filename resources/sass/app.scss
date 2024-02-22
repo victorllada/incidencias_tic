@@ -10,11 +10,35 @@
 // Iconos
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
+html{
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: $aquamarine-700 $aquamarine-400;
+}
+
+.aquamarine-50{
+    background-color: $aquamarine-50;
+}
+
+.aquamarine-100{
+    background-color: $aquamarine-100;
+}
+
+.aquamarine-200{
+    background-color: $aquamarine-200;
+}
+
+.aquamarine-400{
+    background-color: $aquamarine-400;
+}
+
+.aquamarine-500{
+    background-color: $aquamarine-500;
+}
 
 .aquamarine-700{
     background-color: $aquamarine-700;
 }
-
 
 .aquamarine-950
 {
@@ -42,4 +66,54 @@ footer a
 footer>div:first-child
 {
     gap:30px;
+}
+
+.lista-incidencias:nth-child(even) .col {
+    background-color: $aquamarine-50;
+    border-color: $aquamarine-50;
+}
+
+.lista-incidencias:nth-child(odd) .col {
+    background-color: $aquamarine-200;
+    border-color: $aquamarine-200;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.lista-incidencias .col{
+ transition: box-shadow 0.3s ease-in-out;
+}
+
+.lista-incidencias .row:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: inherit;
+}
+
+.btn.aquamarine-400:hover {
+    background-color: $aquamarine-600;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.filtros {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px ;
+    outline: 1px;
+    padding: 2px;
+}
+
+.filtros::placeholder {
+    color: black;
+}
+
+.filtros:hover{
+    outline: 1px solid black;
+}
+
+.overflow-auto{
+    max-height: 500px;
 }
