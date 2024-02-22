@@ -22,6 +22,10 @@
     background-color: $aquamarine-400;
 }
 
+.aquamarine-500{
+    background-color: $aquamarine-500;
+}
+
 .aquamarine-700{
     background-color: $aquamarine-700;
 }
@@ -76,4 +80,9 @@ a{
 .lista-incidencias:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     color: inherit;
+}
+
+.btn.aquamarine-400:hover {
+    background-color: $aquamarine-600;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }

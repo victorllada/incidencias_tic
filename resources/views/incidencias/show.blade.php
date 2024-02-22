@@ -10,6 +10,7 @@
             <li>Subtipo:{{ $incidencia->subtipo_id }}</li>
             <li>Descripción:{{ $incidencia->descripcion }}</li>
             <li>Estado:{{ $incidencia->estado }}</li>
+            <li>Estado:{{ $incidencia->estado }}</li>
         </ul>
     </div>
 @endsection
