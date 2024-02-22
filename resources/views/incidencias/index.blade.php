@@ -11,29 +11,30 @@
     </div>
 
     {{-- Encabezado de la lista de incidencias --}}
-    <div>
-        <div class="d-flex justify-content-between flex-nowrap aquamarine-400 border rounded-top">
-            <div class="col border rounded-start-2 p-3">Id</div>
-            <div class="col border border-start-0 p-3">Tipo</div>
-            <div class="col border border-start-0 p-3">Subtipo</div>
-            <div class="col col-6 border border-start-0 p-3">Descripción</div>
-            <div class="col border border-start-0 rounded-end-2 p-3">Estado</div>
+    <div class="container text-left mb-4">
+        <div class="row aquamarine-400 border rounded-top sticky-top">
+            <div class="col bolder fw-bolder p-3">Id</div>
+            <div class="col border fw-bolder p-3">Tipo</div>
+            <div class="col bolder fw-bolder p-3">Subtipo</div>
+            <div class="col border fw-bolder p-3">Descripción</div>
+            <div class="col border fw-bolder p-3">Estado</div>
         </div>
 
         {{-- Lista de incidencias --}}
         @forelse ($incidencias as $incidencia)
-            <div class="mb-4 lista-incidencias">
+            <div class=" row lista-incidencias">
                 <a href="{{ route('incidencias.show', $incidencia) }}">
-                    <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item col border  p-3">Id:{{ $incidencia->id }}</li>
-                        <li class="list-group-item col border border-start-0 p-3">Tipo:{{ $incidencia->tipo }}</li>
-                        <li class="list-group-item col border border-start-0 p-3">Subtipo:{{ $incidencia->subtipo_id }}</li>
-                        <li class="list-group-item col col-6 border border-start-0 p-3">
-                            Descripción:{{ $incidencia->descripcion }}</li>
-                        <li class="list-group-item col border border-start-0 rounded-end-2 p-3">
+                    <div class="row justify-content-between flex-nowrap">
+                        <div class="col border p-3">Id:{{ $incidencia->id }}</div>
+                        <div class="col border p-3">Tipo:{{ $incidencia->tipo }}</div>
+                        <div class=" col border p-3">Subtipo:{{ $incidencia->subtipo_id }}
+                        </div>
+                        <div class="col border p-3">
+                            Descripción:{{ $incidencia->descripcion }}</div>
+                        <div class="col border p-3">
                             Estado:{{ $incidencia->estado }}
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </a>
             </div>
         @empty
