@@ -19,9 +19,12 @@ class IncidenciaController extends Controller
         //$incidencias = Incidencia::all();
         $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
 
+        /*
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json($incidencias);
         }
+        */
+        return view("incidencias.index", compact('incidencias'));
 
         return view('incidencias.index');
     }
