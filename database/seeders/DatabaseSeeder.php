@@ -8,7 +8,6 @@ use App\Models\Aula;
 use App\Models\Comentario;
 use App\Models\Equipo;
 use App\Models\Incidencia;
-use App\Models\IncidenciaSubtipo;
 use App\Models\Perfil;
 use Illuminate\Database\Seeder;
 
@@ -27,13 +26,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // Factories
-        IncidenciaSubtipo::factory(20)->create();
+        //IncidenciaSubtipo::factory(20)->create();
         Aula::factory(10)->create();
         Equipo::factory(15)->create();
 
         // Seeders
         $this->call([
             PersonalDepartamentoSeeder::class,
+            Incidencias_subtiposSeeder::class
             //PerfilSeeder::class,
         ]);
 

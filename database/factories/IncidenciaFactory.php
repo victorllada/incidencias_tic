@@ -19,13 +19,17 @@ class IncidenciaFactory extends Factory
      */
     public function definition(): array
     {
-        $subtipos = IncidenciaSubtipo::pluck('id')->toArray();
+        $subtipos = IncidenciaSubtipo::all()->pluck('tipo', 'id')->toArray();
         $personas = Personal::pluck('id')->toArray();
         $equipos = Equipo::pluck('id')->toArray();
 
+        // Selecciona un id de subtipo aleatorio y obtiene su tipo asociado
+        $randomSubtipoId = $this->faker->randomElement(array_keys($subtipos));
+        $tipo = $subtipos[$randomSubtipoId];
+
         return [
-            'tipo' => $this->faker->randomElement(['EQUIPOS', 'CUENTAS', 'WIFI', 'INTERNET', 'SOFTWARE']),
-            'subtipo_id' => $this->faker->randomElement($subtipos),
+            'tipo' => $tipo,
+            'subtipo_id' => $randomSubtipoId,
             'fecha_creacion' => $this->faker->dateTime,
             'fecha_cierre' => $this->faker->optional()->dateTime,
             'duracion' => $this->faker->numberBetween(5, 600),
