@@ -12,20 +12,14 @@ class IncidenciaController extends Controller
      */
     public function index(Request $request)
     {
-        $incidencias = Incidencia::all();
+        if ($request->ajax() || $request->wantsJson()) {
+            $incidenciasJSON = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
+            return response()->json($incidenciasJSON);
+        }
 
+        $incidencias = Incidencia::all();
         return view('incidencias.index', compact('incidencias'));
     }
-
-    /*
-    public function filtrar(Request $request)
-    {
-        // Lógica para aplicar los filtros y devolver las incidencias filtradas
-        // ...
-
-        return response()->json($incidenciasFiltradas);
-    }
-    */
 
     /**
      * Show the form for creating a new resource.
