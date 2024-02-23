@@ -7,8 +7,12 @@
     <form action="" method="post" enctype="multipart/form-data">
         @csrf
 
+        <!--El id se genera/recoge con el ultimo de la BD +1-->
         <label for="id">Id:</label>
         <input type="text" name="id" id="id" readonly>
+
+        <label for="fecha_hora">Fecha y hora:</label>
+        <input type="text" name="fecha_hora" id="fecha_hora" value="{{ now() }}" readonly>
 
         <!--Los campos nombre y apellidos se rellenaran automaticamente con los datos dell usuario-->
         <label for="nombre">Nombre:</label>
@@ -21,6 +25,11 @@
         <label for="departamento">Departamento:</label>
         <!--Podemos hacer que sea un select con todos los departamentos disponobles???-->
         <input type="text" name="departamento" id="departamento">
+
+        <label for="asignado">Asigandao a:</label>
+        <div id="lista_profes">
+            <!--Aqui se generara un checklist con todos los profesores del centro-->
+        </div>
 
         <label for="tipo">Tipo:</label>
         <select name="tipo" id="tipo">
@@ -53,9 +62,6 @@
 
         <label for="fichero">Fichero:</label>
         <input type="file" name="fichero" id="fichero">
-
-        <label for="fecha_hora">Fecha y hora:</label>
-        <input type="text" name="fecha_hora" id="fecha_hora" value="{{ now() }}" readonly>
 
         <label for="estado">Estado:</label>
         <select name="estado" id="estado">
