@@ -3,39 +3,12 @@
 @section('contenido')
 
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <!-- Marca y botón de alternancia para pantallas pequeñas -->
-                <a class="navbar-brand" href="#">Mi Menú</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <!-- Elementos del menú -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Acerca de</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
         {{-- Contenedor del boton filtrar y los botones exportar --}}
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
 
             {{-- Boton y desplegable para los filtros --}}
-            <nav class="navbar bg-body-tertiary px-0" aria-label="Light offcanvas navbar">
+            <div class="navbar bg-body-tertiary px-0" aria-label="Light offcanvas navbar">
                 <div>
                     <button class="btn aquamarine-400" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
@@ -81,7 +54,7 @@
                             {{-- Filtro subtipo --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Subtipo</label>
-                                <select class="form-select" id="inputGroupSelect01">
+                                <select class="form-select" id="inputGroupSelect02">
                                     <option selected>Selecciona el subtipo</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -98,7 +71,7 @@
                             {{-- Filtro prioridad --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Prioridad</label>
-                                <select class="form-select" id="inputGroupSelect01">
+                                <select class="form-select" id="inputGroupSelect03">
                                     <option selected>Selecciona la prioridad</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -106,10 +79,18 @@
                                 </select>
                             </div>
 
+                            {{-- Filtro fecha --}}
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">Fecha</label>
+                                <input class="form-control" type="date" id="fechaDesde" aria-label="Desde">
+                                <input class="form-control" type="date" id="fechaHasta" aria-label="Hasta">
+                            </div>
+
+
                             {{-- Filtro estado --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Estado</label>
-                                <select class="form-select" id="inputGroupSelect01">
+                                <select class="form-select" id="inputGroupSelect04">
                                     <option selected>Selecciona el estado</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -123,7 +104,7 @@
                         </div>
                     </div>
                 </div>
-            </nav>
+            </div>
 
             {{-- Botones exportar --}}
             <div class="d-flex align-items-center gap-2">
@@ -148,6 +129,9 @@
                 </div>
                 <div class="col fw-bolder border p-3 aquamarine-400">
                     Subtipo
+                </div>
+                <div class="col fw-bolder border p-3 aquamarine-400">
+                    Fecha de creación
                 </div>
                 <div
                     class="col fw-bolder border p-3 aquamarine-400 d-flex justify-content-between align-items-center gap-2">
@@ -175,8 +159,11 @@
                                 <div class="col border p-3">
                                     {{ $incidencia->tipo }}
                                 </div>
-                                <div class=" col border p-3">
+                                <div class="col border p-3">
                                     {{ $incidencia->subtipo_id }}
+                                </div>
+                                <div class="col border p-3">
+                                    {{ $incidencia->fecha_creacion }}
                                 </div>
                                 <div class="col border p-3">
                                     {{ $incidencia->descripcion }}
