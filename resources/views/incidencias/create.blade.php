@@ -14,17 +14,14 @@
         <label for="fecha_hora">Fecha y hora:</label>
         <input type="text" name="fecha_hora" id="fecha_hora" value="{{ now() }}" readonly>
 
-        <!--Los campos nombre y apellidos se rellenaran automaticamente con los datos dell usuario-->
-        <label for="nombre">Nombre:</label>
+        <!--Los campos nombre completo se rellenara automaticamente con los datos del usuario-->
+        <label for="nombre">Nombre completo:</label>
         <input type="text" name="nombre" id="nombre">
 
-        <label for="apellidos">Apellidos:</label>
-        <!--Campo apellidos se puede dividir en un futuro a apellido1 y apellido 2-->
-        <input type="text" name="apellidos" id="apellidos">
-
         <label for="departamento">Departamento:</label>
-        <!--Podemos hacer que sea un select con todos los departamentos disponobles???-->
-        <input type="text" name="departamento" id="departamento">
+        <select name="departamento" id="departamento">
+            <!--Rellenar con BD-->
+        </select>
 
         <label for="asignado">Asigandao a:</label>
         <div id="lista_profes">

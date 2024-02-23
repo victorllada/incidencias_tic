@@ -12,19 +12,20 @@ class IncidenciaController extends Controller
      */
     public function index(Request $request)
     {
-        //$incidencias = Incidencia::all();
-        //return view('incidencias.index', compact('incidencias'));
-        //return response()->json($incidencias);
+        $incidencias = Incidencia::all();
 
-        //$incidencias = Incidencia::all();
-        $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
-
-        if ($request->ajax() || $request->wantsJson()) {
-            return response()->json($incidencias);
-        }
-
-        return view('incidencias.index');
+        return view('incidencias.index', compact('incidencias'));
     }
+
+    /*
+    public function filtrar(Request $request)
+    {
+        // Lógica para aplicar los filtros y devolver las incidencias filtradas
+        // ...
+
+        return response()->json($incidenciasFiltradas);
+    }
+    */
 
     /**
      * Show the form for creating a new resource.
@@ -47,18 +48,7 @@ class IncidenciaController extends Controller
      */
     public function show(Request $request, Incidencia $incidencia)
     {
-        //return view('incidencias.show');
-        if ($request->ajax() || $request->wantsJson()) {
-            if (!$incidencia) {
-                return response()->json(['error' => 'Incidencia no encontrada'], 404);
-            }
-
-            $datosIncidencia = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->findOrFail($incidencia);
-
-            return response()->json($datosIncidencia);
-        }
-
-        return view('incidencias.show');
+        return view('incidencias.show', compact('incidencia'));
     }
 
     /**
