@@ -46,6 +46,7 @@ class IncidenciaController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Request $request, Incidencia $incidencia)
     {
         return view('incidencias.show', compact('incidencia'));
