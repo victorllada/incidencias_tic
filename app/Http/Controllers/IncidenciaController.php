@@ -17,7 +17,7 @@ class IncidenciaController extends Controller
             return response()->json($incidenciasJSON);
         }
 
-        $incidencias = Incidencia::all();
+        $incidencias = Incidencia::Paginate(10);
         return view('incidencias.index', compact('incidencias'));
     }
 
