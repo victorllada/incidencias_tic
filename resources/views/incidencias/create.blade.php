@@ -24,7 +24,7 @@
         </select>
 
         <label for="asignado">Asigandao a:</label>
-        <div id="lista_profes">
+        <div id="asignado">
             <!--Aqui se generara un checklist con todos los profesores del centro-->
         </div>
 
