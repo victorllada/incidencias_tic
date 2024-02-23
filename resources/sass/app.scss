@@ -11,9 +11,7 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 html{
-    overflow-y: scroll;
     scrollbar-width: thin;
-    scrollbar-color: $aquamarine-700 $aquamarine-400;
 }
 
 .aquamarine-50{
@@ -28,12 +26,21 @@ html{
     background-color: $aquamarine-200;
 }
 
+.aquamarine-300{
+    background-color: $aquamarine-300;
+}
+
 .aquamarine-400{
     background-color: $aquamarine-400;
 }
 
 .aquamarine-500{
     background-color: $aquamarine-500;
+}
+
+.aquamarine-600
+{
+    background-color: $aquamarine-600;
 }
 
 .aquamarine-700{
@@ -78,7 +85,7 @@ footer>div:first-child
     border-color: $aquamarine-200;
 }
 
-a{
+a {
     text-decoration: none;
     color: inherit;
 }
@@ -116,4 +123,15 @@ a{
 
 .overflow-auto{
     max-height: 500px;
+}
+
+.table-rounded {
+    border-radius: 10px; /* Ajusta el valor según tus preferencias */
+    overflow: hidden; /* Asegura que los bordes redondeados sean visibles */
+}
+
+.caja-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

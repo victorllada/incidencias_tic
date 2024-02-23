@@ -194,7 +194,7 @@
                 var array = ["Ratón", "Ordenador", "Teclado"];
                 break;
             case "Portátil":
-                var array = ["Portátil proporcionado por Consejería", "Portátil de aula"];
+                var array = ["Portátil proporcionado por Consejería", "Portátil de aula", "Portátil de puesto"];
                 break;
             default:
                 borrarSubSubOpciones();
