@@ -17,14 +17,11 @@ class IncidenciaController extends Controller
         //return response()->json($incidencias);
 
         //$incidencias = Incidencia::all();
-        $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
 
-        /*
         if ($request->ajax() || $request->wantsJson()) {
+            $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
             return response()->json($incidencias);
         }
-        */
-        return view("incidencias.index", compact('incidencias'));
 
         return view('incidencias.index');
     }

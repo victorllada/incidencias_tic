@@ -1,4 +1,4 @@
-<header class="p-3 mb-3 border-bottom aquamarine-700 sticky-top">
+<header class="p-3 mb-3 border-bottom aquamarine-600 sticky-top">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand link-body-emphasis text-white" href="#">LOGO</a>

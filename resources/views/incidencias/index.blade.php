@@ -36,15 +36,23 @@
 
                             {{-- Filtro usuario --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Usuario</label>
-                                <input class="form-control" type="search" placeholder="Introduce nombre del usuario">
+                                <label class="input-group-text aquamarine-200" for="idFiltro">ID</label>
+                                <input class="form-control" id="idFiltro" name="idFiltro" type="search"
+                                    placeholder="Introduce el ID">
+                            </div>
+
+                            {{-- Filtro usuario --}}
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
+                                <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
+                                    placeholder="Introduce nombre del usuario">
                             </div>
 
                             {{-- Filtro tipo --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Tipo</label>
-                                <select class="form-select" id="inputGroupSelect01">
-                                    <option selected>Selecciona el tipo</option>
+                                <label class="input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
+                                <select class="form-select" id="tipoFiltro" name="tipoFiltro">
+                                    <option selected value="-1">Selecciona el tipo</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -53,9 +61,9 @@
 
                             {{-- Filtro subtipo --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Subtipo</label>
-                                <select class="form-select" id="inputGroupSelect02">
-                                    <option selected>Selecciona el subtipo</option>
+                                <label class="input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
+                                <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
+                                    <option selected value="-1">Selecciona el subtipo</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -64,15 +72,16 @@
 
                             {{-- Filtro descripción --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Descripción</label>
-                                <input class="form-control" type="search" placeholder="Introduce la descripción">
+                                <label class="input-group-text aquamarine-200" for="descripcionFiltro">Descripción</label>
+                                <input class="form-control" id="descripcionFiltro" name="descripcionFiltro" type="search"
+                                    placeholder="Introduce la descripción">
                             </div>
 
                             {{-- Filtro prioridad --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Prioridad</label>
-                                <select class="form-select" id="inputGroupSelect03">
-                                    <option selected>Selecciona la prioridad</option>
+                                <label class="input-group-text aquamarine-200" for="prioridadFiltro">Prioridad</label>
+                                <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
+                                    <option selected value="-1">Selecciona la prioridad</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -81,16 +90,18 @@
 
                             {{-- Filtro fecha desde hasta --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Fecha</label>
-                                <input class="form-control" type="date" id="fechaDesde" aria-label="Desde">
-                                <input class="form-control" type="date" id="fechaHasta" aria-label="Hasta">
+                                <label class="input-group-text aquamarine-200" for="fechaDesdeFiltro">Fecha</label>
+                                <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
+                                    aria-label="Desde">
+                                <label class="" for="fechaHastaFiltro"></label>
+                                <input class="form-control" type="date" id="fechaHastaFiltro" name="fechaHastaFiltro"
+                                    aria-label="Hasta">
                             </div>
-
 
                             {{-- Filtro estado --}}
                             <div class="input-group">
-                                <label class="input-group-text" for="inputGroupSelect01">Estado</label>
-                                <select class="form-select" id="inputGroupSelect04">
+                                <label class="input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
+                                <select class="form-select" id="estadoFiltro" name="estadoFiltro">
                                     <option selected>Selecciona el estado</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -98,9 +109,13 @@
                                 </select>
                             </div>
 
-                            {{-- Boton de filtrado --}}
-                            <button class="btn aquamarine-400" type="submit" data-bs-dismiss="offcanvas"
-                                aria-label="Close">Filtrar</button>
+                            {{-- Boton de filtrado y borrar filtros --}}
+                            <div class="d-flex justify-content-between gap-2">
+                                <button class="btn aquamarine-400" type="submit">Borrar
+                                    filtros</button>{{-- Boton de filtrado --}}
+                                <button class="btn aquamarine-400 flex-fill" type="submit"
+                                    data-bs-dismiss="offcanvas">Filtrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,9 +134,11 @@
         <div class="container text-left">
 
             {{-- Encabezado de la lista de incidencias --}}
-            <div class="row mb-4">
-                <div
-                    class="col fw-bolder border rounded-start p-3 aquamarine-400 d-flex justify-content-between align-items-center gap-2">
+            <div class="row mb-4 d-flex justify-content-between flex-nowrap">
+                <div class="col fw-bolder border rounded-start p-3 aquamarine-400">
+                    ID
+                </div>
+                <div class="col fw-bolder border p-3 aquamarine-400">
                     Usuario
                 </div>
                 <div class="col fw-bolder border p-3 aquamarine-400">
@@ -133,8 +150,7 @@
                 <div class="col fw-bolder border p-3 aquamarine-400">
                     Fecha de creación
                 </div>
-                <div
-                    class="col fw-bolder border p-3 aquamarine-400 d-flex justify-content-between align-items-center gap-2">
+                <div class="col fw-bolder border p-3 aquamarine-400">
                     Descripción
                 </div>
                 <div class="col fw-bolder border p-3 aquamarine-400">
@@ -152,6 +168,9 @@
                         <a href="{{ route('incidencias.show', $incidencia) }}">
                             <div class="row justify-content-between flex-nowrap rounded">
                                 <div class="col border rounded-start p-3">
+                                    {{ $incidencia->id }}
+                                </div>
+                                <div class="col border p-3">
                                     {{ $incidencia->creador->nombre }}
                                     {{ $incidencia->creador->apellido1 }}
                                     {{ $incidencia->creador->apellido2 }}
@@ -165,7 +184,7 @@
                                 <div class="col border p-3">
                                     {{ $incidencia->fecha_creacion }}
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col border p-3 caja-ellipsis">
                                     {{ $incidencia->descripcion }}
                                 </div>
                                 <div class="col border p-3">
