@@ -79,7 +79,7 @@
                                 </select>
                             </div>
 
-                            {{-- Filtro fecha --}}
+                            {{-- Filtro fecha desde hasta --}}
                             <div class="input-group">
                                 <label class="input-group-text" for="inputGroupSelect01">Fecha</label>
                                 <input class="form-control" type="date" id="fechaDesde" aria-label="Desde">
