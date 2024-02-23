@@ -15,9 +15,10 @@
             <div class="col">Subtipo: {{ $incidencia->subtipo->subtipo_nombre }}</div>
 
             <!-- Si no hay sub-sub-tipos de incidencias no se muestra -->
-            @empty($incidencia->subtipo->sub_subtipo)
+            @isset($incidencia->subtipo->sub_subtipo)
                 <div class="col">Subsubtipo: {{ $incidencia->subtipo->sub_subtipo }}</div>
-            @endempty
+            @endisset
+
 
         </div>
         <div class="row">
