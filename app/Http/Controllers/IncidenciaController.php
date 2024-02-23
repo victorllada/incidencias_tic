@@ -20,7 +20,6 @@ class IncidenciaController extends Controller
         $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
 
         if ($request->ajax() || $request->wantsJson()) {
-            $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
             return response()->json($incidencias);
         }
 
