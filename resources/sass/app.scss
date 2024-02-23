@@ -75,33 +75,25 @@ footer>div:first-child
     gap:30px;
 }
 
-.lista-incidencias:nth-child(even) .col {
+.lista-incidencias:nth-child(odd){
     background-color: $aquamarine-50;
-    border-color: $aquamarine-50;
 }
 
-.lista-incidencias:nth-child(odd) .col {
+.lista-incidencias:nth-child(even){
     background-color: $aquamarine-200;
-    border-color: $aquamarine-200;
+}
+
+.lista-incidencias:nth-child(odd):hover{
+    background-color: $aquamarine-100;
+}
+
+.lista-incidencias:nth-child(even):hover{
+    background-color: $aquamarine-100;
 }
 
 a {
     text-decoration: none;
     color: inherit;
-}
-
-.lista-incidencias .col{
- transition: box-shadow 0.3s ease-in-out;
-}
-
-.lista-incidencias .row:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    color: inherit;
-}
-
-.btn.aquamarine-400:hover {
-    background-color: $aquamarine-600;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .filtros {
@@ -130,7 +122,7 @@ a {
     overflow: hidden; /* Asegura que los bordes redondeados sean visibles */
 }
 
-.caja-ellipsis{
+.text-ellipsis{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

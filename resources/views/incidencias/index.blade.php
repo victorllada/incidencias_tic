@@ -131,32 +131,32 @@
         </div>
 
         {{-- Contenedor para el encabezado de y todas las incidencias --}}
-        <div class="container text-left">
+        <div class="container text-left mb-5">
 
             {{-- Encabezado de la lista de incidencias --}}
-            <div class="row mb-4 d-flex justify-content-between flex-nowrap">
-                <div class="col fw-bolder border rounded-start p-3 aquamarine-400">
+            <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-400">
+                <div class="col fw-bolder p-3">
                     ID
                 </div>
-                <div class="col fw-bolder border p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Usuario
                 </div>
-                <div class="col fw-bolder border p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Tipo
                 </div>
-                <div class="col fw-bolder border p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Subtipo
                 </div>
-                <div class="col fw-bolder border p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Fecha de creación
                 </div>
-                <div class="col fw-bolder border p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Descripción
                 </div>
-                <div class="col fw-bolder border p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Prioridad
                 </div>
-                <div class="col fw-bolder border rounded-end p-3 aquamarine-400">
+                <div class="col fw-bolder p-3">
                     Estado
                 </div>
             </div>
@@ -164,33 +164,33 @@
             {{-- Lista de incidencias --}}
             <div class="mb-6">
                 @forelse ($incidencias as $incidencia)
-                    <div class="row lista-incidencias mb-4">
+                    <div class="row lista-incidencias">
                         <a href="{{ route('incidencias.show', $incidencia) }}">
-                            <div class="row justify-content-between flex-nowrap rounded">
-                                <div class="col border rounded-start p-3">
+                            <div class="row d-flex justify-content-between flex-nowrap rounded">
+                                <div class="col p-3">
                                     {{ $incidencia->id }}
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col p-3">
                                     {{ $incidencia->creador->nombre }}
                                     {{ $incidencia->creador->apellido1 }}
                                     {{ $incidencia->creador->apellido2 }}
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col p-3">
                                     {{ $incidencia->tipo }}
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col p-3">
                                     {{ $incidencia->subtipo_id }}
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col p-3">
                                     {{ $incidencia->fecha_creacion }}
                                 </div>
-                                <div class="col border p-3 caja-ellipsis">
+                                <div class="col p-3 text-ellipsis">
                                     {{ $incidencia->descripcion }}
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col p-3">
                                     {{ $incidencia->prioridad }}
                                 </div>
-                                <div class="col border rounded-end p-3">
+                                <div class="col p-3">
                                     {{ $incidencia->estado }}
                                 </div>
                             </div>
