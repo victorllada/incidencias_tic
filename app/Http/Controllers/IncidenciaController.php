@@ -17,6 +17,7 @@ class IncidenciaController extends Controller
         //return response()->json($incidencias);
 
         //$incidencias = Incidencia::all();
+        $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             $incidencias = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
@@ -47,9 +48,21 @@ class IncidenciaController extends Controller
      */
     public function show(Incidencia $incidencia)
     {
-        return view("incidencias.show", compact('incidencia'));
+        public function show(Request $request, Incidencia $incidencia)
+        {
+            //return view('incidencias.show');
+            if ($request->ajax() || $request->wantsJson()) {
+                if (!$incidencia) {
+                    return response()->json(['error' => 'Incidencia no encontrada'], 404);
+                }
 
-    }
+                $datosIncidencia = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->findOrFail($incidencia);
+
+                return response()->json($datosIncidencia);
+            }
+
+            return view('incidencias.show');
+        }
 
     /**
      * Show the form for editing the specified resource.
