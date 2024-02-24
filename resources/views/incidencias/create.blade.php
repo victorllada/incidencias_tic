@@ -2,8 +2,18 @@
 @section('titulo', 'Incidencias - Crear')
 @section('contenido')
 
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+    }
+</style>
+
     <h1>Crear incidencia</h1>
 
+    <!--Falta añadir la ruta del store en el atributo action del form-->
     <form action="" method="post" enctype="multipart/form-data">
         @csrf
 
@@ -14,7 +24,11 @@
         <label for="fecha_hora">Fecha y hora:</label>
         <input type="text" name="fecha_hora" id="fecha_hora" value="{{ now() }}" readonly>
 
+        <label for="duracion">Duración:</label>
+        <input type="number" name="duracion" id="duracion">
+
         <!--Los campos nombre completo se rellenara automaticamente con los datos del usuario-->
+        <!--Queda pendiente de modificacion, dependiendo de lo que diga Carmen sobre las tablas-->
         <label for="nombre">Nombre completo:</label>
         <input type="text" name="nombre" id="nombre">
 
@@ -30,11 +44,11 @@
 
         <label for="tipo">Tipo:</label>
         <select name="tipo" id="tipo">
-            <option value="cuentas">Cuentas</option>
-            <option value="equipos">Equipos</option>
-            <option value="wifi">Wifi</option>
-            <option value="internet">Internet</option>
-            <option value="software">Software</option>
+            <option value="CUENTAS">Cuentas</option>
+            <option value="EQUIPOS">Equipos</option>
+            <option value="WIFI">Wifi</option>
+            <option value="INTERNET">Internet</option>
+            <option value="SOFTWARE">Software</option>
         </select>
 
         <label for="subtipo">Sub-tipo:</label>
@@ -81,10 +95,13 @@
             <option value="urgente">Urgente</option>
         </select>
 
+        <input type="button" value="Crear">
+
     </form>
 
 @endsection
 
+<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
 <script>
     addEventListener('load', () => {
         //Guardamos en una variable el selec de tipo
