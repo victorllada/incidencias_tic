@@ -3,12 +3,25 @@
 @section('contenido')
 
     {{-- Migas de pan --}}
+<<<<<<< HEAD
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a></li>
             <li class="breadcrumb-item active" aria-current="page">Incidencia {{ $incidencia->id }}</li>
         </ol>
     </nav>
+=======
+    <div class="fs-3 mb-4">
+        <a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a> -> Incidencia {{ $incidencia->id }}
+    </div>
+    <div class="fs-5 mb-5">
+        <div class="row p-3 aquamarine-100">
+            <div class="col ">Id: {{ $incidencia->id }}</div>
+        </div>
+        <div class="row p-3 aquamarine-100">
+            <div class="col">Tipo: {{ $incidencia->tipo }}</div>
+            <div class="col">Subtipo: {{ $incidencia->subtipo->subtipo_nombre }}</div>
+>>>>>>> 0fecca78cc6e127d17311169efb926346a6a4c28
 
     {{-- Información de la incidencia --}}
     <div class="card mb-5 aquamarine-100">
