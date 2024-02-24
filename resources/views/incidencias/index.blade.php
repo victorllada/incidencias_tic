@@ -10,7 +10,7 @@
             {{-- Boton y desplegable para los filtros --}}
             <div class="navbar bg-body-tertiary px-0" aria-label="Light offcanvas navbar">
                 <div>
-                    <button class="btn aquamarine-400" type="button" data-bs-toggle="offcanvas"
+                    <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
                         aria-label="Toggle navigation py-2">Filtrar
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -111,9 +111,9 @@
 
                             {{-- Boton de filtrado y borrar filtros --}}
                             <div class="d-flex justify-content-between gap-2">
-                                <button class="btn aquamarine-400" type="submit">Borrar
+                                <button class="btn aquamarine-400 text-white" type="submit">Borrar
                                     filtros</button>{{-- Boton de filtrado --}}
-                                <button class="btn aquamarine-400 flex-fill" type="submit"
+                                <button class="btn aquamarine-400 text-white flex-fill" type="submit"
                                     data-bs-dismiss="offcanvas">Filtrar</button>
                             </div>
                         </div>
@@ -124,9 +124,9 @@
             {{-- Botones exportar --}}
             <div class="d-flex align-items-center gap-2">
                 <div>Exportar a:</div>
-                <button type="button" class="btn aquamarine-400">PDF</button>
-                <button type="button" class="btn aquamarine-400">EXCEL</button>
-                <button type="button" class="btn aquamarine-400">CSV</button>
+                <button type="button" class="btn aquamarine-400 text-white">PDF</button>
+                <button type="button" class="btn aquamarine-400 text-white">EXCEL</button>
+                <button type="button" class="btn aquamarine-400 text-white">CSV</button>
             </div>
         </div>
 
@@ -134,7 +134,7 @@
         <div class="container text-left mb-5">
 
             {{-- Encabezado de la lista de incidencias --}}
-            <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-400">
+            <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300">
                 <div class="col fw-bolder p-3">
                     ID
                 </div>

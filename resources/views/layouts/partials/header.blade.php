@@ -9,10 +9,12 @@
             <div class="collapse navbar-collapse fs-4" id="navbarsExample07">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link px-4 link-body-emphasis text-white" href="{{ route('incidencias.index') }}">Inicio</a>
+                        <a class="nav-link px-4 link-body-emphasis text-white"
+                            href="{{ route('incidencias.index') }}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-4 link-body-emphasis text-white" href="{{ route('incidencias.create') }}">Crear incidencia</a>
+                        <a class="nav-link px-4 link-body-emphasis text-white"
+                            href="{{ route('incidencias.create') }}">Crear incidencia</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link px-4 link-body-emphasis text-white" href="#">Administrar usuarios</a>

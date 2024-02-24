@@ -52,27 +52,9 @@ html{
     background-color: $aquamarine-950;
 }
 
-footer
-{
-    color: white;
-    height: 100px;
-    gap: 10px;
-}
-
-footer>div
-{
-    width: 500px;
-}
-
-footer a
-{
-    text-decoration:none;
-    color: white;
-}
-
-footer>div:first-child
-{
-    gap:30px;
+.btn.aquamarine-400:hover {
+    background-color: $aquamarine-600;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .lista-incidencias:nth-child(odd){
@@ -80,15 +62,15 @@ footer>div:first-child
 }
 
 .lista-incidencias:nth-child(even){
-    background-color: $aquamarine-200;
+    background-color: $aquamarine-100;
 }
 
 .lista-incidencias:nth-child(odd):hover{
-    background-color: $aquamarine-100;
+    background-color: $aquamarine-200;
 }
 
 .lista-incidencias:nth-child(even):hover{
-    background-color: $aquamarine-100;
+    background-color: $aquamarine-200;
 }
 
 a {
