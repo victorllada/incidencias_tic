@@ -13,10 +13,6 @@
                             href="{{ route('incidencias.index') }}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-4 link-body-emphasis text-white"
-                            href="{{ route('incidencias.create') }}">Crear incidencia</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link px-4 link-body-emphasis text-white" href="#">Administrar usuarios</a>
                     </li>
                     <li class="nav-item">

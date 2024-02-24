@@ -121,9 +121,11 @@
                 </div>
             </div>
 
-            {{-- Botones exportar --}}
+            {{-- Botones --}}
             <div class="d-flex align-items-center gap-2">
-                <div>Exportar a:</div>
+                {{-- Boton crear incidencia --}}
+                <a class=" btn aquamarine-400  text-white" type="button" href="{{ route('incidencias.create') }}">Crear
+                    incidencia</a>
                 <button type="button" class="btn aquamarine-400 text-white">PDF</button>
                 <button type="button" class="btn aquamarine-400 text-white">EXCEL</button>
                 <button type="button" class="btn aquamarine-400 text-white">CSV</button>
