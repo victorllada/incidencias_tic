@@ -132,6 +132,17 @@
                 <button type="button" class="btn aquamarine-400 text-white">PDF</button>
                 <button type="button" class="btn aquamarine-400 text-white">EXCEL</button>
                 <button type="button" class="btn aquamarine-400 text-white">CSV</button>
+                <div class="dropdown">
+                    <button class="btn aquamarine-400 text-white dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -140,10 +151,10 @@
 
             {{-- Encabezado de la lista de incidencias --}}
             <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300">
-                <div class="col fw-bolder p-3">
+                <div class="col fw-bolder p-3 baja-res">
                     ID
                 </div>
-                <div class="col fw-bolder p-3">
+                <div class="col fw-bolder p-3 baja-res">
                     Usuario
                 </div>
                 <div class="col fw-bolder p-3">
@@ -152,10 +163,10 @@
                 <div class="col fw-bolder p-3">
                     Subtipo
                 </div>
-                <div class="col fw-bolder p-3">
+                <div class="col fw-bolder p-3 baja-res">
                     Fecha de creación
                 </div>
-                <div class="col fw-bolder p-3">
+                <div class="col fw-bolder p-3 baja-res">
                     Descripción
                 </div>
                 <div class="col fw-bolder p-3">
@@ -163,8 +174,6 @@
                 </div>
                 <div class="col fw-bolder p-3">
                     Estado
-                </div>
-                <div class="col">
                 </div>
             </div>
 
@@ -174,10 +183,10 @@
                     <div class="row lista-incidencias">
                         <a href="{{ route('incidencias.show', $incidencia) }}">
                             <div class="row d-flex justify-content-between flex-nowrap rounded">
-                                <div class="col p-3">
+                                <div class="col p-3 baja-res">
                                     {{ $incidencia->id }}
                                 </div>
-                                <div class="col p-3">
+                                <div class="col p-3 baja-res">
                                     {{ $incidencia->creador->nombre }}
                                     {{ $incidencia->creador->apellido1 }}
                                     {{ $incidencia->creador->apellido2 }}
@@ -188,10 +197,10 @@
                                 <div class="col p-3">
                                     {{ $incidencia->subtipo_id }}
                                 </div>
-                                <div class="col p-3">
+                                <div class="col p-3 baja-res">
                                     {{ $incidencia->fecha_creacion }}
                                 </div>
-                                <div class="col p-3 text-ellipsis">
+                                <div class="col p-3 text-ellipsis  baja-res">
                                     {{ $incidencia->descripcion }}
                                 </div>
                                 <div class="col p-3">

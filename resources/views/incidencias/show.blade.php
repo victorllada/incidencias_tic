@@ -93,11 +93,11 @@
             <div class="row mb-3">
                 <div class="col-lg-6">
                     <span class="fw-bolder">Descripción:</span>
-                    <textarea class="form-control" rows="5">{{ $incidencia->descripcion }}</textarea>
+                    <textarea class="form-control" rows="8">{{ $incidencia->descripcion }}</textarea>
                 </div>
                 <div class="col-lg-6">
                     <span class="fw-bolder">Actuaciones:</span>
-                    <textarea class="form-control" rows="5">{{ $incidencia->actuaciones }}</textarea>
+                    <textarea class="form-control" rows="8">{{ $incidencia->actuaciones }}</textarea>
                 </div>
             </div>
 

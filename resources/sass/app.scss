@@ -112,3 +112,11 @@ textarea{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+
+//Media Querys
+@media(width <= 990px){
+    .baja-res{
+        display: none;
+    }
+}
