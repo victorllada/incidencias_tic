@@ -10,7 +10,7 @@
         <div class="row p-3 aquamarine-100">
             <div class="col ">Id: {{ $incidencia->id }}</div>
         </div>
-        <div class="row p-3 aquamarine-100"">
+        <div class="row p-3 aquamarine-100">
             <div class="col">Tipo: {{ $incidencia->tipo }}</div>
             <div class="col">Subtipo: {{ $incidencia->subtipo->subtipo_nombre }}</div>
 
