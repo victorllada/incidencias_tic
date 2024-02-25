@@ -2,104 +2,178 @@
 @section('titulo', 'Incidencias - Crear')
 @section('contenido')
 
-<style>
-    form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items:center;
-    }
-</style>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 
-    <h1>Crear incidencia</h1>
+    <div class="container">
 
-    <!--Falta añadir la ruta del store en el atributo action del form-->
-    <form action="" method="post" enctype="multipart/form-data">
-        @csrf
+        {{-- Migas de pan --}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('incidencias.index') }}">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear incidencia</li>
+            </ol>
+        </nav>
 
-        <!--El id se genera/recoge con el ultimo de la BD +1-->
-        <label for="id">Id:</label>
-        <input type="text" name="id" id="id" readonly>
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                Hubo errores al rellenar el formulario:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <label for="fecha_hora">Fecha y hora:</label>
-        <input type="text" name="fecha_hora" id="fecha_hora" value="{{ now() }}" readonly>
+        <!--Falta añadir la ruta del store en el atributo action del form-->
+        <form action="{{ route('incidencias.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="card mb-5 aquamarine-100">
+                <div class="card-header p-2">
+                    <h4 class="card-title">Datos de la Incidencia</h4>
+                </div>
 
-        <label for="duracion">Duración:</label>
-        <input type="number" name="duracion" id="duracion">
+                <div class="card-body">
 
-        <!--Los campos nombre completo se rellenara automaticamente con los datos del usuario-->
-        <!--Queda pendiente de modificacion, dependiendo de lo que diga Carmen sobre las tablas-->
-        <label for="nombre">Nombre completo:</label>
-        <input type="text" name="nombre" id="nombre">
+                    {{-- Fila 1 tipo sub-tipo y sub-sub-tipo --}}
+                    {{-- Hay que hacer el hidden en los div de cada columna para asi hacer invisible sub-tipo y sub-sub-tipo --}}
+                    <div class="row mb-4">
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Tipo</label>
+                                <select class="form-select" name="tipo" id="tipo" required>
+                                    <option selected disabled value="-1">Selecciona el tipo</option>
+                                    <option value="CUENTAS">Cuentas</option>
+                                    <option value="EQUIPOS">Equipos</option>
+                                    <option value="WIFI">Wifi</option>
+                                    <option value="INTERNET">Internet</option>
+                                    <option value="SOFTWARE">Software</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" hidden>
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="sub-tipo">Sub-tipo</label>
+                                <select class="form-select" name="sub-tipo" id="sub-tipo" required>
+                                    <option selected disabled value="-1">Selecciona el subtipo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" hidden>
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder"
+                                    for="sub-sub-tipo">Sub-sub-tipo</label>
+                                <select class="form-select" name="sub-sub-tipo" id="sub-sub-tipo" required>
+                                    <option selected disabled value="-1">Selecciona el sub-subtipo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-        <label for="departamento">Departamento:</label>
-        <select name="departamento" id="departamento">
-            <!--Rellenar con BD-->
-        </select>
+                    {{-- Fila 2 prioridad --}}
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
+                                <select class="form-select" name="prioridad" id="prioridad" required>
+                                    <option selected disabled value="-1">Selecciona la prioridad</option>
+                                    <option value="BAJA">Baja</option>
+                                    <option value="MEDIA">Media</option>
+                                    <option value="ALTA">Alta</option>
+                                    <option value="URGENTE">Urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-        <label for="asignado">Asigandao a:</label>
-        <div id="asignado">
-            <!--Aqui se generara un checklist con todos los profesores del centro-->
-        </div>
+                    {{-- Fila 3  en caso de que el tipo sea equipos --}}
+                    {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
+                    <div class="row mb-4" hidden>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
+                                    etiqueta</label>
+                                <input type="number" class="form-control" name="num_etiqueta" id="num_etiqueta"
+                                    placeholder="123456" pattern="[0-9]*">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
+                                    Aula</label>
+                                <input type="text" class="form-control" name="aula" id="aula"
+                                    placeholder="IF-04">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
+                                    Aula</label>
+                                <input type="number" class="form-control" name="puesto" id="puesto" placeholder="1"
+                                    pattern="[0-9]*">
+                            </div>
+                        </div>
+                    </div>
 
-        <label for="tipo">Tipo:</label>
-        <select name="tipo" id="tipo">
-            <option value="CUENTAS">Cuentas</option>
-            <option value="EQUIPOS">Equipos</option>
-            <option value="WIFI">Wifi</option>
-            <option value="INTERNET">Internet</option>
-            <option value="SOFTWARE">Software</option>
-        </select>
+                    {{-- Fila 4 descripción y archivo --}}
+                    <div class="row mb-4">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder"
+                                    for="descripcion">Descripción</label>
+                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" id="floatingTextarea" rows="8"
+                                    maxlength="256"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">Archivo</label>
+                                <label for="fichero" class="form-label" hidden>Choose file</label>
+                                <input type="file" class="form-control custom-file-input rounded-end" id="fichero"
+                                    name="fichero">
+                                <label class="custom-file-label" for="fichero" hidden>Select file</label>
+                            </div>
+                        </div>
+                    </div>
 
-        <label for="subtipo">Sub-tipo:</label>
-        <select name="subtipo" id="subtipo">
-        </select>
+                    {{-- Aqui se generara un checklist con todos los profesores del centro --}}
+                    <div class="row mb-4">
+                        <div class="col input-group">
+                            <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
+                            <div class="d-flex flex-wrap gap-4 form-control ">
+                                @forelse ($usuarios as $usuario)
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" id="asignado[]"
+                                            name="asignado[]" value={{ $usuario->id }}>
+                                        <label class="form-check-label"
+                                            for="asignado[]">{{ $usuario->nombre_completo }}</label>
+                                    </div>
+                                @empty
+                                    <div>No hay usuarios</div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
 
-        <label for="subsubtipo" id="lbl_subsubtipo" hidden>Sub-sub-tipo:</label>
-        <select name="subsubtipo" id="subsubtipo" hidden>
-        </select>
-
-        <label for="num_etiqueta" id="lbl_num_etiqueta" hidden>Número etiqueta:</label>
-        <input type="text" name="num_etiqueta" id="num_etiqueta" hidden>
-
-        <label for="aula" id="lbl_aula" hidden>Aula:</label>
-        <input type="text" name="aula" id="aula" hidden>
-
-        <label for="puesto" id="lbl_puesto" hidden>Puesto:</label>
-        <input type="text" name="puesto" id="puesto" hidden>
-
-        <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" id="descripcion"></textarea>
-
-        <label for="fichero">Fichero:</label>
-        <input type="file" name="fichero" id="fichero">
-
-        <label for="estado">Estado:</label>
-        <select name="estado" id="estado">
-            <option value="abierto">Abierto</option>
-            <option value="asignado">Asignado</option>
-            <option value="en_proceso">En Proceso</option>
-            <option value="enviado_a_infortec">Enviado a Infortec</option>
-            <option value="resuelto">Resuelto</option>
-            <option value="cerrado">Cerrado</option>
-        </select>
-
-        <label for="actuaciones">Actuaciónes:</label>
-        <textarea name="actuaciones" id="actuaciones"></textarea>
-
-        <label for="prioridad">Prioridad:</label>
-        <select name="prioridad" id="prioridad">
-            <option value="baja">Baja</option>
-            <option value="media">Media</option>
-            <option value="alta">Alta</option>
-            <option value="urgente">Urgente</option>
-        </select>
-
-        <input type="button" value="Crear">
-
-    </form>
-
+                    {{-- Boton para crear incidencia --}}
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" class="btn aquamarine-400 text-white" value="Crear incidencia">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
+
 
 <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
 <script>

@@ -1,12 +1,20 @@
-<footer class="aquamarine-950 d-flex flex-column justify-content-center align-items-center">
-    <div class="d-flex justify-content-center flex-nowrap">
-        <div><a href="">Inicio</a></div>
-        <div><a href="">Crear incidencia</a></div>
-        <div><a href="">Administrar usuarios</a></div>
-        <div><a href="">Informes</a></div>
-    </div>
+<footer class="aquamarine-600 d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-body-secondary">Equipo1© 2024</p>
 
-    <div class="d-flex justify-content-center flex-nowrap">
-        <div class="text-white-50">©Equipo 1</div>
+            <a href="/"
+                class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-body-secondary text-decoration-none">
+                LOGO
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="{{ route('incidencias.index') }}"
+                        class="nav-link px-2 text-body-secondary">Inicio</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Administar usuarios</a>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Informes</a></li>
+            </ul>
+        </footer>
     </div>
 </footer>
