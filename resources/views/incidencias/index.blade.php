@@ -34,7 +34,7 @@
                         {{-- Contendor con los filtros y boton de filtrado --}}
                         <div class="offcanvas-body d-flex flex-column justify-between gap-4">
 
-                            {{-- Filtro usuario --}}
+                            {{-- Filtro id --}}
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200" for="idFiltro">ID</label>
                                 <input class="form-control" id="idFiltro" name="idFiltro" type="search"
@@ -53,9 +53,10 @@
                                 <label class="input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
                                 <select class="form-select" id="tipoFiltro" name="tipoFiltro">
                                     <option selected value="-1">Selecciona el tipo</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="WIFI">WIFI</option>
+                                    <option value="CUENTAS">CUENTAS</option>
+                                    <option value="SOFTWARE">SOFTWARE</option>
+                                    <option value="EQUIPOS">EQUIPOS</option>
                                 </select>
                             </div>
 
@@ -64,9 +65,12 @@
                                 <label class="input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
                                 <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
                                     <option selected value="-1">Selecciona el subtipo</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="quia">quia</option>
+                                    <option value="recusandae">recusandae</option>
+                                    <option value="tenetur">Three</option>
+                                    <option value="magni">magni</option>
+                                    <option value="ut">recusandae</option>
+                                    <option value="deleniti">deleniti</option>
                                 </select>
                             </div>
 
@@ -82,9 +86,10 @@
                                 <label class="input-group-text aquamarine-200" for="prioridadFiltro">Prioridad</label>
                                 <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
                                     <option selected value="-1">Selecciona la prioridad</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="baja">baja</option>
+                                    <option value="urgente">urgente</option>
+                                    <option value="media">media</option>
+                                    <option value="alta">alta</option>
                                 </select>
                             </div>
 
@@ -102,10 +107,13 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
                                 <select class="form-select" id="estadoFiltro" name="estadoFiltro">
-                                    <option selected>Selecciona el estado</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option selected value="-1">Selecciona el estado</option>
+                                    <option value="abierta">abierta</option>
+                                    <option value="cerrada">cerrada</option>
+                                    <option value="resuelta">resuelta</option>
+                                    <option value="asignada">asignada</option>
+                                    <option value="enviada a infortec">enviada a infortec</option>
+                                    <option value="en proceso">en proceso</option>
                                 </select>
                             </div>
 

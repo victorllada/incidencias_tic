@@ -64,34 +64,52 @@
                         </div>
                     </div>
 
-                    {{-- Fila 2 descripción y archivo --}}
+                    {{-- Fila 2  estado, prioridad y duración --}}
                     <div class="row mb-4">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder"
-                                    for="descripcion">Descripción</label>
-                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" id="floatingTextarea" rows="8"></textarea>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Estado</label>
+                                <select class="form-select" name="estado" id="estado" required>
+                                    <option selected disabled value="-1">Selecciona el estado</option>
+                                    <option value="CUENTAS">Cuentas</option>
+                                    <option value="EQUIPOS">Equipos</option>
+                                    <option value="WIFI">Wifi</option>
+                                    <option value="INTERNET">Internet</option>
+                                    <option value="SOFTWARE">Software</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Archivo</label>
-                                <label for="fichero" class="form-label" hidden>Choose asdafile</label>
-                                <input type="file" class="form-control custom-file-input rounded-end" id="fichero"
-                                    name="fichero">
-                                <label class="custom-file-label" for="fichero" hidden>Select file</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Prioridad</label>
+                                <select class="form-select" name="prioridad" id="prioridad" required>
+                                    <option selected disabled value="-1">Selecciona la prioridad</option>
+                                    <option value="CUENTAS">Cuentas</option>
+                                    <option value="EQUIPOS">Equipos</option>
+                                    <option value="WIFI">Wifi</option>
+                                    <option value="INTERNET">Internet</option>
+                                    <option value="SOFTWARE">Software</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-
-                    {{-- Fila 3 duracion --}}
-                    <div class="row mb-4">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="descripcion">Duracion</label>
                                 <input type="number" class="form-control" name="duracion" id="duracion" pattern="[0-9]*">
                             </div>
                         </div>
+                    </div>
+
+                    {{-- Fila 3 descripción y archivo --}}
+                    <div class="row mb-4">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder"
+                                    for="descripcion">Descripción</label>
+                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" id="floatingTextarea" rows="8"
+                                    maxlength="256"></textarea>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Archivo</label>
@@ -102,7 +120,6 @@
                             </div>
                         </div>
                     </div>
-
 
         </form>
     </div>
