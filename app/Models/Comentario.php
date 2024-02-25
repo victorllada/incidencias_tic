@@ -27,12 +27,12 @@ class Comentario extends Model
     }
 
     /**
-     * Define la relación muchos a uno con la tabla 'personal'.
+     * Define la relación muchos a uno con la tabla 'users'.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function personal()
     {
-        return $this->belongsTo(Personal::class, 'personal_id');
+        return $this->belongsTo(User::class, 'personal_id');
     }
 }

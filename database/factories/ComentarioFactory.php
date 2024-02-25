@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Incidencia;
 use App\Models\Personal;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class ComentarioFactory extends Factory
     public function definition(): array
     {
         $incidencias = Incidencia::pluck('id')->toArray();
-        $personas = Personal::pluck('id')->toArray();
+        $personas = User::pluck('id')->toArray();
 
         return [
             'texto' => $this->faker->paragraph,

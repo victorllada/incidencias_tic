@@ -33,7 +33,7 @@ class Incidencia extends Model
      */
     public function creador()
     {
-        return $this->belongsTo(Personal::class, 'creador_id');
+        return $this->belongsTo(User::class, 'creador_id');
     }
 
     /**
@@ -43,7 +43,7 @@ class Incidencia extends Model
      */
     public function responsable()
     {
-        return $this->belongsTo(Personal::class, 'responsable_id');
+        return $this->belongsTo(User::class, 'responsable_id');
     }
 
     /**
