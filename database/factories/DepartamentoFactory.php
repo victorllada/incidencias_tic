@@ -19,7 +19,7 @@ class DepartamentoFactory extends Factory
     {
         return [
             'cod' => $this->faker->unique()->text(6),
-            'nombre' => $this->faker->unique()->word,
+            'nombre' => $this->faker->unique()->randomElement(['Informática', 'Administración', 'Mecánica', 'Robótica']),
             'activo' => $this->faker->boolean(),
             //'jefedep_id' => null,
         ];
