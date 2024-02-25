@@ -27,7 +27,6 @@ class CrearIncidenciaRequest extends FormRequest
             'subsubtipo' => 'in:Ratón,Ordenador,Teclado,Portátil proporcionado por Consejería,Portátil de aula',
             'duracion' => 'required',
             'descripcion' => 'required|min:5',
-            'actuaciones' => 'required',
             'prioridad' => 'required|in:baja,media,alta,urgente',
             'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ];
@@ -49,7 +48,6 @@ class CrearIncidenciaRequest extends FormRequest
             'duracion.required' => 'La duracion es obligatoria',
             'descripcion.required' => 'La descripción es obligatoria.',
             'descripcion.min' => 'La descripción debe tener almenos 5 caracteres.',
-            'actuaciones.required' => 'Las actuaciones son obligatorias',
             'prioridad.required' => 'La prioridad es obligatria.',
             'prioridad.in' => 'La prioridad debe ser una del select.',
             'fichero.mimes' => 'El fichero adjunto debe tener un formato valido'
