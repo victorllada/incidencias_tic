@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
     {
         $objUser = new User();
 
+        $objUser->name = 'daw202';
         $objUser->nombre_completo = 'Víctor';
         $objUser->email = 'victor@gmail.com';
         $objUser->password = bcrypt('1234');
