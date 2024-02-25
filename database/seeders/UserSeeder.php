@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
         $objUser->nombre_completo = 'Víctor';
         $objUser->email = 'victor@gmail.com';
         $objUser->password = bcrypt('1234');
+        $objUser->nombre_departamento = 'Informática';
 
         $objUser->save();
 
