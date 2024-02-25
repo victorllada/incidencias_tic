@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearIncidenciaRequest;
+use App\Models\Aula;
+use App\Models\Equipo;
 use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class IncidenciaController extends Controller
 {
@@ -21,7 +26,7 @@ class IncidenciaController extends Controller
             return response()->json($incidenciasJSON);
         }
 
-        $incidencias = Incidencia::Paginate(10);
+        $incidencias = Incidencia::all();
         return view('incidencias.index', compact('incidencias'));
     }
 
@@ -30,7 +35,9 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
-        return view('incidencias.create');
+        $usuarios = User::all();
+        $aulas = Aula::all();
+        return view('incidencias.create',compact('usuarios', 'aulas'));
     }
 
     /**
@@ -43,46 +50,60 @@ class IncidenciaController extends Controller
 
             $incidencia = new Incidencia();
 
-            $incidencia->id = $request->id;
             $incidencia->tipo = $request->tipo;
 
-            /*Comprobar si lo de abajo (sacar id subincidencia) funciona, ya que el subsubtipo puede ser null e igual da fallo*/
+            // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
+            $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo)
+                ->where('subtipo_nombre', $request->subtipo);
+            if (!is_null($request->subsubtipo)) {
+                $incidencia_subtipo_query->where('sub_subtipo', $request->subsubtipo);
+            }
 
-            // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo elegido, en la tabla incidencias_subtipos
-            $incidencia_subtipo = IncidenciaSubtipo::where('tipo', $request->tipo)
-                ->where('subtipo_nombre', $request->subtipo)
-                ->where('sub_subtipo', $request->subsubtipo)
-                ->firstOrFail();
-
+            //Recogemos el primer registro con esas caracteristicas
+            $incidencia_subtipo = $incidencia_subtipo_query->first();
             // Obtener el ID
             $idSubincidencia = $incidencia_subtipo->id;
             //Metemos el id de subincidencia en el campo correspondiente
             $incidencia->subtipo_id = $idSubincidencia;
 
-            $incidencia->fecha_creacion = $request->fecha_hora;
+            $incidencia->fecha_creacion = now();
             $incidencia->duracion = $request->duracion;
             $incidencia->descripcion = $request->descripcion;
             $incidencia->actuaciones = $request->actuaciones;
-            $incidencia->estado = $request->estado;
+            $incidencia->estado = "abierta";
             $incidencia->prioridad = $request->prioridad;
-            $incidencia->adjunto_url = $request->fichero;
 
-            /*Lo de abajo, falta sacr creador_id, respinsable_id y equipo_id, con los datos que vienen abajo*/
+            if ($request->hasFile('fichero')) {
+                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto_url', 'discoAssets');
+            } else {
+                $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
+            }
 
-            //$request->nombre;  nombre del creador
-            //$request->asignado; asignadao a x profesor o profesores, esto ojo, no se muy bien como hacer para que sean varios profes
+            $incidencia->creador_id = 1; //Aqui necesitamos pasarle el id del usuario actual, o buscar por nombre y correo u algo asi, para sacar id
+            //Para el id, he visto algo de auth()->id, pero no se si funcionará con spatie
 
-            //$request->departamento;
-            //$request->num_etiqueta;
-            //$request->aula;
-            //$request->puesto;
+            $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
+                ->where('puesto', $request->puesto)
+                ->first();
+
+            // Verificar si se encontró un equipo
+            if ($incidencia_equipo_query) {
+                $incidencia->equipo_id = $incidencia_equipo_query->id;
+            } else {
+                // No se encontró un equipo, establecer el equipo_id a null o cualquier otro valor predeterminado
+                $incidencia->equipo_id = null;
+            }
 
             $incidencia->save();
+
+            $asignados = $request->input('asignado', []); // Obtén el array de checkboxes o un array vacío si no hay seleccionados
+            $incidencia->responsables()->sync($asignados); //sincronizar la relación, asegurándose de que los usuarios asignados coincidan con el contenido de $asignados.
 
             DB::commit();
 
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creado correctamente.');
         } catch (Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             return redirect()->route('incidencias.index')->with('error', 'No se pudo crear la incidencia. Detalles: ' . $e->getMessage());
         }
@@ -95,7 +116,8 @@ class IncidenciaController extends Controller
 
     public function show(Request $request, Incidencia $incidencia)
     {
-        return view('incidencias.show', compact('incidencia'));
+        $responsables = $incidencia->responsables;
+        return view('incidencias.show', compact('incidencia', 'responsables'));
     }
 
     /**
