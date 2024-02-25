@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name'); // SamAccountName
             $table->string('nombre_completo'); // DisplayName
             $table->string('email')->unique(); // Mail
+            $table->string('nombre_departamento')->nullable(); // Department
             $table->string('password');
             $table->unsignedBigInteger('id_departamento')->nullable();
             $table->string('guid')->nullable();
