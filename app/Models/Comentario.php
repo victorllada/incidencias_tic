@@ -31,7 +31,7 @@ class Comentario extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function personal()
+    public function user()
     {
         return $this->belongsTo(User::class, 'personal_id');
     }

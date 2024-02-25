@@ -19,21 +19,12 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
 
     /**
-     * Define la relación muchos a uno con la tabla 'departamentos' (jefe de departamento).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function departamento()
-    {
-        return $this->belongsTo(Departamento::class, 'id_departamento');
-    }
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'nombre_completo', // Cambiado desde 'name'
         'email',
         'password',
@@ -71,4 +62,44 @@ class User extends Authenticatable
     /*protected $appends = [
         'profile_photo_url',
     ];*/
+
+    /**
+     * Define la relación muchos a uno con la tabla 'departamentos'.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'id_departamento');
+    }
+
+    /**
+     * Define la relación uno a muchos con la tabla 'incidencias' (incidencias creadas por el personal).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incidenciasCreadas()
+    {
+        return $this->hasMany(Incidencia::class, 'creador_id');
+    }
+
+    /**
+     * Define la relación uno a muchos con la tabla 'incidencias' (incidencias asignadas al personal).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incidenciasAsignadas()
+    {
+        return $this->hasMany(Incidencia::class, 'responsable_id');
+    }
+
+    /**
+     * Define la relación uno a muchos con la tabla 'comentarios' (comentarios realizados por el personal).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'personal_id');
+    }
 }
