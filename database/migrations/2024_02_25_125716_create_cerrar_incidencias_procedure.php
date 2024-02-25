@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared('
-        CREATE PROCEDURE cerrarIncidenciasResueltas()
+        CREATE PROCEDURE IF NOT EXISTS cerrarIncidenciasResueltas()
         BEGIN
             UPDATE incidencias
             SET estado = "cerrada"
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared('DROP PROCEDURE IF EXISTS cerrarIncidenciasResueltas');
+        DB::unprepared('DROP PROCEDURE IF EXISTS cerrarIncidenciasResueltas;');
     }
 };
