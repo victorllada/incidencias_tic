@@ -53,10 +53,11 @@
                                 <label class="input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
                                 <select class="form-select" id="tipoFiltro" name="tipoFiltro">
                                     <option selected value="-1">Selecciona el tipo</option>
-                                    <option value="WIFI">WIFI</option>
-                                    <option value="CUENTAS">CUENTAS</option>
-                                    <option value="SOFTWARE">SOFTWARE</option>
-                                    <option value="EQUIPOS">EQUIPOS</option>
+                                    <option value="EQUIPOS">Equipos</option>
+                                    <option value="CUENTAS">Cuentas</option>
+                                    <option value="WIFI">Wifi</option>
+                                    <option value="INTERNET">Internet</option>
+                                    <option value="SOFTWARE">Software</option>
                                 </select>
                             </div>
 
@@ -86,10 +87,10 @@
                                 <label class="input-group-text aquamarine-200" for="prioridadFiltro">Prioridad</label>
                                 <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
                                     <option selected value="-1">Selecciona la prioridad</option>
-                                    <option value="baja">baja</option>
-                                    <option value="urgente">urgente</option>
-                                    <option value="media">media</option>
-                                    <option value="alta">alta</option>
+                                    <option value="baja">Baja</option>
+                                    <option value="urgente">Urgente</option>
+                                    <option value="media">Media</option>
+                                    <option value="alta">Alta</option>
                                 </select>
                             </div>
 
@@ -108,12 +109,12 @@
                                 <label class="input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
                                 <select class="form-select" id="estadoFiltro" name="estadoFiltro">
                                     <option selected value="-1">Selecciona el estado</option>
-                                    <option value="abierta">abierta</option>
-                                    <option value="cerrada">cerrada</option>
-                                    <option value="resuelta">resuelta</option>
-                                    <option value="asignada">asignada</option>
-                                    <option value="enviada a infortec">enviada a infortec</option>
-                                    <option value="en proceso">en proceso</option>
+                                    <option value="abierta">Abierta</option>
+                                    <option value="cerrada">Cerrada</option>
+                                    <option value="resuelta">Resuelta</option>
+                                    <option value="asignada">Asignada</option>
+                                    <option value="enviada a infortec">Enviada a Infortec</option>
+                                    <option value="en proceso">En proceso</option>
                                 </select>
                             </div>
 
@@ -136,21 +137,16 @@
                 <a class=" btn aquamarine-400  text-white" type="button" href="{{ route('incidencias.create') }}">Crear
                     incidencia</a>
 
-                {{-- Botones para exportar en los distitos formatos --}}
-                <button type="button" class="btn aquamarine-400 text-white">PDF</button>
-                <button type="button" class="btn aquamarine-400 text-white">EXCEL</button>
-                <button type="button" class="btn aquamarine-400 text-white">CSV</button>
-
+                {{-- Boton para exportar en los distitos formatos --}}
                 <div class="dropdown">
-                    <a class="btn aquamarine-500 dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown link
-                    </a>
-
+                    <button class="btn aquamarine-400 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Exportar
+                    </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">PDF</a></li>
+                        <li><a class="dropdown-item" href="#">EXCEL</a></li>
+                        <li><a class="dropdown-item" href="#">CSV</a></li>
                     </ul>
                 </div>
             </div>

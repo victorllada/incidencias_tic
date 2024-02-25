@@ -10,7 +10,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="d-flex flex-column">
     @include('layouts.partials.header')
 
     <main class="container">
