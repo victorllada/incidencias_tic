@@ -9,7 +9,6 @@ use App\Models\Comentario;
 use App\Models\Departamento;
 use App\Models\Equipo;
 use App\Models\Incidencia;
-use App\Models\Perfil;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Equipo;
 use App\Models\IncidenciaSubtipo;
-use App\Models\Personal;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
