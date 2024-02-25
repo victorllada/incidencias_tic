@@ -148,10 +148,16 @@
                         <div class="col input-group">
                             <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
                             <div class="d-flex flex-wrap gap-4 form-control ">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
+                                @forelse ($usuarios as $usuario)
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" id="asignado[]"
+                                            name="asignado[]" value={{ $usuario->id }}>
+                                        <label class="form-check-label"
+                                            for="asignado[]">{{ $usuario->nombre_completo }}</label>
+                                    </div>
+                                @empty
+                                    <div>No hay usuarios</div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
