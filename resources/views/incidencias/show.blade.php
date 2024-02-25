@@ -62,26 +62,39 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="col-lg-4">
+                <div class="row mb-3">
+                    <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
+                    <div class="col">
                         @empty($incidencia->equipo)
                             <span class="fw-bolder">Equipo:</span> No hay equipo asignado
                         @else
                             <span class="fw-bolder">Equipo:</span>
                             {{ $incidencia->equipo->tipo_equipo . ' ' . $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
-                        @endempty
-                    </div>
+                        </div>
+                    @endempty
                 </div>
 
                 <hr>
 
                 <div class="row mb-3">
                     <div class="col-lg-6">
+                        <span class="fw-bolder">Descripción:</span>
+                        <textarea class="form-control" rows="8">{{ $incidencia->descripcion }}</textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="fw-bolder">Actuaciones:</span>
+                        <textarea class="form-control" rows="8">{{ $incidencia->actuaciones }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6 mb-3">
                         <span class="fw-bolder">Archivo adjunto:</span> {{ $incidencia->adjunto_url }}
                     </div>
+
                     <!-- Si responsable no es null, muestra sus atributos nombre y apellidos, si es null muestra mensaje -->
                     @empty($incidencia->responsables)
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mb-3">
                             <span class="fw-bolder">Responsable:</span> Aún no se ha asignado
                         @else
                             <span class="fw-bolder">Responsable:</span>
@@ -95,29 +108,6 @@
                             @endempty
                         </div>
                     @endempty
-                </div>
-
-                <div class="row">
-                    <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
-                    @empty($incidencia->equipo)
-                        <li class="list-group-item aquamarine-100">Equipo: No hay equipo asignado</li>
-                    @else
-                        <li class="list-group-item aquamarine-100">
-                            Equipo:
-                            {{ $incidencia->equipo->tipo_equipo . ' ' . $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
-                        </li>
-                    @endempty
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Descripción:</span>
-                        <textarea class="form-control" rows="8">{{ $incidencia->descripcion }}</textarea>
-                    </div>
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Actuaciones:</span>
-                        <textarea class="form-control" rows="8">{{ $incidencia->actuaciones }}</textarea>
-                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -136,7 +126,7 @@
                 </div>
                 <div class="row mt-5">
                     <div class="col-1">
-                        <button type="button" class="btn aquamarine-400 text-white">Actulizar</button>
+                        <button type="button" class="btn aquamarine-400 text-white">Actualizar</button>
                     </div>
                     <div class="col-2">
                         <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
