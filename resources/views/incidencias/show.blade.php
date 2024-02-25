@@ -116,6 +116,14 @@
                         <span class="fw-bolder">Actualizado el día:</span>{{ $incidencia->updated_at }}
                     </div>
                 </div>
+                <div class="row mt-5">
+                    <div class="col-1">
+                        <button type="button" class="btn aquamarine-400 text-white">Actulizar</button>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

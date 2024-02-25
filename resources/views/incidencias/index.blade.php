@@ -112,7 +112,7 @@
                             {{-- Boton de filtrado y borrar filtros --}}
                             <div class="d-flex justify-content-between gap-2">
                                 <button class="btn aquamarine-400 text-white" type="submit">Borrar
-                                    filtros</button>{{-- Boton de filtrado --}}
+                                    filtros</button>
                                 <button class="btn aquamarine-400 text-white flex-fill" type="submit"
                                     data-bs-dismiss="offcanvas">Filtrar</button>
                             </div>
