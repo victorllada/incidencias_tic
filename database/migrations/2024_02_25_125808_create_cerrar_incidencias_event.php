@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared('DROP EVENT IF EXISTS cerrarIncidenciasEvent');
+        DB::unprepared('DROP EVENT IF EXISTS cerrarIncidenciasEvent;');
     }
 };
