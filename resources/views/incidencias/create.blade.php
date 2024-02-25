@@ -66,7 +66,7 @@
                     </div>
 
                     {{-- Fila 2  en caso de que el tipo sea equipos --}}
-                    <hr>
+
                     <div class="row mb-4">
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -77,13 +77,22 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
+                                    Aula</label>
+                                <input type="text" class="form-control" name="aula" id="aula"
+                                    placeholder="IF-04">
+                            </div>
                         </div>
                         <div class="col-lg-4">
-
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
+                                    Aula</label>
+                                <input type="number" class="form-control" name="puesto" id="puesto" placeholder="1"
+                                    pattern="[0-9]*">
+                            </div>
                         </div>
                     </div>
-                    <hr>
 
                     {{-- Fila 3 descripción y archivo --}}
                     <div class="row mb-4">
@@ -98,7 +107,7 @@
                         <div class="col-lg-6">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Archivo</label>
-                                <label for="fichero" class="form-label" hidden>Choose asdafile</label>
+                                <label for="fichero" class="form-label" hidden>Choose file</label>
                                 <input type="file" class="form-control custom-file-input rounded-end" id="fichero"
                                     name="fichero">
                                 <label class="custom-file-label" for="fichero" hidden>Select file</label>
@@ -106,6 +115,12 @@
                         </div>
                     </div>
 
+                    {{-- Checklist para asignar --}}
+                    <div class="row mb-4">
+
+                    </div>
+
+                    {{-- Boton para crear incidencia --}}
                     <div class="row">
                         <div class="col">
                             <input type="submit" class="btn aquamarine-400 text-white" value="Crear incidencia">
@@ -116,38 +131,6 @@
         </form>
     </div>
 @endsection
-
-
-
-<label for="asignado">Asigandao a:</label>
-<div id="asignado">
-    <!--Aqui se generara un checklist con todos los profesores del centro-->
-</div>
-
-<label for="tipo">Tipo:</label>
-<select name="tipo" id="tipo">
-    <option value="CUENTAS">Cuentas</option>
-    <option value="EQUIPOS">Equipos</option>
-    <option value="WIFI">Wifi</option>
-    <option value="INTERNET">Internet</option>
-    <option value="SOFTWARE">Software</option>
-</select>
-
-<label for="num_etiqueta" id="lbl_num_etiqueta" hidden>Número etiqueta:</label>
-<input type="text" name="num_etiqueta" id="num_etiqueta" hidden>
-
-<label for="aula" id="lbl_aula" hidden>Aula:</label>
-<input type="text" name="aula" id="aula" hidden>
-
-<label for="puesto" id="lbl_puesto" hidden>Puesto:</label>
-<input type="text" name="puesto" id="puesto" hidden>
-
-<label for="descripcion">Descripción:</label>
-<textarea name="descripcion" id="descripcion"></textarea>
-
-
-<input type="button" value="Crear">
-
 
 
 <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->

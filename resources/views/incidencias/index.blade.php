@@ -193,7 +193,7 @@
                                     {{ $incidencia->id }}
                                 </div>
                                 <div class="col p-3 baja-res">
-                                    {{ $incidencia->creador->nombre }}
+                                    {{ $incidencia->creador->nombre_completo }}
                                     {{ $incidencia->creador->apellido1 }}
                                     {{ $incidencia->creador->apellido2 }}
                                 </div>

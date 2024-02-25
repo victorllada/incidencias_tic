@@ -31,6 +31,8 @@
                     <div class="col-lg-4">
                         <span class="fw-bolder">Subtipo:</span> {{ $incidencia->subtipo->subtipo_nombre }}
                     </div>
+
+                    <!-- Si no hay sub-sub-tipos de incidencias no se muestra -->
                     @isset($incidencia->subtipo->sub_subtipo)
                         <div class="col-lg-4">
                             <span class="fw-bolder">Subsubtipo:</span> {{ $incidencia->subtipo->sub_subtipo }}
@@ -41,7 +43,7 @@
                 <div class="row mb-4">
                     <div class="col-lg-4">
                         <span class="fw-bolder">Creador:</span>
-                        {{ $incidencia->creador->nombre . ' ' . $incidencia->creador->apellido1 . ' ' . $incidencia->creador->apellido2 }}
+                        {{ $incidencia->creador->nombre_completo }}
                     </div>
                     <div class="col-lg-4">
                         <span class="fw-bolder">Fecha de creación:</span> {{ $incidencia->fecha_creacion }}
@@ -77,18 +79,34 @@
                     <div class="col-lg-6">
                         <span class="fw-bolder">Archivo adjunto:</span> {{ $incidencia->adjunto_url }}
                     </div>
-                    <div class="col-lg-6">
-                        @empty($incidencia->responsable)
+                    <!-- Si responsable no es null, muestra sus atributos nombre y apellidos, si es null muestra mensaje -->
+                    @empty($incidencia->responsables)
+                        <div class="col-lg-6">
                             <span class="fw-bolder">Responsable:</span> Aún no se ha asignado
                         @else
                             <span class="fw-bolder">Responsable:</span>
-                            @empty($incidencia->responsable->nombre || $incidencia->responsable->apellido1 || $incidencia->responsable->apellido2)
-                                Información de responsable incompleta
+                            <!-- Si el nombre o los apellidos es null ponemos info incompleta, en caso contrario lo mostramos -->
+                            @empty($responsables)
+                                Aún no hay responsables
                             @else
-                                {{ $incidencia->responsable->nombre . ' ' . $incidencia->responsable->apellido1 . ' ' . $incidencia->responsable->apellido2 }}
+                                @foreach ($responsables as $responsable)
+                                    <span>{{ $responsable->nombre_completo }} </span>
+                                @endforeach
                             @endempty
-                        @endempty
-                    </div>
+                        </div>
+                    @endempty
+                </div>
+
+                <div class="row">
+                    <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
+                    @empty($incidencia->equipo)
+                        <li class="list-group-item aquamarine-100">Equipo: No hay equipo asignado</li>
+                    @else
+                        <li class="list-group-item aquamarine-100">
+                            Equipo:
+                            {{ $incidencia->equipo->tipo_equipo . ' ' . $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
+                        </li>
+                    @endempty
                 </div>
 
                 <div class="row mb-3">
