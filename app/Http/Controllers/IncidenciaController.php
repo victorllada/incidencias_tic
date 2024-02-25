@@ -69,7 +69,6 @@ class IncidenciaController extends Controller
             $incidencia->fecha_creacion = now();
             $incidencia->duracion = $request->duracion;
             $incidencia->descripcion = $request->descripcion;
-            $incidencia->actuaciones = $request->actuaciones;
             $incidencia->estado = "abierta";
             $incidencia->prioridad = $request->prioridad;
 
@@ -101,7 +100,7 @@ class IncidenciaController extends Controller
 
             DB::commit();
 
-            return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creado correctamente.');
+            return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {
             dd($e->getMessage());
             DB::rollBack();

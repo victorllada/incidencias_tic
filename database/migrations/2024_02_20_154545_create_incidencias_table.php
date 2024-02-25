@@ -19,7 +19,7 @@ return new class extends Migration
             $table->datetime('fecha_cierre')->nullable();
             $table->integer('duracion');
             $table->text('descripcion');
-            $table->text('actuaciones');
+            $table->text('actuaciones')->nullable();
             $table->enum('estado', ['abierta', 'asignada', 'en proceso', 'enviada a Infortec', 'resuelta', 'cerrada']);
             $table->enum('prioridad', ['baja', 'media', 'alta', 'urgente']);
             $table->text('adjunto_url')->nullable();
