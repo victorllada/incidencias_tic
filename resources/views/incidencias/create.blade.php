@@ -21,8 +21,19 @@
             </ol>
         </nav>
 
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                Hubo errores al rellenar el formulario:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!--Falta añadir la ruta del store en el atributo action del form-->
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{ route('incidencias.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card mb-5 aquamarine-100">
                 <div class="card-header p-2">
@@ -32,6 +43,7 @@
                 <div class="card-body">
 
                     {{-- Fila 1 tipo sub-tipo y sub-sub-tipo --}}
+                    {{-- Hay que hacer el hidden en los div de cada columna para asi hacer invisible sub-tipo y sub-sub-tipo --}}
                     <div class="row mb-4">
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -46,7 +58,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" hidden>
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="sub-tipo">Sub-tipo</label>
                                 <select class="form-select" name="sub-tipo" id="sub-tipo" required>
@@ -54,7 +66,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" hidden>
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="sub-sub-tipo">Sub-sub-tipo</label>
@@ -66,8 +78,8 @@
                     </div>
 
                     {{-- Fila 2  en caso de que el tipo sea equipos --}}
-
-                    <div class="row mb-4">
+                    {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
+                    <div class="row mb-4" hidden>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
@@ -106,7 +118,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Archivo</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">Archivo</label>
                                 <label for="fichero" class="form-label" hidden>Choose file</label>
                                 <input type="file" class="form-control custom-file-input rounded-end" id="fichero"
                                     name="fichero">
@@ -115,9 +127,69 @@
                         </div>
                     </div>
 
-                    {{-- Checklist para asignar --}}
+                    {{-- Aqui se generara un checklist con todos los profesores del centro --}}
                     <div class="row mb-4">
-
+                        <div class="col input-group">
+                            <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
+                            <div class="d-flex flex-wrap gap-4 form-control ">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
+                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {{-- Boton para crear incidencia --}}
