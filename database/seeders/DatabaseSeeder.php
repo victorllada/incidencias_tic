@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         //Factories Incidencias, comentarios y departamentos
         Incidencia::factory(40)->create();
         Comentario::factory(30)->create();
-        Departamento::factory(10)->create();
+        Departamento::factory(4)->create();
 
         //Seeder de user (para comprobar jetsTream)
         $this->call(UserSeeder::class);
