@@ -8,11 +8,11 @@
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
 
             {{-- Boton y desplegable para los filtros --}}
-            <div class="navbar bg-body-tertiary px-0" aria-label="Light offcanvas navbar">
+            <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
                 <div>
                     <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
-                        aria-label="Toggle navigation py-2">Filtrar
+                        aria-label="Toggle navigation">Filtrar
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="bi bi-filter" viewBox="0 0 16 16">
                             <path
@@ -132,11 +132,13 @@
                 <button type="button" class="btn aquamarine-400 text-white">PDF</button>
                 <button type="button" class="btn aquamarine-400 text-white">EXCEL</button>
                 <button type="button" class="btn aquamarine-400 text-white">CSV</button>
+
                 <div class="dropdown">
-                    <button class="btn aquamarine-400 text-white dropdown-toggle" type="button"
+                    <a class="btn aquamarine-500 dropdown-toggle" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                    </button>
+                        Dropdown link
+                    </a>
+
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
