@@ -29,8 +29,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('subtipo_id')->references('id')->on('incidencias_subtipos');
-            $table->foreign('creador_id')->references('id')->on('personal');
-            $table->foreign('responsable_id')->references('id')->on('personal');
+            $table->foreign('creador_id')->references('id')->on('users');
+            $table->foreign('responsable_id')->references('id')->on('users');
             $table->foreign('equipo_id')->references('id')->on('equipos');
         });
     }

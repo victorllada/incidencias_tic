@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('incidencia_num')->references('id')->on('incidencias');
-            $table->foreign('personal_id')->references('id')->on('personal');
+            $table->foreign('personal_id')->references('id')->on('users');
         });
     }
 

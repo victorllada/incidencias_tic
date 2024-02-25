@@ -19,14 +19,27 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
 
     /**
+     * Define la relación muchos a uno con la tabla 'departamentos' (jefe de departamento).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'id_departamento');
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombre_completo', // Cambiado desde 'name'
         'email',
         'password',
+        'id_departamento',
+        'guid',
+        'dominio',
     ];
 
     /**
@@ -55,7 +68,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $appends = [
+    /*protected $appends = [
         'profile_photo_url',
-    ];
+    ];*/
 }

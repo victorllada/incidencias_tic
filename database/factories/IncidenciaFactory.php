@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Equipo;
 use App\Models\IncidenciaSubtipo;
 use App\Models\Personal;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class IncidenciaFactory extends Factory
     public function definition(): array
     {
         $subtipos = IncidenciaSubtipo::all()->pluck('tipo', 'id')->toArray();
-        $personas = Personal::pluck('id')->toArray();
+        $personas = User::pluck('id')->toArray();
         $equipos = Equipo::pluck('id')->toArray();
 
         // Selecciona un id de subtipo aleatorio y obtiene su tipo asociado

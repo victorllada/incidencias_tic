@@ -6,9 +6,11 @@ namespace Database\Seeders;
 
 use App\Models\Aula;
 use App\Models\Comentario;
+use App\Models\Departamento;
 use App\Models\Equipo;
 use App\Models\Incidencia;
 use App\Models\Perfil;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,31 +20,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        // Factories
-        //IncidenciaSubtipo::factory(20)->create();
+        // Factories de aula, equipo y Users
         Aula::factory(10)->create();
         Equipo::factory(15)->create();
+        User::factory(10)->create();
 
-        // Seeders
+        //Seeder de incidencias subtipos
         $this->call([
-            PersonalDepartamentoSeeder::class,
             Incidencias_subtiposSeeder::class
-            //PerfilSeeder::class,
         ]);
 
-        // Factories
+        //Factories Incidencias, comentarios y departamentos
         Incidencia::factory(40)->create();
         Comentario::factory(30)->create();
-        Perfil::factory(25)->create();
+        Departamento::factory(10)->create();
 
-        //Usuario para comprobar jetsTream
+        //Seeder de user (para comprobar jetsTream)
         $this->call(UserSeeder::class);
     }
 }

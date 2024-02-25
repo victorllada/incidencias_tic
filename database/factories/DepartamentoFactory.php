@@ -21,7 +21,7 @@ class DepartamentoFactory extends Factory
             'cod' => $this->faker->unique()->text(6),
             'nombre' => $this->faker->unique()->word,
             'activo' => $this->faker->boolean(),
-            'jefedep_id' => null,
+            //'jefedep_id' => null,
         ];
     }
 }
