@@ -3,15 +3,28 @@
 @section('contenido')
 
     <div class="container">
+        <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
+            {{-- Migas de pan --}}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Incidencia {{ $incidencia->id }}</li>
+                </ol>
+            </nav>
 
-        {{-- Migas de pan --}}
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Incidencia {{ $incidencia->id }}</li>
-            </ol>
-        </nav>
-
+            {{-- Boton para exportar en los distitos formatos --}}
+            <div class="dropdown custom-dropdown">
+                <button class="btn aquamarine-400 text-white dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Exportar
+                </button>
+                <ul class="dropdown-menu custom-dropdown-menu">
+                    <li><a class="dropdown-item" href="#">PDF</a></li>
+                    <li><a class="dropdown-item" href="#">EXCEL</a></li>
+                    <li><a class="dropdown-item" href="#">CSV</a></li>
+                </ul>
+            </div>
+        </div>
         {{-- Información de la incidencia --}}
         <div class="card mb-5 aquamarine-100">
 

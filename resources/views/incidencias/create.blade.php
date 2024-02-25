@@ -77,7 +77,23 @@
                         </div>
                     </div>
 
-                    {{-- Fila 2  en caso de que el tipo sea equipos --}}
+                    {{-- Fila 2 prioridad --}}
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
+                                <select class="form-select" name="prioridad" id="prioridad" required>
+                                    <option selected disabled value="-1">Selecciona la prioridad</option>
+                                    <option value="BAJA">Baja</option>
+                                    <option value="MEDIA">Media</option>
+                                    <option value="ALTA">Alta</option>
+                                    <option value="URGENTE">Urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Fila 3  en caso de que el tipo sea equipos --}}
                     {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
                     <div class="row mb-4" hidden>
                         <div class="col-lg-4">
@@ -106,7 +122,7 @@
                         </div>
                     </div>
 
-                    {{-- Fila 3 descripción y archivo --}}
+                    {{-- Fila 4 descripción y archivo --}}
                     <div class="row mb-4">
                         <div class="col-lg-6">
                             <div class="input-group">
@@ -132,58 +148,6 @@
                         <div class="col input-group">
                             <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
                             <div class="d-flex flex-wrap gap-4 form-control ">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
-                                    <label class="form-check-label" for="checkbox1">Opción 1</label>
-                                </div>
                                 <div>
                                     <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup">
                                     <label class="form-check-label" for="checkbox1">Opción 1</label>

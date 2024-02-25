@@ -134,21 +134,22 @@
             <div class="d-flex align-items-center gap-2">
 
                 {{-- Boton crear incidencia --}}
-                <a class=" btn aquamarine-400  text-white" type="button" href="{{ route('incidencias.create') }}">Crear
+                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">Crear
                     incidencia</a>
 
                 {{-- Boton para exportar en los distitos formatos --}}
-                <div class="dropdown">
-                    <button class="btn aquamarine-400 dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                <div class="dropdown custom-dropdown">
+                    <button class="btn aquamarine-400 text-white dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Exportar
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu custom-dropdown-menu">
                         <li><a class="dropdown-item" href="#">PDF</a></li>
                         <li><a class="dropdown-item" href="#">EXCEL</a></li>
                         <li><a class="dropdown-item" href="#">CSV</a></li>
                     </ul>
                 </div>
+
             </div>
         </div>
 
