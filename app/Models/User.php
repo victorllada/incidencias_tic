@@ -10,8 +10,12 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+// LdapRecord
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
+
+//Spatie
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
@@ -21,7 +25,11 @@ class User extends Authenticatable implements LdapAuthenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    // LdapRecord
     use Notifiable, AuthenticatesWithLdap;
+
+    // Spatie
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -67,6 +75,9 @@ class User extends Authenticatable implements LdapAuthenticatable
     /*protected $appends = [
         'profile_photo_url',
     ];*/
+
+    // Error: The given role or permission should use guard `` instead of `web`.
+    protected $guard_name = 'web';
 
     /**
      * Define la relación muchos a uno con la tabla 'departamentos'.
