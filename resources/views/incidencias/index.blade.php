@@ -182,41 +182,44 @@
                 <div class="col fw-bolder p-3">
                     Estado
                 </div>
+                <div class="col fw-bolder p-3">
+                </div>
             </div>
 
+            {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
             <div class="mb-6">
                 @forelse ($incidencias as $incidencia)
-                    <div class="row lista-incidencias">
-                        <a href="{{ route('incidencias.show', $incidencia) }}">
-                            <div class="row d-flex justify-content-between flex-nowrap rounded">
-                                <div class="col p-3 baja-res">
-                                    {{ $incidencia->id }}
-                                </div>
-                                <div class="col p-3 baja-res">
-                                    {{ $incidencia->creador->nombre_completo }}
-                                </div>
-                                <div class="col p-3">
-                                    {{ $incidencia->tipo }}
-                                </div>
-                                <div class="col p-3">
-                                    {{ $incidencia->subtipo_id }}
-                                </div>
-                                <div class="col p-3 baja-res">
-                                    {{ $incidencia->fecha_creacion }}
-                                </div>
-                                <div class="col p-3 text-ellipsis  baja-res">
-                                    {{ $incidencia->descripcion }}
-                                </div>
-                                <div class="col p-3">
-                                    {{ $incidencia->prioridad }}
-                                </div>
-                                <div class="col p-3">
-                                    {{ $incidencia->estado }}
-                                </div>
-
+                    <div class="row lista-incidencias" onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
+                        <div class="row d-flex justify-content-between flex-nowrap rounded">
+                            <div class="col p-3 baja-res">
+                                {{ $incidencia->id }}
                             </div>
-                        </a>
+                            <div class="col p-3 baja-res">
+                                {{ $incidencia->creador->nombre_completo }}
+                            </div>
+                            <div class="col p-3">
+                                {{ $incidencia->tipo }}
+                            </div>
+                            <div class="col p-3">
+                                {{ $incidencia->subtipo_id }}
+                            </div>
+                            <div class="col p-3 baja-res">
+                                {{ $incidencia->fecha_creacion }}
+                            </div>
+                            <div class="col p-3 text-ellipsis  baja-res">
+                                {{ $incidencia->descripcion }}
+                            </div>
+                            <div class="col p-3">
+                                {{ $incidencia->prioridad }}
+                            </div>
+                            <div class="col p-3">
+                                {{ $incidencia->estado }}
+                            </div>
+                            <div class="col p-3">
+                                <button type="button">boton</button>
+                            </div>
+                        </div>
                     </div>
                 @empty
                     <p>No hay incidencias que mostrar.</p>
@@ -225,7 +228,11 @@
         </div>
     </div>
 @endsection
-
+<script>
+    function redirect(url) {
+        window.location.href = url;
+    }
+</script>
 {{--
                     <div class="col p-3 d-flex justify-content-center align-items-center">
                         <button type="button" class="btn aquamarine-400 text-white">
