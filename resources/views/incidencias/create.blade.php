@@ -92,8 +92,12 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
                                     Aula</label>
-                                <input type="text" class="form-control" name="aula" id="aula"
-                                    placeholder="IF-04">
+                                <select class="form-select" name="aula" id="aula" required>
+                                    <option selected disabled value="-1">Selecciona el aula</option>
+                                    @foreach ($aulas as $aula)
+                                        <option value={{ $aula->id }}>{{ $aula->codigo }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-4">
