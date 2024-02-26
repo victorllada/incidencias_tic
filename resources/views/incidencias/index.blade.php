@@ -154,7 +154,7 @@
         </div>
 
         {{-- Contenedor para el encabezado de y todas las incidencias --}}
-        <div class="text-left mb-5">
+        <div class="container text-left mb-5">
 
             {{-- Encabezado de la lista de incidencias --}}
             <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300">
@@ -181,6 +181,8 @@
                 </div>
                 <div class="col fw-bolder p-3">
                     Estado
+                </div>
+                <div class="col fw-bolder p-3">
                 </div>
             </div>
 
