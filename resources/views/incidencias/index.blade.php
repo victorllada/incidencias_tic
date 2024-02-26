@@ -202,7 +202,7 @@
                                 {{ $incidencia->tipo }}
                             </div>
                             <div class="col p-3">
-                                {{ $incidencia->subtipo_id }}
+                                {{ $incidencia->subtipo->subtipo_nombre }}
                             </div>
                             <div class="col p-3 baja-res">
                                 {{ $incidencia->fecha_creacion }}
