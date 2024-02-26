@@ -190,38 +190,45 @@
             {{-- Lista de incidencias --}}
             <div class="row mb-6">
                 @forelse ($incidencias as $incidencia)
-                    <div class="lista-incidencias" onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
+                    <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
-                            <div class="col p-3 baja-res">
+                            <div class="col p-3 baja-res"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->id }}
                             </div>
-                            <div class="col p-3 baja-res">
+                            <div class="col p-3 baja-res"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->creador->nombre_completo }}
                             </div>
-                            <div class="col p-3 text-ellipsis">
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->tipo }}
                             </div>
-                            <div class="col p-3 text-ellipsis">
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->subtipo->subtipo_nombre }}
                             </div>
-                            <div class="col p-3 baja-res">
+                            <div class="col p-3 baja-res"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->fecha_creacion }}
                             </div>
-                            <div class="col p-3 text-ellipsis baja-res">
+                            <div class="col p-3 text-ellipsis baja-res"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->descripcion }}
                             </div>
-                            <div class="col p-3 text-ellipsis">
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->prioridad }}
                             </div>
-                            <div class="col p-3 text-ellipsis">
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->estado }}
                             </div>
                             <div class="col p-3 movil-res">
                                 <div class="d-flex flex-column justify-content-center gap-2">
                                     <a class=" btn aquamarine-400 text-white" type="button"
-                                        href="{{ route('incidencias.create') }}">Detalles</a>
-                                    <a class=" btn aquamarine-400 text-white" type="button"
-                                        href="{{ route('incidencias.create') }}">Borrar</a>
+                                        href="{{ route('incidencias.show', $incidencia) }}">Detalles</a>
+                                    <a class=" btn aquamarine-400 text-white" type="button" href="#">Borrar</a>
                                 </div>
                             </div>
                         </div>

@@ -105,11 +105,11 @@
                 <div class="row mb-4">
                     <div class="col-lg-6">
                         <span class="fw-bolder">Descripción:</span>
-                        <textarea class="form-control" rows="8">{{ $incidencia->descripcion }}</textarea>
+                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
                     </div>
                     <div class="col-lg-6">
                         <span class="fw-bolder">Actuaciones:</span>
-                        <textarea class="form-control" rows="8">{{ $incidencia->actuaciones }}</textarea>
+                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
                     </div>
                 </div>
 
@@ -140,7 +140,8 @@
                 {{-- Botones actilizar y borrar incidencia --}}
                 <div class="row">
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn aquamarine-400 text-white">Actualizar</button>
+                        <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
+                            class="btn aquamarine-400 text-white">Actualizar</a>
                         <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
                     </div>
                 </div>
