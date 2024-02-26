@@ -54,9 +54,9 @@ class IncidenciaController extends Controller
 
             // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
             $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo)
-                ->where('subtipo_nombre', $request->subtipo);
+                ->where('subtipo_nombre', $request->input('sub-tipo'));
             if (!is_null($request->subsubtipo)) {
-                $incidencia_subtipo_query->where('sub_subtipo', $request->subsubtipo);
+                $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
             }
 
             //Recogemos el primer registro con esas caracteristicas
@@ -67,7 +67,6 @@ class IncidenciaController extends Controller
             $incidencia->subtipo_id = $idSubincidencia;
 
             $incidencia->fecha_creacion = now();
-            $incidencia->duracion = $request->duracion;
             $incidencia->descripcion = $request->descripcion;
             $incidencia->estado = "abierta";
             $incidencia->prioridad = $request->prioridad;
@@ -83,6 +82,7 @@ class IncidenciaController extends Controller
 
             $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
                 ->where('puesto', $request->puesto)
+                ->where('aula_id', $request->aula)
                 ->first();
 
             // Verificar si se encontró un equipo

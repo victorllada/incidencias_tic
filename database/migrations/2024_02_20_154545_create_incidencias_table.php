@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subtipo_id');
             $table->datetime('fecha_creacion');
             $table->datetime('fecha_cierre')->nullable();
-            $table->integer('duracion');
+            $table->integer('duracion')->nullable();
             $table->text('descripcion');
             $table->text('actuaciones')->nullable();
             $table->enum('estado', ['abierta', 'asignada', 'en proceso', 'enviada a Infortec', 'resuelta', 'cerrada']);
