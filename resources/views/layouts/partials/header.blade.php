@@ -32,7 +32,7 @@
                     </a>
                     @auth
                         <ul class="dropdown-menu text-small" style="">
-                            <li><a class="dropdown-item" href="#">{{ auth()->user()->name }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ auth()->user()->nombre_completo }}</a></li>
                             <li><a class="dropdown-item" href="#">{{ auth()->user()->email }}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
