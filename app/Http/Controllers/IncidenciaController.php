@@ -21,23 +21,17 @@ class IncidenciaController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $incidenciasJSON = Incidencia::with(['subtipo', 'creador', 'responsable', 'equipo', 'comentarios'])->get();
-            return response()->json($incidenciasJSON);
-        }
-
         $incidencias = Incidencia::all();
         return view('incidencias.index', compact('incidencias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    /*
+    * Funcion para poder enviar las incidencias a ajax
+    */
+    public function datosIncidencias()
     {
-        $usuarios = User::all();
-        $aulas = Aula::all();
-        return view('incidencias.create',compact('usuarios', 'aulas'));
+        $incidenciasJSON = Incidencia::with(['subtipo', 'creador','equipo', 'comentarios'])->get();
+        return response()->json($incidenciasJSON);
     }
 
     /**

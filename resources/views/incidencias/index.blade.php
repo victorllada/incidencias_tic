@@ -120,10 +120,10 @@
 
                             {{-- Boton de filtrado y borrar filtros --}}
                             <div class="d-flex justify-content-between gap-2">
-                                <button class="btn aquamarine-400 text-white" type="submit">Borrar
+                                <button class="btn aquamarine-400 text-white" type="submit" id="borrar">Borrar
                                     filtros</button>
                                 <button class="btn aquamarine-400 text-white flex-fill" type="submit"
-                                    data-bs-dismiss="offcanvas">Filtrar</button>
+                                    data-bs-dismiss="offcanvas" id="filtrar">Filtrar</button>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
 
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
-            <div class="row mb-6">
+            <div class="row mb-6" id="contenedorIncidencias">
                 @forelse ($incidencias as $incidencia)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
