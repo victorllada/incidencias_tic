@@ -1,6 +1,7 @@
 <header class="p-3 mb-3 border-bottom aquamarine-600 sticky-top">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
+            {{--  <img src="{{ asset('assets/imagenes/logo.svg') }}" alt="logo"> --}}
             <a class="navbar-brand link-body-emphasis text-white" href="#">LOGO</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">

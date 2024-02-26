@@ -2,15 +2,6 @@
 @section('titulo', 'Incidencias - Crear')
 @section('contenido')
 
-    <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
-
     <div class="container">
 
         {{-- Migas de pan --}}
@@ -132,8 +123,8 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
-                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="floatingTextarea" rows="8"
-                                    maxlength="256"></textarea>
+                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="floatingTextarea"
+                                    rows="8" maxlength="256"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
