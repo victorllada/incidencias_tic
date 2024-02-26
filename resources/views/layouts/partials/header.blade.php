@@ -21,7 +21,7 @@
                 </ul>
                 <div class="nav-item dropdown">
                     <a href="#"
-                        class="d-block link-body-emphasis text-decoration-none dropdown-toggle nav-link px-4 text-white"
+                        class="d-block link-body-emphasis text-decoration-none dropdown-toggle nav-linl text-white"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white"
                             class="bi bi-person-circle" viewBox="0 0 16 16">

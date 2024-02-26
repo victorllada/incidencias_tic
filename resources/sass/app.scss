@@ -15,6 +15,7 @@ html{
     scrollbar-width: thin;
 }
 
+// Clase para los colores del pagina
 .aquamarine-50{
     background-color: $aquamarine-50;
 }
@@ -46,11 +47,6 @@ html{
 
 .aquamarine-700{
     background-color: $aquamarine-700;
-}
-
-.aquamarine-950
-{
-    background-color: $aquamarine-950;
 }
 
 .btn.aquamarine-400:hover {
@@ -120,8 +116,8 @@ form>.card{
 }
 
 /* Estilo para el botón del dropdown cuando está pulsado */
-.dropdown-toggle:active,
-.dropdown-toggle:focus {
+main .dropdown-toggle:active,
+main .dropdown-toggle:focus {
     background-color: $aquamarine-400;
     border-color: $aquamarine-400;
 }
