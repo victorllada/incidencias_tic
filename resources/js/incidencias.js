@@ -12,6 +12,7 @@ function inicio()
 
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
+    tipoFiltro.addEventListener("change",generarSubtipos,false);
 }
 
 async function obtenerIncidencias()
@@ -33,6 +34,39 @@ async function obtenerIncidencias()
     catch (error)
     {
         console.error('Ha ocurrido un error:', error);
+    }
+}
+
+function generarSubtipos()
+{
+    subtipoFiltro.innerHTML="<option selected value='-1'>Selecciona el subtipo</option>";
+    let array=[];
+
+    switch (tipoFiltro.value)
+    {
+        case "CUENTAS":
+            array = ["EDUCANTABRIA","GOOGLE CLASSROOM","DOMINIO","YEDRA"];
+            break;
+        case "EQUIPOS":
+            array = ["ALTAVOCES","PC","MONITOR","PROYECTOR","PANTALLA INTERACTIVA","PORTATIL","IMPRESORAS"];
+            break;
+        case "WIFI":
+            array = ["IESMIGUELHERRERO","WIECAN"];
+            break;
+        case "INTERNET":
+            array = ["INSTALACION","ACTUALIZACION"];
+            break;
+        case "SOFTWARE":
+            array = ["INSTALACION","ACTUALIZACION"];
+            break;
+    }
+
+    for (let i=0;i<array.length;i++)
+    {
+        var opt=document.createElement("option");
+        opt.textContent=array[i];
+        opt.value=array[i];
+        subtipoFiltro.appendChild(opt);
     }
 }
 
@@ -202,7 +236,7 @@ function aplicacionFiltros()
     //fechaDesdeFiltro
     //fechaHastaFiltro
     //estadoFiltro
-    /*console.log(idFiltro.value);
+    console.log(idFiltro.value);
     console.log(nombreFiltro.value);
     console.log(tipoFiltro.value);
     console.log(subtipoFiltro.value);
@@ -210,7 +244,7 @@ function aplicacionFiltros()
     console.log(prioridadFiltro.value);
     console.log(fechaDesdeFiltro.value);
     console.log(fechaHastaFiltro.value);
-    console.log(estadoFiltro.value);*/
+    console.log(estadoFiltro.value);
 
     let criterios={};
     let filtrados=[];
@@ -327,7 +361,8 @@ function aplicacionFiltros()
 
     datosFinales.forEach(item =>
         {
-            console.log(item.id);
+            //console.log(item.id);
+            let stringRedirect="http://127.0.0.1:8000/incidencias/"+item.id;
 
             let divPadre=document.createElement("div");//contenedor de la incidencia
             divPadre.classList="lista-incidencias";
@@ -337,27 +372,35 @@ function aplicacionFiltros()
 
             let divId=document.createElement("div");//id
             divId.classList="col p-3 baja-res";
+            divId.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divUsuario=document.createElement("div");//usuario
             divUsuario.classList="col p-3 baja-res";
+            divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divTipoIncidencia=document.createElement("div");//tipo
             divTipoIncidencia.classList="col p-3 text-ellipsis";
+            divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divSubtipo=document.createElement("div");//subtipo
             divSubtipo.classList="col p-3 text-ellipsis";
+            divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divFecha=document.createElement("div");
             divFecha.classList="col p-3 baja-res";
+            divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divDesccripcion=document.createElement("div");//dedscripcion
             divDesccripcion.classList="col p-3 text-ellipsis baja-res";
+            divDesccripcion.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divPrioridad=document.createElement("div");//prioridad
             divPrioridad.classList="col p-3 text-ellipsis";
+            divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divEstado=document.createElement("div");//estado
             divEstado.classList="col p-3 text-ellipsis";
+            divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divBotones=document.createElement("div");//botones
             divBotones.classList="col p-3 movil-res";
@@ -433,7 +476,8 @@ function borrarFiltros()
 
     datosIncidencias.forEach(item =>
         {
-            console.log(item.id);
+            //console.log(item.id);
+            let stringRedirect="http://127.0.0.1:8000/incidencias/"+item.id;
 
             let divPadre=document.createElement("div");//contenedor de la incidencia
             divPadre.classList="lista-incidencias";
@@ -443,27 +487,35 @@ function borrarFiltros()
 
             let divId=document.createElement("div");//id
             divId.classList="col p-3 baja-res";
+            divId.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divUsuario=document.createElement("div");//usuario
             divUsuario.classList="col p-3 baja-res";
+            divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divTipoIncidencia=document.createElement("div");//tipo
             divTipoIncidencia.classList="col p-3 text-ellipsis";
+            divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divSubtipo=document.createElement("div");//subtipo
             divSubtipo.classList="col p-3 text-ellipsis";
+            divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divFecha=document.createElement("div");
             divFecha.classList="col p-3 baja-res";
+            divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divDesccripcion=document.createElement("div");//dedscripcion
             divDesccripcion.classList="col p-3 text-ellipsis baja-res";
+            divDesccripcion.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divPrioridad=document.createElement("div");//prioridad
             divPrioridad.classList="col p-3 text-ellipsis";
+            divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divEstado=document.createElement("div");//estado
             divEstado.classList="col p-3 text-ellipsis";
+            divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
 
             let divBotones=document.createElement("div");//botones
             divBotones.classList="col p-3 movil-res";
@@ -521,4 +573,9 @@ function borrarFiltros()
             //divPadre.addEventListener("click",verEnviarIncidencia,false);
         }
     );
+}
+
+function redirect(url)
+{
+    window.location.href=url;
 }

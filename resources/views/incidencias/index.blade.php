@@ -66,12 +66,6 @@
                                 <label class="input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
                                 <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
                                     <option selected value="-1">Selecciona el subtipo</option>
-                                    <option value="quia">quia</option>
-                                    <option value="recusandae">recusandae</option>
-                                    <option value="tenetur">Three</option>
-                                    <option value="magni">magni</option>
-                                    <option value="ut">recusandae</option>
-                                    <option value="deleniti">deleniti</option>
                                 </select>
                             </div>
 
@@ -240,11 +234,6 @@
         </div>
     </div>
 @endsection
-<script>
-    function redirect(url) {
-        window.location.href = url;
-    }
-</script>
 {{--
                     <div class="col p-3 d-flex justify-content-center align-items-center">
                         <button type="button" class="btn aquamarine-400 text-white">
