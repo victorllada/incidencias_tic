@@ -137,16 +137,6 @@
                     </div>
                 </div>
 
-                {{-- Fila creado el dia y actualizado el dia --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Creado el día:</span> {{ $incidencia->created_at }}
-                    </div>
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Actualizado el día:</span>{{ $incidencia->updated_at }}
-                    </div>
-                </div>
-
                 {{-- Botones actilizar y borrar incidencia --}}
                 <div class="row">
                     <div class="d-flex gap-2">

@@ -182,42 +182,47 @@
                 <div class="col fw-bolder p-3">
                     Estado
                 </div>
-                <div class="col fw-bolder p-3">
+                <div class="col fw-bolder p-3 movil-res">
                 </div>
             </div>
 
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
-            <div class="mb-6">
+            <div class="row mb-6">
                 @forelse ($incidencias as $incidencia)
-                    <div class="row lista-incidencias" onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
-                        <div class="row d-flex justify-content-between flex-nowrap rounded">
+                    <div class="lista-incidencias" onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
+                        <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
                             <div class="col p-3 baja-res">
                                 {{ $incidencia->id }}
                             </div>
                             <div class="col p-3 baja-res">
                                 {{ $incidencia->creador->nombre_completo }}
                             </div>
-                            <div class="col p-3">
+                            <div class="col p-3 text-ellipsis">
                                 {{ $incidencia->tipo }}
                             </div>
-                            <div class="col p-3">
+                            <div class="col p-3 text-ellipsis">
                                 {{ $incidencia->subtipo->subtipo_nombre }}
                             </div>
                             <div class="col p-3 baja-res">
                                 {{ $incidencia->fecha_creacion }}
                             </div>
-                            <div class="col p-3 text-ellipsis  baja-res">
+                            <div class="col p-3 text-ellipsis baja-res">
                                 {{ $incidencia->descripcion }}
                             </div>
-                            <div class="col p-3">
+                            <div class="col p-3 text-ellipsis">
                                 {{ $incidencia->prioridad }}
                             </div>
-                            <div class="col p-3">
+                            <div class="col p-3 text-ellipsis">
                                 {{ $incidencia->estado }}
                             </div>
-                            <div class="col p-3">
-                                <button type="button">boton</button>
+                            <div class="col p-3 movil-res">
+                                <div class="d-flex flex-column justify-content-center gap-2">
+                                    <a class=" btn aquamarine-400 text-white" type="button"
+                                        href="{{ route('incidencias.create') }}">Detalles</a>
+                                    <a class=" btn aquamarine-400 text-white" type="button"
+                                        href="{{ route('incidencias.create') }}">Borrar</a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -109,7 +109,7 @@ form>.card{
     overflow: hidden; /* Asegura que los bordes redondeados sean visibles */
 }
 
-.text-ellipsis{
+.text-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -125,6 +125,12 @@ main .dropdown-toggle:focus {
 //Media Querys
 @media(width <= 990px){
     .baja-res{
+        display: none;
+    }
+}
+
+@media(width < 768px){
+    .movil-res{
         display: none;
     }
 }
