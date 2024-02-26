@@ -188,9 +188,6 @@
         //Guardamos en una variable el selec de subtipos
         var subtipo = document.getElementById("sub-tipo");
 
-        //Genera los sub-tipos la primera vez, cuando se carga la página
-        //generarSubtipos();
-
         //Genera los sub-tipos cuando se elije una opcion de tipos
         tipo.addEventListener('change', generarSubtipos);
 
