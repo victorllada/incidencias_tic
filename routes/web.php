@@ -21,7 +21,7 @@ Route::get('/', InicioController::class)->name('inicio');
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
-]);/*->middleware('auth');*/
+])->middleware('auth');
 
 /*Route::middleware([
     'auth:sanctum',

@@ -65,6 +65,24 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'users' => [
+            'driver' => 'ldap',
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+            'rules' => [App\Ldap\Rules\FiltradoUsuarioRegla::class],
+            //'rules' => [],
+            'scopes' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => false,
+                'sync_attributes' => [
+                    'name' => 'SamAccountName',
+                    'email' => 'mail',
+                    'nombre_completo' => 'DisplayName',
+                    'nombre_departamento' => 'Department',
+                ],
+            ],
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
