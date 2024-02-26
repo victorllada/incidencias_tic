@@ -70,7 +70,7 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="sub-sub-tipo">Sub-sub-tipo</label>
-                                <select class="form-select" name="sub-sub-tipo" id="sub-sub-tipo" required>
+                                <select class="form-select" name="sub-sub-tipo" id="sub-sub-tipo">
                                     <option selected disabled value="-1">Selecciona el sub-subtipo</option>
                                 </select>
                             </div>
@@ -117,10 +117,10 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
                                     <option selected disabled value="-1">Selecciona la prioridad</option>
-                                    <option value="BAJA">Baja</option>
-                                    <option value="MEDIA">Media</option>
-                                    <option value="ALTA">Alta</option>
-                                    <option value="URGENTE">Urgente</option>
+                                    <option value="baja">Baja</option>
+                                    <option value="media">Media</option>
+                                    <option value="alta">Alta</option>
+                                    <option value="urgente">Urgente</option>
                                 </select>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
-                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" id="floatingTextarea" rows="8"
+                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="floatingTextarea" rows="8"
                                     maxlength="256"></textarea>
                             </div>
                         </div>

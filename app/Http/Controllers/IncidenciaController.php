@@ -55,7 +55,7 @@ class IncidenciaController extends Controller
             // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
             $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo)
                 ->where('subtipo_nombre', $request->input('sub-tipo'));
-            if (!is_null($request->subsubtipo)) {
+            if (!is_null($request->input('sub-sub-tipo'))) {
                 $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
             }
 
