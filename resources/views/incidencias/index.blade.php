@@ -167,8 +167,15 @@
 
                             {{-- Contendor con tipos de informes --}}
                             <div class="offcanvas-body d-flex flex-column justify-between gap-4">
-
-
+                                <div>
+                                    <div>Incidencias resueltas por cada administrador</div>
+                                </div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
                             </div>
                         </div>
                     </div>
