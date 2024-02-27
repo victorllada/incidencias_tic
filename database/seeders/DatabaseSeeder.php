@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seeder de roles
+        $this->call(RolesSeeder::class);
+
         // Factories de aula, equipo y Users
         Aula::factory(10)->create();
         Equipo::factory(15)->create();
@@ -33,9 +36,6 @@ class DatabaseSeeder extends Seeder
         Incidencia::factory(40)->create();
         Comentario::factory(30)->create();
         Departamento::factory(4)->create();
-
-        // Seeder de roles
-        $this->call(RolesSeeder::class);
 
         //Seeder de user (para comprobar jetsTream)
         $this->call(UserSeeder::class);

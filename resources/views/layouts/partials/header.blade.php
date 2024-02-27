@@ -13,12 +13,14 @@
                         <a class="nav-link px-4 link-body-emphasis text-white"
                             href="{{ route('incidencias.index') }}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-4 link-body-emphasis text-white" href="#">Administrar usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-4 link-body-emphasis text-white" href="#">Informes</a>
-                    </li>
+                    @role('administrador')
+                        <li class="nav-item">
+                            <a class="nav-link px-4 link-body-emphasis text-white" href="#">Administrar usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-4 link-body-emphasis text-white" href="#">Informes</a>
+                        </li>
+                    @endrole
                 </ul>
                 <div class="nav-item dropdown">
                     <a href="#"
@@ -35,6 +37,13 @@
                         <ul class="dropdown-menu text-small" style="">
                             <li><a class="dropdown-item" href="#">{{ auth()->user()->nombre_completo }}</a></li>
                             <li><a class="dropdown-item" href="#">{{ auth()->user()->email }}</a></li>
+                            <li><a class="dropdown-item" href="#">
+                                @role('administrador')
+                                    Administrador
+                                @else
+                                    Profesor
+                                @endrole
+                            </a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
