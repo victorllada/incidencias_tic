@@ -24,6 +24,9 @@ class UserSeeder extends Seeder
 
         $objUser->save();
 
+        // Asignar rol
+        $objUser->assignRole('administrador');
+
         $this->command->info('Tabla users inicializada con datos.');
     }
 }

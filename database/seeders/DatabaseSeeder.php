@@ -34,6 +34,9 @@ class DatabaseSeeder extends Seeder
         Comentario::factory(30)->create();
         Departamento::factory(4)->create();
 
+        // Seeder de roles
+        $this->call(RolesSeeder::class);
+
         //Seeder de user (para comprobar jetsTream)
         $this->call(UserSeeder::class);
     }
