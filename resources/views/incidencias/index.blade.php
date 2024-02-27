@@ -6,110 +6,105 @@
 
         {{-- Contenedor del boton filtrar y los botones exportar --}}
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
+            <div class="d-flex justify-content-between gap-2">
 
-            {{-- Boton y desplegable para los filtros --}}
-            <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
-                <div>
-                    <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
-                        aria-label="Toggle navigation">Filtrar
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                            class="bi bi-filter" viewBox="0 0 16 16">
-                            <path
-                                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                        </svg>
-                    </button>
+                {{-- Boton y desplegable para los filtros --}}
+                <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
+                    <div>
+                        <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
+                            aria-label="Toggle navigation">Filtrar
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-filter" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                            </svg>
+                        </button>
 
-                    {{-- Desplegable con los filtros --}}
-                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarLight"
-                        aria-labelledby="offcanvasNavbarLightLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Opciones de filtrado</h5>
+                        {{-- Desplegable con los filtros --}}
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarLight"
+                            aria-labelledby="offcanvasNavbarLightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Opciones de filtrado</h5>
 
-                            {{-- Boton para cerrar el desplegable --}}
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-
-                        {{-- Contendor con los filtros y boton de filtrado --}}
-                        <div class="offcanvas-body d-flex flex-column justify-between gap-4">
-
-                            {{-- Filtro id --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="idFiltro">ID</label>
-                                <input class="form-control" id="idFiltro" name="idFiltro" type="search"
-                                    placeholder="Introduce el ID">
+                                {{-- Boton para cerrar el desplegable --}}
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
                             </div>
 
-                            {{-- Filtro usuario --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
-                                <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
-                                    placeholder="Introduce nombre del usuario">
-                            </div>
+                            {{-- Contendor con los filtros y boton de filtrado --}}
+                            <div class="offcanvas-body d-flex flex-column justify-between gap-4">
 
-                            {{-- Filtro tipo --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
-                                <select class="form-select" id="tipoFiltro" name="tipoFiltro">
-                                    <option selected value="-1">Selecciona el tipo</option>
-                                    <option value="EQUIPOS">Equipos</option>
-                                    <option value="CUENTAS">Cuentas</option>
-                                    <option value="WIFI">Wifi</option>
-                                    <option value="INTERNET">Internet</option>
-                                    <option value="SOFTWARE">Software</option>
-                                </select>
-                            </div>
+                                {{-- Filtro id --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="idFiltro">ID</label>
+                                    <input class="form-control" id="idFiltro" name="idFiltro" type="search"
+                                        placeholder="Introduce el ID">
+                                </div>
 
-                            {{-- Filtro subtipo --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
-                                <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
-                                    <option selected value="-1">Selecciona el subtipo</option>
-                                </select>
-                            </div>
+                                {{-- Filtro usuario --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
+                                    <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
+                                        placeholder="Introduce nombre del usuario">
+                                </div>
 
-                            {{-- Filtro descripción --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="descripcionFiltro">Descripción</label>
-                                <input class="form-control" id="descripcionFiltro" name="descripcionFiltro" type="search"
-                                    placeholder="Introduce la descripción">
-                            </div>
+                                {{-- Filtro tipo --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
+                                    <select class="form-select" id="tipoFiltro" name="tipoFiltro">
+                                        <option selected value="-1">Selecciona el tipo</option>
+                                        <option value="EQUIPOS">Equipos</option>
+                                        <option value="CUENTAS">Cuentas</option>
+                                        <option value="WIFI">Wifi</option>
+                                        <option value="INTERNET">Internet</option>
+                                        <option value="SOFTWARE">Software</option>
+                                    </select>
+                                </div>
 
-                            {{-- Filtro prioridad --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="prioridadFiltro">Prioridad</label>
-                                <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
-                                    <option selected value="-1">Selecciona la prioridad</option>
-                                    <option value="baja">Baja</option>
-                                    <option value="urgente">Urgente</option>
-                                    <option value="media">Media</option>
-                                    <option value="alta">Alta</option>
-                                </select>
-                            </div>
+                                {{-- Filtro subtipo --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
+                                    <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
+                                        <option selected value="-1">Selecciona el subtipo</option>
+                                    </select>
+                                </div>
 
-                            {{-- Filtro fecha desde hasta --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="fechaDesdeFiltro">Fecha</label>
-                                <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
-                                    aria-label="Desde">
-                                <label class="" for="fechaHastaFiltro"></label>
-                                <input class="form-control" type="date" id="fechaHastaFiltro" name="fechaHastaFiltro"
-                                    aria-label="Hasta">
-                            </div>
+                                {{-- Filtro prioridad --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="prioridadFiltro">Prioridad</label>
+                                    <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
+                                        <option selected value="-1">Selecciona la prioridad</option>
+                                        <option value="baja">Baja</option>
+                                        <option value="urgente">Urgente</option>
+                                        <option value="media">Media</option>
+                                        <option value="alta">Alta</option>
+                                    </select>
+                                </div>
 
-                            {{-- Filtro estado --}}
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
-                                <select class="form-select" id="estadoFiltro" name="estadoFiltro">
-                                    <option selected value="-1">Selecciona el estado</option>
-                                    <option value="abierta">Abierta</option>
-                                    <option value="cerrada">Cerrada</option>
-                                    <option value="resuelta">Resuelta</option>
-                                    <option value="asignada">Asignada</option>
-                                    <option value="enviada a infortec">Enviada a Infortec</option>
-                                    <option value="en proceso">En proceso</option>
-                                </select>
+                                {{-- Filtro fecha desde hasta --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="fechaDesdeFiltro">Fecha</label>
+                                    <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
+                                        aria-label="Desde">
+                                    <label class="" for="fechaHastaFiltro"></label>
+                                    <input class="form-control" type="date" id="fechaHastaFiltro" name="fechaHastaFiltro"
+                                        aria-label="Hasta">
+                                </div>
+
+                                {{-- Filtro estado --}}
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
+                                    <select class="form-select" id="estadoFiltro" name="estadoFiltro">
+                                        <option selected value="-1">Selecciona el estado</option>
+                                        <option value="abierta">Abierta</option>
+                                        <option value="cerrada">Cerrada</option>
+                                        <option value="resuelta">Resuelta</option>
+                                        <option value="asignada">Asignada</option>
+                                        <option value="enviada a infortec">Enviada a Infortec</option>
+                                        <option value="en proceso">En proceso</option>
+                                    </select>
+                                </div>
                             </div>
 
                             {{-- Boton de filtrado y borrar filtros --}}
@@ -122,14 +117,20 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Boton crear incidencia --}}
+                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">Crear
+                    incidencia
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                    </svg>
+                </a>
             </div>
 
             {{-- Botones --}}
             <div class="d-flex align-items-center gap-2">
-
-                {{-- Boton crear incidencia --}}
-                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">Crear
-                    incidencia</a>
 
                 {{-- Boton para exportar en los distitos formatos --}}
                 <div class="dropdown custom-dropdown">
@@ -144,6 +145,35 @@
                     </ul>
                 </div>
 
+                {{-- @role('administrador') --}}
+                {{-- Boton y desplegabale de informes --}}
+                <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
+                    <div>
+                        <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasNavbarLight2" aria-controls="offcanvasNavbarLight2"
+                            aria-label="Toggle navigation">Informes
+                        </button>
+
+                        {{-- Desplegable con informes --}}
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
+                            aria-labelledby="offcanvasNavbarLightLabel2">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Tipos de informes</h5>
+
+                                {{-- Boton para cerrar el desplegable --}}
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            {{-- Contendor con tipos de informes --}}
+                            <div class="offcanvas-body d-flex flex-column justify-between gap-4">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- @endrole --}}
             </div>
         </div>
 
@@ -166,9 +196,6 @@
                 </div>
                 <div class="col fw-bolder p-3 baja-res">
                     Fecha de creación
-                </div>
-                <div class="col fw-bolder p-3 baja-res">
-                    Descripción
                 </div>
                 <div class="col fw-bolder p-3">
                     Prioridad
@@ -206,10 +233,6 @@
                                 onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->fecha_creacion }}
                             </div>
-                            <div class="col p-3 text-ellipsis baja-res"
-                                onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
-                                {{ $incidencia->descripcion }}
-                            </div>
                             <div class="col p-3 text-ellipsis"
                                 onclick="redirect('{{ route('incidencias.show', $incidencia) }}')">
                                 {{ $incidencia->prioridad }}
@@ -235,6 +258,17 @@
                 @endforelse
             </div>
         </div>
+
+        {{-- Paginacion --}}
+        <nav aria-label="Page navigation">
+            <ul class="pagination  d-flex justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Inicio</a></li>
+                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                <li class="page-item"><input type="number"></li>
+                <li class="page-item"><button class="page-link" href="#">Siguiente</button></li>
+                <li class="page-item"><button class="page-link" href="#">Final</button></li>
+            </ul>
+        </nav>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
