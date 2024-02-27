@@ -33,7 +33,30 @@
 
                 <div class="card-body">
 
-                    {{-- Fila 1 tipo sub-tipo y sub-sub-tipo --}}
+                    {{-- Fila 1 nombre y departemento --}}
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="nombre">Nombre</label>
+                                <input type="number" class="form-control" name="nombre" id="nombre"
+                                    value="{{ $incidencia->creador }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder"
+                                    for="departamento">Departamento</label>
+                                <select class="form-select" name="departamento" id="departamento" required>
+                                    <option selected disabled value="-1">Selecciona la departamento</option>
+                                    <option value="A">a</option>
+                                    <option value="B">b</option>
+                                    <option value="C">c</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Fila 2 tipo sub-tipo y sub-sub-tipo --}}
                     {{-- Hay que hacer el hidden en los div de cada columna para asi hacer invisible sub-tipo y sub-sub-tipo --}}
                     <div class="row mb-4">
                         <div class="col-lg-4">
@@ -68,7 +91,7 @@
                         </div>
                     </div>
 
-                    {{-- Fila 2  en caso de que el tipo sea equipos --}}
+                    {{-- Fila 3  en caso de que el tipo sea equipos --}}
                     {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
                     <div class="row mb-4" id="div-equipo" hidden>
                         <div class="col-lg-4">
@@ -101,7 +124,7 @@
                         </div>
                     </div>
 
-                    {{-- Fila 3 prioridad --}}
+                    {{-- Fila 4 prioridad --}}
                     <div class="row mb-4">
                         <div class="col-4">
                             <div class="input-group">
