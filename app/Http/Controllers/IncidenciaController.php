@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearIncidenciaRequest;
+use App\Mail\EnvioCorreo;
 use App\Models\Aula;
 use App\Models\Equipo;
 use App\Models\Incidencia;
@@ -12,7 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Mail;
 
 class IncidenciaController extends Controller
 {
@@ -76,7 +77,7 @@ class IncidenciaController extends Controller
             $incidencia->prioridad = $request->prioridad;
 
             if ($request->hasFile('fichero')) {
-                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto_url', 'discoAssets');
+                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
             } else {
                 $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
             }
@@ -103,6 +104,9 @@ class IncidenciaController extends Controller
             $incidencia->responsables()->sync($asignados); //sincronizar la relación, asegurándose de que los usuarios asignados coincidan con el contenido de $asignados.
 
             DB::commit();
+
+            // Envío de correo poniéndolo en cola para que no interrumpa la redirección
+            //Mail::to([$incidencia->creador->nombre_completo])->queue(new EnvioCorreo($incidencia, 'creado'));
 
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {
