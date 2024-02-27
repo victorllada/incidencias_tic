@@ -15,6 +15,10 @@ html{
     scrollbar-width: thin;
 }
 
+body {
+    overflow: hidden;
+}
+
 // Clase para los colores del pagina
 .aquamarine-50{
     background-color: $aquamarine-50;
@@ -135,3 +139,90 @@ main .dropdown-toggle:focus {
     }
 }
 
+// Clases para
+.bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.8) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+}
+
+.background-radial-gradient {
+    background-color: hsl(218, 41%, 15%);
+    background-image: radial-gradient(650px circle at 0% 0%,
+            hsl(218, 41%, 35%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+            hsl(218, 41%, 45%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%);
+    overflow: hidden;
+}
+
+#radius-shape-1 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    height: 220px;
+    width: 220px;
+    top: -60px;
+    left: -130px;
+    background: radial-gradient(#38b1f8, #ffffff);
+    overflow: hidden;
+}
+
+#radius-shape-2 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -60px;
+    right: -110px;
+    width: 280px;
+    height: 300px;
+    background: radial-gradient(#b444f5, #60bffb);
+    overflow: hidden;
+}
+
+#radius-shape-3 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -60px;
+    right: -110px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(#44006b, #60bffb);
+    overflow: hidden;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes scaleAnimation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+#radius-shape-1.animate {
+    animation: rotateAnimation 15s infinite;
+}
+
+#radius-shape-2.animate {
+    animation: rotateAnimation 30s infinite;
+}
+canvas{
+    filter: blur(1px);
+  }
