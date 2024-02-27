@@ -23,10 +23,10 @@ class CrearIncidenciaRequest extends FormRequest
     {
         return [
             'tipo' => 'required|in:CUENTAS,EQUIPOS,WIFI,INTERNET,SOFTWARE',
-            'sub-tipo' => 'required|in:Educantabria,Google Classroom,Dominio,YedraAltavoces,PC,Monitor,Proyector,Pantalla interactiva,Portátil,Impresoras,Iesmiguelherrero,WIECAN,Instalación,Actualización',
-            'sub-sub-tipo' => 'in:Ratón,Ordenador,Teclado,Portátil proporcionado por Consejería,Portátil de aula',
+            'sub-tipo' => 'in:EDUCANTABRIA,GOOGLE CLASSROOM,DOMINIO,YEDRA,ALTAVOCES,PC,MONITOR,PROYECTOR,PANTALLA INTERACTIVA,PORTATIL,IMPRESORA,IESMIGUELHERRERO,WIECAN,INSTALACION,ACTUALIZACION',
+            'sub-sub-tipo' => 'in:RATON,ORDENADOR,TECLADO,PORTATIL PROPORCIONADO POR CONSERJERIA,DE AULA,DE PUESTO',
             'descripcion' => 'required|min:5',
-            'prioridad' => 'required|in:baja,media,alta,urgente',
+            'prioridad' => 'required|in:BAJA,MEDIA,ALTA,URGENTE',
             'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ];
     }
@@ -41,7 +41,6 @@ class CrearIncidenciaRequest extends FormRequest
         return [
             'tipo.required' => 'El tipo es obligatorio.',
             'tipo.in' => 'El tipo debe ser uno del select.',
-            'sub-tipo.required' => 'El subtipo es obligatorio.',
             'sub-tipo.in' => 'El sub-tipo debe ser uno del select.',
             'sub-sub-tipo.in' => 'El sub-sub-tipo debe ser uno del select',
             'descripcion.required' => 'La descripción es obligatoria.',

@@ -240,7 +240,6 @@ function aplicacionFiltros()
     console.log(nombreFiltro.value);
     console.log(tipoFiltro.value);
     console.log(subtipoFiltro.value);
-    console.log(descripcionFiltro.value);
     console.log(prioridadFiltro.value);
     console.log(fechaDesdeFiltro.value);
     console.log(fechaHastaFiltro.value);
@@ -272,11 +271,6 @@ function aplicacionFiltros()
     {
         let subtipo={subtipo_nombre:subtipoFiltro.value};
         criterios.subtipo=subtipo;
-    }
-
-    if(descripcionFiltro.value!="")
-    {
-        criterios.descripcion=descripcionFiltro.value;
     }
 
     if(prioridadFiltro.value!="-1")
