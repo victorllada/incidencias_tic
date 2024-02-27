@@ -54,7 +54,7 @@ function generarSubtipos()
             array = ["IESMIGUELHERRERO","WIECAN"];
             break;
         case "INTERNET":
-            array = ["INSTALACION","ACTUALIZACION"];
+            array = [];
             break;
         case "SOFTWARE":
             array = ["INSTALACION","ACTUALIZACION"];
