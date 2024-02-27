@@ -1,6 +1,9 @@
 addEventListener("load",inicio,false);
 
 let datosIncidencias;
+let datosFinales;
+let datosPaginacion=[];
+let pagina=0;
 
 function inicio()
 {
@@ -8,11 +11,118 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data; // Guardamos los datos en la variable
         console.log(datosIncidencias); // Ahora deberías poder ver los datos
+
+        crearArrayPaginacion(datosIncidencias);
+
+        console.log(datosPaginacion);
+
+        for(let i=0;datosPaginacion[pagina].length;i++)
+        {
+            //console.log(item.id);
+            let stringRedirect="http://127.0.0.1:8000/incidencias/"+datosPaginacion[0][i].id;
+
+            let divPadre=document.createElement("div");//contenedor de la incidencia
+            divPadre.classList="lista-incidencias";
+
+            let divPadreIntero=document.createElement("div");//div interno a la incidcencia
+            divPadreIntero.classList="row d-flex justify-content-between align-items-center flex-nowrap rounded";
+
+            let divId=document.createElement("div");//id
+            divId.classList="col p-3 baja-res";
+            divId.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divUsuario=document.createElement("div");//usuario
+            divUsuario.classList="col p-3 baja-res";
+            divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divTipoIncidencia=document.createElement("div");//tipo
+            divTipoIncidencia.classList="col p-3 text-ellipsis";
+            divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divSubtipo=document.createElement("div");//subtipo
+            divSubtipo.classList="col p-3 text-ellipsis";
+            divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divFecha=document.createElement("div");
+            divFecha.classList="col p-3 baja-res";
+            divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divPrioridad=document.createElement("div");//prioridad
+            divPrioridad.classList="col p-3 text-ellipsis";
+            divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divEstado=document.createElement("div");//estado
+            divEstado.classList="col p-3 text-ellipsis";
+            divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
+
+            let divBotones=document.createElement("div");//botones
+            divBotones.classList="col p-3 movil-res";
+
+            let divBotonesInterno=document.createElement("div");//div interno a los botones
+            divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
+
+            let formBorrar=document.createElement("form");
+            formBorrar.classList="d-flex";
+            formBorrar.action="http://127.0.0.1:8000/ruta/"+datosPaginacion[0][i].id;
+
+            let textId=document.createTextNode(datosPaginacion[0][i].id);//id
+            let textUsuario=document.createTextNode(datosPaginacion[0][i].creador.nombre_completo);//usuario
+            let textTipoIncidencia=document.createTextNode(datosPaginacion[0][i].tipo);//tipo
+            let textSubtipo=document.createTextNode(datosPaginacion[0][i].subtipo.subtipo_nombre);//subtipo
+            let textFecha=document.createTextNode(datosPaginacion[0][i].fecha_creacion);
+            let textPrioridad=document.createTextNode(datosPaginacion[0][i].prioridad);//prioridad
+            let textEstado=document.createTextNode(datosPaginacion[0][i].estado);//estado
+
+            let aDetalles=document.createElement("a");
+            aDetalles.innerHTML="Detalles";
+            aDetalles.type="button";
+            aDetalles.href="http://127.0.0.1:8000/incidencias/"+datosPaginacion[0][i].id;
+            aDetalles.classList="btn aquamarine-400 text-white";
+            let inputBorrar=document.createElement("input");
+            inputBorrar.value="Borrar";
+            inputBorrar.type="submit";
+            inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
+            inputBorrar.setAttribute("data-bs-toggle","modal");
+            inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+
+            formBorrar.appendChild(inputBorrar);
+            divBotonesInterno.appendChild(formBorrar);
+            divBotonesInterno.appendChild(aDetalles);
+
+            divId.appendChild(textId);
+            divUsuario.appendChild(textUsuario);
+            divTipoIncidencia.appendChild(textTipoIncidencia);
+            divSubtipo.appendChild(textSubtipo);
+            divFecha.appendChild(textFecha);
+            divPrioridad.appendChild(textPrioridad);
+            divEstado.appendChild(textEstado);
+            divBotones.appendChild(divBotonesInterno);
+
+            divPadreIntero.appendChild(divId);
+            divPadreIntero.appendChild(divUsuario);
+            divPadreIntero.appendChild(divTipoIncidencia);
+            divPadreIntero.appendChild(divSubtipo);
+            divPadreIntero.appendChild(divFecha);
+            divPadreIntero.appendChild(divPrioridad);
+            divPadreIntero.appendChild(divEstado);
+            divPadreIntero.appendChild(divBotones);
+
+            divPadre.appendChild(divPadreIntero);
+
+            document.querySelector("#contenedorIncidencias").appendChild(divPadre);
+
+            //divPadre.addEventListener("click",verEnviarIncidencia,false);
+        }
+
     });
 
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
     tipoFiltro.addEventListener("change",generarSubtipos,false);
+    inicioPaginacion.addEventListener("click",paginacionInicio,false);
+    finalPaginacion.addEventListener("click",paginacionFin,false);
+    anterior.addEventListener("click",paginaAnterior,false);
+    siguiente.addEventListener("click",paginaSiguiente,false);
 }
 
 async function obtenerIncidencias()
@@ -35,6 +145,52 @@ async function obtenerIncidencias()
     {
         console.error('Ha ocurrido un error:', error);
     }
+}
+
+function crearArrayPaginacion(array)
+{
+    for (let i=0;i<array.length; i+=10)
+    {
+        datosPaginacion.push(array.slice(i, i+10));
+    }
+}
+
+function paginaSiguiente()
+{
+    let pajTemp=pagina;
+
+    if(++pajTemp<datosPaginacion.length)
+    {
+        pagina++;
+
+        generarIncidencias(datosPaginacion);
+    }
+}
+
+function paginaAnterior()
+{
+    let pajTemp=pagina;
+
+    if(--pajTemp>-1)
+    {
+        pagina--;
+
+        generarIncidencias(datosPaginacion);
+    }
+}
+
+function paginacionInicio()
+{
+    pagina=0;
+
+    generarIncidencias(datosPaginacion);
+}
+
+function paginacionFin()
+{
+    pagina=datosPaginacion.length-1;
+
+    generarIncidencias(datosPaginacion);
 }
 
 function generarSubtipos()
@@ -240,7 +396,6 @@ function aplicacionFiltros()
     console.log(nombreFiltro.value);
     console.log(tipoFiltro.value);
     console.log(subtipoFiltro.value);
-    console.log(descripcionFiltro.value);
     console.log(prioridadFiltro.value);
     console.log(fechaDesdeFiltro.value);
     console.log(fechaHastaFiltro.value);
@@ -250,7 +405,7 @@ function aplicacionFiltros()
     let filtrados=[];
     let filtradosNombre=[];
     let filtradosFecha=[];
-    let datosFinales=[];
+    datosFinales=[];
 
     if(fechaDesdeFiltro.value=="" && fechaHastaFiltro.value!="")
     {
@@ -272,11 +427,6 @@ function aplicacionFiltros()
     {
         let subtipo={subtipo_nombre:subtipoFiltro.value};
         criterios.subtipo=subtipo;
-    }
-
-    if(descripcionFiltro.value!="")
-    {
-        criterios.descripcion=descripcionFiltro.value;
     }
 
     if(prioridadFiltro.value!="-1")
@@ -357,7 +507,10 @@ function aplicacionFiltros()
 
     console.log(datosFinales);
 
-    document.querySelector("#contenedorIncidencias").innerHTML="";
+    crearArrayPaginacion(datosFinales);
+    generarIncidencias(datosPaginacion);
+
+    /*document.querySelector("#contenedorIncidencias").innerHTML="";
 
     datosFinales.forEach(item =>
         {
@@ -390,10 +543,6 @@ function aplicacionFiltros()
             divFecha.classList="col p-3 baja-res";
             divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
 
-            let divDesccripcion=document.createElement("div");//dedscripcion
-            divDesccripcion.classList="col p-3 text-ellipsis baja-res";
-            divDesccripcion.addEventListener("click",()=>redirect(stringRedirect),false);
-
             let divPrioridad=document.createElement("div");//prioridad
             divPrioridad.classList="col p-3 text-ellipsis";
             divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
@@ -408,25 +557,34 @@ function aplicacionFiltros()
             let divBotonesInterno=document.createElement("div");//div interno a los botones
             divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
 
+            let formBorrar=document.createElement("form");
+            formBorrar.classList="d-flex";
+            formBorrar.action="http://127.0.0.1:8000/ruta/"+item.id;
+
             let textId=document.createTextNode(item.id);//id
             let textUsuario=document.createTextNode(item.creador.nombre_completo);//usuario
             let textTipoIncidencia=document.createTextNode(item.tipo);//tipo
             let textSubtipo=document.createTextNode(item.subtipo.subtipo_nombre);//subtipo
             let textFecha=document.createTextNode(item.fecha_creacion);
-            let textDescripcion=document.createTextNode(item.descripcion);//descripcion
             let textPrioridad=document.createTextNode(item.prioridad);//prioridad
             let textEstado=document.createTextNode(item.estado);//estado
+
+
+            <form action="" class="d-flex">
+                <input type="submit" class="btn aquamarine-400 text-white flex-fill" value="Borrar">
+            </form>
 
             let aDetalles=document.createElement("a");
             aDetalles.innerHTML="Detalles";
             aDetalles.type="button";
             aDetalles.href="http://127.0.0.1:8000/incidencias/"+item.id;
             aDetalles.classList="btn aquamarine-400 text-white";
-            let aBorrar=document.createElement("a");
-            aBorrar.innerHTML="Borrar";
-            aBorrar.type="button";
-            aBorrar.href="#";
-            aBorrar.classList="btn aquamarine-400 text-white";
+            let inputBorrar=document.createElement("input");
+            inputBorrar.value="Borrar";
+            inputBorrar.type="submit";
+            inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
+            inputBorrar.setAttribute("data-bs-toggle","modal");
+            inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
 
             divBotonesInterno.appendChild(aDetalles);
             divBotonesInterno.appendChild(aBorrar);
@@ -436,7 +594,6 @@ function aplicacionFiltros()
             divTipoIncidencia.appendChild(textTipoIncidencia);
             divSubtipo.appendChild(textSubtipo);
             divFecha.appendChild(textFecha);
-            divDesccripcion.appendChild(textDescripcion);
             divPrioridad.appendChild(textPrioridad);
             divEstado.appendChild(textEstado);
             divBotones.appendChild(divBotonesInterno);
@@ -446,7 +603,6 @@ function aplicacionFiltros()
             divPadreIntero.appendChild(divTipoIncidencia);
             divPadreIntero.appendChild(divSubtipo);
             divPadreIntero.appendChild(divFecha);
-            divPadreIntero.appendChild(divDesccripcion);
             divPadreIntero.appendChild(divPrioridad);
             divPadreIntero.appendChild(divEstado);
             divPadreIntero.appendChild(divBotones);
@@ -457,7 +613,7 @@ function aplicacionFiltros()
 
             //divPadre.addEventListener("click",verEnviarIncidencia,false);
         }
-    );
+    );*/
 }
 
 
@@ -505,10 +661,6 @@ function borrarFiltros()
             divFecha.classList="col p-3 baja-res";
             divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
 
-            let divDesccripcion=document.createElement("div");//dedscripcion
-            divDesccripcion.classList="col p-3 text-ellipsis baja-res";
-            divDesccripcion.addEventListener("click",()=>redirect(stringRedirect),false);
-
             let divPrioridad=document.createElement("div");//prioridad
             divPrioridad.classList="col p-3 text-ellipsis";
             divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
@@ -528,7 +680,6 @@ function borrarFiltros()
             let textTipoIncidencia=document.createTextNode(item.tipo);//tipo
             let textSubtipo=document.createTextNode(item.subtipo.subtipo_nombre);//subtipo
             let textFecha=document.createTextNode(item.fecha_creacion);
-            let textDescripcion=document.createTextNode(item.descripcion);//descripcion
             let textPrioridad=document.createTextNode(item.prioridad);//prioridad
             let textEstado=document.createTextNode(item.estado);//estado
 
@@ -551,7 +702,6 @@ function borrarFiltros()
             divTipoIncidencia.appendChild(textTipoIncidencia);
             divSubtipo.appendChild(textSubtipo);
             divFecha.appendChild(textFecha);
-            divDesccripcion.appendChild(textDescripcion);
             divPrioridad.appendChild(textPrioridad);
             divEstado.appendChild(textEstado);
             divBotones.appendChild(divBotonesInterno);
@@ -561,7 +711,6 @@ function borrarFiltros()
             divPadreIntero.appendChild(divTipoIncidencia);
             divPadreIntero.appendChild(divSubtipo);
             divPadreIntero.appendChild(divFecha);
-            divPadreIntero.appendChild(divDesccripcion);
             divPadreIntero.appendChild(divPrioridad);
             divPadreIntero.appendChild(divEstado);
             divPadreIntero.appendChild(divBotones);
@@ -573,6 +722,155 @@ function borrarFiltros()
             //divPadre.addEventListener("click",verEnviarIncidencia,false);
         }
     );
+}
+
+function generarIncidencias(datos)
+{
+    document.querySelector("#contenedorIncidencias").innerHTML="";
+
+    for(let i=0;datos[pagina].length;i++)
+    {
+        //console.log(item.id);
+        let stringRedirect="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
+
+        let divPadre=document.createElement("div");//contenedor de la incidencia
+        divPadre.classList="lista-incidencias";
+
+        let divPadreIntero=document.createElement("div");//div interno a la incidcencia
+        divPadreIntero.classList="row d-flex justify-content-between align-items-center flex-nowrap rounded";
+
+        let divId=document.createElement("div");//id
+        divId.classList="col p-3 baja-res";
+        divId.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divUsuario=document.createElement("div");//usuario
+        divUsuario.classList="col p-3 baja-res";
+        divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divTipoIncidencia=document.createElement("div");//tipo
+        divTipoIncidencia.classList="col p-3 text-ellipsis";
+        divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divSubtipo=document.createElement("div");//subtipo
+        divSubtipo.classList="col p-3 text-ellipsis";
+        divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divFecha=document.createElement("div");
+        divFecha.classList="col p-3 baja-res";
+        divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divPrioridad=document.createElement("div");//prioridad
+        divPrioridad.classList="col p-3 text-ellipsis";
+        divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divEstado=document.createElement("div");//estado
+        divEstado.classList="col p-3 text-ellipsis";
+        divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divBotones=document.createElement("div");//botones
+        divBotones.classList="col p-3 movil-res";
+
+        let divBotonesInterno=document.createElement("div");//div interno a los botones
+        divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
+
+        let formBorrar=document.createElement("form");
+        formBorrar.classList="d-flex";
+        formBorrar.action="http://127.0.0.1:8000/ruta/"+datosPaginacion[pagina][i].id;
+
+        let textId=document.createTextNode(datos[pagina][i].id);//id
+        let textUsuario=document.createTextNode(datos[pagina][i].creador.nombre_completo);//usuario
+        let textTipoIncidencia=document.createTextNode(datos[pagina][i].tipo);//tipo
+        let textSubtipo=document.createTextNode(datos[pagina][i].subtipo.subtipo_nombre);//subtipo
+        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion);
+        let textPrioridad=document.createTextNode(datos[pagina][i].prioridad);//prioridad
+        let textEstado=document.createTextNode(datos[pagina][i].estado);//estado
+
+        let aDetalles=document.createElement("a");
+        aDetalles.innerHTML="Detalles";
+        aDetalles.type="button";
+        aDetalles.href="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
+        aDetalles.classList="btn aquamarine-400 text-white";
+        let inputBorrar=document.createElement("input");
+        inputBorrar.value="Borrar";
+        inputBorrar.type="submit";
+        inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
+        inputBorrar.setAttribute("data-bs-toggle","modal");
+        inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+
+        formBorrar.appendChild(inputBorrar);
+        divBotonesInterno.appendChild(formBorrar);
+        divBotonesInterno.appendChild(aDetalles);
+
+        divId.appendChild(textId);
+        divUsuario.appendChild(textUsuario);
+        divTipoIncidencia.appendChild(textTipoIncidencia);
+        divSubtipo.appendChild(textSubtipo);
+        divFecha.appendChild(textFecha);
+        divPrioridad.appendChild(textPrioridad);
+        divEstado.appendChild(textEstado);
+        divBotones.appendChild(divBotonesInterno);
+
+        divPadreIntero.appendChild(divId);
+        divPadreIntero.appendChild(divUsuario);
+        divPadreIntero.appendChild(divTipoIncidencia);
+        divPadreIntero.appendChild(divSubtipo);
+        divPadreIntero.appendChild(divFecha);
+        divPadreIntero.appendChild(divPrioridad);
+        divPadreIntero.appendChild(divEstado);
+        divPadreIntero.appendChild(divBotones);
+
+        divPadre.appendChild(divPadreIntero);
+
+        document.querySelector("#contenedorIncidencias").appendChild(divPadre);
+
+        //divPadre.addEventListener("click",verEnviarIncidencia,false);
+
+        console.log(pagina);
+        if(pagina==0)
+        {
+            anterior.disabled=true;
+            anterior.parentNode.classList="page-item disabled";
+
+            siguiente.disabled=false;
+            siguiente.parentNode.classList="page-item";
+
+            finalPaginacion.disabled=false;
+            finalPaginacion.parentNode.classList="page-item";
+
+            inicioPaginacion.disabled=true;
+            inicioPaginacion.parentNode.classList="page-item disabled";
+        }
+
+        if(pagina==datosPaginacion.length-1)
+        {
+            siguiente.disabled=true;
+            siguiente.parentNode.classList="page-item disabled";
+
+            anterior.disabled=false;
+            anterior.parentNode.classList="page-item";
+
+            finalPaginacion.disabled=true;
+            finalPaginacion.parentNode.classList="page-item disabled";
+
+            inicioPaginacion.disabled=false;
+            inicioPaginacion.parentNode.classList="page-item";
+        }
+
+        if(pagina>0 && pagina<datosPaginacion.length-1)
+        {
+            siguiente.disabled=false;
+            siguiente.parentNode.classList="page-item";
+
+            anterior.disabled=false;
+            anterior.parentNode.classList="page-item";
+
+            finalPaginacion.disabled=false;
+            finalPaginacion.parentNode.classList="page-item";
+
+            inicioPaginacion.disabled=false;
+            inicioPaginacion.parentNode.classList="page-item";
+        }
+    }
 }
 
 function redirect(url)
