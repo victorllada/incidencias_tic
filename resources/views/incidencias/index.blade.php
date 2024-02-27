@@ -222,7 +222,10 @@
                                 <div class="d-flex flex-column justify-content-center gap-2">
                                     <a class=" btn aquamarine-400 text-white" type="button"
                                         href="{{ route('incidencias.show', $incidencia) }}">Detalles</a>
-                                    <a class=" btn aquamarine-400 text-white" type="button" href="#">Borrar</a>
+                                    <form action="" class="d-flex">
+                                        <input type="button" class="btn aquamarine-400 text-white flex-fill"
+                                            value="Borrar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -232,15 +235,26 @@
                 @endforelse
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Petición de borrado</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Desea borrar la incidencia
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
+                        <input type="button" class="btn btn-danger" value="Borrar" id="actibarBorrado"
+                            name="activarBorrado">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
-{{--
-                    <div class="col p-3 d-flex justify-content-center align-items-center">
-                        <button type="button" class="btn aquamarine-400 text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                            </svg>
-                        </button>
-                    </div> --}}
