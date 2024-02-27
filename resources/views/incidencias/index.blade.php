@@ -6,19 +6,16 @@
 
         {{-- Contenedor del boton filtrar y los botones exportar --}}
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
-            <div class="d-flex justify-content-between gap-2">
+            <div class="d-flex gap-2">
 
                 {{-- Boton y desplegable para los filtros --}}
                 <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
                     <div>
                         <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
-                            aria-label="Toggle navigation">Filtrar
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                class="bi bi-filter" viewBox="0 0 16 16">
-                                <path
-                                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                            </svg>
+                            aria-label="Toggle navigation">
+                            Filtrar
+                            <i class="bi bi-filter"></i>
                         </button>
 
                         {{-- Desplegable con los filtros --}}
@@ -105,32 +102,28 @@
                                         <option value="en proceso">En proceso</option>
                                     </select>
                                 </div>
-                            </div>
 
-                            {{-- Boton de filtrado y borrar filtros --}}
-                            <div class="d-flex justify-content-between gap-2">
-                                <button class="btn aquamarine-400 text-white" type="submit" id="borrar">Borrar
-                                    filtros</button>
-                                <button class="btn aquamarine-400 text-white flex-fill" type="submit"
-                                    data-bs-dismiss="offcanvas" id="filtrar">Filtrar</button>
+                                {{-- Boton de filtrado y borrar filtros --}}
+                                <div class="d-flex justify-content-between gap-2">
+                                    <button class="btn aquamarine-400 text-white" type="submit" id="borrar">Borrar
+                                        filtros</button>
+                                    <button class="btn aquamarine-400 text-white flex-fill" type="submit"
+                                        data-bs-dismiss="offcanvas" id="filtrar">Filtrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {{-- Boton crear incidencia --}}
-                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">Crear
-                    incidencia
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus-lg" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                    </svg>
+                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">
+                    Crear incidencia
+                    <i class="bi bi-plus-lg"></i>
                 </a>
             </div>
 
             {{-- Botones --}}
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex gap-2">
 
                 {{-- Boton para exportar en los distitos formatos --}}
                 <div class="dropdown custom-dropdown">
@@ -166,16 +159,63 @@
                             </div>
 
                             {{-- Contendor con tipos de informes --}}
-                            <div class="offcanvas-body d-flex flex-column justify-between gap-4">
-                                <div>
-                                    <div>Incidencias resueltas por cada administrador</div>
+                            <div class="offcanvas-body d-flex flex-column justify-between p-0">
+                                <div class="row p-3">
+                                    <div class="col fw-bolder">Incidencias resueltas por cada administrador</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
                                 </div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                                <div class="row p-3">
+                                    <div class="col">Incidencias abiertas por cada usuario</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col">Estadísticas sobre los tipos de incidencias</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col">Tiempo dedicado a cada incidencia</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col">Tiempos de resolución por tipo de incidencia</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col">Tiempo dedicado por cada administrador</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col">Lista de incidencias asignadas a cada administrador</div>
+                                    <div class="col">
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                        <a href="" class="btn aquamarine-400 text-white" type="button"></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
