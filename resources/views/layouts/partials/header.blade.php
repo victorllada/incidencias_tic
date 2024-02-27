@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg d-flex flex-row justify-content-between">
         <div class="container">
             <a class="navbar-brand link-body-emphasis text-white" href="{{ route('incidencias.index') }}">
-                <img src="{{ asset('assets/imagenes/logo.svg') }}" alt="logo" class="logo">
+                <img src="{{ asset('assets/imagenes/logo.svg') }}" alt="logo" class="logo-header">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
