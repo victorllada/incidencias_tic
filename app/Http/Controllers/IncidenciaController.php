@@ -29,7 +29,7 @@ class IncidenciaController extends Controller
     */
     public function datosIncidencias()
     {
-        $incidenciasJSON = Incidencia::with(['subtipo', 'creador','equipo', 'comentarios'])->get();
+        $incidenciasJSON = Incidencia::with(['subtipo', 'creador', 'equipo', 'comentarios'])->get();
         return response()->json($incidenciasJSON);
     }
 
@@ -41,7 +41,7 @@ class IncidenciaController extends Controller
         $usuarios = User::all();
         $aulas = Aula::all();
         $departamentos = Departamento::all();
-        return view('incidencias.create',compact('usuarios', 'aulas', 'departamentos'));
+        return view('incidencias.create', compact('usuarios', 'aulas', 'departamentos'));
     }
 
     /**
@@ -56,14 +56,18 @@ class IncidenciaController extends Controller
 
             $incidencia->tipo = $request->tipo;
 
-            // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
-            $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo);
-            if (!is_null($request->input('sub-tipo'))) {
-                $incidencia_subtipo_query ->where('subtipo_nombre', $request->input('sub-tipo'));
-            }
-            if (!is_null($request->input('sub-sub-tipo'))) {
-                $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
-            }
+            $subtipo = $request->input('sub-tipo');
+            $subsubtipo = $request->input('sub-sub-tipo');
+
+            // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
+            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo)
+                ->when(!is_null($subtipo), function ($query) use ($subtipo) {
+                    return $query->where('subtipo_nombre', $subtipo);
+                })
+                ->when(!is_null($subsubtipo), function ($query) use ($subsubtipo) {
+                    return $query->where('sub_subtipo', $subsubtipo);
+                });
+
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
             // Obtener el ID
@@ -73,11 +77,13 @@ class IncidenciaController extends Controller
 
             $incidencia->fecha_creacion = now();
             $incidencia->descripcion = $request->descripcion;
-            $incidencia->estado = "abierta";
+            $incidencia->estado = "ABIERTA";
             $incidencia->prioridad = $request->prioridad;
 
             if ($request->hasFile('fichero')) {
-                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto_url', 'discoAssets');
+                $archivo = $request->file('fichero');
+                $extension = $archivo->getClientOriginalExtension(); // Obtén la extensión original
+                $incidencia->adjunto_url = $archivo->storeAs('adjuntos', 'archivo_personalizado.' . $extension, 'discoAssets');
             } else {
                 $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
             }
@@ -106,7 +112,7 @@ class IncidenciaController extends Controller
 
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {
-            dd($e->getMessage());
+            dd($e);
             DB::rollBack();
             return redirect()->route('incidencias.index')->with('error', 'No se pudo crear la incidencia. Detalles: ' . $e->getMessage());
         }

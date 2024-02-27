@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('duracion')->nullable();
             $table->text('descripcion');
             $table->text('actuaciones')->nullable();
-            $table->enum('estado', ['abierta', 'asignada', 'en proceso', 'enviada a Infortec', 'resuelta', 'cerrada']);
-            $table->enum('prioridad', ['baja', 'media', 'alta', 'urgente']);
+            $table->enum('estado', ['ABIERTA', 'ASIGNADA', 'EN PROCESO', 'ENVIADA A INFORTEC', 'RESUELTA', 'CERRADA']);
+            $table->enum('prioridad', ['BAJA', 'MEDIA', 'ALTA', 'URGENTE']);
             $table->text('adjunto_url')->nullable();
             $table->unsignedBigInteger('creador_id');
             $table->unsignedBigInteger('responsable_id')->nullable();

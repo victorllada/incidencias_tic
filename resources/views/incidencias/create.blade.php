@@ -75,7 +75,7 @@
                         <div class="col-lg-4" id="div-sub-tipo" hidden>
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="sub-tipo">Sub-tipo</label>
-                                <select class="form-select" name="sub-tipo" id="sub-tipo" required>
+                                <select class="form-select" name="sub-tipo" id="sub-tipo">
                                     <option selected disabled value="-1">Selecciona el subtipo</option>
                                 </select>
                             </div>
@@ -242,7 +242,6 @@
                 break;
             case "INTERNET":
                 var array = [];
-
                 break;
             case "SOFTWARE":
                 var array = ["INSTALACION", "ACTUALIZACION"];
@@ -304,7 +303,7 @@
                 var array = ["RATON", "ORDENADOR", "TECLADO"];
                 break;
             case "Portátil":
-                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "PORTATIL DE AULA", "PORTATIL DE PUESTO"];
+                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
                 break;
             default:
                 borrarSubSubOpciones();
