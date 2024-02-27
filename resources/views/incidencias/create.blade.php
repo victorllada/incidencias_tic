@@ -39,7 +39,7 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="nombre">Nombre</label>
                                 <input type="number" class="form-control" name="nombre" id="nombre"
-                                    value="{{ incidencia->creador }}" disabled>
+                                    value="{{ $incidencia->creador }}" disabled>
                             </div>
                         </div>
                         <div class="col-4">
