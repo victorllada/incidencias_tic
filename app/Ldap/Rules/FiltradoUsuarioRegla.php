@@ -13,26 +13,33 @@ class FiltradoUsuarioRegla implements Rule
      */
     public function passes(LdapRecord $user, Eloquent $model = null): bool
     {
-        // Ejemplos distinguishedname
+        // Ejemplos DN
         //CN=DAW202,OU=DAW2,OU=AlumnosInformatica,OU=UsuariosInformatica,OU=IESMHP-Usuarios,DC=iesmhp,DC=local
         //CN=Carmen Iza Castanedo,OU=ProfesoresInformatica,OU=UsuariosInformatica,OU=IESMHP-Usuarios,DC=iesmhp,DC=local
 
-        // Obtener las OUs permitidas desde el archivo .env -> LDAP_OUS_PERMITIDAS="OU=Test,DC=petra,DC=local|OU=Test2,DC=petra,DC=local"
+        // Obtener la base DN desde el archivo .env -> LDAP_BASE_DN
+        $baseDN = env('LDAP_BASE_DN');
+
+        // Obtener las OUs permitidas desde el archivo .env -> LDAP_OUS_PERMITIDAS
         $ousPermitidas = explode('|', env('LDAP_OUS_PERMITIDAS'));
 
-        // Array con OUs permitidas por si falla el .ENV
+        // Array con OUs permitidas para pruebas rápidas
         /*$ousPermitidas = [
-            'OU=ProfesoresInformatica,OU=UsuariosInformatica,OU=IESMHP-Usuarios,DC=iesmhp,DC=local'
-            'OU=AlumnosInformatica,OU=UsuariosInformatica,OU=IESMHP-Usuarios,DC=iesmhp,DC=local',
         ];*/
 
         // Comprobar si el atributo distinguishedname contiene alguna de las OUs permitidas
         foreach ($ousPermitidas as $ouPermitida) {
-            if (strpos($user->getFirstAttribute('distinguishedname'), $ouPermitida) !== false) {
+            // Construir el DN completo concatenando la OU permitida con la base DN
+            $dnCompleto = $ouPermitida . ',' . $baseDN;
+
+            // Comprobar si el DN completo está el el distinguishedname del usuario
+            if (strpos($user->getFirstAttribute('distinguishedname'), $dnCompleto ) !== false) {
+                // Puede hacer login
                 return true;
             }
         }
 
+        // No puede hacer login
         return false;
     }
 }

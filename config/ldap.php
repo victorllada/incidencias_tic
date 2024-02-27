@@ -28,8 +28,11 @@ return [
 
     'connections' => [
 
-        'default' => [
-            'hosts' => [env('LDAP_HOST', '127.0.0.1')],
+        'iesmhp' => [
+            'hosts' => [
+                env('LDAP_HOST1', '127.0.0.1'),
+                env('LDAP_HOST2', '127.0.0.1')
+            ],
             'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
             'password' => env('LDAP_PASSWORD', 'secret'),
             'port' => env('LDAP_PORT', 389),
