@@ -176,6 +176,7 @@
     @endsection
 
     <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
+    <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
     <script>
         addEventListener('load', () => {
             //Guardamos en una variable el selec de tipo
@@ -224,7 +225,6 @@
                     break;
                 case "INTERNET":
                     var array = [];
-
                     break;
                 case "SOFTWARE":
                     var array = ["INSTALACION", "ACTUALIZACION"];
@@ -286,7 +286,7 @@
                     var array = ["RATON", "ORDENADOR", "TECLADO"];
                     break;
                 case "Portátil":
-                    var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "PORTATIL DE AULA", "PORTATIL DE PUESTO"];
+                    var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
                     break;
                 default:
                     borrarSubSubOpciones();
