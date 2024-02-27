@@ -116,7 +116,7 @@ class IncidenciaController extends Controller
             DB::commit();
 
             // Envío de correo poniéndolo en cola para que no interrumpa la redirección
-            //Mail::to([$incidencia->creador->nombre_completo])->queue(new EnvioCorreo($incidencia, 'creado'));
+            //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
 
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {

@@ -12,7 +12,7 @@
     <p>Se ha {{ $operacion }} la incidencia con ID: {{ $incidencia->id }}</p>
     <h3>Detalles: </h3>
     <ul>
-        <li>Creador: {{ auth()->user()->name }}</li>
+        <li>Creador: {{ auth()->user()->nombre_completo }}</li>
     </ul>
 </body>
 
