@@ -38,8 +38,8 @@
                         <div class="col-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="nombre">Nombre</label>
-                                <input type="number" class="form-control" name="nombre" id="nombre"
-                                    value="{{ $incidencia->creador }}" disabled>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    value="{{ auth()->user()->nombre_completo }}" readonly>
                             </div>
                         </div>
                         <div class="col-4">
@@ -48,9 +48,9 @@
                                     for="departamento">Departamento</label>
                                 <select class="form-select" name="departamento" id="departamento" required>
                                     <option selected disabled value="-1">Selecciona la departamento</option>
-                                    <option value="A">a</option>
-                                    <option value="B">b</option>
-                                    <option value="C">c</option>
+                                    @foreach ($departamentos as $departamento)
+                                        <option value{{ $departamento->id }}>{{ $departamento->nombre }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                 <select class="form-select" name="aula" id="aula" required>
                                     <option selected disabled value="-1">Selecciona el aula</option>
                                     @foreach ($aulas as $aula)
-                                        <option value={{ $aula->id }}>{{ $aula->codigo }}</option>
+                                        <option value{{ $aula->id }}>{{ $aula->codigo }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -131,10 +131,10 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
                                     <option selected disabled value="-1">Selecciona la prioridad</option>
-                                    <option value="baja">Baja</option>
-                                    <option value="media">Media</option>
-                                    <option value="alta">Alta</option>
-                                    <option value="urgente">Urgente</option>
+                                    <option value="BAJA">Baja</option>
+                                    <option value="MEDIA">Media</option>
+                                    <option value="ALTA">Alta</option>
+                                    <option value="URGENTE">Urgente</option>
                                 </select>
                             </div>
                         </div>
@@ -230,21 +230,22 @@
 
         switch (selec.value) {
             case "CUENTAS":
-                var array = ["Educantabria", "Google Classroom", "Dominio", "Yedra"];
+                var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
                 break;
             case "EQUIPOS":
-                var array = ["Altavoces", "PC", "Monitor", "Proyector", "Pantalla interactiva", "Portátil",
-                    "Impresoras"
+                var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
+                    "IMPRESORA"
                 ];
                 break;
             case "WIFI":
-                var array = ["Iesmiguelherrero", "WIECAN"];
+                var array = ["IESMIGUELHERRERO", "WIECAN"];
                 break;
             case "INTERNET":
-                var array = ["Instalación", "Actualización"];
+                var array = [];
+
                 break;
             case "SOFTWARE":
-                var array = ["Instalación", "Actualización"];
+                var array = ["INSTALACION", "ACTUALIZACION"];
                 break;
             default:
                 break;
@@ -257,8 +258,14 @@
             subtipo.appendChild(opt);
         }
 
-        document.getElementById("div-sub-tipo").hidden = false;
+        if (selec.value == "INTERNET") {
+            document.getElementById("div-sub-tipo").hidden = true;
+        } else {
+            document.getElementById("div-sub-tipo").hidden = false;
+        }
+
     }
+
 
     /**
      *Borra todas las opciones del selec de sub-tipos
@@ -277,7 +284,7 @@
     function comprobarYedra() {
         var subtipo = document.getElementById("sub-tipo");
 
-        if (subtipo.value == "Yedra") {
+        if (subtipo.value == "YEDRA") {
             alert("Esta gestión la realiza Jefatura de estudios");
         }
     }
@@ -294,10 +301,10 @@
 
         switch (subtipo.value) {
             case "PC":
-                var array = ["Ratón", "Ordenador", "Teclado"];
+                var array = ["RATON", "ORDENADOR", "TECLADO"];
                 break;
             case "Portátil":
-                var array = ["Portátil proporcionado por Consejería", "Portátil de aula", "Portátil de puesto"];
+                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "PORTATIL DE AULA", "PORTATIL DE PUESTO"];
                 break;
             default:
                 borrarSubSubOpciones();

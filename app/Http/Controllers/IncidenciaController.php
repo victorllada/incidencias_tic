@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Models\Aula;
+use App\Models\Departamento;
 use App\Models\Equipo;
 use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
@@ -11,8 +12,6 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-
 
 class IncidenciaController extends Controller
 {
@@ -41,7 +40,8 @@ class IncidenciaController extends Controller
     {
         $usuarios = User::all();
         $aulas = Aula::all();
-        return view('incidencias.create',compact('usuarios', 'aulas'));
+        $departamentos = Departamento::all();
+        return view('incidencias.create',compact('usuarios', 'aulas', 'departamentos'));
     }
 
     /**
@@ -57,12 +57,13 @@ class IncidenciaController extends Controller
             $incidencia->tipo = $request->tipo;
 
             // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
-            $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo)
-                ->where('subtipo_nombre', $request->input('sub-tipo'));
+            $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo);
+            if (!is_null($request->input('sub-tipo'))) {
+                $incidencia_subtipo_query ->where('subtipo_nombre', $request->input('sub-tipo'));
+            }
             if (!is_null($request->input('sub-sub-tipo'))) {
                 $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
             }
-
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
             // Obtener el ID
@@ -81,8 +82,7 @@ class IncidenciaController extends Controller
                 $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
             }
 
-            $incidencia->creador_id = 1; //Aqui necesitamos pasarle el id del usuario actual, o buscar por nombre y correo u algo asi, para sacar id
-            //Para el id, he visto algo de auth()->id, pero no se si funcionará con spatie
+            $incidencia->creador_id = auth()->user()->id;
 
             $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
                 ->where('puesto', $request->puesto)
