@@ -21,7 +21,7 @@ Route::get('/', InicioController::class)->name('inicio');
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
-])->middleware('auth');
+]);//->middleware('auth');
 
 //ruta para poder enviar el json de incidencias
 Route::get("/datos",[IncidenciaController::class,"datosIncidencias"]);

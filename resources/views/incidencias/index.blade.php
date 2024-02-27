@@ -241,9 +241,9 @@
                 <ul class="pagination  d-flex justify-content-center">
                     <li class="page-item"><a class="page-link" href="#" id="inicioPaginacion">Inicio</a></li>
                     <li class="page-item"><button class="page-link" id="anterior">Anterior</button></li>
-                    <li class="page-item"><input type="number" id="pagina"></li>
+                    <li class="page-item"><input type="number" id="paginaActual" value="0"><span id="paginasTotales"></span></li>
                     <li class="page-item"><button class="page-link" id="siguiente">Siguiente</button></li>
-                    <li class="page-item"><button class="page-link" href="#" id="finalPaginacion">Final</button></li>
+                    <li class="page-item"><button class="page-link" id="finalPaginacion">Final</button></li>
                 </ul>
             </nav>
 
