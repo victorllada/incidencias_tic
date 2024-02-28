@@ -159,10 +159,11 @@
                             </div>
 
                             {{-- Contendor con tipos de informes --}}
-                            <div class="offcanvas-body d-flex flex-column gap-5">
-                                <div class="d-flex flex-column gap-4">
-                                    <div class="fw-bolder">Incidencias resueltas por cada administrador</div>
-                                    <div class="d-flex flex-row gap-2 justify-content-between">
+                            <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Incidencias resueltas por cada administrador
+                                    </div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
                                         <a href="" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
@@ -196,80 +197,212 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col fw-bolder">Incidencias abiertas por cada usuario</div>
-                                    <div class="col d-flex gap-2 justify-content-end align-items-center">
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-pdf"></i></a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-excel"></i>
+                                    <div class="col-7 fw-bolder">Incidencias abiertas por cada usuario</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-filetype-csv"></i>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col fw-bolder">Estadísticas sobre los tipos de incidencias</div>
-                                    <div class="col d-flex gap-2 justify-content-end align-items-center">
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-pdf"></i></a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-excel"></i>
-                                        </a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-filetype-csv"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col fw-bolder">Tiempo dedicado a cada incidencia</div>
-                                    <div class="col d-flex gap-2 justify-content-end align-items-center">
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-pdf"></i></a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-excel"></i>
-                                        </a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-filetype-csv"></i>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col fw-bolder">Tiempos de resolución por tipo de incidencia</div>
-                                    <div class="col d-flex gap-2 justify-content-end align-items-center">
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-pdf"></i></a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-excel"></i>
+                                    <div class="col-7 fw-bolder">Estadísticas sobre los tipos de incidencias</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-filetype-csv"></i>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col fw-bolder">Tiempo dedicado por cada administrador</div>
-                                    <div class="col d-flex gap-2 justify-content-end align-items-center">
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-pdf"></i></a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-excel"></i>
+                                    <div class="col-7 fw-bolder">Tiempo dedicado a cada incidencia</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-filetype-csv"></i>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col fw-bolder">Lista de incidencias asignadas a cada administrador</div>
-                                    <div class="col d-flex gap-2 justify-content-end align-items-center">
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-pdf"></i></a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-file-earmark-excel"></i>
+                                    <div class="col-7 fw-bolder">Tiempos de resolución por tipo de incidencia</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
-                                        <a href="" class="btn aquamarine-400 text-white" type="button">
-                                            <i class="bi bi-filetype-csv"></i>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Tiempo dedicado por cada administrador</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Lista de incidencias asignadas a cada administrador</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
@@ -384,7 +517,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea borrar la incidencia
+                        Desea borrar la incidencia con id:
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">

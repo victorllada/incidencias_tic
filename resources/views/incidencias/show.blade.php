@@ -141,7 +141,7 @@
                 <div class="row">
                     <div class="d-flex gap-2">
                         <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                            class="btn aquamarine-400 text-white">Actualizar</a>
+                            class="btn aquamarine-400 text-white">Editar</a>
                         <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
                     </div>
                 </div>
