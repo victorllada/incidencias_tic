@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', InicioController::class)->name('inicio');
 
 // Exportaciones
-Route::get('incidencias/exportar/todas/{formato}', [IncidenciaController::class, 'exportarTodas'])->name('incidencias.exportar');
-Route::get('incidencias/exportar/resueltas/{formato}', [IncidenciaController::class, 'exportarIncidenciasResueltasAdministradores'])->name('incidencias.exportar.resueltas.administradores');
-Route::get('incidencias/exportar/abiertas/{formato}', [IncidenciaController::class, 'exportarIncidenciasAbiertasUsuarios'])->name('incidencias.exportar.abiertas.usuarios');
+Route::get('incidencias/exportar/{tipo}/{formato}', [IncidenciaController::class, 'exportarIncidencias'])->name('incidencias.exportar');
 
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([

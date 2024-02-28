@@ -238,53 +238,27 @@ class IncidenciaController extends Controller
     }
 
     /**
-     * Método que exporta todas las incidencias en el formato indicado por parámetro.
+     * Método para exportar incidencias del tipo y formato indicado por parámetro.
      *
+     * @param string $tipo Tipo de incidencias a exportar ('todas', 'resueltas', 'abiertas').
      * @param string $formato Formato a exportar.
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function exportarTodas(string $formato)
+    public function exportarIncidencias(string $tipo, string $formato)
     {
         $fechaYHoraExportacion = date('YmdHis');
 
-        return match($formato) {
-            'pdf' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
-            'xlsx' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.xlsx'),
-            'csv' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.csv', \Maatwebsite\Excel\Excel::CSV)
+        $claseExport = match($tipo) {
+            'todas' => IncidenciasExport::class,
+            'resueltas' => IncidenciasResueltasAdministradoresExport::class,
+            'abiertas' => IncidenciasAbiertasUsuarioExport::class,
+            default => null,
         };
-    }
-
-    /**
-     * Método que exporta todas las incidencias resueltas por cada administrador en el formato indicado por parámetro.
-     *
-     * @param string $formato Formato a exportar.
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function exportarIncidenciasResueltasAdministradores(string $formato)
-    {
-        $fechaYHoraExportacion = date('YmdHis');
 
         return match($formato) {
-            'pdf' => Excel::download(new IncidenciasResueltasAdministradoresExport, $fechaYHoraExportacion . '_Incidencias_Resueltas_Administradores.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
-            'xlsx' => Excel::download(new IncidenciasResueltasAdministradoresExport, $fechaYHoraExportacion . '_Incidencias_Resueltas_Administradores.xlsx'),
-            'csv' => Excel::download(new IncidenciasResueltasAdministradoresExport, $fechaYHoraExportacion . '_Incidencias_Resueltas_Administradores.csv', \Maatwebsite\Excel\Excel::CSV)
-        };
-    }
-
-    /**
-     * Método que exporta todas las incidencias abiertas por cada usuario en el formato indicado por parámetro.
-     *
-     * @param string $formato Formato a exportar.
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function exportarIncidenciasAbiertasUsuarios(string $formato)
-    {
-        $fechaYHoraExportacion = date('YmdHis');
-
-        return match($formato) {
-            'pdf' => Excel::download(new IncidenciasAbiertasUsuarioExport, $fechaYHoraExportacion . '_Incidencias_Abiertas_Usuarios.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
-            'xlsx' => Excel::download(new IncidenciasAbiertasUsuarioExport, $fechaYHoraExportacion . '_Incidencias_Abiertas_Usuarios.xlsx'),
-            'csv' => Excel::download(new IncidenciasAbiertasUsuarioExport, $fechaYHoraExportacion . '_Incidencias_Abiertas_Usuarios.csv', \Maatwebsite\Excel\Excel::CSV)
+            'pdf' => Excel::download(new $claseExport, $fechaYHoraExportacion . "_Incidencias_{$tipo}.pdf", \Maatwebsite\Excel\Excel::DOMPDF),
+            'xlsx' => Excel::download(new $claseExport, $fechaYHoraExportacion . "_Incidencias_{$tipo}.xlsx"),
+            'csv' => Excel::download(new $claseExport, $fechaYHoraExportacion . "_Incidencias_{$tipo}.csv", \Maatwebsite\Excel\Excel::CSV)
         };
     }
 }
