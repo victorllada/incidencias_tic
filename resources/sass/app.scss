@@ -15,7 +15,7 @@ html{
     scrollbar-width: thin;
 }
 
-// Clase para los colores del pagina
+// Clase para los colores
 .aquamarine-50{
     background-color: $aquamarine-50;
 }
@@ -65,11 +65,12 @@ html{
     color: $aquamarine-400;
 }
 
-
+// Paginacion
 .numero-pagina input{
  width: 50%;
  border: none;
  text-align: center;
+ background-color: #f8fafc;
 }
 
 .numero-pagina input:hover{
@@ -81,11 +82,13 @@ html{
     width: 50%;
    }
 
+   // Botones
 .btn.aquamarine-400:hover {
     background-color: $aquamarine-600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+//Tabla
 .lista-incidencias:nth-child(odd){
     background-color: $aquamarine-50;
 }
@@ -102,6 +105,7 @@ html{
     background-color: $aquamarine-200;
 }
 
+// Logos
 .logo-header{
     width: 3.5em;
 }
@@ -115,7 +119,7 @@ a {
     color: inherit;
 }
 
-textarea{
+textarea {
     resize: none;
 }
 
@@ -123,6 +127,7 @@ form>.card{
     width: 100%;
 }
 
+// Desplegable filtros
 .filtros {
     width: 100%;
     height: 100%;
@@ -142,11 +147,6 @@ form>.card{
 
 .overflow-auto{
     max-height: 500px;
-}
-
-.table-rounded {
-    border-radius: 10px; /* Ajusta el valor según tus preferencias */
-    overflow: hidden; /* Asegura que los bordes redondeados sean visibles */
 }
 
 .text-ellipsis {
