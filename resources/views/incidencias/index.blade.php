@@ -87,10 +87,10 @@
                                         for="prioridadFiltro">Prioridad</label>
                                     <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
                                         <option selected value="-1">Selecciona la prioridad</option>
-                                        <option value="baja">Baja</option>
-                                        <option value="urgente">Urgente</option>
-                                        <option value="media">Media</option>
-                                        <option value="alta">Alta</option>
+                                        <option value="BAJA">Baja</option>
+                                        <option value="URGENTE">Urgente</option>
+                                        <option value="MEDIA">Media</option>
+                                        <option value="ALTA">Alta</option>
                                     </select>
                                 </div>
 
@@ -110,12 +110,12 @@
                                     <label class="col-3 input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
                                     <select class="form-select" id="estadoFiltro" name="estadoFiltro">
                                         <option selected value="-1">Selecciona el estado</option>
-                                        <option value="abierta">Abierta</option>
-                                        <option value="cerrada">Cerrada</option>
-                                        <option value="resuelta">Resuelta</option>
-                                        <option value="asignada">Asignada</option>
-                                        <option value="enviada a infortec">Enviada a Infortec</option>
-                                        <option value="en proceso">En proceso</option>
+                                        <option value="ABIERTA">Abierta</option>
+                                        <option value="CERRADA">Cerrada</option>
+                                        <option value="RESUELTA">Resuelta</option>
+                                        <option value="ASIGNADA">Asignada</option>
+                                        <option value="ENVIADA A INFORTEC">Enviada a Infortec</option>
+                                        <option value="EN PROCESO">En proceso</option>
                                     </select>
                                 </div>
 
@@ -550,11 +550,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea borrar la incidencia con id:
+                        Desea borrar la incidencia con id: <span id="numeroID"></span>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-                        <input type="button" class="btn btn-danger" value="Borrar" id="actibarBorrado"
+                        <input type="button" class="btn btn-danger" value="Borrar" id="activarBorrado"
                             name="activarBorrado">
                     </div>
                 </div>
