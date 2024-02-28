@@ -41,7 +41,7 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
-        $usuarios = User::all();
+        $usuarios = User::role('administrador')->get();
         $aulas = Aula::all();
         $departamentos = Departamento::all();
         return view('incidencias.create', compact('usuarios', 'aulas', 'departamentos'));
@@ -54,6 +54,9 @@ class IncidenciaController extends Controller
     {
         try {
             DB::beginTransaction();
+
+            //Falta que si el usuario no tiene departamento asignado, al crear la incidencia se le muestre el departamento, y se le asigne el que elija
+            //Falta que si el usuario no tiene asignado correo , al crear una incidencia se le muestre el correo, y se le asigne el que introduzca
 
             $incidencia = new Incidencia();
 
@@ -142,7 +145,10 @@ class IncidenciaController extends Controller
      */
     public function edit(Incidencia $incidencia)
     {
-        return view('incidencias.edit', compact('incidencia'));
+
+        $usuarios = User::all();
+        $aulas = Aula::all();
+        return view('incidencias.edit', compact('incidencia', 'usuarios', 'aulas'));
     }
 
     /**
