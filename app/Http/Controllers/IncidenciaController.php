@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IncidenciasExport;
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\ModificarIncidenciaRequest;
 use App\Mail\EnvioCorreo;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncidenciaController extends Controller
 {
@@ -231,5 +233,22 @@ class IncidenciaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Método que exporta todas las incidencias en el formato indicado por parámetro.
+     *
+     * @param string $formato Formato a exportar.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportarTodas(string $formato)
+    {
+        $fechaYHoraExportacion = date('YmdHis');
+
+        return match($formato) {
+            'pdf' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
+            'xlsx' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.xlsx'),
+            'csv' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.csv', \Maatwebsite\Excel\Excel::CSV)
+        };
     }
 }
