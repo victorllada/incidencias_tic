@@ -128,4 +128,14 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return $this->hasMany(Incidencia::class, 'responsable_id')->where('estado', 'RESUELTA');
     }
+
+    /**
+     * Obtiene las incidencias abiertas del usuario.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incidenciasAbiertas()
+    {
+        return $this->hasMany(Incidencia::class, 'responsable_id')->where('estado', 'ABIERTA');
+    }
 }
