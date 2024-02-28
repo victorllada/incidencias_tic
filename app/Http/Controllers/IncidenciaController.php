@@ -84,11 +84,7 @@ class IncidenciaController extends Controller
             $incidencia->prioridad = $request->prioridad;
 
             if ($request->hasFile('fichero')) {
-                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
-
-                $archivo = $request->file('fichero');
-                $extension = $archivo->getClientOriginalExtension(); // Obtén la extensión original
-                $incidencia->adjunto_url = $archivo->storeAs('adjuntos', 'archivo_personalizado.' . $extension, 'discoAssets');
+                $incidencia->adjunto_url = $request->fichero->store('adjuntos', 'discoAssets');
             } else {
                 $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
             }
