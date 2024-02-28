@@ -1,6 +1,9 @@
 addEventListener("load",inicio,false);
 
 let datosIncidencias;
+let datosFinales;
+let datosPaginacion=[];
+let pagina=0;
 
 function inicio()
 {
@@ -8,11 +11,22 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data; // Guardamos los datos en la variable
         console.log(datosIncidencias); // Ahora deberías poder ver los datos
+
+        crearArrayPaginacion(datosIncidencias);
+
+        console.log(datosPaginacion);
+
+        generarIncidencias(datosPaginacion);
     });
 
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
     tipoFiltro.addEventListener("change",generarSubtipos,false);
+    inicioPaginacion.addEventListener("click",paginacionInicio,false);
+    anterior.addEventListener("click",paginaAnterior,false);
+    paginaActual.addEventListener("keyup",paginaEscrita,false);
+    siguiente.addEventListener("click",paginaSiguiente,false);
+    finalPaginacion.addEventListener("click",paginacionFin,false);
 }
 
 async function obtenerIncidencias()
@@ -35,6 +49,71 @@ async function obtenerIncidencias()
     {
         console.error('Ha ocurrido un error:', error);
     }
+}
+
+function crearArrayPaginacion(array)
+{
+    datosPaginacion=[];
+
+    for (let i=0;i<array.length; i+=10)
+    {
+        datosPaginacion.push(array.slice(i, i+10));
+    }
+}
+
+function paginacionInicio()
+{
+    pagina=0;
+
+    paginaActual.value=pagina+1;
+
+    generarIncidencias(datosPaginacion);
+}
+
+function paginaAnterior()
+{
+    let pajTemp=pagina;
+
+    if(--pajTemp>-1)
+    {
+        pagina--;
+
+        paginaActual.value=pagina+1;
+
+        generarIncidencias(datosPaginacion);
+    }
+}
+
+function paginaEscrita()
+{
+    if(paginaActual.value>0 && paginaActual.value<=datosPaginacion.length)
+    {
+        pagina=paginaActual.value-1;
+        generarIncidencias(datosPaginacion);
+    }
+}
+
+function paginaSiguiente()
+{
+    let pajTemp=pagina;
+
+    if(++pajTemp<datosPaginacion.length)
+    {
+        pagina++;
+
+        paginaActual.value=pagina+1;
+
+        generarIncidencias(datosPaginacion);
+    }
+}
+
+function paginacionFin()
+{
+    pagina=datosPaginacion.length-1;
+
+    paginaActual.value=pagina+1;
+
+    generarIncidencias(datosPaginacion);
 }
 
 function generarSubtipos()
@@ -70,6 +149,7 @@ function generarSubtipos()
     }
 }
 
+// Funcion para filtrado de atributos estaticos
 function filtrarObjetos(objetos, criterios)
 {
     //lo mismo que lo anterior pero tambien con subtipo
@@ -140,8 +220,6 @@ function filtroUsuarioTemp(datosFiltrados,nombreInput)
 
 function filtroFecha(datos,fechaDesde,fechaHasta="")
 {
-    //let datosFiltradosFecha=[];
-
     if(fechaHasta=="")
     {
         let fechaBusqueda = new Date(fechaDesde);
@@ -173,7 +251,6 @@ function filtroFecha(datos,fechaDesde,fechaHasta="")
 
 
     }
-    //return datosFiltradosFecha;
 }
 
 function aplicacionFiltros()
@@ -227,29 +304,20 @@ function aplicacionFiltros()
     updated_at: "2024-02-22T20:31:05.000000Z",
   };*/
 
-    //idFiltro
-    //nombreFiltro
-    //tipoFiltro
-    //subtipoFiltro
-    //descripcionFiltro
-    //prioridadFiltro
-    //fechaDesdeFiltro
-    //fechaHastaFiltro
-    //estadoFiltro
-    console.log(idFiltro.value);
+    /*console.log(idFiltro.value);
     console.log(nombreFiltro.value);
     console.log(tipoFiltro.value);
     console.log(subtipoFiltro.value);
     console.log(prioridadFiltro.value);
     console.log(fechaDesdeFiltro.value);
     console.log(fechaHastaFiltro.value);
-    console.log(estadoFiltro.value);
+    console.log(estadoFiltro.value);*/
 
     let criterios={};
     let filtrados=[];
     let filtradosNombre=[];
     let filtradosFecha=[];
-    let datosFinales=[];
+    datosFinales=[];
 
     if(fechaDesdeFiltro.value=="" && fechaHastaFiltro.value!="")
     {
@@ -351,107 +419,11 @@ function aplicacionFiltros()
 
     console.log(datosFinales);
 
-    document.querySelector("#contenedorIncidencias").innerHTML="";
+    pagina=0;
+    paginaActual.value=1;
 
-    datosFinales.forEach(item =>
-        {
-            //console.log(item.id);
-            let stringRedirect="http://127.0.0.1:8000/incidencias/"+item.id;
-
-            let divPadre=document.createElement("div");//contenedor de la incidencia
-            divPadre.classList="lista-incidencias";
-
-            let divPadreIntero=document.createElement("div");//div interno a la incidcencia
-            divPadreIntero.classList="row d-flex justify-content-between align-items-center flex-nowrap rounded";
-
-            let divId=document.createElement("div");//id
-            divId.classList="col p-3 baja-res";
-            divId.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divUsuario=document.createElement("div");//usuario
-            divUsuario.classList="col p-3 baja-res";
-            divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divTipoIncidencia=document.createElement("div");//tipo
-            divTipoIncidencia.classList="col p-3 text-ellipsis";
-            divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divSubtipo=document.createElement("div");//subtipo
-            divSubtipo.classList="col p-3 text-ellipsis";
-            divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divFecha=document.createElement("div");
-            divFecha.classList="col p-3 baja-res";
-            divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divDesccripcion=document.createElement("div");//dedscripcion
-            divDesccripcion.classList="col p-3 text-ellipsis baja-res";
-            divDesccripcion.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divPrioridad=document.createElement("div");//prioridad
-            divPrioridad.classList="col p-3 text-ellipsis";
-            divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divEstado=document.createElement("div");//estado
-            divEstado.classList="col p-3 text-ellipsis";
-            divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divBotones=document.createElement("div");//botones
-            divBotones.classList="col p-3 movil-res";
-
-            let divBotonesInterno=document.createElement("div");//div interno a los botones
-            divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
-
-            let textId=document.createTextNode(item.id);//id
-            let textUsuario=document.createTextNode(item.creador.nombre_completo);//usuario
-            let textTipoIncidencia=document.createTextNode(item.tipo);//tipo
-            let textSubtipo=document.createTextNode(item.subtipo.subtipo_nombre);//subtipo
-            let textFecha=document.createTextNode(item.fecha_creacion);
-            let textDescripcion=document.createTextNode(item.descripcion);//descripcion
-            let textPrioridad=document.createTextNode(item.prioridad);//prioridad
-            let textEstado=document.createTextNode(item.estado);//estado
-
-            let aDetalles=document.createElement("a");
-            aDetalles.innerHTML="Detalles";
-            aDetalles.type="button";
-            aDetalles.href="http://127.0.0.1:8000/incidencias/"+item.id;
-            aDetalles.classList="btn aquamarine-400 text-white";
-            let aBorrar=document.createElement("a");
-            aBorrar.innerHTML="Borrar";
-            aBorrar.type="button";
-            aBorrar.href="#";
-            aBorrar.classList="btn aquamarine-400 text-white";
-
-            divBotonesInterno.appendChild(aDetalles);
-            divBotonesInterno.appendChild(aBorrar);
-
-            divId.appendChild(textId);
-            divUsuario.appendChild(textUsuario);
-            divTipoIncidencia.appendChild(textTipoIncidencia);
-            divSubtipo.appendChild(textSubtipo);
-            divFecha.appendChild(textFecha);
-            divDesccripcion.appendChild(textDescripcion);
-            divPrioridad.appendChild(textPrioridad);
-            divEstado.appendChild(textEstado);
-            divBotones.appendChild(divBotonesInterno);
-
-            divPadreIntero.appendChild(divId);
-            divPadreIntero.appendChild(divUsuario);
-            divPadreIntero.appendChild(divTipoIncidencia);
-            divPadreIntero.appendChild(divSubtipo);
-            divPadreIntero.appendChild(divFecha);
-            divPadreIntero.appendChild(divDesccripcion);
-            divPadreIntero.appendChild(divPrioridad);
-            divPadreIntero.appendChild(divEstado);
-            divPadreIntero.appendChild(divBotones);
-
-            divPadre.appendChild(divPadreIntero);
-
-            document.querySelector("#contenedorIncidencias").appendChild(divPadre);
-
-            //divPadre.addEventListener("click",verEnviarIncidencia,false);
-        }
-    );
+    crearArrayPaginacion(datosFinales);
+    generarIncidencias(datosPaginacion);
 }
 
 
@@ -461,112 +433,169 @@ function borrarFiltros()
     nombreFiltro.value="";
     tipoFiltro.value="-1";
     subtipoFiltro.value="-1";
-    descripcionFiltro.value="";
+    generarSubtipos();
     prioridadFiltro.value="-1";
     fechaDesdeFiltro.value="";
     fechaHastaFiltro.value="";
     estadoFiltro.value="-1";
+
+    pagina=0;
+    paginaActual.value=1;
+
+    crearArrayPaginacion(datosIncidencias);
+    generarIncidencias(datosPaginacion);
+}
+
+function generarIncidencias(datos)
+{
     document.querySelector("#contenedorIncidencias").innerHTML="";
 
-    datosIncidencias.forEach(item =>
+    for(let i=0;datos[pagina].length;i++)
+    {
+        //console.log(item.id);
+        let stringRedirect="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
+
+        let divPadre=document.createElement("div");//contenedor de la incidencia
+        divPadre.classList="lista-incidencias";
+
+        let divPadreIntero=document.createElement("div");//div interno a la incidcencia
+        divPadreIntero.classList="row d-flex justify-content-between align-items-center flex-nowrap rounded";
+
+        let divId=document.createElement("div");//id
+        divId.classList="col p-3 baja-res";
+        divId.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divUsuario=document.createElement("div");//usuario
+        divUsuario.classList="col p-3 baja-res";
+        divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divTipoIncidencia=document.createElement("div");//tipo
+        divTipoIncidencia.classList="col p-3 text-ellipsis";
+        divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divSubtipo=document.createElement("div");//subtipo
+        divSubtipo.classList="col p-3 text-ellipsis";
+        divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divFecha=document.createElement("div");
+        divFecha.classList="col p-3 baja-res";
+        divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divPrioridad=document.createElement("div");//prioridad
+        divPrioridad.classList="col p-3 text-ellipsis";
+        divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divEstado=document.createElement("div");//estado
+        divEstado.classList="col p-3 text-ellipsis";
+        divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        let divBotones=document.createElement("div");//botones
+        divBotones.classList="col p-3 movil-res";
+
+        let divBotonesInterno=document.createElement("div");//div interno a los botones
+        divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
+
+        let formBorrar=document.createElement("form");
+        formBorrar.classList="d-flex";
+        formBorrar.action="http://127.0.0.1:8000/ruta/"+datosPaginacion[pagina][i].id;
+
+        let textId=document.createTextNode(datos[pagina][i].id);//id
+        let textUsuario=document.createTextNode(datos[pagina][i].creador.nombre_completo);//usuario
+        let textTipoIncidencia=document.createTextNode(datos[pagina][i].tipo);//tipo
+        let textSubtipo=document.createTextNode(datos[pagina][i].subtipo.subtipo_nombre);//subtipo
+        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion);
+        let textPrioridad=document.createTextNode(datos[pagina][i].prioridad);//prioridad
+        let textEstado=document.createTextNode(datos[pagina][i].estado);//estado
+
+        let aDetalles=document.createElement("a");
+        aDetalles.innerHTML="Detalles";
+        aDetalles.type="button";
+        aDetalles.href="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
+        aDetalles.classList="btn aquamarine-400 text-white";
+        let inputBorrar=document.createElement("input");
+        inputBorrar.value="Borrar";
+        inputBorrar.type="submit";
+        inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
+        inputBorrar.setAttribute("data-bs-toggle","modal");
+        inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+
+        formBorrar.appendChild(inputBorrar);
+        divBotonesInterno.appendChild(formBorrar);
+        divBotonesInterno.appendChild(aDetalles);
+
+        divId.appendChild(textId);
+        divUsuario.appendChild(textUsuario);
+        divTipoIncidencia.appendChild(textTipoIncidencia);
+        divSubtipo.appendChild(textSubtipo);
+        divFecha.appendChild(textFecha);
+        divPrioridad.appendChild(textPrioridad);
+        divEstado.appendChild(textEstado);
+        divBotones.appendChild(divBotonesInterno);
+
+        divPadreIntero.appendChild(divId);
+        divPadreIntero.appendChild(divUsuario);
+        divPadreIntero.appendChild(divTipoIncidencia);
+        divPadreIntero.appendChild(divSubtipo);
+        divPadreIntero.appendChild(divFecha);
+        divPadreIntero.appendChild(divPrioridad);
+        divPadreIntero.appendChild(divEstado);
+        divPadreIntero.appendChild(divBotones);
+
+        divPadre.appendChild(divPadreIntero);
+
+        document.querySelector("#contenedorIncidencias").appendChild(divPadre);
+
+        //divPadre.addEventListener("click",verEnviarIncidencia,false);
+
+        console.log(pagina);
+        if(pagina==0)
         {
-            //console.log(item.id);
-            let stringRedirect="http://127.0.0.1:8000/incidencias/"+item.id;
+            anterior.disabled=true;
+            anterior.parentNode.classList="page-item disabled";
 
-            let divPadre=document.createElement("div");//contenedor de la incidencia
-            divPadre.classList="lista-incidencias";
+            siguiente.disabled=false;
+            siguiente.parentNode.classList="page-item";
 
-            let divPadreIntero=document.createElement("div");//div interno a la incidcencia
-            divPadreIntero.classList="row d-flex justify-content-between align-items-center flex-nowrap rounded";
+            finalPaginacion.disabled=false;
+            finalPaginacion.parentNode.classList="page-item";
 
-            let divId=document.createElement("div");//id
-            divId.classList="col p-3 baja-res";
-            divId.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divUsuario=document.createElement("div");//usuario
-            divUsuario.classList="col p-3 baja-res";
-            divUsuario.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divTipoIncidencia=document.createElement("div");//tipo
-            divTipoIncidencia.classList="col p-3 text-ellipsis";
-            divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divSubtipo=document.createElement("div");//subtipo
-            divSubtipo.classList="col p-3 text-ellipsis";
-            divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divFecha=document.createElement("div");
-            divFecha.classList="col p-3 baja-res";
-            divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divDesccripcion=document.createElement("div");//dedscripcion
-            divDesccripcion.classList="col p-3 text-ellipsis baja-res";
-            divDesccripcion.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divPrioridad=document.createElement("div");//prioridad
-            divPrioridad.classList="col p-3 text-ellipsis";
-            divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divEstado=document.createElement("div");//estado
-            divEstado.classList="col p-3 text-ellipsis";
-            divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
-
-            let divBotones=document.createElement("div");//botones
-            divBotones.classList="col p-3 movil-res";
-
-            let divBotonesInterno=document.createElement("div");//div interno a los botones
-            divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
-
-            let textId=document.createTextNode(item.id);//id
-            let textUsuario=document.createTextNode(item.creador.nombre_completo);//usuario
-            let textTipoIncidencia=document.createTextNode(item.tipo);//tipo
-            let textSubtipo=document.createTextNode(item.subtipo.subtipo_nombre);//subtipo
-            let textFecha=document.createTextNode(item.fecha_creacion);
-            let textDescripcion=document.createTextNode(item.descripcion);//descripcion
-            let textPrioridad=document.createTextNode(item.prioridad);//prioridad
-            let textEstado=document.createTextNode(item.estado);//estado
-
-            let aDetalles=document.createElement("a");
-            aDetalles.innerHTML="Detalles";
-            aDetalles.type="button";
-            aDetalles.href="http://127.0.0.1:8000/incidencias/"+item.id;
-            aDetalles.classList="btn aquamarine-400 text-white";
-            let aBorrar=document.createElement("a");
-            aBorrar.innerHTML="Borrar";
-            aBorrar.type="button";
-            aBorrar.href="#";
-            aBorrar.classList="btn aquamarine-400 text-white";
-
-            divBotonesInterno.appendChild(aDetalles);
-            divBotonesInterno.appendChild(aBorrar);
-
-            divId.appendChild(textId);
-            divUsuario.appendChild(textUsuario);
-            divTipoIncidencia.appendChild(textTipoIncidencia);
-            divSubtipo.appendChild(textSubtipo);
-            divFecha.appendChild(textFecha);
-            divDesccripcion.appendChild(textDescripcion);
-            divPrioridad.appendChild(textPrioridad);
-            divEstado.appendChild(textEstado);
-            divBotones.appendChild(divBotonesInterno);
-
-            divPadreIntero.appendChild(divId);
-            divPadreIntero.appendChild(divUsuario);
-            divPadreIntero.appendChild(divTipoIncidencia);
-            divPadreIntero.appendChild(divSubtipo);
-            divPadreIntero.appendChild(divFecha);
-            divPadreIntero.appendChild(divDesccripcion);
-            divPadreIntero.appendChild(divPrioridad);
-            divPadreIntero.appendChild(divEstado);
-            divPadreIntero.appendChild(divBotones);
-
-            divPadre.appendChild(divPadreIntero);
-
-            document.querySelector("#contenedorIncidencias").appendChild(divPadre);
-
-            //divPadre.addEventListener("click",verEnviarIncidencia,false);
+            inicioPaginacion.disabled=true;
+            inicioPaginacion.parentNode.classList="page-item disabled";
         }
-    );
+
+        if(pagina==datos.length-1)
+        {
+            siguiente.disabled=true;
+            siguiente.parentNode.classList="page-item disabled";
+
+            anterior.disabled=false;
+            anterior.parentNode.classList="page-item";
+
+            finalPaginacion.disabled=true;
+            finalPaginacion.parentNode.classList="page-item disabled";
+
+            inicioPaginacion.disabled=false;
+            inicioPaginacion.parentNode.classList="page-item";
+        }
+
+        if(pagina>0 && pagina<datos.length-1)
+        {
+            siguiente.disabled=false;
+            siguiente.parentNode.classList="page-item";
+
+            anterior.disabled=false;
+            anterior.parentNode.classList="page-item";
+
+            finalPaginacion.disabled=false;
+            finalPaginacion.parentNode.classList="page-item";
+
+            inicioPaginacion.disabled=false;
+            inicioPaginacion.parentNode.classList="page-item";
+        }
+
+        paginasTotales.innerHTML="/ "
+        paginasTotales.innerHTML+=datos.length;
+    }
 }
 
 function redirect(url)

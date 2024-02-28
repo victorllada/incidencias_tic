@@ -24,7 +24,7 @@ Route::resource('incidencias', IncidenciaController::class)->parameters([
 ])->middleware('auth');
 
 //ruta para poder enviar el json de incidencias
-Route::get("/datos",[IncidenciaController::class,"datosIncidencias"]);
+Route::get("/datos",[IncidenciaController::class,"datosIncidencias"])->middleware('auth');
 
 /*Route::middleware([
     'auth:sanctum',

@@ -1,30 +1,41 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Inicio')
+@section('archivosJS')
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/incidencias.js'])
+@endsection
 @section('contenido')
 
     <div class="container">
 
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                Hubo errores al rellenar el formulario:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- Contenedor del boton filtrar y los botones exportar --}}
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
-            <div class="d-flex justify-content-between gap-2">
+            <div class="d-flex gap-2">
 
                 {{-- Boton y desplegable para los filtros --}}
                 <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
                     <div>
                         <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight"
-                            aria-label="Toggle navigation">Filtrar
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                class="bi bi-filter" viewBox="0 0 16 16">
-                                <path
-                                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                            </svg>
+                            aria-label="Toggle navigation">
+                            Filtrar
+                            <i class="bi bi-filter"></i>
                         </button>
 
                         {{-- Desplegable con los filtros --}}
                         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarLight"
                             aria-labelledby="offcanvasNavbarLightLabel">
-                            <div class="offcanvas-header">
+                            <div class="offcanvas-header mb-2">
                                 <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Opciones de filtrado</h5>
 
                                 {{-- Boton para cerrar el desplegable --}}
@@ -105,32 +116,28 @@
                                         <option value="en proceso">En proceso</option>
                                     </select>
                                 </div>
-                            </div>
 
-                            {{-- Boton de filtrado y borrar filtros --}}
-                            <div class="d-flex justify-content-between gap-2">
-                                <button class="btn aquamarine-400 text-white" type="submit" id="borrar">Borrar
-                                    filtros</button>
-                                <button class="btn aquamarine-400 text-white flex-fill" type="submit"
-                                    data-bs-dismiss="offcanvas" id="filtrar">Filtrar</button>
+                                {{-- Boton de filtrado y borrar filtros --}}
+                                <div class="d-flex justify-content-between gap-2">
+                                    <button class="btn aquamarine-400 text-white" type="submit" id="borrar">Borrar
+                                        filtros</button>
+                                    <button class="btn aquamarine-400 text-white flex-fill" type="submit"
+                                        data-bs-dismiss="offcanvas" id="filtrar">Filtrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {{-- Boton crear incidencia --}}
-                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">Crear
-                    incidencia
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus-lg" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                    </svg>
+                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('incidencias.create') }}">
+                    Crear incidencia
+                    <i class="bi bi-plus-lg"></i>
                 </a>
             </div>
 
             {{-- Botones --}}
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex gap-2">
 
                 {{-- Boton para exportar en los distitos formatos --}}
                 <div class="dropdown custom-dropdown">
@@ -157,7 +164,7 @@
                         {{-- Desplegable con informes --}}
                         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
                             aria-labelledby="offcanvasNavbarLightLabel2">
-                            <div class="offcanvas-header">
+                            <div class="offcanvas-header mb-2">
                                 <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Tipos de informes</h5>
 
                                 {{-- Boton para cerrar el desplegable --}}
@@ -166,9 +173,253 @@
                             </div>
 
                             {{-- Contendor con tipos de informes --}}
-                            <div class="offcanvas-body d-flex flex-column justify-between gap-4">
-
-
+                            <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Incidencias resueltas por cada administrador
+                                    </div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Incidencias abiertas por cada usuario</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Estadísticas sobre los tipos de incidencias</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Tiempo dedicado a cada incidencia</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Tiempos de resolución por tipo de incidencia</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Tiempo dedicado por cada administrador</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 fw-bolder">Lista de incidencias asignadas a cada administrador</div>
+                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                        <a href="" class="button" data-tooltip="PDF">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="EXCEL">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-file-earmark-excel"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="" class="button" data-tooltip="CSV">
+                                            <div class="button-wrapper">
+                                                <div class="text">
+                                                    <i class="bi bi-filetype-csv"></i>
+                                                </div>
+                                                <span class="icon">
+                                                    <i class="bi bi-download"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -210,7 +461,7 @@
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
             <div class="row mb-6" id="contenedorIncidencias">
-                @forelse ($incidencias as $incidencia)
+                {{-- @forelse ($incidencias as $incidencia)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
                             <div class="col p-3 baja-res"
@@ -255,20 +506,34 @@
                     </div>
                 @empty
                     <p>No hay incidencias que mostrar.</p>
-                @endforelse
+                @endforelse --}}
             </div>
         </div>
 
         {{-- Paginacion --}}
-        <nav aria-label="Page navigation">
-            <ul class="pagination  d-flex justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Inicio</a></li>
-                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                <li class="page-item"><input type="number"></li>
-                <li class="page-item"><button class="page-link" href="#">Siguiente</button></li>
-                <li class="page-item"><button class="page-link" href="#">Final</button></li>
-            </ul>
-        </nav>
+        <ul class="pagination d-flex justify-content-center mb-5">
+            <li class="page-item">
+                <a class="page-link text-aquamarine-400" href="#" id="inicioPaginacion">Inicio</a>
+            </li>
+            <li class="page-item">
+                <button class="page-link text-aquamarine-400" id="anterior">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+            </li>
+            <li class="page-item d-flex justify-content-center align-items-center numero-pagina border">
+                <input type="text" id="paginaActual" value="1" class="text-aquamarine-400 input-numero"
+                    size="1">
+                <span id="paginasTotales" class="text-aquamarine-400"></span>
+            </li>
+            <li class="page-item">
+                <button class="page-link text-aquamarine-400" id="siguiente">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </li>
+            <li class="page-item">
+                <button class="page-link text-aquamarine-400" id="finalPaginacion">Final</button>
+            </li>
+        </ul>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -280,7 +545,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea borrar la incidencia
+                        Desea borrar la incidencia con id:
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">

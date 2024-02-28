@@ -1,8 +1,18 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - show')
+@section('archivosJS')
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+@endsection
 @section('contenido')
 
     <div class="container">
+
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             {{-- Migas de pan --}}
             <nav aria-label="breadcrumb">
@@ -145,7 +155,7 @@
                 <div class="row">
                     <div class="d-flex gap-2">
                         <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                            class="btn aquamarine-400 text-white">Actualizar</a>
+                            class="btn aquamarine-400 text-white">Editar</a>
                         <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
                     </div>
                 </div>
