@@ -61,6 +61,26 @@ html{
     background-color: $aquamarine-950;
 }
 
+.text-aquamarine-400{
+    color: $aquamarine-400;
+}
+
+
+.numero-pagina input{
+ width: 50%;
+ border: none;
+ text-align: center;
+}
+
+.numero-pagina input:hover{
+    outline: 1px solid $aquamarine-600;
+    border-radius: 5px ;
+   }
+
+.numero-pagina span{
+    width: 50%;
+   }
+
 .btn.aquamarine-400:hover {
     background-color: $aquamarine-600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
