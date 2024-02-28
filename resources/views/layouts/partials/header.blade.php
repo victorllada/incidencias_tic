@@ -1,4 +1,4 @@
-<header class="p-1 mb-3 border-bottom aquamarine-600 sticky-top">
+<header class="p-1 mb-3 border-bottom aquamarine-800 sticky-top">
     <nav class="navbar navbar-expand-lg d-flex flex-row justify-content-between">
         <div class="container">
             <a class="navbar-brand link-body-emphasis text-white" href="{{ route('incidencias.index') }}">
