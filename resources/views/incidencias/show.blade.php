@@ -47,9 +47,13 @@
                     <div class="col-lg-4">
                         <span class="fw-bolder">Tipo:</span> {{ $incidencia->tipo }}
                     </div>
-                    <div class="col-lg-4">
-                        <span class="fw-bolder">Subtipo:</span> {{ $incidencia->subtipo->subtipo_nombre }}
-                    </div>
+
+                    <!-- Si no hay sub-tipos de incidencias no se muestra -->
+                    @isset($incidencia->subtipo->subtipo_nombre)
+                        <div class="col-lg-4">
+                            <span class="fw-bolder">Subtipo:</span> {{ $incidencia->subtipo->subtipo_nombre }}
+                        </div>
+                    @endisset
 
                     <!-- Si no hay sub-sub-tipos de incidencias no se muestra -->
                     @isset($incidencia->subtipo->sub_subtipo)
@@ -141,7 +145,7 @@
                 <div class="row">
                     <div class="d-flex gap-2">
                         <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                            class="btn aquamarine-400 text-white">Actualizar</a>
+                            class="btn aquamarine-400 text-white">Editar</a>
                         <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
                     </div>
                 </div>

@@ -1,8 +1,9 @@
-<header class="p-3 mb-3 border-bottom aquamarine-600 sticky-top">
-    <nav class="navbar navbar-expand-lg">
+<header class="p-1 mb-3 border-bottom aquamarine-800 sticky-top">
+    <nav class="navbar navbar-expand-lg d-flex flex-row justify-content-between">
         <div class="container">
-            {{--  <img src="{{ asset('assets/imagenes/logo.svg') }}" alt="logo"> --}}
-            <a class="navbar-brand link-body-emphasis text-white" href="#">LOGO</a>
+            <a class="navbar-brand link-body-emphasis text-white" href="{{ route('incidencias.index') }}">
+                <img src="{{ asset('assets/imagenes/logo.svg') }}" alt="logo" class="logo-header">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -16,9 +17,6 @@
                     @role('administrador')
                         <li class="nav-item">
                             <a class="nav-link px-4 link-body-emphasis text-white" href="#">Administrar usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-4 link-body-emphasis text-white" href="#">Informes</a>
                         </li>
                     @endrole
                 </ul>
@@ -38,12 +36,12 @@
                             <li><a class="dropdown-item" href="#">{{ auth()->user()->nombre_completo }}</a></li>
                             <li><a class="dropdown-item" href="#">{{ auth()->user()->email }}</a></li>
                             <li><a class="dropdown-item" href="#">
-                                @role('administrador')
-                                    Administrador
-                                @else
-                                    Profesor
-                                @endrole
-                            </a></li>
+                                    @role('administrador')
+                                        Administrador
+                                    @else
+                                        Profesor
+                                    @endrole
+                                </a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
