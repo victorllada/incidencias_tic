@@ -48,21 +48,21 @@
 
                                 {{-- Filtro id --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="idFiltro">ID</label>
+                                    <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
                                     <input class="form-control" id="idFiltro" name="idFiltro" type="search"
                                         placeholder="Introduce el ID">
                                 </div>
 
                                 {{-- Filtro usuario --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
+                                    <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
                                     <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
                                         placeholder="Introduce nombre del usuario">
                                 </div>
 
                                 {{-- Filtro tipo --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
+                                    <label class="col-3 input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
                                     <select class="form-select" id="tipoFiltro" name="tipoFiltro">
                                         <option selected value="-1">Selecciona el tipo</option>
                                         <option value="EQUIPOS">Equipos</option>
@@ -75,7 +75,7 @@
 
                                 {{-- Filtro subtipo --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
+                                    <label class="col-3 input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
                                     <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
                                         <option selected value="-1">Selecciona el subtipo</option>
                                     </select>
@@ -83,7 +83,8 @@
 
                                 {{-- Filtro prioridad --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="prioridadFiltro">Prioridad</label>
+                                    <label class="col-3 input-group-text aquamarine-200"
+                                        for="prioridadFiltro">Prioridad</label>
                                     <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
                                         <option selected value="-1">Selecciona la prioridad</option>
                                         <option value="BAJA">Baja</option>
@@ -95,7 +96,8 @@
 
                                 {{-- Filtro fecha desde hasta --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="fechaDesdeFiltro">Fecha</label>
+                                    <label class="col-3 input-group-text aquamarine-200"
+                                        for="fechaDesdeFiltro">Fecha</label>
                                     <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
                                         aria-label="Desde">
                                     <label class="" for="fechaHastaFiltro"></label>
@@ -105,7 +107,7 @@
 
                                 {{-- Filtro estado --}}
                                 <div class="input-group">
-                                    <label class="input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
+                                    <label class="col-3 input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
                                     <select class="form-select" id="estadoFiltro" name="estadoFiltro">
                                         <option selected value="-1">Selecciona el estado</option>
                                         <option value="ABIERTA">Abierta</option>
@@ -146,9 +148,12 @@
                         Exportar
                     </button>
                     <ul class="dropdown-menu custom-dropdown-menu">
-                        <li><a class="dropdown-item" href="#">PDF</a></li>
-                        <li><a class="dropdown-item" href="#">EXCEL</a></li>
-                        <li><a class="dropdown-item" href="#">CSV</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'pdf']) }}">PDF</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'xlsx']) }}">EXCEL</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'csv']) }}">CSV</a></li>
                     </ul>
                 </div>
 
@@ -178,7 +183,7 @@
                                     <div class="col-7 fw-bolder">Incidencias resueltas por cada administrador
                                     </div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -188,7 +193,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -198,7 +203,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>
@@ -213,7 +218,7 @@
                                 <div class="row">
                                     <div class="col-7 fw-bolder">Incidencias abiertas por cada usuario</div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -223,7 +228,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -233,7 +238,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>

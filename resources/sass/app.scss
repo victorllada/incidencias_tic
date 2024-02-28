@@ -16,23 +16,23 @@ html{
 }
 
 // Clase para los colores
-.aquamarine-50{
+.aquamarine-50 {
     background-color: $aquamarine-50;
 }
 
-.aquamarine-100{
+.aquamarine-100 {
     background-color: $aquamarine-100;
 }
 
-.aquamarine-200{
+.aquamarine-200 {
     background-color: $aquamarine-200;
 }
 
-.aquamarine-300{
+.aquamarine-300 {
     background-color: $aquamarine-300;
 }
 
-.aquamarine-400{
+.aquamarine-400 {
     background-color: $aquamarine-400;
 }
 
@@ -40,20 +40,19 @@ html{
     background-color: $aquamarine-500;
 }
 
-.aquamarine-600
-{
+.aquamarine-600 {
     background-color: $aquamarine-600;
 }
 
-.aquamarine-700{
+.aquamarine-700 {
     background-color: $aquamarine-700;
 }
 
-.aquamarine-800{
+.aquamarine-800 {
     background-color: $aquamarine-800;
 }
 
-.aquamarine-900{
+.aquamarine-900 {
     background-color: $aquamarine-900;
 }
 
@@ -61,24 +60,24 @@ html{
     background-color: $aquamarine-950;
 }
 
-.text-aquamarine-400{
+.text-aquamarine-400 {
     color: $aquamarine-400;
 }
 
 // Paginacion
-.numero-pagina input{
+.numero-pagina input {
  width: 50%;
  border: none;
  text-align: center;
  background-color: #f8fafc;
 }
 
-.numero-pagina input:hover{
+.numero-pagina input:hover {
     outline: 1px solid $aquamarine-600;
     border-radius: 5px ;
    }
 
-.numero-pagina span{
+.numero-pagina span {
     width: 50%;
    }
 
@@ -89,11 +88,11 @@ html{
 }
 
 //Tabla
-.lista-incidencias:nth-child(odd){
+.lista-incidencias:nth-child(odd) {
     background-color: $aquamarine-50;
 }
 
-.lista-incidencias:nth-child(even){
+.lista-incidencias:nth-child(even) {
     background-color: $aquamarine-100;
 }
 
@@ -101,16 +100,16 @@ html{
     background-color: $aquamarine-200;
 }
 
-.lista-incidencias:nth-child(even):hover{
+.lista-incidencias:nth-child(even):hover {
     background-color: $aquamarine-200;
 }
 
 // Logos
-.logo-header{
+.logo-header {
     width: 3.5em;
 }
 
-.logo-login{
+.logo-login {
     width: 80%;
 }
 
@@ -156,6 +155,10 @@ form>.card{
 }
 
 /* Estilo para el botón del dropdown cuando está pulsado */
+header .dropdown-item:active {
+    background-color: $aquamarine-400;
+}
+
 main .dropdown-toggle:active,
 main .dropdown-toggle:focus {
     background-color: $aquamarine-400;
@@ -178,7 +181,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     }
 }
 
-@media(width < 768px){
+@media(width < 768px) {
     .movil-res{
         display: none;
     }

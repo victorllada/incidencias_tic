@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 //Inicio
 Route::get('/', InicioController::class)->name('inicio');
 
+// Exportaciones
+Route::get('incidencias/exportar/{tipo}/{formato}', [IncidenciaController::class, 'exportarIncidencias'])->name('incidencias.exportar');
+
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
