@@ -447,7 +447,7 @@
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
             <div class="row mb-6" id="contenedorIncidencias">
-                @forelse ($incidencias as $incidencia)
+                {{--@forelse ($incidencias as $incidencia)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
                             <div class="col p-3 baja-res"
@@ -492,20 +492,20 @@
                     </div>
                 @empty
                     <p>No hay incidencias que mostrar.</p>
-                @endforelse
+                @endforelse--}}
             </div>
         </div>
 
-        {{-- Paginacion --}}
-        <nav aria-label="Page navigation">
-            <ul class="pagination  d-flex justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Inicio</a></li>
-                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                <li class="page-item"><input type="number"></li>
-                <li class="page-item"><button class="page-link" href="#">Siguiente</button></li>
-                <li class="page-item"><button class="page-link" href="#">Final</button></li>
-            </ul>
-        </nav>
+            {{-- Paginacion --}}
+            <nav aria-label="Page navigation">
+                <ul class="pagination  d-flex justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" id="inicioPaginacion">Inicio</a></li>
+                    <li class="page-item"><button class="page-link" id="anterior">Anterior</button></li>
+                    <li class="page-item"><input type="text" id="paginaActual" value="0"><span id="paginasTotales"></span></li>
+                    <li class="page-item"><button class="page-link" id="siguiente">Siguiente</button></li>
+                    <li class="page-item"><button class="page-link" id="finalPaginacion">Final</button></li>
+                </ul>
+            </nav>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
