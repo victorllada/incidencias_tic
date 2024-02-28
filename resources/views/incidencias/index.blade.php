@@ -218,7 +218,7 @@
                                 <div class="row">
                                     <div class="col-7 fw-bolder">Incidencias abiertas por cada usuario</div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar.abiertas.usuarios', ['formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -228,7 +228,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar.abiertas.usuarios', ['formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -238,7 +238,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar.abiertas.usuarios', ['formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>
