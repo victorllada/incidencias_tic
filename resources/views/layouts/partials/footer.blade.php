@@ -8,12 +8,14 @@
             </a>
 
             <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="{{ route('incidencias.index') }}"
-                        class="nav-link px-2 text-light">Inicio</a>
+                <li class="nav-item">
+                    <a href="{{ route('incidencias.index') }}" class="nav-link px-2 text-light">Inicio</a>
                 </li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Administar usuarios</a>
-                </li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Informes</a></li>
+                @role('administrador')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link px-2 text-light">Administar usuarios</a>
+                    </li>
+                @endrole
             </ul>
         </footer>
     </div>
