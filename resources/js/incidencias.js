@@ -244,6 +244,10 @@ function aplicacionFiltros() {
         criterios.subtipo = subtipo;
     }
 
+    if (descripcionFiltro.value != "") {
+        criterios.descripcion = descripcionFiltro.value;
+    }
+
     if (prioridadFiltro.value != "-1") {
         criterios.prioridad = prioridadFiltro.value;
     }

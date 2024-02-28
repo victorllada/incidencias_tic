@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('incidencias', function (Blueprint $table) {
             $table->id();
             $table->enum('tipo', ['EQUIPOS', 'CUENTAS', 'WIFI', 'INTERNET', 'SOFTWARE']);
-            $table->unsignedBigInteger('subtipo_id');
+            $table->unsignedBigInteger('subtipo_id')->nullable();
             $table->datetime('fecha_creacion');
             $table->datetime('fecha_cierre')->nullable();
             $table->integer('duracion')->nullable();
             $table->text('descripcion');
             $table->text('actuaciones')->nullable();
-            $table->enum('estado', ['abierta', 'asignada', 'en proceso', 'enviada a Infortec', 'resuelta', 'cerrada']);
-            $table->enum('prioridad', ['baja', 'media', 'alta', 'urgente']);
+            $table->enum('estado', ['ABIERTA', 'ASIGNADA', 'EN PROCESO', 'ENVIADA A INFORTEC', 'RESUELTA', 'CERRADA']);
+            $table->enum('prioridad', ['BAJA', 'MEDIA', 'ALTA', 'URGENTE']);
             $table->text('adjunto_url')->nullable();
             $table->unsignedBigInteger('creador_id');
             $table->unsignedBigInteger('responsable_id')->nullable();

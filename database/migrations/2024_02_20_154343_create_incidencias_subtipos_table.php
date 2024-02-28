@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('incidencias_subtipos', function (Blueprint $table) {
             $table->id();
             $table->enum('tipo', ['EQUIPOS', 'CUENTAS', 'WIFI', 'INTERNET', 'SOFTWARE']);
-            $table->string('subtipo_nombre', 20);
+            $table->string('subtipo_nombre', 20)->nullable();
             $table->string('sub_subtipo')->nullable();
             $table->timestamps();
         });

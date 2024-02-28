@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearIncidenciaRequest;
+use App\Mail\EnvioCorreo;
 use App\Models\Aula;
+use App\Models\Departamento;
 use App\Models\Equipo;
 use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
@@ -12,7 +14,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Mail;
 
 class IncidenciaController extends Controller
 {
@@ -30,7 +32,7 @@ class IncidenciaController extends Controller
     */
     public function datosIncidencias()
     {
-        $incidenciasJSON = Incidencia::with(['subtipo', 'creador','equipo', 'comentarios'])->get();
+        $incidenciasJSON = Incidencia::with(['subtipo', 'creador', 'equipo', 'comentarios'])->get();
         return response()->json($incidenciasJSON);
     }
 
@@ -41,7 +43,8 @@ class IncidenciaController extends Controller
     {
         $usuarios = User::all();
         $aulas = Aula::all();
-        return view('incidencias.create',compact('usuarios', 'aulas'));
+        $departamentos = Departamento::all();
+        return view('incidencias.create', compact('usuarios', 'aulas', 'departamentos'));
     }
 
     /**
@@ -56,12 +59,17 @@ class IncidenciaController extends Controller
 
             $incidencia->tipo = $request->tipo;
 
-            // Buscar el ID de la subincidencia, segun tipo, subtipo y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
-            $incidencia_subtipo_query  = IncidenciaSubtipo::where('tipo', $request->tipo)
-                ->where('subtipo_nombre', $request->input('sub-tipo'));
-            if (!is_null($request->input('sub-sub-tipo'))) {
-                $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
-            }
+            $subtipo = $request->input('sub-tipo');
+            $subsubtipo = $request->input('sub-sub-tipo');
+
+            // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
+            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo)
+                ->when(!is_null($subtipo), function ($query) use ($subtipo) {
+                    return $query->where('subtipo_nombre', $subtipo);
+                })
+                ->when(!is_null($subsubtipo), function ($query) use ($subsubtipo) {
+                    return $query->where('sub_subtipo', $subsubtipo);
+                });
 
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
@@ -72,17 +80,20 @@ class IncidenciaController extends Controller
 
             $incidencia->fecha_creacion = now();
             $incidencia->descripcion = $request->descripcion;
-            $incidencia->estado = "abierta";
+            $incidencia->estado = "ABIERTA";
             $incidencia->prioridad = $request->prioridad;
 
             if ($request->hasFile('fichero')) {
-                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto_url', 'discoAssets');
+                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
+
+                $archivo = $request->file('fichero');
+                $extension = $archivo->getClientOriginalExtension(); // Obtén la extensión original
+                $incidencia->adjunto_url = $archivo->storeAs('adjuntos', 'archivo_personalizado.' . $extension, 'discoAssets');
             } else {
                 $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
             }
 
-            $incidencia->creador_id = 1; //Aqui necesitamos pasarle el id del usuario actual, o buscar por nombre y correo u algo asi, para sacar id
-            //Para el id, he visto algo de auth()->id, pero no se si funcionará con spatie
+            $incidencia->creador_id = auth()->user()->id;
 
             $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
                 ->where('puesto', $request->puesto)
@@ -104,9 +115,12 @@ class IncidenciaController extends Controller
 
             DB::commit();
 
+            // Envío de correo poniéndolo en cola para que no interrumpa la redirección
+            //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
+
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {
-            dd($e->getMessage());
+            dd($e);
             DB::rollBack();
             return redirect()->route('incidencias.index')->with('error', 'No se pudo crear la incidencia. Detalles: ' . $e->getMessage());
         }
