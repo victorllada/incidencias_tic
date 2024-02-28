@@ -118,4 +118,14 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return $this->hasMany(Comentario::class, 'personal_id');
     }
+
+    /**
+     * Obtiene las incidencias resueltas asignadas al usuario.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incidenciasResueltas()
+    {
+        return $this->hasMany(Incidencia::class, 'responsable_id')->where('estado', 'RESUELTA');
+    }
 }

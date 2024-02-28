@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\IncidenciasExport;
+use App\Exports\IncidenciasResueltasAdministradoresExport;
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\ModificarIncidenciaRequest;
 use App\Mail\EnvioCorreo;
@@ -249,6 +250,23 @@ class IncidenciaController extends Controller
             'pdf' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
             'xlsx' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.xlsx'),
             'csv' => Excel::download(new IncidenciasExport, $fechaYHoraExportacion . '_Incidencias.csv', \Maatwebsite\Excel\Excel::CSV)
+        };
+    }
+
+    /**
+     * Método que exporta todas las incidencias resueltas por cada administrador en el formato indicado por parámetro.
+     *
+     * @param string $formato Formato a exportar.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportarIncidenciasResueltasAdministradores(string $formato)
+    {
+        $fechaYHoraExportacion = date('YmdHis');
+
+        return match($formato) {
+            'pdf' => Excel::download(new IncidenciasResueltasAdministradoresExport, $fechaYHoraExportacion . '_Incidencias_Resueltas_Administradores.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
+            'xlsx' => Excel::download(new IncidenciasResueltasAdministradoresExport, $fechaYHoraExportacion . '_Incidencias_Resueltas_Administradores.xlsx'),
+            'csv' => Excel::download(new IncidenciasResueltasAdministradoresExport, $fechaYHoraExportacion . '_Incidencias_Resueltas_Administradores.csv', \Maatwebsite\Excel\Excel::CSV)
         };
     }
 }
