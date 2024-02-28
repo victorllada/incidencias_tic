@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Editar')
-@section("archivosJS")
+@section('archivosJS')
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 @endsection
 @section('contenido')
@@ -50,16 +50,21 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="tipo">Tipo</label>
                                 <select class="form-select" name="tipo" id="tipo" required>
-                                    <option selected disabled value="-1">Selecciona el tipo</option>
-                                    <option value="CUENTAS">Cuentas</option>
-                                    <option value="EQUIPOS">Equipos</option>
-                                    <option value="WIFI">Wifi</option>
-                                    <option value="INTERNET">Internet</option>
-                                    <option value="SOFTWARE">Software</option>
+                                    <option disabled value="-1">Selecciona el tipo</option>
+                                    <option value="CUENTAS" {{ $incidencia->tipo == 'CUENTAS' ? 'selected' : '' }}>CUENTAS
+                                    </option>
+                                    <option value="EQUIPOS" {{ $incidencia->tipo == 'EQUIPOS' ? 'selected' : '' }}>EQUIPOS
+                                    </option>
+                                    <option value="WIFI" {{ $incidencia->tipo == 'WIFI' ? 'selected' : '' }}>WIFI</option>
+                                    <option value="INTERNET" {{ $incidencia->tipo == 'INTERNET' ? 'selected' : '' }}>
+                                        INTERNET</option>
+                                    <option value="SOFTWARE" {{ $incidencia->tipo == 'SOFTWARE' ? 'selected' : '' }}>
+                                        SOFTWARE</option>
                                 </select>
+
                             </div>
                         </div>
-                        <div class="col-lg-4" id="div-sub-tipo" hidden>
+                        <div class="col-lg-4" id="div-sub-tipo">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="sub-tipo">Sub-tipo</label>
                                 <select class="form-select" name="sub-tipo" id="sub-tipo" required>
@@ -67,7 +72,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4" id="div-sub-sub-tipo" hidden>
+                        <div class="col-lg-4" id="div-sub-sub-tipo">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="sub-sub-tipo">Sub-sub-tipo</label>
@@ -80,7 +85,7 @@
 
                     {{-- Fila 2  en caso de que el tipo sea equipos --}}
                     {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
-                    <div class="row mb-4" id="div-equipo" hidden>
+                    <div class="row mb-4" id="div-equipo">
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
@@ -127,16 +132,28 @@
                         </div>
                     </div>
 
-                    {{-- Fila 4 descripción y archivo --}}
+                    {{-- Fila 4 descripción y actuaciones --}}
                     <div class="row mb-4">
                         <div class="col-lg-6">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
-                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="floatingTextarea"
-                                    rows="8" maxlength="256"></textarea>
+                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="descripcion"
+                                    rows="8" maxlength="256">{{ $incidencia->descripcion }}</textarea>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder"
+                                    for="actuaciones">Actuaciones</label>
+                                <textarea class="form-control" placeholder="Deja aqui las actuaciones" name="actuaciones" id="actuaciones"
+                                    rows="8" maxlength="256">{{ $incidencia->actuaciones }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Archivo adjunto --}}
+                    <div class="row mb-4">
                         <div class="col-lg-6">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">Archivo</label>
@@ -170,7 +187,7 @@
                     {{-- Boton para crear incidencia --}}
                     <div class="row">
                         <div class="col">
-                            <input type="submit" class="btn aquamarine-400 text-white" value="Crear incidencia">
+                            <input type="submit" class="btn aquamarine-400 text-white" value="Actualizar">
                         </div>
                     </div>
                 </div>
