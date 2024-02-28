@@ -1,5 +1,8 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Inicio')
+@section("archivosJS")
+    @vite(['resources/sass/app.scss', 'resources/js/app.js','resources/js/incidencias.js'])
+@endsection
 @section('contenido')
 
     <div class="container">
@@ -496,16 +499,30 @@
             </div>
         </div>
 
-            {{-- Paginacion --}}
-            <nav aria-label="Page navigation">
-                <ul class="pagination  d-flex justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#" id="inicioPaginacion">Inicio</a></li>
-                    <li class="page-item"><button class="page-link" id="anterior">Anterior</button></li>
-                    <li class="page-item"><input type="text" id="paginaActual" value="0"><span id="paginasTotales"></span></li>
-                    <li class="page-item"><button class="page-link" id="siguiente">Siguiente</button></li>
-                    <li class="page-item"><button class="page-link" id="finalPaginacion">Final</button></li>
-                </ul>
-            </nav>
+        {{-- Paginacion --}}
+        <ul class="pagination d-flex justify-content-center mb-5">
+            <li class="page-item">
+                <a class="page-link text-aquamarine-400" href="#" id="inicioPaginacion">Inicio</a>
+            </li>
+            <li class="page-item">
+                <button class="page-link text-aquamarine-400" id="anterior">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+            </li>
+            <li class="page-item d-flex justify-content-center align-items-center numero-pagina border">
+                <input type="text" id="paginaActual" value="1" class="text-aquamarine-400 input-numero"
+                    size="1">
+                <span id="paginasTotales" class="text-aquamarine-400"></span>
+            </li>
+            <li class="page-item">
+                <button class="page-link text-aquamarine-400" id="siguiente">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </li>
+            <li class="page-item">
+                <button class="page-link text-aquamarine-400" id="finalPaginacion">Final</button>
+            </li>
+        </ul>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

@@ -65,7 +65,7 @@ function paginacionInicio()
 {
     pagina=0;
 
-    paginaActual.value=pagina;
+    paginaActual.value=pagina+1;
 
     generarIncidencias(datosPaginacion);
 }
@@ -78,7 +78,7 @@ function paginaAnterior()
     {
         pagina--;
 
-        paginaActual.value=pagina;
+        paginaActual.value=pagina+1;
 
         generarIncidencias(datosPaginacion);
     }
@@ -86,9 +86,9 @@ function paginaAnterior()
 
 function paginaEscrita()
 {
-    if(paginaActual.value>=0 && paginaActual.value<=datosPaginacion.length-1)
+    if(paginaActual.value>0 && paginaActual.value<=datosPaginacion.length)
     {
-        pagina=paginaActual.value;
+        pagina=paginaActual.value-1;
         generarIncidencias(datosPaginacion);
     }
 }
@@ -101,7 +101,7 @@ function paginaSiguiente()
     {
         pagina++;
 
-        paginaActual.value=pagina;
+        paginaActual.value=pagina+1;
 
         generarIncidencias(datosPaginacion);
     }
@@ -111,7 +111,7 @@ function paginacionFin()
 {
     pagina=datosPaginacion.length-1;
 
-    paginaActual.value=pagina;
+    paginaActual.value=pagina+1;
 
     generarIncidencias(datosPaginacion);
 }
@@ -419,6 +419,9 @@ function aplicacionFiltros()
 
     console.log(datosFinales);
 
+    pagina=0;
+    paginaActual.value=1;
+
     crearArrayPaginacion(datosFinales);
     generarIncidencias(datosPaginacion);
 }
@@ -435,6 +438,9 @@ function borrarFiltros()
     fechaDesdeFiltro.value="";
     fechaHastaFiltro.value="";
     estadoFiltro.value="-1";
+
+    pagina=0;
+    paginaActual.value=1;
 
     crearArrayPaginacion(datosIncidencias);
     generarIncidencias(datosPaginacion);
@@ -587,8 +593,8 @@ function generarIncidencias(datos)
             inicioPaginacion.parentNode.classList="page-item";
         }
 
-        paginasTotales.innerHTML="/"
-        paginasTotales.innerHTML+=datos.length-1;
+        paginasTotales.innerHTML="/ "
+        paginasTotales.innerHTML+=datos.length;
     }
 }
 
