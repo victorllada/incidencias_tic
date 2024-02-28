@@ -30,8 +30,9 @@
         @endif
 
         <!--Falta añadir la ruta del store en el atributo action del form-->
-        <form action="{{ route('incidencias.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('incidencias.update', $incidencia) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('put')
             <div class="card mb-5 aquamarine-100">
                 <div class="card-header p-2">
                     <h4 class="card-title">Datos de la Incidencia</h4>

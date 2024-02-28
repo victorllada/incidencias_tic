@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearIncidenciaRequest;
+use App\Http\Requests\ModificarIncidenciaRequest;
 use App\Mail\EnvioCorreo;
 use App\Models\Aula;
 use App\Models\Departamento;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class IncidenciaController extends Controller
 {
@@ -88,12 +90,8 @@ class IncidenciaController extends Controller
 
             if ($request->hasFile('fichero')) {
                 $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
-
-                $archivo = $request->file('fichero');
-                $extension = $archivo->getClientOriginalExtension(); // Obtén la extensión original
-                $incidencia->adjunto_url = $archivo->storeAs('adjuntos', 'archivo_personalizado.' . $extension, 'discoAssets');
             } else {
-                $incidencia->adjunto_url = null; // O cualquier valor predeterminado que desees si no hay archivo.
+                $incidencia->adjunto_url = null;
             }
 
             $incidencia->creador_id = auth()->user()->id;
@@ -107,14 +105,14 @@ class IncidenciaController extends Controller
             if ($incidencia_equipo_query) {
                 $incidencia->equipo_id = $incidencia_equipo_query->id;
             } else {
-                // No se encontró un equipo, establecer el equipo_id a null o cualquier otro valor predeterminado
+                // No se encontró un equipo, establecer el equipo_id a null
                 $incidencia->equipo_id = null;
             }
 
             $incidencia->save();
 
-            $asignados = $request->input('asignado', []); // Obtén el array de checkboxes o un array vacío si no hay seleccionados
-            $incidencia->responsables()->sync($asignados); //sincronizar la relación, asegurándose de que los usuarios asignados coincidan con el contenido de $asignados.
+            $asignados = $request->input('asignado', []); // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
+            $incidencia->responsables()->sync($asignados); //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
 
             DB::commit();
 
@@ -145,8 +143,7 @@ class IncidenciaController extends Controller
      */
     public function edit(Incidencia $incidencia)
     {
-
-        $usuarios = User::all();
+        $usuarios = User::role('administrador')->get();
         $aulas = Aula::all();
         return view('incidencias.edit', compact('incidencia', 'usuarios', 'aulas'));
     }
@@ -154,9 +151,78 @@ class IncidenciaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ModificarIncidenciaRequest $request, string $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $incidencia = new Incidencia();
+
+            $incidencia->tipo = $request->tipo;
+
+            $subtipo = $request->input('sub-tipo');
+            $subsubtipo = $request->input('sub-sub-tipo');
+
+            // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
+            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo)
+                ->when(!is_null($subtipo), function ($query) use ($subtipo) {
+                    return $query->where('subtipo_nombre', $subtipo);
+                })
+                ->when(!is_null($subsubtipo), function ($query) use ($subsubtipo) {
+                    return $query->where('sub_subtipo', $subsubtipo);
+                });
+
+            //Recogemos el primer registro con esas caracteristicas
+            $incidencia_subtipo = $incidencia_subtipo_query->first();
+            // Obtener el ID
+            $idSubincidencia = $incidencia_subtipo->id;
+            //Metemos el id de subincidencia en el campo correspondiente
+            $incidencia->subtipo_id = $idSubincidencia;
+
+            //$incidencia->fecha_creacion = now();
+            $incidencia->descripcion = $request->descripcion;
+            $incidencia->actuaciones = $request->actuaciones;
+            $incidencia->estado =  $request->estado;
+            $incidencia->prioridad = $request->prioridad;
+
+            $incidencia->duracion = $request->duracion; //Solo sale cuando la incidencia esta resuelta o cerrada
+
+            if ($request->hasFile('fichero')) {
+                Storage::disk('discoAssets')->delete($incidencia->adjunto_url);
+                $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
+            } else {
+                $incidencia->adjunto_url = null;
+            }
+
+            $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
+                ->where('puesto', $request->puesto)
+                ->where('aula_id', $request->aula)
+                ->first();
+
+            // Verificar si se encontró un equipo
+            if ($incidencia_equipo_query) {
+                $incidencia->equipo_id = $incidencia_equipo_query->id;
+            } else {
+                // No se encontró un equipo, establecer el equipo_id a null o cualquier otro valor predeterminado
+                $incidencia->equipo_id = null;
+            }
+
+            $incidencia->save();
+
+            $asignados = $request->input('asignado', []); // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
+            $incidencia->responsables()->sync($asignados); //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
+
+            DB::commit();
+
+            // Envío de correo poniéndolo en cola para que no interrumpa la redirección
+            //Mail::to([$incidencia->creador->nombre_completo])->queue(new EnvioCorreo($incidencia, 'creado'));
+
+            return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
+        } catch (Exception $e) {
+            dd($e);
+            DB::rollBack();
+            return redirect()->route('incidencias.show', compact('incidencia'))->with('error', 'No se pudo crear la incidencia. Detalles: ' . $e->getMessage());
+        }
     }
 
     /**
