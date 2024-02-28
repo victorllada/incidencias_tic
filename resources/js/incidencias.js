@@ -4,6 +4,7 @@ let datosIncidencias;
 let datosFinales;
 let datosPaginacion=[];
 let pagina=0;
+let idFormularioBorrado="";
 
 function inicio()
 {
@@ -19,20 +20,28 @@ function inicio()
         generarIncidencias(datosPaginacion);
     });
 
+    //llamadas a los metodos para los filtros
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
     tipoFiltro.addEventListener("change",generarSubtipos,false);
+
+    //llamadas a los metodos para la paginacion
     inicioPaginacion.addEventListener("click",paginacionInicio,false);
     anterior.addEventListener("click",paginaAnterior,false);
     paginaActual.addEventListener("keyup",paginaEscrita,false);
     siguiente.addEventListener("click",paginaSiguiente,false);
     finalPaginacion.addEventListener("click",paginacionFin,false);
+
+    //llamada a la pregunta del borrado
+    activarBorrado.addEventListener("click",confiramarBorrado,false);
 }
 
+//Funcion para obtener todas las incidencias a traves de ajax
 async function obtenerIncidencias()
 {
     try
     {
+        //llamada a la ruta de laravel para obtener los datos
         let response = await fetch("http://127.0.0.1:8000/datos");
         //console.log(response);
         // Comprueba si la respuesta es exitosa
@@ -41,8 +50,10 @@ async function obtenerIncidencias()
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        //obtener un array de la respuesta del json
         let data = await response.json();
 
+        //devolver el array final
         return data;
     }
     catch (error)
@@ -51,76 +62,108 @@ async function obtenerIncidencias()
     }
 }
 
+//metodo para crear el array para usarlo en la paginacion
 function crearArrayPaginacion(array)
 {
+    //vacio el array
     datosPaginacion=[];
 
+    //dividir el array de entrada en arrays de tamaño 10
     for (let i=0;i<array.length; i+=10)
     {
         datosPaginacion.push(array.slice(i, i+10));
     }
 }
 
+//funcion para mostrar la primera pagina
 function paginacionInicio()
 {
+    //colocar la variable pagina a 0 para que sea la primea pagina en mostrarse
     pagina=0;
 
+    //mostrar en el input la pagina actual
     paginaActual.value=pagina+1;
 
+    //metodo generico para mostrar las incidencias
     generarIncidencias(datosPaginacion);
 }
 
+//metodo para ir a la pagina anterior
 function paginaAnterior()
 {
+    //variable temporal para guardar el numero de pagina
     let pajTemp=pagina;
 
+    //compruebo que la pagina -1 no sea menor a -1
     if(--pajTemp>-1)
     {
+        //resto en uno la pagina
         pagina--;
 
+        //mostrar en el input la pagina actual
         paginaActual.value=pagina+1;
 
+        //metodo generico para mostrar las incidencias
         generarIncidencias(datosPaginacion);
     }
 }
 
+//metodo que mostra la pgina que se escriba en el input
 function paginaEscrita()
 {
+    //comprueba que el valor del inpu sea un numero entre 0 y el tamaño de las paginas posibles
     if(paginaActual.value>0 && paginaActual.value<=datosPaginacion.length)
     {
+        //le doy el valor del input a la pagina
         pagina=paginaActual.value-1;
+
+        //metodo generico para mostrar las incidencias
         generarIncidencias(datosPaginacion);
     }
 }
 
+//metodo para ir a la pagina siguiente
 function paginaSiguiente()
 {
+    //guardo la pagina actual en una variable temporal
     let pajTemp=pagina;
 
+    //compruebo que la pagina +1 no sea mayor al total de las paginas
     if(++pajTemp<datosPaginacion.length)
     {
+        //sumo la pagina
         pagina++;
 
+        //muestro a traves del input la pagina actual
         paginaActual.value=pagina+1;
 
+        //metodo generico para mostrar las incidencias
         generarIncidencias(datosPaginacion);
     }
 }
 
+//metodo para ir a la ultima pagina
 function paginacionFin()
 {
+    //le doy el valor de la ultima pagina a la variable pagina
     pagina=datosPaginacion.length-1;
 
+    //muestro a traves del input la pagina actual
     paginaActual.value=pagina+1;
 
+    //metodo generico para mostrar las incidencias
     generarIncidencias(datosPaginacion);
 }
 
+//metodo para poder genera el select de subtipos en funcion del tipo seleccionado anteriormente
 function generarSubtipos()
 {
+    //escribir el primer option del select
     subtipoFiltro.innerHTML="<option selected value='-1'>Selecciona el subtipo</option>";
+    //creacion del array para los valores de los option
     let array=[];
 
+    //switch para poder asignar los valores al array segun el tipo
     switch (tipoFiltro.value)
     {
         case "CUENTAS":
@@ -140,11 +183,17 @@ function generarSubtipos()
             break;
     }
 
+    //for para poder crear los option del select
     for (let i=0;i<array.length;i++)
     {
-        var opt=document.createElement("option");
+        //creacion de option
+        let opt=document.createElement("option");
+
+        //añadirle el valor y el texto
         opt.textContent=array[i];
         opt.value=array[i];
+
+        //agregar el option al select
         subtipoFiltro.appendChild(opt);
     }
 }
@@ -152,17 +201,19 @@ function generarSubtipos()
 // Funcion para filtrado de atributos estaticos
 function filtrarObjetos(objetos, criterios)
 {
-    //lo mismo que lo anterior pero tambien con subtipo
+    //recorro el array de todo y devolviendo un array filtrado
     return objetos.filter(objeto =>
         {
+            //recorro las propiedades
             for (let propiedad in criterios)
             {
+                //comparo si esta indefinida para que pase a la siguiente
                 if (criterios[propiedad] === undefined)
                 {
                     continue;
                 }
 
-                // Se agrega la comparación para el subtipo
+                // comparo por si la propiedad es un subtipo
                 if (propiedad === "subtipo")
                 {
                     if (criterios[propiedad].id !== undefined && objeto.subtipo.id !== criterios[propiedad].id)
@@ -197,9 +248,13 @@ function obtenerNombreCompleto(creador)
 // Funcion para filtrar por usuario
 function filtrarPorUsuario(objetosFiltrados, nombre, apellido1, apellido2)
 {
+    //recorro el array y devuevo otro pero filtrado
     return objetosFiltrados.filter(objeto =>
         {
+            //obtengo el creador
             let creador = objeto.creador;
+
+            //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
             return(
                 creador.nombre.toLowerCase().includes(nombre.toLowerCase()) &&
                 creador.apellido1.toLowerCase().includes(apellido1.toLowerCase()) &&
@@ -209,8 +264,10 @@ function filtrarPorUsuario(objetosFiltrados, nombre, apellido1, apellido2)
     );
 }
 
+// Funcion para filtrar por usuario
 function filtroUsuarioTemp(datosFiltrados,nombreInput)
 {
+    //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
     return datosFiltrados.filter
     (item =>
         //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
@@ -218,29 +275,39 @@ function filtroUsuarioTemp(datosFiltrados,nombreInput)
     );
 }
 
+//funcion para filtrar por fecha
 function filtroFecha(datos,fechaDesde,fechaHasta="")
 {
+    //compruevo que la fehca hasta este vacia
     if(fechaHasta=="")
     {
+        //creo un objeto fecha
         let fechaBusqueda = new Date(fechaDesde);
 
+        //filtro si la incidencia tiene como fecha la de busqueda
         return datos.filter(item =>
             {
+                //creo un objeto date de la incidencia
                 let fechaItem = new Date(item.fecha_creacion);
 
+                //devuelvo la incidencia si la fecha es la misma
                 return (fechaBusqueda.getDate()===fechaItem.getDate() && fechaBusqueda.getMonth()===fechaItem.getMonth() && fechaBusqueda.getFullYear()===fechaItem.getFullYear());
             }
         );
     }
     else
     {
+        //creo los objetos date de la fecha hasta y la de desde
         let fechaBusquedaDesde=new Date(fechaDesde);
         let fechaBusquedaHasta=new Date(fechaHasta);
 
+        //filtro si la incidencia tiene como fecha de creacion entre las dos dadas
         return datos.filter(item =>
             {
+                //creo el objeto fecha de la incidencia
                 let fechaItem = new Date(item.fecha_creacion);
 
+                //devuelvo la incidencia si la fecha esta entre las dos dadas
                 return (
                     fechaBusquedaDesde.getFullYear()<=fechaItem.getFullYear() && fechaBusquedaHasta.getFullYear()>=fechaItem.getFullYear() &&
                     (fechaBusquedaDesde.getFullYear()<fechaItem.getFullYear() || (fechaBusquedaDesde.getFullYear()===fechaItem.getFullYear() && fechaBusquedaDesde.getMonth()<=fechaItem.getMonth())) &&
@@ -248,79 +315,27 @@ function filtroFecha(datos,fechaDesde,fechaHasta="")
                 );
             }
         );
-
-
     }
 }
 
+//metodo para saber que filtros hay que hacer
 function aplicacionFiltros()
 {
-/*const objetoEjemplo = {
-    actuaciones: "Iste animi ullam aut voluptas id laborum eaque.",
-    adjunto_url: "http://www.granados.com/",
-    comentarios: [
-      {
-        // Propiedades del comentario
-      },
-    ],
-    creador: {
-      activo: 1,
-      apellido1: "Barela",
-      apellido2: "Romo",
-      cp: "43833",
-      created_at: "2024-02-22T20:31:05.000000Z",
-      departamento_id: 3,
-      direccion: "Calle Diana, 715, 44º D, 41707, Tejada de Ulla",
-      dni: "707504887",
-      id: 23,
-      localidad: "Expedita dicta et fuga.",
-      nombre: "Asier",
-      tlf: "615174449",
-      updated_at: "2024-02-22T20:31:05.000000Z",
-    },
-    creador_id: 23,
-    created_at: "2024-02-22T20:31:05.000000Z",
-    descripcion: "Veritatis ut ut distinctio neque non quaerat quisquam.",
-    duracion: 247,
-    equipo: null,
-    equipo_id: null,
-    estado: "resuelta",
-    fecha_cierre: "2014-06-19 14:54:37",
-    fecha_creacion: "2004-12-15 06:18:40",
-    id: 2,
-    prioridad: "urgente",
-    responsable: null,
-    responsable_id: null,
-    subtipo: {
-      created_at: "2024-02-22T20:31:04.000000Z",
-      id: 10,
-      sub_subtipo: "accusamus",
-      subtipo_nombre: "recusandae",
-      tipo: "SOFTWARE",
-      updated_at: "2024-02-22T20:31:04.000000Z",
-    },
-    subtipo_id: 10,
-    tipo: "CUENTAS",
-    updated_at: "2024-02-22T20:31:05.000000Z",
-  };*/
-
-    /*console.log(idFiltro.value);
-    console.log(nombreFiltro.value);
-    console.log(tipoFiltro.value);
-    console.log(subtipoFiltro.value);
-    console.log(prioridadFiltro.value);
-    console.log(fechaDesdeFiltro.value);
-    console.log(fechaHastaFiltro.value);
-    console.log(estadoFiltro.value);*/
-
+    //objeto para sarle los criterios de filtrado
     let criterios={};
+    //primer array de datos filtrados de valores estaricos (selects)
     let filtrados=[];
+    //segundo array de datos filtrados por nombre de creador
     let filtradosNombre=[];
+    //tercer array de datos filtrados por fecha
     let filtradosFecha=[];
+    //array final de datos filtrados
     datosFinales=[];
 
+    //
     if(fechaDesdeFiltro.value=="" && fechaHastaFiltro.value!="")
     {
+        //
         alert("la fecha como minimo hay que poner desde cuando hay que buscar");
         return;
     }
@@ -423,6 +438,8 @@ function aplicacionFiltros()
     paginaActual.value=1;
 
     crearArrayPaginacion(datosFinales);
+
+    //metodo generico para mostrar las incidencias
     generarIncidencias(datosPaginacion);
 }
 
@@ -443,9 +460,12 @@ function borrarFiltros()
     paginaActual.value=1;
 
     crearArrayPaginacion(datosIncidencias);
+
+    //metodo generico para mostrar las incidencias
     generarIncidencias(datosPaginacion);
 }
 
+//metodo generico para mostrar las incidencias
 function generarIncidencias(datos)
 {
     document.querySelector("#contenedorIncidencias").innerHTML="";
@@ -497,7 +517,9 @@ function generarIncidencias(datos)
 
         let formBorrar=document.createElement("form");
         formBorrar.classList="d-flex";
-        formBorrar.action="http://127.0.0.1:8000/ruta/"+datosPaginacion[pagina][i].id;
+        formBorrar.action="http://127.0.0.1:8000/ruta/"+datos[pagina][i].id;
+        formBorrar.id="formulario"+datos[pagina][i].id;
+        formBorrar.setAttribute("idincidencia",datos[pagina][i].id);
 
         let textId=document.createTextNode(datos[pagina][i].id);//id
         let textUsuario=document.createTextNode(datos[pagina][i].creador.nombre_completo);//usuario
@@ -518,6 +540,7 @@ function generarIncidencias(datos)
         inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
         inputBorrar.setAttribute("data-bs-toggle","modal");
         inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+        inputBorrar.addEventListener("click",preguntarBorrado,false);
 
         formBorrar.appendChild(inputBorrar);
         divBotonesInterno.appendChild(formBorrar);
@@ -601,4 +624,21 @@ function generarIncidencias(datos)
 function redirect(url)
 {
     window.location.href=url;
+}
+
+//funcion para parar el evento de borrado
+function preguntarBorrado(event)
+{
+    event.preventDefault();
+    numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
+    idFormularioBorrado=event.target.parentNode.id;
+    //console.log(event.target.parentNode);
+}
+
+// funcion para realizar la confirmacion del borrado del registro
+function confiramarBorrado()
+{
+    //console.log(idFormularioBorrado);
+    let formulario=document.querySelector("#"+idFormularioBorrado);
+    formulario.submit();
 }

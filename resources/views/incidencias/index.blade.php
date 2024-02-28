@@ -545,11 +545,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea borrar la incidencia con id:
+                        Desea borrar la incidencia con id: <span id="numeroID"></span>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-                        <input type="button" class="btn btn-danger" value="Borrar" id="actibarBorrado"
+                        <input type="button" class="btn btn-danger" value="Borrar" id="activarBorrado"
                             name="activarBorrado">
                     </div>
                 </div>
