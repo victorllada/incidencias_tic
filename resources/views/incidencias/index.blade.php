@@ -167,9 +167,6 @@
                 <div class="col fw-bolder p-3 baja-res">
                     Fecha de creación
                 </div>
-                <div class="col fw-bolder p-3 baja-res">
-                    Descripción
-                </div>
                 <div class="col fw-bolder p-3">
                     Prioridad
                 </div>
@@ -241,7 +238,7 @@
                 <ul class="pagination  d-flex justify-content-center">
                     <li class="page-item"><a class="page-link" href="#" id="inicioPaginacion">Inicio</a></li>
                     <li class="page-item"><button class="page-link" id="anterior">Anterior</button></li>
-                    <li class="page-item"><input type="number" id="paginaActual" value="0"><span id="paginasTotales"></span></li>
+                    <li class="page-item"><input type="text" id="paginaActual" value="0"><span id="paginasTotales"></span></li>
                     <li class="page-item"><button class="page-link" id="siguiente">Siguiente</button></li>
                     <li class="page-item"><button class="page-link" id="finalPaginacion">Final</button></li>
                 </ul>
