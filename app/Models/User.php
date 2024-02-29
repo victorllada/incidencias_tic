@@ -100,13 +100,13 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Define la relación uno a muchos con la tabla 'incidencias' (incidencias asignadas al personal).
+     * Define la relación muchos a muchos entre User e Incidencia a través de la tabla incidencia_user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function incidenciasAsignadas()
     {
-        return $this->hasMany(Incidencia::class, 'responsable_id');
+        return $this->belongsToMany(Incidencia::class, 'incidencia_user', 'user_id', 'incidencia_id');
     }
 
     /**
@@ -137,5 +137,15 @@ class User extends Authenticatable implements LdapAuthenticatable
     public function incidenciasAbiertas()
     {
         return $this->hasMany(Incidencia::class, 'responsable_id')->where('estado', 'ABIERTA');
+    }
+
+    /**
+     * Obtiene las incidencias resueltas o cerradas asignadas al usuario.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incidenciasResueltasOcerradas()
+    {
+        return $this->hasMany(Incidencia::class, 'responsable_id')->whereIn('estado', ['RESUELTA', 'CERRADA']);
     }
 }

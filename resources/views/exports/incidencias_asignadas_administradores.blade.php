@@ -2,12 +2,12 @@
 <html>
 
 <head>
-    <title>Incidencias resueltas</title>
+    <title>Incidencias asignadas</title>
 </head>
 
 <body>
 
-    @forelse ($usuariosConIncidenciasResueltas as $usuario)
+    @forelse($usuariosConIncidenciasAsignadas as $usuario)
         <table>
             <thead>
                 <tr>
@@ -21,10 +21,11 @@
                     <th>Fecha creación</th>
                     <th>Prioridad</th>
                     <th>Estado</th>
+                    <th>Duración</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($usuario->incidenciasResueltas as $incidencia)
+                @forelse($usuario->incidenciasAsignadas as $incidencia)
                     <tr>
                         <td>{{ $incidencia->id }}</td>
                         <td>{{ $incidencia->creador->nombre_completo }}</td>
@@ -33,16 +34,17 @@
                         <td>{{ $incidencia->fecha_creacion }}</td>
                         <td>{{ $incidencia->prioridad }}</td>
                         <td>{{ $incidencia->estado }}</td>
+                        <td>{{ $incidencia->duracion }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">Sin incidencias resueltas</td>
+                        <td colspan="7">Sin incidencias asignadas</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     @empty
-        <h1>No hay administradores con incidencias resueltas</h1>
+        <h1>No hay incidencias asignadas a administradores</h1>
     @endforelse
 
 </body>

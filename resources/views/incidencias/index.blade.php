@@ -253,7 +253,7 @@
                                 <div class="row">
                                     <div class="col-7 fw-bolder">Estadísticas sobre los tipos de incidencias</div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -263,7 +263,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -273,7 +273,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>
@@ -288,7 +288,7 @@
                                 <div class="row">
                                     <div class="col-7 fw-bolder">Tiempo dedicado a cada incidencia</div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -298,7 +298,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -308,7 +308,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>
@@ -323,7 +323,7 @@
                                 <div class="row">
                                     <div class="col-7 fw-bolder">Tiempos de resolución por tipo de incidencia</div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -333,7 +333,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -343,7 +343,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>
@@ -358,7 +358,7 @@
                                 <div class="row">
                                     <div class="col-7 fw-bolder">Tiempo dedicado por cada administrador</div>
                                     <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'pdf']) }}" class="button" data-tooltip="PDF">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -368,7 +368,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'xlsx']) }}" class="button" data-tooltip="EXCEL">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-file-earmark-excel"></i>
@@ -378,7 +378,7 @@
                                                 </span>
                                             </div>
                                         </a>
-                                        <a href="" class="button" data-tooltip="CSV">
+                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'csv']) }}" class="button" data-tooltip="CSV">
                                             <div class="button-wrapper">
                                                 <div class="text">
                                                     <i class="bi bi-filetype-csv"></i>

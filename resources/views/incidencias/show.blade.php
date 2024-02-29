@@ -29,9 +29,9 @@
                     Exportar
                 </button>
                 <ul class="dropdown-menu custom-dropdown-menu">
-                    <li><a class="dropdown-item" href="#">PDF</a></li>
-                    <li><a class="dropdown-item" href="#">EXCEL</a></li>
-                    <li><a class="dropdown-item" href="#">CSV</a></li>
+                    <li><a class="dropdown-item" href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'pdf']) }}">PDF</a></li>
+                    <li><a class="dropdown-item" href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'xlsx']) }}">EXCEL</a></li>
+                    <li><a class="dropdown-item" href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'csv']) }}">CSV</a></li>
                 </ul>
             </div>
         </div>
