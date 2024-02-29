@@ -533,8 +533,12 @@
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-                        <input type="button" class="btn btn-danger" value="Borrar" id="activarBorrado"
-                            name="activarBorrado">
+                        <form action="" id="formBorrado" method="POST">
+                            @csrf
+                            @method("delete")
+                            <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
+                                name="activarBorrado">
+                        </form>
                     </div>
                 </div>
             </div>

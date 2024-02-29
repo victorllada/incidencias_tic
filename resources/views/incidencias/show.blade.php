@@ -156,7 +156,11 @@
                     <div class="d-flex gap-2">
                         <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
                             class="btn aquamarine-400 text-white">Editar</a>
-                        <button type="button" class="btn aquamarine-400 text-white">Borrar</button>
+                        <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+                            @csrf
+                            @method("delete")
+                            <button type="submit" class="btn aquamarine-400 text-white">Borrar</button>
+                        </form>
                     </div>
                 </div>
             </div>

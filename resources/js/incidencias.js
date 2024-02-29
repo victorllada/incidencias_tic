@@ -34,7 +34,7 @@ function inicio()
     finalPaginacion.addEventListener("click",paginacionFin,false);
 
     //llamada a la pregunta del borrado
-    activarBorrado.addEventListener("click",confiramarBorrado,false);
+    //activarBorrado.addEventListener("click",confiramarBorrado,false);
 }
 
 //Funcion para obtener todas las incidencias a traves de ajax
@@ -372,7 +372,6 @@ function aplicacionFiltros()
         criterios.estado=estadoFiltro.value;
     }
 
-
     //console.log(criterios);
     //guardo las incidencias que esten filtrado en esta variable
     filtrados=filtrarObjetos(datosIncidencias,criterios);
@@ -569,7 +568,7 @@ function generarIncidencias(datos)
         //creo el formulario de borrado y le doy el action con el id y el atributo para el metodo de preguntarBorrado
         let formBorrar=document.createElement("form");
         formBorrar.classList="d-flex";
-        formBorrar.action="http://127.0.0.1:8000/ruta/"+datos[pagina][i].id;
+        formBorrar.action="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
         formBorrar.id="formulario"+datos[pagina][i].id;
         formBorrar.setAttribute("idincidencia",datos[pagina][i].id);
 
@@ -592,7 +591,7 @@ function generarIncidencias(datos)
         //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
         let inputBorrar=document.createElement("input");
         inputBorrar.value="Borrar";
-        inputBorrar.type="submit";
+        inputBorrar.type="button";
         inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
         inputBorrar.setAttribute("data-bs-toggle","modal");
         inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
@@ -600,7 +599,6 @@ function generarIncidencias(datos)
 
         //meto el boton de detalles
         divBotonesInterno.appendChild(aDetalles);
-        //meto dentro del formulario de borrado el boton
         formBorrar.appendChild(inputBorrar);
         //meto dentro del div de botones el formulario
         divBotonesInterno.appendChild(formBorrar);
@@ -973,14 +971,18 @@ function redirect(url)
 function preguntarBorrado(event)
 {
     //elimino el evento de enviar
-    event.preventDefault();
+    /*event.preventDefault();
     //coloco en el modal el valor del id de la incidencia
     numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
     //guardo en esta variable el id de la incidencia a borrar
-    idFormularioBorrado=event.target.parentNode.id;
+    idFormularioBorrado=event.target.parentNode.id;*/
     //console.log(event.target.parentNode);
-}
 
+    //let ruta="http://127.0.0.1:8000/borradoIncidencias/"+event.target.parentNode.getAttribute("idincidencia");
+
+    //formBorrado.action=ruta;//"http://127.0.0.1:8000/borradoIncidencias/"+event.target.parentNode.getAttribute("idincidencia");
+}
+/*
 // funcion para realizar la confirmacion del borrado del registro
 function confiramarBorrado()
 {
@@ -989,6 +991,6 @@ function confiramarBorrado()
     let formulario=document.querySelector("#"+idFormularioBorrado);
     //activo el evento de envio del formulario
     formulario.submit();
-}
+}*/
 
 
