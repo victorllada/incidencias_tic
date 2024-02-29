@@ -19,6 +19,7 @@
                 <th>Fecha creación</th>
                 <th>Prioridad</th>
                 <th>Estado</th>
+                <th>Duración</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,7 @@
                     <td>{{ $incidencia->fecha_creacion }}</td>
                     <td>{{ $incidencia->prioridad }}</td>
                     <td>{{ $incidencia->estado }}</td>
+                    <td>{{ $incidencia->duracion }}</td>
                 </tr>
             @empty
                 <tr>

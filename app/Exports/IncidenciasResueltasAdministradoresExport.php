@@ -10,7 +10,9 @@ class IncidenciasResueltasAdministradoresExport implements FromView
 {
     public function view(): View
     {
-        $usuariosConIncidenciasResueltas = User::whereHas('incidenciasResueltas')->get();
+        $usuariosConIncidenciasResueltas = User::role('administrador')
+            ->whereHas('incidenciasResueltas')
+            ->get();
         return view('exports.incidencias_resueltas_administradores', compact('usuariosConIncidenciasResueltas'));
     }
 }

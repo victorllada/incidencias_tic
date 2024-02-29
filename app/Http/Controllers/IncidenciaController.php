@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EstadisticasTiposIncidenciasExport;
+use App\Exports\IncidenciaExport;
 use App\Exports\IncidenciasAbiertasUsuarioExport;
+use App\Exports\IncidenciasAsignadasAdministradoresExport;
 use App\Exports\IncidenciasExport;
 use App\Exports\IncidenciasResueltasAdministradoresExport;
+use App\Exports\IncidenciasResueltasTiempoPorTipoExport;
+use App\Exports\IncidenciasTiempoDedicadoExport;
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\ModificarIncidenciaRequest;
 use App\Mail\EnvioCorreo;
@@ -319,25 +324,57 @@ class IncidenciaController extends Controller
     /**
      * Método para exportar incidencias del tipo y formato indicado por parámetro.
      *
-     * @param string $tipo Tipo de incidencias a exportar ('todas', 'resueltas', 'abiertas').
-     * @param string $formato Formato a exportar.
+     * @param mixed $tipoOID Tipo de incidencias a exportar ('todas', 'resueltas', 'abiertas', 'asignadas', 'todasTiempoDedicado', resueltasTiempoPorTipo). Si se pasa un ID de la incidencia se exportarán los detalles de esa incidencia.
+     * @param string $formato Formato a exportar ('pdf', 'xlsx' o 'csv').
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function exportarIncidencias(string $tipo, string $formato)
+    public function exportarIncidencias(mixed $tipoOID, string $formato)
     {
+        if (is_numeric($tipoOID)) {
+            $id = (int)$tipoOID;
+            $incidenciasExport = new IncidenciaExport(Incidencia::findOrFail($id));
+        } else {
+            $claseExport = match ($tipoOID) {
+                'todas' => IncidenciasExport::class,
+                'resueltas' => IncidenciasResueltasAdministradoresExport::class,
+                'abiertas' => IncidenciasAbiertasUsuarioExport::class,
+                'asignadas' => IncidenciasAsignadasAdministradoresExport::class,
+                'todasTiempoDedicado' => IncidenciasTiempoDedicadoExport::class,
+                'resueltasTiempoPorTipo' => IncidenciasResueltasTiempoPorTipoExport::class,
+            };
+
+            $incidenciasExport = new $claseExport;
+        }
+
+        return $this->exportarEnFormato($incidenciasExport, $formato, "_Incidencias_{$tipoOID}");
+    }
+
+    /**
+     * Exporta estadísticas de tipos de incidencias en el formato especificado.
+     *
+     * @param string $formato Formato de exportación ('pdf', 'xlsx' o 'csv').
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportarEstadisticasTiposIncidencias($formato)
+    {
+        return $this->exportarEnFormato(new EstadisticasTiposIncidenciasExport, $formato, "_Estadisticas_Tipos_Incidencias");
+    }
+
+    /**
+     * Método genérico para exportar datos en el formato especificado.
+     *
+     * @param \Maatwebsite\Excel\Concerns\FromView $exportador Instancia del exportador.
+     * @param string $formato Formato de exportación ('pdf', 'xlsx' o 'csv').
+     * @param string $nombreArchivoPrefijo Prefijo para el nombre del archivo generado.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    private function exportarEnFormato($incidenciasExport, string $formato, string $nombreArchivo) {
         $fechaYHoraExportacion = date('YmdHis');
 
-        $claseExport = match ($tipo) {
-            'todas' => IncidenciasExport::class,
-            'resueltas' => IncidenciasResueltasAdministradoresExport::class,
-            'abiertas' => IncidenciasAbiertasUsuarioExport::class,
-            default => null,
-        };
-
         return match ($formato) {
-            'pdf' => Excel::download(new $claseExport, $fechaYHoraExportacion . "_Incidencias_{$tipo}.pdf", \Maatwebsite\Excel\Excel::DOMPDF),
-            'xlsx' => Excel::download(new $claseExport, $fechaYHoraExportacion . "_Incidencias_{$tipo}.xlsx"),
-            'csv' => Excel::download(new $claseExport, $fechaYHoraExportacion . "_Incidencias_{$tipo}.csv", \Maatwebsite\Excel\Excel::CSV)
+            'pdf' => Excel::download($incidenciasExport, $fechaYHoraExportacion . $nombreArchivo . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF),
+            'xlsx' => Excel::download($incidenciasExport, $fechaYHoraExportacion . $nombreArchivo . '.xlsx'),
+            'csv' => Excel::download($incidenciasExport, $fechaYHoraExportacion . $nombreArchivo . '.csv', \Maatwebsite\Excel\Excel::CSV)
         };
     }
 }
