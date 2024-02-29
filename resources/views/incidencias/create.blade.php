@@ -195,7 +195,7 @@
                     </div>
 
                     {{-- Boton para crear incidencia --}}
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col">
                             <input type="submit" class="btn aquamarine-400 text-white" value="Crear incidencia">
                         </div>
