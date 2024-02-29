@@ -1,7 +1,7 @@
 addEventListener("load",inicio,false);
 
 let datosIncidencias;
-let datosFinales;
+let datosFinales=[];
 let datosPaginacion=[];
 let pagina=0;
 let idFormularioBorrado="";
@@ -11,15 +11,16 @@ function inicio()
     //llamada de ajax y creacion de las incidencias en el html
     obtenerIncidencias().then(data => {
         datosIncidencias = data; // Guardamos los datos en la variable
-        console.log(datosIncidencias); // Ahora deberías poder ver los datos
+        //console.log(datosIncidencias); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosIncidencias);
 
-        console.log(datosPaginacion);
+        //console.log(datosPaginacion);
 
         generarIncidencias(datosPaginacion);
-    });
 
+
+    });
     //llamadas a los metodos para los filtros
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
@@ -470,6 +471,7 @@ function borrarFiltros()
     fechaDesdeFiltro.value="";
     fechaHastaFiltro.value="";
     estadoFiltro.value="-1";
+    datosFinales=[];
 
     //poner la pagina 1
     pagina=0;
@@ -485,6 +487,24 @@ function borrarFiltros()
 //metodo generico para mostrar las incidencias
 function generarIncidencias(datos)
 {
+    //comprovacion para la creacion de las graficas con datos filtrados o todos
+    if(datosFinales.length>0)
+    {
+        //metodos para crear grafico circular y sus datos
+        crearGraficaTipos(datosTipo(datosFinales));
+
+        //metodo para crear grafica de barras y sus datos
+        crearGraficaEstado(datosEstado(datosFinales));
+    }
+    else
+    {
+        //metodos para crear grafico circular y sus datos
+        crearGraficaTipos(datosTipo(datosIncidencias));
+
+        //metodo para crear grafica de barras y sus datos
+        crearGraficaEstado(datosEstado(datosIncidencias));
+    }
+
     //vacio el contenedor de incidencias
     document.querySelector("#contenedorIncidencias").innerHTML="";
 
@@ -578,11 +598,13 @@ function generarIncidencias(datos)
         inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
         inputBorrar.addEventListener("click",preguntarBorrado,false);
 
+        //meto el boton de detalles
+        divBotonesInterno.appendChild(aDetalles);
         //meto dentro del formulario de borrado el boton
         formBorrar.appendChild(inputBorrar);
-        //meto dentro del div de botones el formulario y el boton de detaller
+        //meto dentro del div de botones el formulario
         divBotonesInterno.appendChild(formBorrar);
-        divBotonesInterno.appendChild(aDetalles);
+
 
         //meto los textos de la incidencia dentro del sus divs
         divId.appendChild(textId);
@@ -676,6 +698,271 @@ function generarIncidencias(datos)
     }
 }
 
+//funcion para obtener los datos de los tipos de las incidencias en el formato adecuado para la grafica fircular
+function datosTipo(datos)
+{
+    //varibles para contar el numero de incidencias
+    let equpos=0;
+    let cuentas=0;
+    let wifi=0;
+    let internet=0;
+    let software=0;
+
+    //recorro y cuento los tipos de incidencias
+    datos.forEach(item => {
+
+        if(item.tipo=="EQUIPOS")
+        {
+            equpos++;
+        }
+        else if(item.tipo=="CUENTAS")
+        {
+            cuentas++;
+        }
+        else if(item.tipo=="WIFI")
+        {
+            wifi++;
+        }
+        else if(item.tipo=="INTERNET")
+        {
+            internet++;
+        }
+        else if(item.tipo=="SOFTWARE")
+        {
+            software++;
+        }
+    });
+
+    //devuelvo el array en el formato adecuado
+    return [['Tipo', 'Numero de incidencias'],["Equipos",equpos],["Cuentas",cuentas],["Wifi",wifi],["Internet",internet],["Software",software]];
+}
+
+//funcion para poder crear la grfica con los datos que le pase el metodo anterior
+function crearGraficaTipos(datos)
+{
+    google.charts.load('current', {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable(datos);
+      /*var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
+      ]);*/
+
+      let options = {
+        title: 'Tipos de incidencias'
+      };
+
+      let chart = new google.visualization.PieChart(document.querySelector('#graficaTipos'));
+
+      chart.draw(data, options);
+    }
+}
+
+//metodo para obtener los datos en el formato adecuado para la grafica de barras
+function datosEstado(datos)
+{
+    //arrays de los datos
+    let equipos=["EQUIPOS",0,0,0,0,0,0];
+    let cuentas=["CUENTAS",0,0,0,0,0,0];
+    let wifi=["WIFI",0,0,0,0,0,0];
+    let internet=["INTERNET",0,0,0,0,0,0];
+    let software=["SOFTWARE",0,0,0,0,0,0];
+
+    //recorro el array y cuento cuantas incidencias hay de cada tipo y de cada estado
+    datos.forEach(item=>{
+
+        if(item.tipo=="EQUIPOS")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                equipos[1]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                equipos[2]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                equipos[3]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                equipos[4]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                equipos[5]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                equipos[6]++;
+            }
+        }
+        else if(item.tipo=="CUENTAS")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                cuentas[1]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                cuentas[2]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                cuentas[3]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                cuentas[4]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                cuentas[5]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                cuentas[6]++;
+            }
+        }
+        else if(item.tipo=="WIFI")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                wifi[1]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                wifi[2]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                wifi[3]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                wifi[4]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                wifi[5]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                wifi[6]++;
+            }
+        }
+        else if(item.tipo=="INTERNET")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                internet[1]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                internet[2]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                internet[3]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                internet[4]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                internet[5]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                internet[6]++;
+            }
+        }
+        else if(item.tipo=="SOFTWARE")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                software[1]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                software[2]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                software[3]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                software[4]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                software[5]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                software[6]++;
+            }
+        }
+    });
+
+    //devuelvo el array con el formato adecuado para la grafica de barras
+    return [['Abierta', 'Cerrada', 'Resuelta', 'Asignada', 'Enviada a infortec','En proceso',{ role: 'annotation' } ],equipos,cuentas,wifi,internet,software];
+}
+
+//metodo para le creacion de grafica de barras que le paso un array con los datos en le formato del metodo anterior
+function crearGraficaEstado(datos)
+{
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+          /*var data = google.visualization.arrayToDataTable([
+        ['Abierta', 'Cerrada', 'Resuelta', 'Asignada', 'Enviada a infortec',
+         'En proceso',{ role: 'annotation' } ],
+        ['Equipos', 10, 24, 20, 32, 18, 30],
+        ['Cuentas', 16, 22, 23, 30, 16, 20],
+        ['Wifi', 28, 19, 29, 30, 12, 40],
+        ['Internet', 10, 24, 20, 32, 18, 30],
+        ['Software', 16, 22, 23, 30, 16, 20]
+      ]);*/
+      let data=google.visualization.arrayToDataTable(datos);
+
+      let view = new google.visualization.DataView(data);
+      /*view.setColumns([0,1,2,3,4,5,6,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);*/
+                       view.setColumns([0,1,2,3,4,5,6,
+                        {
+                            type: "string",
+                            role: "annotation"
+                        },2]);
+
+      let options = {
+        width: 600,
+        height: 400,
+        legend: { position: 'top', maxLines: 5 },
+        bar: { groupWidth: '75%' },
+        isStacked: true
+      };
+
+      let chart = new google.visualization.BarChart(document.querySelector("#graficaEstasdo"));
+      chart.draw(view, options);
+      }
+}
+
 //metodo para poder enviar a la ruta que se le pase
 function redirect(url)
 {
@@ -703,3 +990,5 @@ function confiramarBorrado()
     //activo el evento de envio del formulario
     formulario.submit();
 }
+
+
