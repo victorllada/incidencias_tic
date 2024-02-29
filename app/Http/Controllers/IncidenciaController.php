@@ -79,32 +79,39 @@ class IncidenciaController extends Controller
             if (is_null(auth()->user()->email)) {
 
                 //Sacamos usuario en una variable
-                $user = auth()->user();
+                $userId = auth()->user()->id;
+
+                //Sacamos el usuario por el id
+                $usuario = User::where('id', $userId)->first();
 
                 //Hacemos que el mail sea el introducido
-                $user->email = $request->email;
+                $usuario->email = $request->email;
 
                 //Guardamos el user
-                $user->save;
+                $usuario->save();
             }
 
             //Si el usuario no tiene departamento_id o nombre_departamento, le asignaremos el departamento que elija.
             if (is_null(auth()->user()->id_departamento) || is_null(auth()->user()->nombre_departamento)) {
 
                 //Sacamos usuario en una variable
-                $user = auth()->user();
+                $userId = auth()->user()->id;
+
+                //Sacamos el usuario por el id
+                $usuario = User::where('id', $userId)->first();
 
                 //Buscamos el departamento por id y sacamos el objeto
-                $objDept = Departamento::where('id', $request->departamento)->get();
+                $objDept = Departamento::where('id', $request->departamento)->first();
+                //dd($objDept);
 
                 //Hacemos que el campo departamento id sea el introducido
-                $user->departamento_id = $request->departamento;
+                $usuario->id_departamento = $request->departamento;
 
                 //Hacemos que el campo nombre de departamento sea el introducido
-                $user->nombre_departamento = $objDept->nombre_departamento;
+                $usuario->nombre_departamento = $objDept->nombre;
 
                 //Guardamos el user
-                $user->save;
+                $usuario->save();
             }
 
             DB::beginTransaction();
