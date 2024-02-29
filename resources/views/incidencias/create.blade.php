@@ -45,18 +45,29 @@
                                     value="{{ auth()->user()->nombre_completo }}" readonly>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder"
-                                    for="departamento">Departamento</label>
-                                <select class="form-select" name="departamento" id="departamento" required>
-                                    <option selected disabled value="-1">Selecciona la departamento</option>
-                                    @foreach ($departamentos as $departamento)
-                                        <option value{{ $departamento->id }}>{{ $departamento->nombre }}</option>
-                                    @endforeach
-                                </select>
+                        @empty(auth()->user()->id_departamento || auth()->user()->nombre_departamento)
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200 fw-bolder"
+                                        for="departamento">Departamento</label>
+                                    <select class="form-select" name="departamento" id="departamento" required>
+                                        <option selected disabled value="-1">Selecciona el departamento</option>
+                                        @foreach ($departamentos as $departamento)
+                                            <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                        @endempty
+                        @empty(auth()->user()->email)
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200 fw-bolder" for="email">Email</label>
+                                    <input class="form-control" id="email" name="email" type="search"
+                                        placeholder="Introduce tu email">
+                                </div>
+                            </div>
+                        @endempty
                     </div>
 
                     {{-- Fila 2 tipo sub-tipo y sub-sub-tipo --}}
@@ -121,8 +132,8 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
                                     Aula</label>
-                                <input type="number" class="form-control" name="puesto" id="puesto" placeholder="1"
-                                    pattern="[0-9]*">
+                                <input type="number" class="form-control" name="puesto" id="puesto"
+                                    placeholder="1" pattern="[0-9]*">
                             </div>
                         </div>
                     </div>
@@ -149,7 +160,7 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
-                                <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="floatingTextarea"
+                                <textarea class="form-control" placeholder="Deja aqui la descripción" name="descripcion" id="floatingTextarea"
                                     rows="8" maxlength="256"></textarea>
                             </div>
                         </div>

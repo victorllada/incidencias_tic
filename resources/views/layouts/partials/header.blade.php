@@ -16,7 +16,7 @@
                     </li>
                     @role('administrador')
                         <li class="nav-item">
-                            <a class="nav-link px-4 link-body-emphasis text-white" href="#">Administrar usuarios</a>
+                            <a class="nav-link px-4 link-body-emphasis text-white" href="{{route('usuarios.index')}}">Administrar usuarios</a>
                         </li>
                     @endrole
                 </ul>
