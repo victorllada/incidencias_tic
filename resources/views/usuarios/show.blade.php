@@ -25,6 +25,7 @@
                 </ol>
             </nav>
         </div>
+
         {{-- Información de la incidencia --}}
         <div class="card mb-5 aquamarine-100">
 
@@ -35,105 +36,21 @@
 
             {{-- Cuerpo de la tarjeta --}}
             <div class="card-body">
-                {{-- Fila Nombre --}}
+                {{-- Fila id --}}
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Nombre completo:</span> {{ $usuario->nombre_completo }}
+                        <span class="fw-bolder">Id:</span> {{ $usuario->id }}
                     </div>
                 </div>
 
-                {{-- Fila --}}
+                {{-- Fila nombre --}}
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Tipo:</span> {{ $usuario->email }}
+                        <span class="fw-bolder">Nombre:</span> {{ $usuario->name }}
                     </div>
 
-                    <!-- Si no hay sub-tipos de usuario no se muestra -->
-                    @isset($incidencia->subtipo->subtipo_nombre)
-                        <div class="col-lg-4">
-                            <span class="fw-bolder">Subtipo:</span> {{ $usuario->subtipo->subtipo_nombre }}
-                        </div>
-                    @endisset
-
-                    <!-- Si no hay sub-sub-tipos de usuario no se muestra -->
-                    @isset($incidencia->subtipo->sub_subtipo)
-                        <div class="col-lg-4">
-                            <span class="fw-bolder">Subsubtipo:</span> {{ $usuario->subtipo->sub_subtipo }}
-                        </div>
-                    @endisset
-                </div>
-
-                {{-- Fila  --}}
-                <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Departamento</span> {{ $usuario->nombre_departamento }}
-                    </div>
-                    <div class="col-lg-4">
-                        <span class="fw-bolder">Fecha de cierre:</span> {{ $usuario }}
-                    </div>
-                </div>
-
-                {{-- Fila --}}
-                <div class="row mb-4">
-                    <div class="col-lg-4">
-                        <span class="fw-bolder">Estado:</span> {{ $usuario }}
-                    </div>
-                    <div class="col-lg-4">
-                        <span class="fw-bolder">Prioridad:</span> {{ $usuario }}
-                    </div>
-                    <div class="col-lg-4">
-                        <span class="fw-bolder">Duración:</span> {{ $usuario }}
-                    </div>
-                </div>
-
-                {{-- Fila --}}
-                <div class="row mb-4">
-                    <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
-                    <div class="col">
-                        @empty($usuario->equipo)
-                            <span class="fw-bolder">Equipo:</span> No hay equipo asignado
-                        @else
-                            <span class="fw-bolder">Equipo:</span>
-                            {{ $usuario->equipo->tipo_equipo . ' ' . $usuario->equipo->marca . ' ' . $usuario->equipo->modelo }}
-                        @endempty
-                    </div>
-                </div>
-
-                <hr>
-
-                {{-- Fila  --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Descripción:</span>
-                        <textarea class="form-control" rows="8" readonly>{{ $usuario->descripcion }}</textarea>
-                    </div>
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Actuaciones:</span>
-                        <textarea class="form-control" rows="8" readonly>{{ $usuario->actuaciones }}</textarea>
-                    </div>
-                </div>
-
-                {{-- Fila --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Archivo adjunto:</span> {{ $usuario->adjunto_url }}
-                    </div>
-
-                    <!-- Si responsable no es null, muestra sus atributos nombre y apellidos, si es null muestra mensaje -->
-                    <div class="col-lg-6">
-                        @empty($usuario->responsables)
-                            <span class="fw-bolder">Responsable:</span> Aún no se ha asignado
-                        @else
-                            <span class="fw-bolder">Responsable:</span>
-                            <!-- Si el nombre o los apellidos es null ponemos info incompleta, en caso contrario lo mostramos -->
-                            @empty($responsables)
-                                Aún no hay responsables
-                            @else
-                                @foreach ($responsables as $responsable)
-                                    <span>{{ $responsable->nombre_completo }} </span>
-                                @endforeach
-                            @endempty
-                        @endempty
+                        <span class="fw-bolder">Nombre completo: </span> {{ $usuario->nombre_completo }}
                     </div>
                 </div>
 

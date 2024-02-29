@@ -16,7 +16,9 @@
                     <li class="breadcrumb-item" aria-current="page">
                         <a href="{{ route('incidencias.show', $incidencia) }}">Incidencia {{ $incidencia->id }}</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Actualizar datos</span></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span>Actualizar datos</span>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -141,7 +143,7 @@
 
                         <div class="col-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Prioridad</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Estado</label>
                                 <select class="form-select" name="estado" id="estado" required>
                                     <option selected value="-1">Selecciona el estado</option>
                                     <option value="ABIERTA" {{ $incidencia->estado == 'ABIERTA' ? 'selected' : '' }}>
@@ -230,7 +232,7 @@
                         </div>
                     </div>
 
-                    {{-- Boton para crear incidencia --}}
+                    {{-- Boton para editar incidencia --}}
                     <div class="row">
                         <div class="col">
                             <input type="submit" class="btn aquamarine-400 text-white" value="Actualizar">
@@ -239,163 +241,163 @@
                 </div>
             </div>
         </form>
+    </div>
+@endsection
 
-    @endsection
+<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
+<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
+<script>
+    addEventListener('load', () => {
+        //Guardamos en una variable el selec de tipo
+        var tipo = document.getElementById("tipo");
 
-    <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-    <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-    <script>
-        addEventListener('load', () => {
-            //Guardamos en una variable el selec de tipo
-            var tipo = document.getElementById("tipo");
+        //Guardamos en una variable el selec de subtipos
+        var subtipo = document.getElementById("sub-tipo");
 
-            //Guardamos en una variable el selec de subtipos
-            var subtipo = document.getElementById("sub-tipo");
+        //Genera los sub-tipos cuando se elije una opcion de tipos
+        tipo.addEventListener('change', generarSubtipos);
 
-            //Genera los sub-tipos cuando se elije una opcion de tipos
-            tipo.addEventListener('change', generarSubtipos);
+        //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
+        tipo.addEventListener('change', EquiposSelected);
 
-            //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
-            tipo.addEventListener('change', EquiposSelected);
+        //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
+        subtipo.addEventListener('change', comprobarYedra);
 
-            //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
-            subtipo.addEventListener('change', comprobarYedra);
+        //Genera los sub-sub-tipos cuando se elije una opcion de tipos
+        subtipo.addEventListener('change', generarSubSubTipos);
 
-            //Genera los sub-sub-tipos cuando se elije una opcion de tipos
-            subtipo.addEventListener('change', generarSubSubTipos);
+    });
 
-        });
+    /**
+     * Genera los sub-tipos dependiendo de lo seleccionado en tipos
+     */
+    function generarSubtipos() {
+        var selec = document.getElementById("tipo");
+        var subtipo = document.getElementById("sub-tipo");
 
-        /**
-         * Genera los sub-tipos dependiendo de lo seleccionado en tipos
-         */
-        function generarSubtipos() {
-            var selec = document.getElementById("tipo");
-            var subtipo = document.getElementById("sub-tipo");
+        var subsubtipo = document.getElementById("sub-sub-tipo");
 
-            var subsubtipo = document.getElementById("sub-sub-tipo");
+        borrarSubOpciones();
+        borrarSubSubOpciones();
 
-            borrarSubOpciones();
-            borrarSubSubOpciones();
+        switch (selec.value) {
+            case "CUENTAS":
+                var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
+                break;
+            case "EQUIPOS":
+                var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
+                    "IMPRESORA"
+                ];
+                break;
+            case "WIFI":
+                var array = ["IESMIGUELHERRERO", "WIECAN"];
+                break;
+            case "INTERNET":
+                var array = [];
+                break;
+            case "SOFTWARE":
+                var array = ["INSTALACION", "ACTUALIZACION"];
+                break;
+            default:
+                break;
+        }
 
-            switch (selec.value) {
-                case "CUENTAS":
-                    var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
-                    break;
-                case "EQUIPOS":
-                    var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
-                        "IMPRESORA"
-                    ];
-                    break;
-                case "WIFI":
-                    var array = ["IESMIGUELHERRERO", "WIECAN"];
-                    break;
-                case "INTERNET":
-                    var array = [];
-                    break;
-                case "SOFTWARE":
-                    var array = ["INSTALACION", "ACTUALIZACION"];
-                    break;
-                default:
-                    break;
-            }
+        for (let i = 0; i < array.length; i++) {
+            var opt = document.createElement("option");
+            opt.textContent = array[i];
+            opt.setAttribute("value", array[i]);
+            subtipo.appendChild(opt);
+        }
 
+        if (selec.value == "INTERNET") {
+            document.getElementById("div-sub-tipo").hidden = true;
+        } else {
+            document.getElementById("div-sub-tipo").hidden = false;
+        }
+
+    }
+
+
+    /**
+     *Borra todas las opciones del selec de sub-tipos
+     */
+    function borrarSubOpciones() {
+        var subtipo = document.getElementById("sub-tipo");
+
+        while (subtipo.firstChild) {
+            subtipo.removeChild(subtipo.firstChild);
+        }
+    }
+
+    /**
+     * Comprueba si se selecciona el sub-tipo "yedra", y si es así saca alert con información
+     */
+    function comprobarYedra() {
+        var subtipo = document.getElementById("sub-tipo");
+
+        if (subtipo.value == "YEDRA") {
+            alert("Esta gestión la realiza Jefatura de estudios");
+        }
+    }
+
+    /**
+     * Genera los sub-sub-tipo dependiendo del sub-tipo seleccionado
+     */
+    function generarSubSubTipos() {
+
+        var subtipo = document.getElementById("sub-tipo");
+        var subsubtipo = document.getElementById("sub-sub-tipo");
+
+        borrarSubSubOpciones();
+
+        switch (subtipo.value) {
+            case "PC":
+                var array = ["RATON", "ORDENADOR", "TECLADO"];
+                break;
+            case "Portátil":
+                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
+                break;
+            default:
+                borrarSubSubOpciones();
+                document.getElementById("div-sub-sub-tipo").hidden = true;
+                break;
+        }
+
+        if (array) {
             for (let i = 0; i < array.length; i++) {
                 var opt = document.createElement("option");
                 opt.textContent = array[i];
                 opt.setAttribute("value", array[i]);
-                subtipo.appendChild(opt);
+                subsubtipo.appendChild(opt);
             }
 
-            if (selec.value == "INTERNET") {
-                document.getElementById("div-sub-tipo").hidden = true;
-            } else {
-                document.getElementById("div-sub-tipo").hidden = false;
-            }
-
+            document.getElementById("div-sub-sub-tipo").hidden = false;
         }
 
+    }
 
-        /**
-         *Borra todas las opciones del selec de sub-tipos
-         */
-        function borrarSubOpciones() {
-            var subtipo = document.getElementById("sub-tipo");
+    /**
+     *Borra todas las sub-sub-opciones del selec de sub-sub-tipos
+     */
+    function borrarSubSubOpciones() {
+        var subsubtipo = document.getElementById("sub-sub-tipo");
 
-            while (subtipo.firstChild) {
-                subtipo.removeChild(subtipo.firstChild);
-            }
+        while (subsubtipo.firstChild) {
+            subsubtipo.removeChild(subsubtipo.firstChild);
         }
+    }
 
-        /**
-         * Comprueba si se selecciona el sub-tipo "yedra", y si es así saca alert con información
-         */
-        function comprobarYedra() {
-            var subtipo = document.getElementById("sub-tipo");
+    /**
+     * Cambia si los campos num_etiqueta, aula y puesto se muestran o no, en funcion a si se selecciona el tipo equipos, o no
+     */
+    function EquiposSelected() {
 
-            if (subtipo.value == "YEDRA") {
-                alert("Esta gestión la realiza Jefatura de estudios");
-            }
+        var selec = document.getElementById("tipo");
+
+        if (selec.value === "EQUIPOS") {
+            document.getElementById("div-equipo").hidden = false;
+        } else {
+            document.getElementById("div-equipo").hidden = true;
         }
-
-        /**
-         * Genera los sub-sub-tipo dependiendo del sub-tipo seleccionado
-         */
-        function generarSubSubTipos() {
-
-            var subtipo = document.getElementById("sub-tipo");
-            var subsubtipo = document.getElementById("sub-sub-tipo");
-
-            borrarSubSubOpciones();
-
-            switch (subtipo.value) {
-                case "PC":
-                    var array = ["RATON", "ORDENADOR", "TECLADO"];
-                    break;
-                case "Portátil":
-                    var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
-                    break;
-                default:
-                    borrarSubSubOpciones();
-                    document.getElementById("div-sub-sub-tipo").hidden = true;
-                    break;
-            }
-
-            if (array) {
-                for (let i = 0; i < array.length; i++) {
-                    var opt = document.createElement("option");
-                    opt.textContent = array[i];
-                    opt.setAttribute("value", array[i]);
-                    subsubtipo.appendChild(opt);
-                }
-
-                document.getElementById("div-sub-sub-tipo").hidden = false;
-            }
-
-        }
-
-        /**
-         *Borra todas las sub-sub-opciones del selec de sub-sub-tipos
-         */
-        function borrarSubSubOpciones() {
-            var subsubtipo = document.getElementById("sub-sub-tipo");
-
-            while (subsubtipo.firstChild) {
-                subsubtipo.removeChild(subsubtipo.firstChild);
-            }
-        }
-
-        /**
-         * Cambia si los campos num_etiqueta, aula y puesto se muestran o no, en funcion a si se selecciona el tipo equipos, o no
-         */
-        function EquiposSelected() {
-
-            var selec = document.getElementById("tipo");
-
-            if (selec.value === "EQUIPOS") {
-                document.getElementById("div-equipo").hidden = false;
-            } else {
-                document.getElementById("div-equipo").hidden = true;
-            }
-        }
-    </script>
+    }
+</script>

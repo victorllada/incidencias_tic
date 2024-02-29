@@ -48,18 +48,20 @@
                             {{-- Contendor con los filtros y boton de filtrado --}}
                             <div class="offcanvas-body d-flex flex-column justify-between gap-4">
 
-                                {{-- Filtro id --}}
+                                {{-- Filtro nombre --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
-                                    <input class="form-control" id="idFiltro" name="idFiltro" type="search"
-                                        placeholder="Introduce el ID">
+                                    <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">ID</label>
+                                    <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
+                                        placeholder="Introduce el nombre">
                                 </div>
 
-                                {{-- Filtro usuario --}}
+                                {{-- Filtro nombre completo --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
-                                    <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
-                                        placeholder="Introduce nombre del usuario">
+                                    <label class="col-3 input-group-text aquamarine-200" for="nombre_completoFiltro">
+                                        Nombre completo
+                                    </label>
+                                    <input class="form-control" id="nombre_completoFiltro" name="nombre_completoFiltro"
+                                        type="search" placeholder="Introduce nombre completo">
                                 </div>
 
                                 {{-- Filtro tipo --}}
@@ -94,17 +96,6 @@
                                         <option value="MEDIA">Media</option>
                                         <option value="ALTA">Alta</option>
                                     </select>
-                                </div>
-
-                                {{-- Filtro fecha desde hasta --}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200"
-                                        for="fechaDesdeFiltro">Fecha</label>
-                                    <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
-                                        aria-label="Desde">
-                                    <label class="" for="fechaHastaFiltro"></label>
-                                    <input class="form-control" type="date" id="fechaHastaFiltro" name="fechaHastaFiltro"
-                                        aria-label="Hasta">
                                 </div>
 
                                 {{-- Filtro estado --}}
@@ -146,26 +137,20 @@
 
             {{-- Encabezado de la lista de incidencias --}}
             <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300">
-                <div class="col fw-bolder p-3 baja-res">
-                    ID
-                </div>
-                <div class="col fw-bolder p-3 baja-res">
-                    Usuario
+                <div class="col fw-bolder p-3">
+                    Nombre
                 </div>
                 <div class="col fw-bolder p-3">
-                    Tipo
+                    Nombre completo
                 </div>
                 <div class="col fw-bolder p-3">
-                    Subtipo
-                </div>
-                <div class="col fw-bolder p-3 baja-res">
-                    Fecha de creación
+                    Email
                 </div>
                 <div class="col fw-bolder p-3">
-                    Prioridad
+                    Departamento
                 </div>
                 <div class="col fw-bolder p-3">
-                    Estado
+                    Rol
                 </div>
                 <div class="col fw-bolder p-3 movil-res">
                 </div>
@@ -177,31 +162,32 @@
                 @forelse ($usuarios as $usuario)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                                {{ $usuario->name }}
                             </div>
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                                {{ $usuario->nombre_completo }}
                             </div>
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                                {{ $usuario->email }}
                             </div>
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                                {{ $usuario->nombre_departamento }}
                             </div>
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
-                            </div>
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
-                            </div>
-                            <div class="col p-3" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{ $usuario->id }}
+                            <div class="col p-3 text-ellipsis"
+                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                                {{-- Aqui va el rol del usuario --}}
                             </div>
                             <div class="col p-3 movil-res">
                                 <div class="d-flex flex-column justify-content-center gap-2">
                                     <a class=" btn aquamarine-400 text-white" type="button"
-                                        href="{{ route('usuarios.show', $usuario) }}">Detalles</a>
+                                        href="{{ route('usuarios.edit', $usuario) }}">
+                                        Editar
+                                    </a>
                                     <form action="" class="d-flex">
                                         <input type="button" class="btn aquamarine-400 text-white flex-fill"
                                             value="Borrar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -251,7 +237,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea borrar la incidencia con id: <span id="numeroID"></span>
+                        Desea borrar el usuario: <span id="numeroID"></span>{{-- Nombre complreto del usuarios --}}
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
