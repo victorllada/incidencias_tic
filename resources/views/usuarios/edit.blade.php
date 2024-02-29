@@ -47,7 +47,7 @@
                         <div class="col-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="nombre_completo">
-                                    Usuario
+                                    Nombre
                                 </label>
                                 <input type="text" class="form-control" name="nombre_completo" id="nombre_completo"
                                     value="{{ $usuario->nombre_completo }}">
@@ -60,10 +60,10 @@
                         <div class="col-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="name">
-                                    Nombre
+                                    Usuario
                                 </label>
                                 <input type="text" class="form-control" name="name" id="name"
-                                    value="{{ $usuario->name }}">
+                                    value="{{ $usuario->name }}" disabled>
                             </div>
                         </div>
                         <div class="col-4">
@@ -84,21 +84,8 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="departamento">
                                     Departamento
                                 </label>
-                                <select class="form-select" name="departamento" id="departamento" required>
-                                    <option selected disabled value="-1">Selecciona el departamento</option>
-                                    <option value="BAJA" {{ $usuario->prioridad == 'BAJA' ? 'selected' : '' }}>
-                                        Baja
-                                    </option>
-                                    <option value="MEDIA" {{ $usuario->prioridad == 'MEDIA' ? 'selected' : '' }}>
-                                        Media
-                                    </option>
-                                    <option value="ALTA" {{ $usuario->prioridad == 'ALTA' ? 'selected' : '' }}>
-                                        Alta
-                                    </option>
-                                    <option value="URGENTE"{{ $usuario->prioridad == 'URGENTE' ? 'selected' : '' }}>
-                                        Urgente
-                                    </option>
-                                </select>
+                                <input type="email" class="form-control" name="email" id="email"
+                                    value="{{ $usuario->nombre_departamento }}" disabled>
                             </div>
                         </div>
                         <div class="col-lg-4">

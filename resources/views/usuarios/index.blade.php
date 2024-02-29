@@ -48,11 +48,11 @@
 
                                 {{-- Filtro nombre --}}
                                 <div class="input-group">
-                                    <label class="col-5 input-group-text aquamarine-200" for="nombreFiltro">
-                                        ID
+                                    <label class="col-5 input-group-text aquamarine-200" for="usuarioFiltro">
+                                        Usuario
                                     </label>
-                                    <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
-                                        placeholder="Introduce el nombre">
+                                    <input class="form-control" id="usuarioFiltro" name="usuarioFiltro" type="search"
+                                        placeholder="Introduce el usuario">
                                 </div>
 
                                 {{-- Filtro nombre completo --}}
@@ -119,7 +119,7 @@
             {{-- Encabezado de la lista de incidencias --}}
             <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300">
                 <div class="col fw-bolder p-3">
-                    Nombre
+                    Usuario
                 </div>
                 <div class="col fw-bolder p-3">
                     Nombre completo
