@@ -16,7 +16,9 @@
                     <li class="breadcrumb-item" aria-current="page">
                         <a href="{{ route('incidencias.show', $incidencia) }}">Incidencia {{ $incidencia->id }}</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Actualizar datos</span></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span>Actualizar datos</span>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -61,7 +63,6 @@
                                     <option value="SOFTWARE" {{ $incidencia->tipo == 'SOFTWARE' ? 'selected' : '' }}>
                                         SOFTWARE</option>
                                 </select>
-
                             </div>
                         </div>
                         <div class="col-lg-4" id="div-sub-tipo">
@@ -88,8 +89,9 @@
                     <div class="row mb-4" id="div-equipo">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
-                                    etiqueta</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">
+                                    Nº de etiqueta
+                                </label>
                                 <input type="number" class="form-control" name="num_etiqueta" id="num_etiqueta"
                                     placeholder="123456" pattern="[0-9]*">
                             </div>
@@ -116,18 +118,63 @@
                         </div>
                     </div>
 
-                    {{-- Fila 3 prioridad --}}
+                    {{-- Fila 3 prioridad, estado y duracion --}}
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
                                     <option selected disabled value="-1">Selecciona la prioridad</option>
-                                    <option value="BAJA">Baja</option>
-                                    <option value="MEDIA">Media</option>
-                                    <option value="ALTA">Alta</option>
-                                    <option value="URGENTE">Urgente</option>
+                                    <option value="BAJA" {{ $incidencia->prioridad == 'baja' ? 'selected' : '' }}>
+                                        Baja
+                                    </option>
+                                    <option value="MEDIA" {{ $incidencia->prioridad == 'media' ? 'selected' : '' }}>
+                                        Media
+                                    </option>
+                                    <option value="ALTA" {{ $incidencia->prioridad == 'alta' ? 'selected' : '' }}>
+                                        Alta
+                                    </option>
+                                    <option value="URGENTE"{{ $incidencia->prioridad == 'urgente' ? 'selected' : '' }}>
+                                        Urgente
+                                    </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Estado</label>
+                                <select class="form-select" name="estado" id="estado" required>
+                                    <option selected value="-1">Selecciona el estado</option>
+                                    <option value="ABIERTA" {{ $incidencia->estado == 'abierta' ? 'selected' : '' }}>
+                                        Abierta
+                                    </option>
+                                    <option value="CERRADA"{{ $incidencia->estado == 'cerrada' ? 'selected' : '' }}>
+                                        Cerrada
+                                    </option>
+                                    <option value="RESUELTA"{{ $incidencia->estado == 'resuelta' ? 'selected' : '' }}>
+                                        Resuelta
+                                    </option>
+                                    <option value="ASIGNADA"{{ $incidencia->estado == 'asignada' ? 'selected' : '' }}>
+                                        Asignada
+                                    </option>
+                                    <option
+                                        value="ENVIADA A INFORTEC"{{ $incidencia->estado == 'enviada a Infortec' ? 'selected' : '' }}>
+                                        Enviada a Infortec
+                                    </option>
+                                    <option value="EN PROCESO"
+                                        {{ $incidencia->estado == 'en proceso' ? 'selected' : '' }}>
+                                        En proceso
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="duracion">
+                                    Duración
+                                </label>
+                                <input type="number" class="form-control" name="duracion" id="duracion"
+                                    placeholder="60" pattern="[0-9]*" value="{{ $incidencia->duracion }}">
                             </div>
                         </div>
                     </div>
@@ -139,7 +186,7 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
                                 <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="descripcion"
-                                    rows="8" maxlength="256">{{ $incidencia->descripcion }}</textarea>
+                                    rows="8" maxlength="256" required>{{ $incidencia->descripcion }}</textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -156,7 +203,9 @@
                     <div class="row mb-4">
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">Archivo</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">
+                                    Archivo
+                                </label>
                                 <label for="fichero" class="form-label" hidden>Choose file</label>
                                 <input type="file" class="form-control custom-file-input rounded-end" id="fichero"
                                     name="fichero">
@@ -184,8 +233,8 @@
                         </div>
                     </div>
 
-                    {{-- Boton para crear incidencia --}}
-                    <div class="row">
+                    {{-- Boton para editar incidencia --}}
+                    <div class="row mt-5">
                         <div class="col">
                             <input type="submit" class="btn aquamarine-400 text-white" value="Actualizar">
                         </div>
@@ -193,163 +242,163 @@
                 </div>
             </div>
         </form>
+    </div>
+@endsection
 
-    @endsection
+<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
+<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
+<script>
+    addEventListener('load', () => {
+        //Guardamos en una variable el selec de tipo
+        var tipo = document.getElementById("tipo");
 
-    <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-    <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-    <script>
-        addEventListener('load', () => {
-            //Guardamos en una variable el selec de tipo
-            var tipo = document.getElementById("tipo");
+        //Guardamos en una variable el selec de subtipos
+        var subtipo = document.getElementById("sub-tipo");
 
-            //Guardamos en una variable el selec de subtipos
-            var subtipo = document.getElementById("sub-tipo");
+        //Genera los sub-tipos cuando se elije una opcion de tipos
+        tipo.addEventListener('change', generarSubtipos);
 
-            //Genera los sub-tipos cuando se elije una opcion de tipos
-            tipo.addEventListener('change', generarSubtipos);
+        //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
+        tipo.addEventListener('change', EquiposSelected);
 
-            //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
-            tipo.addEventListener('change', EquiposSelected);
+        //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
+        subtipo.addEventListener('change', comprobarYedra);
 
-            //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
-            subtipo.addEventListener('change', comprobarYedra);
+        //Genera los sub-sub-tipos cuando se elije una opcion de tipos
+        subtipo.addEventListener('change', generarSubSubTipos);
 
-            //Genera los sub-sub-tipos cuando se elije una opcion de tipos
-            subtipo.addEventListener('change', generarSubSubTipos);
+    });
 
-        });
+    /**
+     * Genera los sub-tipos dependiendo de lo seleccionado en tipos
+     */
+    function generarSubtipos() {
+        var selec = document.getElementById("tipo");
+        var subtipo = document.getElementById("sub-tipo");
 
-        /**
-         * Genera los sub-tipos dependiendo de lo seleccionado en tipos
-         */
-        function generarSubtipos() {
-            var selec = document.getElementById("tipo");
-            var subtipo = document.getElementById("sub-tipo");
+        var subsubtipo = document.getElementById("sub-sub-tipo");
 
-            var subsubtipo = document.getElementById("sub-sub-tipo");
+        borrarSubOpciones();
+        borrarSubSubOpciones();
 
-            borrarSubOpciones();
-            borrarSubSubOpciones();
+        switch (selec.value) {
+            case "CUENTAS":
+                var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
+                break;
+            case "EQUIPOS":
+                var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
+                    "IMPRESORA"
+                ];
+                break;
+            case "WIFI":
+                var array = ["IESMIGUELHERRERO", "WIECAN"];
+                break;
+            case "INTERNET":
+                var array = [];
+                break;
+            case "SOFTWARE":
+                var array = ["INSTALACION", "ACTUALIZACION"];
+                break;
+            default:
+                break;
+        }
 
-            switch (selec.value) {
-                case "CUENTAS":
-                    var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
-                    break;
-                case "EQUIPOS":
-                    var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
-                        "IMPRESORA"
-                    ];
-                    break;
-                case "WIFI":
-                    var array = ["IESMIGUELHERRERO", "WIECAN"];
-                    break;
-                case "INTERNET":
-                    var array = [];
-                    break;
-                case "SOFTWARE":
-                    var array = ["INSTALACION", "ACTUALIZACION"];
-                    break;
-                default:
-                    break;
-            }
+        for (let i = 0; i < array.length; i++) {
+            var opt = document.createElement("option");
+            opt.textContent = array[i];
+            opt.setAttribute("value", array[i]);
+            subtipo.appendChild(opt);
+        }
 
+        if (selec.value == "INTERNET") {
+            document.getElementById("div-sub-tipo").hidden = true;
+        } else {
+            document.getElementById("div-sub-tipo").hidden = false;
+        }
+
+    }
+
+
+    /**
+     *Borra todas las opciones del selec de sub-tipos
+     */
+    function borrarSubOpciones() {
+        var subtipo = document.getElementById("sub-tipo");
+
+        while (subtipo.firstChild) {
+            subtipo.removeChild(subtipo.firstChild);
+        }
+    }
+
+    /**
+     * Comprueba si se selecciona el sub-tipo "yedra", y si es así saca alert con información
+     */
+    function comprobarYedra() {
+        var subtipo = document.getElementById("sub-tipo");
+
+        if (subtipo.value == "YEDRA") {
+            alert("Esta gestión la realiza Jefatura de estudios");
+        }
+    }
+
+    /**
+     * Genera los sub-sub-tipo dependiendo del sub-tipo seleccionado
+     */
+    function generarSubSubTipos() {
+
+        var subtipo = document.getElementById("sub-tipo");
+        var subsubtipo = document.getElementById("sub-sub-tipo");
+
+        borrarSubSubOpciones();
+
+        switch (subtipo.value) {
+            case "PC":
+                var array = ["RATON", "ORDENADOR", "TECLADO"];
+                break;
+            case "Portátil":
+                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
+                break;
+            default:
+                borrarSubSubOpciones();
+                document.getElementById("div-sub-sub-tipo").hidden = true;
+                break;
+        }
+
+        if (array) {
             for (let i = 0; i < array.length; i++) {
                 var opt = document.createElement("option");
                 opt.textContent = array[i];
                 opt.setAttribute("value", array[i]);
-                subtipo.appendChild(opt);
+                subsubtipo.appendChild(opt);
             }
 
-            if (selec.value == "INTERNET") {
-                document.getElementById("div-sub-tipo").hidden = true;
-            } else {
-                document.getElementById("div-sub-tipo").hidden = false;
-            }
-
+            document.getElementById("div-sub-sub-tipo").hidden = false;
         }
 
+    }
 
-        /**
-         *Borra todas las opciones del selec de sub-tipos
-         */
-        function borrarSubOpciones() {
-            var subtipo = document.getElementById("sub-tipo");
+    /**
+     *Borra todas las sub-sub-opciones del selec de sub-sub-tipos
+     */
+    function borrarSubSubOpciones() {
+        var subsubtipo = document.getElementById("sub-sub-tipo");
 
-            while (subtipo.firstChild) {
-                subtipo.removeChild(subtipo.firstChild);
-            }
+        while (subsubtipo.firstChild) {
+            subsubtipo.removeChild(subsubtipo.firstChild);
         }
+    }
 
-        /**
-         * Comprueba si se selecciona el sub-tipo "yedra", y si es así saca alert con información
-         */
-        function comprobarYedra() {
-            var subtipo = document.getElementById("sub-tipo");
+    /**
+     * Cambia si los campos num_etiqueta, aula y puesto se muestran o no, en funcion a si se selecciona el tipo equipos, o no
+     */
+    function EquiposSelected() {
 
-            if (subtipo.value == "YEDRA") {
-                alert("Esta gestión la realiza Jefatura de estudios");
-            }
+        var selec = document.getElementById("tipo");
+
+        if (selec.value === "EQUIPOS") {
+            document.getElementById("div-equipo").hidden = false;
+        } else {
+            document.getElementById("div-equipo").hidden = true;
         }
-
-        /**
-         * Genera los sub-sub-tipo dependiendo del sub-tipo seleccionado
-         */
-        function generarSubSubTipos() {
-
-            var subtipo = document.getElementById("sub-tipo");
-            var subsubtipo = document.getElementById("sub-sub-tipo");
-
-            borrarSubSubOpciones();
-
-            switch (subtipo.value) {
-                case "PC":
-                    var array = ["RATON", "ORDENADOR", "TECLADO"];
-                    break;
-                case "Portátil":
-                    var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
-                    break;
-                default:
-                    borrarSubSubOpciones();
-                    document.getElementById("div-sub-sub-tipo").hidden = true;
-                    break;
-            }
-
-            if (array) {
-                for (let i = 0; i < array.length; i++) {
-                    var opt = document.createElement("option");
-                    opt.textContent = array[i];
-                    opt.setAttribute("value", array[i]);
-                    subsubtipo.appendChild(opt);
-                }
-
-                document.getElementById("div-sub-sub-tipo").hidden = false;
-            }
-
-        }
-
-        /**
-         *Borra todas las sub-sub-opciones del selec de sub-sub-tipos
-         */
-        function borrarSubSubOpciones() {
-            var subsubtipo = document.getElementById("sub-sub-tipo");
-
-            while (subsubtipo.firstChild) {
-                subsubtipo.removeChild(subsubtipo.firstChild);
-            }
-        }
-
-        /**
-         * Cambia si los campos num_etiqueta, aula y puesto se muestran o no, en funcion a si se selecciona el tipo equipos, o no
-         */
-        function EquiposSelected() {
-
-            var selec = document.getElementById("tipo");
-
-            if (selec.value === "EQUIPOS") {
-                document.getElementById("div-equipo").hidden = false;
-            } else {
-                document.getElementById("div-equipo").hidden = true;
-            }
-        }
-    </script>
+    }
+</script>

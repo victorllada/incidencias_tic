@@ -156,7 +156,13 @@ form>.card{
 
 /* Estilo para el botón del dropdown cuando está pulsado */
 header .dropdown-item:active {
-    background-color: $aquamarine-400;
+    background-color: #f8fafc;
+    color: black;
+}
+
+header .dropdown-item:active {
+    background-color: #f8fafc;
+    color: black;
 }
 
 main .dropdown-toggle:active,

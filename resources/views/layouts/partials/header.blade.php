@@ -16,7 +16,8 @@
                     </li>
                     @role('administrador')
                         <li class="nav-item">
-                            <a class="nav-link px-4 link-body-emphasis text-white" href="{{route('usuarios.index')}}">Administrar usuarios</a>
+                            <a class="nav-link px-4 link-body-emphasis text-white"
+                                href="{{ route('usuarios.index') }}">Administrar usuarios</a>
                         </li>
                     @endrole
                 </ul>
@@ -33,9 +34,9 @@
                     </a>
                     @auth
                         <ul class="dropdown-menu text-small" style="">
-                            <li><a class="dropdown-item" href="#">{{ auth()->user()->nombre_completo }}</a></li>
-                            <li><a class="dropdown-item" href="#">{{ auth()->user()->email }}</a></li>
-                            <li><a class="dropdown-item" href="#">
+                            <li><a class="dropdown-item">{{ auth()->user()->nombre_completo }}</a></li>
+                            <li><a class="dropdown-item">{{ auth()->user()->email }}</a></li>
+                            <li><a class="dropdown-item">
                                     @role('administrador')
                                         Administrador
                                     @else

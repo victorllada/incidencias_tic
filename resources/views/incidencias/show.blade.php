@@ -152,7 +152,7 @@
                 </div>
 
                 {{-- Botones actilizar y borrar incidencia --}}
-                <div class="row">
+                <div class="row mt-5">
                     <div class="d-flex gap-2">
                         <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
                             class="btn aquamarine-400 text-white">Editar</a>
