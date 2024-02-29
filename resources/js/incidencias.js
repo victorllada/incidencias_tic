@@ -967,7 +967,7 @@ function redirect(url)
     window.location.href=url;
 }
 
-//funcion para parar el evento de borrado
+//funcion para cambiar el actrion del formulario de borrado por el del id del elemento clickado
 function preguntarBorrado(event)
 {
     //elimino el evento de enviar
@@ -978,9 +978,9 @@ function preguntarBorrado(event)
     idFormularioBorrado=event.target.parentNode.id;*/
     //console.log(event.target.parentNode);
 
-    //let ruta="http://127.0.0.1:8000/borradoIncidencias/"+event.target.parentNode.getAttribute("idincidencia");
+    let ruta="http://127.0.0.1:8000/incidencias/"+event.target.parentNode.getAttribute("idincidencia");
 
-    //formBorrado.action=ruta;//"http://127.0.0.1:8000/borradoIncidencias/"+event.target.parentNode.getAttribute("idincidencia");
+    formBorrado.action=ruta;
 }
 /*
 // funcion para realizar la confirmacion del borrado del registro
