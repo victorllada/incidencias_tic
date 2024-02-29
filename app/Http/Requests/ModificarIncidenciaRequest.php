@@ -15,9 +15,8 @@ class ModificarIncidenciaRequest extends FormRequest
             'tipo' => 'required|in:CUENTAS,EQUIPOS,WIFI,INTERNET,SOFTWARE',
             'sub-tipo' => 'in:EDUCANTABRIA,GOOGLE CLASSROOM,DOMINIO,YEDRA,ALTAVOCES,PC,MONITOR,PROYECTOR,PANTALLA INTERACTIVA,PORTATIL,IMPRESORA,IESMIGUELHERRERO,WIECAN,INSTALACION,ACTUALIZACION',
             'sub-sub-tipo' => 'in:RATON,ORDENADOR,TECLADO,PORTATIL PROPORCIONADO POR CONSERJERIA,DE AULA,DE PUESTO',
-            'estado' => 'required|in:ABIERTA,ASIGNADA,EN PROCESO,ENVIADA A INFORTEC,RESUELTA,CERRADA',
+            //'estado' => 'required|in:ABIERTA,ASIGNADA,EN PROCESO,ENVIADA A INFORTEC,RESUELTA,CERRADA',
             'descripcion' => 'required|min:5',
-            'actuaciones' => 'min:5',
             'prioridad' => 'required|in:BAJA,MEDIA,ALTA,URGENTE',
             'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ];
