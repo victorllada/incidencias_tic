@@ -42,7 +42,7 @@
 
                 <div class="card-body">
 
-                    {{-- Fila 1 tipo sub-tipo y sub-sub-tipo --}}
+                    {{-- Fila 1 nombre --}}
                     <div class="row mb-4">
                         <div class="col-4">
                             <div class="input-group">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    {{-- Fila 2  name y email --}}
+                    {{-- Fila 2  usuario y email --}}
                     <div class="row mb-4" id="div-equipo">
                         <div class="col-4">
                             <div class="input-group">
