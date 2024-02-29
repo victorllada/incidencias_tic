@@ -233,7 +233,7 @@
                     </div>
 
                     {{-- Boton para editar incidencia --}}
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col">
                             <input type="submit" class="btn aquamarine-400 text-white" value="Actualizar">
                         </div>

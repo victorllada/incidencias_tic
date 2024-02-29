@@ -399,41 +399,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Lista de incidencias asignadas a cada administrador</div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="" class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
-                                                </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="" class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
-                                                </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="" class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
-                                                </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

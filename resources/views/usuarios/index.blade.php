@@ -5,8 +5,6 @@
 @endsection
 @section('contenido')
 
-    <h1>Usuarios</h1>
-
     <div class="container">
 
         @if ($errors->any())
@@ -50,65 +48,48 @@
 
                                 {{-- Filtro nombre --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">ID</label>
+                                    <label class="col-5 input-group-text aquamarine-200" for="nombreFiltro">
+                                        ID
+                                    </label>
                                     <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
                                         placeholder="Introduce el nombre">
                                 </div>
 
                                 {{-- Filtro nombre completo --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="nombre_completoFiltro">
+                                    <label class="col-5 input-group-text aquamarine-200" for="nombre_completoFiltro">
                                         Nombre completo
                                     </label>
                                     <input class="form-control" id="nombre_completoFiltro" name="nombre_completoFiltro"
                                         type="search" placeholder="Introduce nombre completo">
                                 </div>
 
-                                {{-- Filtro tipo --}}
+                                {{-- Filtro email --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
-                                    <select class="form-select" id="tipoFiltro" name="tipoFiltro">
-                                        <option selected value="-1">Selecciona el tipo</option>
-                                        <option value="EQUIPOS">Equipos</option>
-                                        <option value="CUENTAS">Cuentas</option>
-                                        <option value="WIFI">Wifi</option>
-                                        <option value="INTERNET">Internet</option>
-                                        <option value="SOFTWARE">Software</option>
+                                    <label class="col-5 input-group-text aquamarine-200" for="emailFiltro">
+                                        Email
+                                    </label>
+                                    <input class="form-control" id="emailFiltro" name="emailFiltro" type="search"
+                                        placeholder="example@mail.com">
+                                </div>
+
+                                {{-- Filtro departamento --}}
+                                <div class="input-group">
+                                    <label class="col-5 input-group-text aquamarine-200" for="departamentoFiltro">
+                                        Departamento
+                                    </label>
+                                    <select class="form-select" id="departamentoFiltro" name="departamentoFiltro">
+                                        <option selected value="-1">Selecciona el departamento</option>
                                     </select>
                                 </div>
 
-                                {{-- Filtro subtipo --}}
+                                {{-- Filtro rol --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
-                                    <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
-                                        <option selected value="-1">Selecciona el subtipo</option>
-                                    </select>
-                                </div>
-
-                                {{-- Filtro prioridad --}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200"
-                                        for="prioridadFiltro">Prioridad</label>
-                                    <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
-                                        <option selected value="-1">Selecciona la prioridad</option>
-                                        <option value="BAJA">Baja</option>
-                                        <option value="URGENTE">Urgente</option>
-                                        <option value="MEDIA">Media</option>
-                                        <option value="ALTA">Alta</option>
-                                    </select>
-                                </div>
-
-                                {{-- Filtro estado --}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
-                                    <select class="form-select" id="estadoFiltro" name="estadoFiltro">
-                                        <option selected value="-1">Selecciona el estado</option>
-                                        <option value="ABIERTA">Abierta</option>
-                                        <option value="CERRADA">Cerrada</option>
-                                        <option value="RESUELTA">Resuelta</option>
-                                        <option value="ASIGNADA">Asignada</option>
-                                        <option value="ENVIADA A INFORTEC">Enviada a Infortec</option>
-                                        <option value="EN PROCESO">En proceso</option>
+                                    <label class="col-5 input-group-text aquamarine-200" for="rolFiltro">
+                                        Rol
+                                    </label>
+                                    <select class="form-select" id="rolFiltro" name="rolFiltro">
+                                        <option selected value="-1">Selecciona el rol</option>
                                     </select>
                                 </div>
 
@@ -162,20 +143,16 @@
                 @forelse ($usuarios as $usuario)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
-                            <div class="col p-3 text-ellipsis"
-                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
                                 {{ $usuario->name }}
                             </div>
-                            <div class="col p-3 text-ellipsis"
-                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
                                 {{ $usuario->nombre_completo }}
                             </div>
-                            <div class="col p-3 text-ellipsis"
-                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
                                 {{ $usuario->email }}
                             </div>
-                            <div class="col p-3 text-ellipsis"
-                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
                                 {{ $usuario->nombre_departamento }}
                             </div>
                             <div class="col p-3 text-ellipsis"
