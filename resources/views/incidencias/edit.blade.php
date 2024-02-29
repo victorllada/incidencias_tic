@@ -125,16 +125,16 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
                                     <option selected disabled value="-1">Selecciona la prioridad</option>
-                                    <option value="BAJA" {{ $incidencia->prioridad == 'BAJA' ? 'selected' : '' }}>
+                                    <option value="BAJA" {{ $incidencia->prioridad == 'baja' ? 'selected' : '' }}>
                                         Baja
                                     </option>
-                                    <option value="MEDIA" {{ $incidencia->prioridad == 'MEDIA' ? 'selected' : '' }}>
+                                    <option value="MEDIA" {{ $incidencia->prioridad == 'media' ? 'selected' : '' }}>
                                         Media
                                     </option>
-                                    <option value="ALTA" {{ $incidencia->prioridad == 'ALTA' ? 'selected' : '' }}>
+                                    <option value="ALTA" {{ $incidencia->prioridad == 'alta' ? 'selected' : '' }}>
                                         Alta
                                     </option>
-                                    <option value="URGENTE"{{ $incidencia->prioridad == 'URGENTE' ? 'selected' : '' }}>
+                                    <option value="URGENTE"{{ $incidencia->prioridad == 'urgente' ? 'selected' : '' }}>
                                         Urgente
                                     </option>
                                 </select>
@@ -146,24 +146,24 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Estado</label>
                                 <select class="form-select" name="estado" id="estado" required>
                                     <option selected value="-1">Selecciona el estado</option>
-                                    <option value="ABIERTA" {{ $incidencia->estado == 'ABIERTA' ? 'selected' : '' }}>
+                                    <option value="ABIERTA" {{ $incidencia->estado == 'abierta' ? 'selected' : '' }}>
                                         Abierta
                                     </option>
-                                    <option value="CERRADA"{{ $incidencia->estado == 'CERRADA' ? 'selected' : '' }}>
+                                    <option value="CERRADA"{{ $incidencia->estado == 'cerrada' ? 'selected' : '' }}>
                                         Cerrada
                                     </option>
-                                    <option value="RESUELTA"{{ $incidencia->estado == 'RESUELTA' ? 'selected' : '' }}>
+                                    <option value="RESUELTA"{{ $incidencia->estado == 'resuelta' ? 'selected' : '' }}>
                                         Resuelta
                                     </option>
-                                    <option value="ASIGNADA"{{ $incidencia->estado == 'ASIGNADA' ? 'selected' : '' }}>
+                                    <option value="ASIGNADA"{{ $incidencia->estado == 'asignada' ? 'selected' : '' }}>
                                         Asignada
                                     </option>
                                     <option
-                                        value="ENVIADA A INFORTEC"{{ $incidencia->estado == 'ENVIADA A INFORTEC' ? 'selected' : '' }}>
+                                        value="ENVIADA A INFORTEC"{{ $incidencia->estado == 'enviada a Infortec' ? 'selected' : '' }}>
                                         Enviada a Infortec
                                     </option>
                                     <option value="EN PROCESO"
-                                        {{ $incidencia->estado == 'EN PROCESO' ? 'selected' : '' }}>
+                                        {{ $incidencia->estado == 'en proceso' ? 'selected' : '' }}>
                                         En proceso
                                     </option>
                                 </select>
