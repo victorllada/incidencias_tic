@@ -45,7 +45,7 @@
                 {{-- Fila --}}
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Tipo:</span> {{ $usuario->tipo }}
+                        <span class="fw-bolder">Tipo:</span> {{ $usuario->email }}
                     </div>
 
                     <!-- Si no hay sub-tipos de usuario no se muestra -->
@@ -66,10 +66,7 @@
                 {{-- Fila  --}}
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Creador:</span>
-                    </div>
-                    <div class="col-lg-4">
-                        <span class="fw-bolder">Fecha de creación:</span> {{ $usuario }}
+                        <span class="fw-bolder">Departamento</span> {{ $usuario->nombre_departamento }}
                     </div>
                     <div class="col-lg-4">
                         <span class="fw-bolder">Fecha de cierre:</span> {{ $usuario }}
@@ -79,13 +76,13 @@
                 {{-- Fila --}}
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Estado:</span> {{ $usuario->estado }}
+                        <span class="fw-bolder">Estado:</span> {{ $usuario }}
                     </div>
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Prioridad:</span> {{ $usuario->prioridad }}
+                        <span class="fw-bolder">Prioridad:</span> {{ $usuario }}
                     </div>
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Duración:</span> {{ $usuario->duracion }}
+                        <span class="fw-bolder">Duración:</span> {{ $usuario }}
                     </div>
                 </div>
 
