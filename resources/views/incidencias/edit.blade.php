@@ -63,7 +63,6 @@
                                     <option value="SOFTWARE" {{ $incidencia->tipo == 'SOFTWARE' ? 'selected' : '' }}>
                                         SOFTWARE</option>
                                 </select>
-
                             </div>
                         </div>
                         <div class="col-lg-4" id="div-sub-tipo">
@@ -90,8 +89,9 @@
                     <div class="row mb-4" id="div-equipo">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
-                                    etiqueta</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">
+                                    Nº de etiqueta
+                                </label>
                                 <input type="number" class="form-control" name="num_etiqueta" id="num_etiqueta"
                                     placeholder="123456" pattern="[0-9]*">
                             </div>
@@ -120,7 +120,7 @@
 
                     {{-- Fila 3 prioridad, estado y duracion --}}
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
@@ -140,8 +140,7 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Estado</label>
                                 <select class="form-select" name="estado" id="estado" required>
@@ -204,7 +203,9 @@
                     <div class="row mb-4">
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">Archivo</label>
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="archivo">
+                                    Archivo
+                                </label>
                                 <label for="fichero" class="form-label" hidden>Choose file</label>
                                 <input type="file" class="form-control custom-file-input rounded-end" id="fichero"
                                     name="fichero">
