@@ -1,7 +1,7 @@
 addEventListener("load",inicio,false);
 
 let datosIncidencias;
-let datosFinales;
+let datosFinales=[];
 let datosPaginacion=[];
 let pagina=0;
 let idFormularioBorrado="";
@@ -11,15 +11,16 @@ function inicio()
     //llamada de ajax y creacion de las incidencias en el html
     obtenerIncidencias().then(data => {
         datosIncidencias = data; // Guardamos los datos en la variable
-        console.log(datosIncidencias); // Ahora deberías poder ver los datos
+        //console.log(datosIncidencias); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosIncidencias);
 
-        console.log(datosPaginacion);
+        //console.log(datosPaginacion);
 
         generarIncidencias(datosPaginacion);
-    });
 
+
+    });
     //llamadas a los metodos para los filtros
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
@@ -470,6 +471,7 @@ function borrarFiltros()
     fechaDesdeFiltro.value="";
     fechaHastaFiltro.value="";
     estadoFiltro.value="-1";
+    datosFinales=[];
 
     //poner la pagina 1
     pagina=0;
@@ -673,7 +675,281 @@ function generarIncidencias(datos)
         //al lado del input escribo el numero total de paginas que hay disponibles para ver
         paginasTotales.innerHTML="/ "
         paginasTotales.innerHTML+=datos.length;
+
+
+        /*let info=[['Task', 'Hours per Day'],
+                    ['Work',     11],
+                    ['Eat',      2],
+                    ['Commute',  2],
+                    ['Watch TV', 2],
+                    ['Sleep',    7]];*/
+
+
+
+        if(datosFinales.length>0)
+        {
+            let info=datosTipo(datosFinales);
+            crearGraficaTipos(info);
+
+            crearGraficaEstado();
+        }
+        else
+        {
+            let info=datosTipo(datosIncidencias);
+            crearGraficaTipos(info);
+
+            console.log(crearGraficaEstado(datosIncidencias));
+        }
     }
+}
+
+function datosTipo(datos)
+{
+    let equpos=0;
+    let cuentas=0;
+    let wifi=0;
+    let internet=0;
+    let software=0;
+
+    datos.forEach(item => {
+
+        if(item.tipo=="EQUIPOS")
+        {
+            equpos++;
+        }
+        else if(item.tipo=="CUENTAS")
+        {
+            cuentas++;
+        }
+        else if(item.tipo=="WIFI")
+        {
+            wifi++;
+        }
+        else if(item.tipo=="INTERNET")
+        {
+            internet++;
+        }
+        else if(item.tipo=="SOFTWARE")
+        {
+            software++;
+        }
+    });
+
+    return [['Tipo', 'Numero de incidencias'],["Equipos",equpos],["Cuentas",cuentas],["Wifi",wifi],["Internet",internet],["Software",software]];
+}
+
+function crearGraficaTipos(datos)
+{
+    google.charts.load('current', {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable(datos);
+      /*var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
+      ]);*/
+
+      var options = {
+        title: 'Tipos de incidencias'
+      };
+
+      var chart = new google.visualization.PieChart(document.querySelector('#graficaTipos'));
+
+      chart.draw(data, options);
+    }
+}
+
+function datosEstado(datos)
+{
+    let equipos=[0,0,0,0,0,0];
+    let cuentas=[0,0,0,0,0,0];
+    let wifi=[0,0,0,0,0,0];
+    let internet=[0,0,0,0,0,0];
+    let software=[0,0,0,0,0,0];
+
+    datos.forEach(item=>{
+
+        if(item.tipo=="EQUIPOS")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                equipos[0]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                equipos[1]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                equipos[2]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                equipos[3]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                equipos[4]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                equipos[5]++;
+            }
+        }
+        else if(item.tipo=="CUENTAS")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                cuentas[0]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                cuentas[1]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                cuentas[2]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                cuentas[3]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                cuentas[4]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                cuentas[5]++;
+            }
+        }
+        else if(item.tipo=="WIFI")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                wifi[0]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                wifi[1]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                wifi[2]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                wifi[3]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                wifi[4]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                wifi[5]++;
+            }
+        }
+        else if(item.tipo=="INTERNET")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                internet[0]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                internet[1]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                internet[2]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                internet[3]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                internet[4]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                internet[5]++;
+            }
+        }
+        else if(item.tipo=="SOFTWARE")
+        {
+            if(item.estado=="ABIERTA")
+            {
+                software[0]++;
+            }
+            else if(item.estado=="CERRADA")
+            {
+                software[1]++;
+            }
+            else if(item.estado=="RESUELTA")
+            {
+                software[2]++;
+            }
+            else if(item.estado=="ASIGNADA")
+            {
+                software[3]++;
+            }
+            else if(item.estado=="ENVIADA A INFORTEC")
+            {
+                software[4]++;
+            }
+            else if(item.estado=="EN PROCESO")
+            {
+                software[5]++;
+            }
+        }
+
+    });
+
+    return [equipos,cuentas,wifi,internet,software];
+}
+
+function crearGraficaEstado()
+{
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+        ['Abierta', 'Cerrada', 'Resuelta', 'Asignada', 'Enviada a infortec',
+         'En proceso',{ role: 'annotation' } ],
+        ['Equipos', 10, 24, 20, 32, 18, 30],
+        ['Cuentas', 16, 22, 23, 30, 16, 20],
+        ['Wifi', 28, 19, 29, 30, 12, 40],
+        ['Internet', 10, 24, 20, 32, 18, 30],
+        ['Software', 16, 22, 23, 30, 16, 20]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0,1,2,3,4,5,6,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        width: 600,
+        height: 400,
+        legend: { position: 'top', maxLines: 5 },
+        bar: { groupWidth: '75%' },
+        isStacked: true
+      };
+
+      var chart = new google.visualization.BarChart(document.querySelector("#graficaEstasdo"));
+      chart.draw(view, options);
+      }
 }
 
 //metodo para poder enviar a la ruta que se le pase
@@ -703,3 +979,5 @@ function confiramarBorrado()
     //activo el evento de envio del formulario
     formulario.submit();
 }
+
+

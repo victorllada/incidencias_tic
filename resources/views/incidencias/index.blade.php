@@ -540,6 +540,11 @@
             </li>
         </ul>
 
+        <div id="graficas" style="display: flex;">
+            <div id="graficaTipos" style="width: 450px; height: 450px;"></div>
+            <div id="graficaEstasdo" style="width: 450px; height: 450px;"></div>
+        </div>
+
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
