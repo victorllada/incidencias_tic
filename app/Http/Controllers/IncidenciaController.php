@@ -14,6 +14,7 @@ use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\ModificarIncidenciaRequest;
 use App\Mail\EnvioCorreo;
 use App\Models\Aula;
+use App\Models\Comentario;
 use App\Models\Departamento;
 use App\Models\Equipo;
 use App\Models\Incidencia;
@@ -242,7 +243,7 @@ class IncidenciaController extends Controller
             $incidencia->descripcion = $request->descripcion;
             $incidencia->actuaciones = $request->actuaciones;
             //$incidencia->estado =  $request->estado;
-            $incidencia->estado =  "ABIERTA";//Hay que poner la de arriba
+            $incidencia->estado =  "ABIERTA"; //Hay que poner la de arriba
             $incidencia->prioridad = $request->prioridad;
 
             $incidencia->duracion = $request->duracion; //Solo sale cuando la incidencia esta resuelta o cerrada
@@ -304,6 +305,12 @@ class IncidenciaController extends Controller
             // Iniciar la transacción
             DB::beginTransaction();
 
+            $comentarios = Comentario::where('incidencia_num', $id)->get();
+
+            foreach ($comentarios as $comentario) {
+                $comentario->delete();
+            }
+
             // Eliminar la incidencia
             $incidencia->delete();
 
@@ -312,6 +319,8 @@ class IncidenciaController extends Controller
         } catch (Exception $e) {
             // Deshacer la transacción en caso de error
             DB::rollBack();
+
+            dd("Cagadon" . $e);
 
             //Redirigiar al index con mensaje de error
             return redirect()->route('incidencias.index')->with('error', 'Error al eliminar la incidencia. Detalles: ' . $e->getMessage());
@@ -368,7 +377,8 @@ class IncidenciaController extends Controller
      * @param string $nombreArchivoPrefijo Prefijo para el nombre del archivo generado.
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    private function exportarEnFormato($incidenciasExport, string $formato, string $nombreArchivo) {
+    private function exportarEnFormato($incidenciasExport, string $formato, string $nombreArchivo)
+    {
         $fechaYHoraExportacion = date('YmdHis');
 
         return match ($formato) {
