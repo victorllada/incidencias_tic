@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,11 @@ Route::resource('incidencias', IncidenciaController::class)->parameters([
 
 //ruta para poder enviar el json de incidencias
 Route::get("/datos",[IncidenciaController::class,"datosIncidencias"])->middleware('auth');
+
+//Usuarios
+Route::resource('usuarios', UserController::class)->parameters([
+    'usuarios' => 'usuario'
+])->middleware(['auth', 'role:administrador']);
 
 /*Route::middleware([
     'auth:sanctum',
