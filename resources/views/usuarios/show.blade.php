@@ -35,10 +35,10 @@
 
             {{-- Cuerpo de la tarjeta --}}
             <div class="card-body">
-                {{-- Fila  --}}
+                {{-- Fila Nombre --}}
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Id:</span> {{ $usuario->nombre_completo }}
+                        <span class="fw-bolder">Nombre completo:</span> {{ $usuario->nombre_completo }}
                     </div>
                 </div>
 
