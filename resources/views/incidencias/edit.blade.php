@@ -116,18 +116,64 @@
                         </div>
                     </div>
 
-                    {{-- Fila 3 prioridad --}}
+                    {{-- Fila 3 prioridad, estado y duracion --}}
                     <div class="row mb-4">
                         <div class="col-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
                                     <option selected disabled value="-1">Selecciona la prioridad</option>
-                                    <option value="BAJA">Baja</option>
-                                    <option value="MEDIA">Media</option>
-                                    <option value="ALTA">Alta</option>
-                                    <option value="URGENTE">Urgente</option>
+                                    <option value="BAJA" {{ $incidencia->prioridad == 'BAJA' ? 'selected' : '' }}>
+                                        Baja
+                                    </option>
+                                    <option value="MEDIA" {{ $incidencia->prioridad == 'MEDIA' ? 'selected' : '' }}>
+                                        Media
+                                    </option>
+                                    <option value="ALTA" {{ $incidencia->prioridad == 'ALTA' ? 'selected' : '' }}>
+                                        Alta
+                                    </option>
+                                    <option value="URGENTE"{{ $incidencia->prioridad == 'URGENTE' ? 'selected' : '' }}>
+                                        Urgente
+                                    </option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Prioridad</label>
+                                <select class="form-select" name="estado" id="estado" required>
+                                    <option selected value="-1">Selecciona el estado</option>
+                                    <option value="ABIERTA" {{ $incidencia->estado == 'ABIERTA' ? 'selected' : '' }}>
+                                        Abierta
+                                    </option>
+                                    <option value="CERRADA"{{ $incidencia->estado == 'CERRADA' ? 'selected' : '' }}>
+                                        Cerrada
+                                    </option>
+                                    <option value="RESUELTA"{{ $incidencia->estado == 'RESUELTA' ? 'selected' : '' }}>
+                                        Resuelta
+                                    </option>
+                                    <option value="ASIGNADA"{{ $incidencia->estado == 'ASIGNADA' ? 'selected' : '' }}>
+                                        Asignada
+                                    </option>
+                                    <option
+                                        value="ENVIADA A INFORTEC"{{ $incidencia->estado == 'ENVIADA A INFORTEC' ? 'selected' : '' }}>
+                                        Enviada a Infortec
+                                    </option>
+                                    <option value="EN PROCESO"
+                                        {{ $incidencia->estado == 'EN PROCESO' ? 'selected' : '' }}>
+                                        En proceso
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="duracion">
+                                    Duración
+                                </label>
+                                <input type="number" class="form-control" name="duracion" id="duracion"
+                                    placeholder="60" pattern="[0-9]*" value="{{ $incidencia->duracion }}">
                             </div>
                         </div>
                     </div>
@@ -139,7 +185,7 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
                                 <textarea class="form-control" placeholder="Deja aqui tus comentarios" name="descripcion" id="descripcion"
-                                    rows="8" maxlength="256">{{ $incidencia->descripcion }}</textarea>
+                                    rows="8" maxlength="256" required>{{ $incidencia->descripcion }}</textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
