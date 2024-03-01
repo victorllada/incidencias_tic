@@ -38,7 +38,7 @@
 
                     {{-- Fila 1  --}}
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="nombre_completo">
                                     Nombre
@@ -50,7 +50,7 @@
 
                     {{-- Fila 2  name y email --}}
                     <div class="row mb-4" id="div-equipo">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="name">
                                     Usuario
@@ -58,7 +58,7 @@
                                 <input type="text" class="form-control" name="name" id="name">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="email">
                                     Email

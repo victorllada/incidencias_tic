@@ -44,7 +44,7 @@
 
                     {{-- Fila 1 nombre --}}
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="nombre_completo">
                                     Nombre
@@ -57,7 +57,7 @@
 
                     {{-- Fila 2  usuario y email --}}
                     <div class="row mb-4" id="div-equipo">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="name">
                                     Usuario
@@ -66,7 +66,7 @@
                                     value="{{ $usuario->name }}" disabled>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="email">
                                     Email
@@ -85,7 +85,7 @@
                                     Departamento
                                 </label>
                                 <input type="text" class="form-control" name="email" id="email"
-                                value="{{ $usuario->nombre_departamento }}" disabled>
+                                    value="{{ $usuario->nombre_departamento }}" disabled>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -96,7 +96,8 @@
                                 <select class="form-select" name="rol" id="rol" required>
                                     <option selected disabled value="-1">Selecciona el rol</option>
                                     @foreach ($rolesDisponibles as $rol)
-                                        <option value="{{ $rol }}" {{ $usuario->hasRole($rol) ? 'selected' : '' }}>{{ $rol }}</option>
+                                        <option value="{{ $rol }}"
+                                            {{ $usuario->hasRole($rol) ? 'selected' : '' }}>{{ $rol }}</option>
                                     @endforeach
                                 </select>
                             </div>
