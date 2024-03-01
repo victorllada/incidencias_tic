@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use SplFileInfo;
 
 use function PHPUnit\Framework\isNull;
 
@@ -491,9 +492,15 @@ class IncidenciaController extends Controller
         $rutaArchivo = public_path('assets/' . $incidencia->adjunto_url);
 
         // Obtener el nombre original del archivo
-        //$nombreArchivo = pathinfo($rutaArchivo, PATHINFO_BASENAME);
+        $nombreArchivo = pathinfo($rutaArchivo, PATHINFO_BASENAME);
+
+        // Obtener el tipo de archivo
+        $infoArchivo = new SplFileInfo($rutaArchivo);
+
+        //Ponemos el nombre del archivo
+        $nombreArchivo = "Incidecnia-" . $id . '.' . $infoArchivo->getExtension();
 
         // Devolver la respuesta para la descarga
-    return response()->download($rutaArchivo, /*$nombreArchivo*/);
+        return response()->download($rutaArchivo, $nombreArchivo);
     }
 }
