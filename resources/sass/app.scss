@@ -193,6 +193,13 @@ main .custom-dropdown-menu .dropdown-item:active {
 }
 
 //Media Querys
+@media (width > 990px) {
+    header .desplegable-usuario{
+        position: absolute;
+        right: 158.5px;
+    }
+}
+
 @media(width <= 990px){
     .baja-res{
         display: none;
