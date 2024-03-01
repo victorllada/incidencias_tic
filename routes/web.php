@@ -23,13 +23,22 @@ Route::get('/', InicioController::class)->name('inicio');
 Route::get('incidencias/exportar/estadistcas/{formato}', [IncidenciaController::class, 'exportarEstadisticasTiposIncidencias'])->name('incidencias.exportar.estadisticas')->middleware('auth');
 Route::get('incidencias/exportar/{tipo}/{formato}', [IncidenciaController::class, 'exportarIncidencias'])->name('incidencias.exportar')->middleware('auth');
 
+//Ruta para descargar el archivo adjunto a cada incidencia
+Route::get('descargar/{id}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo');
+
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
 ])->middleware('auth');
 
-//ruta para poder enviar el json de incidencias
+//Ruta para obtener las etiquetas de cada aula
+Route::get('/obtener-etiquetas/{aulaId}', [IncidenciaController::class, 'obtenerEtiquetas']);
+
+//Ruta para poder enviar el json de incidencias
 Route::get("/datos",[IncidenciaController::class,"datosIncidencias"])->middleware('auth');
+
+//Ruta para poder enviar el json de usuarios
+Route::get("/datosUsuarios",[UserController::class,"datosUsuarios"])->middleware('auth');
 
 //Usuarios
 Route::resource('usuarios', UserController::class)->parameters([

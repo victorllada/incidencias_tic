@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CrearUsuarioRequest;
+use App\Http\Requests\ModificarUsuarioRequest;
+use App\Models\Comentario;
+use App\Models\Departamento;
+use App\Models\Incidencia;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -21,8 +28,18 @@ class UserController extends Controller
     */
     public function datosUsuarios()
     {
+        $usuarios = User::all();
 
-        $usuariosJSON = User::all();
+        $usuariosJSON = $usuarios->map(function ($usuario) {
+            return [
+                'id' => $usuario->id,
+                'usuario' => $usuario->name,
+                'nombre_completo' => $usuario->nombre_completo,
+                'email' => $usuario->email,
+                'departamento' => $usuario->nombre_departamento,
+                'roles' => $usuario->getRoleNames()->toArray(),
+            ];
+        });
 
         //Devolvemos el JSON
         return response()->json($usuariosJSON);
@@ -33,15 +50,49 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+        $departamentos = Departamento::all();
+        $rolesDisponibles = Role::pluck('name')->toArray();
+        return view('usuarios.create', compact('departamentos', 'rolesDisponibles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CrearUsuarioRequest $request, User $usuario)
     {
-        //
+        try {
+            // Iniciar la transacción
+            DB::beginTransaction();
+
+            $usuario->nombre_completo = $request->nombre_completo;
+
+            $usuario->name = $request->name;
+
+            $usuario->email = $request->email;
+
+            $nombre_dep = Departamento::where('id', $request->departamento)->first();
+
+            $usuario->id_departamento = $request->departamento;
+
+            $usuario->nombre_departamento = $nombre_dep->nombre;
+
+            //Guardamos el usuario
+            $usuario->save();
+
+            // Asignar el rol al usuario
+            $usuario->assignRole($request->rol);
+
+            // Confirmar la transacción
+            DB::commit();
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
+        } catch (Exception $e) {
+
+            //Cancelamos la transacion
+            DB::rollBack();
+
+            return redirect()->route('usuarios.index')->with('error', 'No se pudo crear el usuario.');
+        }
     }
 
     /**
@@ -57,22 +108,82 @@ class UserController extends Controller
      */
     public function edit(User $usuario)
     {
-        return view('usuarios.edit', compact('usuario'));
+        $departamentos = Departamento::all();
+        $rolesDisponibles = Role::pluck('name')->toArray();
+        return view('usuarios.edit', compact('usuario', 'departamentos','rolesDisponibles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ModificarUsuarioRequest $request, User $usuario)
     {
-        //
+        try {
+            // Iniciar la transacción
+            DB::beginTransaction();
+
+            $usuario->nombre_completo = $request->nombre_completo;
+
+            $usuario->email = $request->email;
+
+            $usuario->syncRoles([$request->rol]);
+
+            //Guardamos el usuario
+            $usuario->save();
+
+            // Confirmar la transacción
+            DB::commit();
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuario modificado correctamente.');
+        } catch (Exception $e) {
+
+            //Cancelamos la transacion
+            DB::rollBack();
+
+            return redirect()->route('usuarios.index')->with('error', 'No se pudo modificar el usuario.');
+        }
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $usuario)
     {
-        //
+        try {
+            // Iniciar la transacción
+            DB::beginTransaction();
+
+            //Obtenemos todos los comentarios del usuario
+            $comentarios = Comentario::where('personal_id', $usuario->id)->get();
+
+            //Borramos los caomentarios
+            foreach ($comentarios as $comentario) {
+                $comentario->delete();
+            }
+
+            // Desvincular al usuario de las incidencias creadas
+            //Incidencia::where('creador_id', $usuario->id)->update(['creador_id' => 0]);
+
+            // Desvincular al usuario de las incidencias asignadas
+            $usuario->incidenciasAsignadas()->detach();
+
+            //Borramos el usuario
+            $usuario->delete();
+
+            // Confirmar la transacción
+            DB::commit();
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
+        } catch (Exception $e) {
+
+            dd($e);
+
+            //Cancelamos la transacion
+            DB::rollBack();
+
+            return redirect()->route('usuarios.index')->with('error', 'No se pudo eliminar el usuario.');
+        }
     }
 }

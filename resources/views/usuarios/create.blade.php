@@ -72,10 +72,14 @@
                     <div class="row mb-4">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="departamento">
-                                    Departamento
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="rol">
+                                    Rol
                                 </label>
-                                <input type="email" class="form-control" name="email" id="email">
+                                <select class="form-select" name="rol" id="rol" required>
+                                    @foreach ($rolesDisponibles as $rol)
+                                        <option value="{{ $rol }}">{{ $rol }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-4">

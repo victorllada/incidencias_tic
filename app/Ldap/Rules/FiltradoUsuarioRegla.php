@@ -6,10 +6,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use LdapRecord\Laravel\Auth\Rule;
 use LdapRecord\Models\Model as LdapRecord;
 
+/**
+ * Clase FiltradoUsuarioRegla que implementa una regla de autenticación LDAP para filtrar usuarios.
+ *
+ * @implements \LdapRecord\Laravel\Auth\Rule.
+ */
 class FiltradoUsuarioRegla implements Rule
 {
     /**
-     * Check if the rule passes validation.
+     * Comprueba si la regla pasa la validación y permite o no hacer login.
+     *
+     * @param LdapRecord $user El objeto de usuario LDAP.
+     * @param Eloquent|null $model El modelo eloquent (puede ser nulo).
+     * @return bool Devuelve true si la regla pasa, false en caso contrario.
      */
     public function passes(LdapRecord $user, Eloquent $model = null): bool
     {

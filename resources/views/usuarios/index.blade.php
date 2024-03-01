@@ -110,12 +110,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- Boton crear usuario --}}
-                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('usuarios.create') }}">
-                    Crear usuario
-                    <i class="bi bi-plus-lg"></i>
-                </a>
             </div>
         </div>
 
