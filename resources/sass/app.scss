@@ -15,6 +15,18 @@ html{
     scrollbar-width: thin;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+
 // Clase para los colores
 .aquamarine-50 {
     background-color: $aquamarine-50;
