@@ -26,7 +26,6 @@ main {
     flex: 1;
 }
 
-
 // Clase para los colores
 .aquamarine-50 {
     background-color: $aquamarine-50;
@@ -203,6 +202,12 @@ main .custom-dropdown-menu .dropdown-item:active {
 @media(width <= 990px){
     .baja-res{
         display: none;
+    }
+
+    // Hace que los row y las col tengan el mismo espaciado
+    .row{
+        display: flex;
+        gap: 1.5rem;
     }
 }
 
