@@ -10,6 +10,7 @@ use App\Models\Incidencia;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,7 +28,19 @@ class UserController extends Controller
     */
     public function datosUsuarios()
     {
-        $usuariosJSON = User::all();
+        $usuarios = User::all();
+
+        $usuariosJSON = $usuarios->map(function ($usuario) {
+            return [
+                'id' => $usuario->id,
+                'usuario' => $usuario->name,
+                'nombre_completo' => $usuario->nombre_completo,
+                'email' => $usuario->email,
+                'departamento' => $usuario->nombre_departamento,
+                'roles' => $usuario->getRoleNames()->toArray(),
+            ];
+        });
+
         //Devolvemos el JSON
         return response()->json($usuariosJSON);
     }
@@ -38,7 +51,8 @@ class UserController extends Controller
     public function create()
     {
         $departamentos = Departamento::all();
-        return view('usuarios.create', compact('departamentos'));
+        $rolesDisponibles = Role::pluck('name')->toArray();
+        return view('usuarios.create', compact('departamentos', 'rolesDisponibles'));
     }
 
     /**
@@ -50,7 +64,7 @@ class UserController extends Controller
             // Iniciar la transacción
             DB::beginTransaction();
 
-            $usuario->nombre_completo = $request->nombre;
+            $usuario->nombre_completo = $request->nombre_completo;
 
             $usuario->name = $request->name;
 
@@ -62,10 +76,11 @@ class UserController extends Controller
 
             $usuario->nombre_departamento = $nombre_dep->nombre;
 
-            /*Falta el set del rol*/
-
             //Guardamos el usuario
             $usuario->save();
+
+            // Asignar el rol al usuario
+            $usuario->assignRole($request->rol);
 
             // Confirmar la transacción
             DB::commit();
@@ -94,7 +109,8 @@ class UserController extends Controller
     public function edit(User $usuario)
     {
         $departamentos = Departamento::all();
-        return view('usuarios.edit', compact('usuario', 'departamentos'));
+        $rolesDisponibles = Role::pluck('name')->toArray();
+        return view('usuarios.edit', compact('usuario', 'departamentos','rolesDisponibles'));
     }
 
     /**
@@ -106,11 +122,11 @@ class UserController extends Controller
             // Iniciar la transacción
             DB::beginTransaction();
 
-            $usuario->nombre_completo = $request->nombre;
+            $usuario->nombre_completo = $request->nombre_completo;
 
             $usuario->email = $request->email;
 
-            /*Falta el set del rol*/
+            $usuario->syncRoles([$request->rol]);
 
             //Guardamos el usuario
             $usuario->save();
