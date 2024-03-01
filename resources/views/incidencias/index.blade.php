@@ -423,7 +423,7 @@
         <div class="container text-left mb-5">
 
             {{-- Encabezado de la lista de incidencias --}}
-            <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300">
+            <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300 rounded-top">
                 <div class="col fw-bolder p-3 baja-res">
                     ID
                 </div>
@@ -499,32 +499,35 @@
                     <p>No hay incidencias que mostrar.</p>
                 @endforelse --}}
             </div>
+            <div class="row d-flex aquamarine-300 rounded-bottom">
+                {{-- Paginacion --}}
+                <div>
+                    <ul class="pagination d-flex justify-content-center my-3">
+                        <li class="page-item">
+                            <a class="page-link text-aquamarine-400" href="#" id="inicioPaginacion">Inicio</a>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link text-aquamarine-400" id="anterior">
+                                <i class="bi bi-arrow-left"></i>
+                            </button>
+                        </li>
+                        <li class="page-item d-flex justify-content-center align-items-center numero-pagina border">
+                            <input type="text" id="paginaActual" value="1"
+                                class="text-aquamarine-400 input-numero" size="1">
+                            <span id="paginasTotales" class="text-aquamarine-400"></span>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link text-aquamarine-400" id="siguiente">
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link text-aquamarine-400" id="finalPaginacion">Final</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        {{-- Paginacion --}}
-        <ul class="pagination d-flex justify-content-center mb-5">
-            <li class="page-item">
-                <a class="page-link text-aquamarine-400" href="#" id="inicioPaginacion">Inicio</a>
-            </li>
-            <li class="page-item">
-                <button class="page-link text-aquamarine-400" id="anterior">
-                    <i class="bi bi-arrow-left"></i>
-                </button>
-            </li>
-            <li class="page-item d-flex justify-content-center align-items-center numero-pagina border">
-                <input type="text" id="paginaActual" value="1" class="text-aquamarine-400 input-numero"
-                    size="1">
-                <span id="paginasTotales" class="text-aquamarine-400"></span>
-            </li>
-            <li class="page-item">
-                <button class="page-link text-aquamarine-400" id="siguiente">
-                    <i class="bi bi-arrow-right"></i>
-                </button>
-            </li>
-            <li class="page-item">
-                <button class="page-link text-aquamarine-400" id="finalPaginacion">Final</button>
-            </li>
-        </ul>
 
         <div id="graficas" class="d-flex flex-wrap justify-content-between gap-2 mb-5">
             <div id="graficaTipos" class="col border"></div>

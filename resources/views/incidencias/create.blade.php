@@ -38,7 +38,7 @@
 
                     {{-- Fila 1 nombre y departemento --}}
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="nombre">Nombre</label>
                                 <input type="text" class="form-control" name="nombre" id="nombre"
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         @empty(auth()->user()->id_departamento || auth()->user()->nombre_departamento)
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="input-group">
                                     <label class="input-group-text aquamarine-200 fw-bolder"
                                         for="departamento">Departamento</label>
@@ -60,7 +60,7 @@
                             </div>
                         @endempty
                         @empty(auth()->user()->email)
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="input-group">
                                     <label class="input-group-text aquamarine-200 fw-bolder" for="email">Email</label>
                                     <input class="form-control" id="email" name="email" type="search"
@@ -147,7 +147,7 @@
 
                     {{-- Fila 4 prioridad --}}
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
@@ -185,12 +185,12 @@
                     {{-- Aqui se generara un checklist con todos los profesores del centro --}}
                     @role('administrador')
                         <div class="row mb-4">
-                            <div class="col input-group">
+                            <div class="col-lg input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
                                 <div class="d-flex flex-wrap gap-4 form-control ">
                                     @forelse ($usuarios as $usuario)
                                         <div>
-                                            <input class="form-check-input" type="radio"
+                                            <input class="form-check-input" type="radio" id="asignado"
                                                 name="asignado" value={{ $usuario->id }}>
                                             <label class="form-check-label"
                                                 for="asignado">{{ $usuario->nombre_completo }}</label>
