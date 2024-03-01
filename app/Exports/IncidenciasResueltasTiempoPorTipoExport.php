@@ -6,8 +6,18 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
+/**
+ * Clase que representa una exportación de incidencias resueltas con tiempos por tipo para su visualización en una vista.
+ *
+ * Implementa la interfaz FromView para obtener los datos desde una vista.
+ */
 class IncidenciasResueltasTiempoPorTipoExport implements FromView
 {
+    /**
+     * Obtiene la vista que representa la exportación de incidencias resueltas con tiempos por tipo.
+     *
+     * @return View La vista que contiene la información de los tiempos de resolución por tipo de incidencia.
+     */
     public function view(): View
     {
         $usuariosConIncidenciasResueltasOCerradas = User::role('administrador')

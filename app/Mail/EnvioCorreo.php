@@ -10,20 +10,29 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Clase que representa un correo electrónico para el envío de notificaciones sobre incidencias.
+ *
+ * Implementa la interfaz ShouldQueue para que el correo pueda ser encolado y procesado de forma asíncrona.
+ */
 class EnvioCorreo extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
+     * Crea una nueva instancia del mensaje.
+     *
+     * @param Incidencia $incidencia La incidencia asociada al correo.
+     * @param string $operacion La operación asociada al correo.
      */
     public function __construct(private Incidencia $incidencia, private string $operacion)
     {
-        //
     }
 
     /**
-     * Get the message envelope.
+     * Obtiene el sobre del mensaje.
+     *
+     * @return Envelope El sobre del mensaje.
      */
     public function envelope(): Envelope
     {
@@ -34,7 +43,9 @@ class EnvioCorreo extends Mailable
     }
 
     /**
-     * Get the message content definition.
+     * Obtiene la definición del contenido del mensaje.
+     *
+     * @return Content La definición del contenido del mensaje.
      */
     public function content(): Content
     {
@@ -48,9 +59,9 @@ class EnvioCorreo extends Mailable
     }
 
     /**
-     * Get the attachments for the message.
+     * Obtiene los adjuntos para el mensaje.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment> Lista de adjuntos.
      */
     public function attachments(): array
     {
