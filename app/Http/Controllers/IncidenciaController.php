@@ -468,4 +468,23 @@ class IncidenciaController extends Controller
             'csv' => Excel::download($incidenciasExport, $fechaYHoraExportacion . $nombreArchivo . '.csv', \Maatwebsite\Excel\Excel::CSV)
         };
     }
+
+    public function descargarArchivo(int $id)
+    {
+        // Obtener la incidencia por ID
+        $incidencia = Incidencia::find($id);
+
+        if (!$incidencia || !$incidencia->adjunto_url) {
+            abort(404);
+        }
+
+        // Ruta del archivo en el sistema de archivos
+        $rutaArchivo = public_path('assets/' . $incidencia->adjunto_url);
+
+        // Obtener el nombre original del archivo
+        $nombreArchivo = pathinfo($rutaArchivo, PATHINFO_BASENAME);
+
+        // Devolver la respuesta para la descarga
+        return response()->download($rutaArchivo, $nombreArchivo);
+    }
 }
