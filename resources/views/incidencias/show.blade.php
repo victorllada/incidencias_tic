@@ -29,9 +29,15 @@
                     Exportar
                 </button>
                 <ul class="dropdown-menu custom-dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'pdf']) }}">PDF</a></li>
-                    <li><a class="dropdown-item" href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'xlsx']) }}">EXCEL</a></li>
-                    <li><a class="dropdown-item" href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'csv']) }}">CSV</a></li>
+                    <li><a class="dropdown-item"
+                            href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'pdf']) }}">PDF</a>
+                    </li>
+                    <li><a class="dropdown-item"
+                            href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'xlsx']) }}">EXCEL</a>
+                    </li>
+                    <li><a class="dropdown-item"
+                            href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'csv']) }}">CSV</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -101,69 +107,67 @@
                 </div>
 
                 {{-- Fila equipo --}}
-                <div class="row mb-4">
-                    <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
-                    <div class="col">
+                {{-- Si el tipo es equipos mostramos el equipo --}}
+                @if ($incidencia->tipo == 'EQUIPOS')
+                    <div class="row mb-4">
+                        <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
+                        <div class="col">
                         @empty($incidencia->equipo)
                             <span class="fw-bolder">Equipo:</span> No hay equipo asignado
                         @else
                             <span class="fw-bolder">Equipo:</span>
-                            {{ $incidencia->equipo->tipo_equipo . ' ' . $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
+                            {{ $incidencia->equipo->aula->codigo . ' ' . $incidencia->equipo->etiqueta . ' ' . $incidencia->equipo->puesto }}
                         @endempty
                     </div>
+                @endif
+
+            <hr>
+
+            {{-- Fila descripcion y actuaciones --}}
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Descripción:</span>
+                    <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
+                </div>
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Actuaciones:</span>
+                    <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
+                </div>
+            </div>
+
+            {{-- Fila archivo y responsable --}}
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Archivo adjunto:</span> {{ $incidencia->adjunto_url }}
                 </div>
 
-                <hr>
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Responsable:</span>
+                    <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
+                    @if ($responsables->isEmpty())
+                        Aún no hay responsables
+                    @else
+                        @foreach ($responsables as $responsable)
+                            <span>{{ $responsable->nombre_completo }} </span>
+                        @endforeach
+                    @endif
 
-                {{-- Fila descripcion y actuaciones --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Descripción:</span>
-                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
-                    </div>
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Actuaciones:</span>
-                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
-                    </div>
                 </div>
+            </div>
 
-                {{-- Fila archivo y responsable --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Archivo adjunto:</span> {{ $incidencia->adjunto_url }}
-                    </div>
-
-                    <!-- Si responsable no es null, muestra sus atributos nombre y apellidos, si es null muestra mensaje -->
-                    <div class="col-lg-6">
-                        @empty($incidencia->responsables)
-                            <span class="fw-bolder">Responsable:</span> Aún no se ha asignado
-                        @else
-                            <span class="fw-bolder">Responsable:</span>
-                            <!-- Si el nombre o los apellidos es null ponemos info incompleta, en caso contrario lo mostramos -->
-                            @empty($responsables)
-                                Aún no hay responsables
-                            @else
-                                @foreach ($responsables as $responsable)
-                                    <span>{{ $responsable->nombre_completo }} </span>
-                                @endforeach
-                            @endempty
-                        @endempty
-                    </div>
-                </div>
-
-                {{-- Botones actilizar y borrar incidencia --}}
-                <div class="row mt-5">
-                    <div class="d-flex gap-2">
-                        <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                            class="btn aquamarine-400 text-white">Editar</a>
-                        <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="btn aquamarine-400 text-white">Borrar</button>
-                        </form>
-                    </div>
+            {{-- Botones actilizar y borrar incidencia --}}
+            <div class="row mt-5">
+                <div class="d-flex gap-2">
+                    <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
+                        class="btn aquamarine-400 text-white">Editar</a>
+                    <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn aquamarine-400 text-white">Borrar</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

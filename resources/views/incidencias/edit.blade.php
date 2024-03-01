@@ -86,36 +86,46 @@
 
                     {{-- Fila 2  en caso de que el tipo sea equipos --}}
                     {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
-                    <div class="row mb-4" id="div-equipo">
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">
-                                    Nº de etiqueta
-                                </label>
-                                <input type="number" class="form-control" name="num_etiqueta" id="num_etiqueta"
-                                    placeholder="123456" pattern="[0-9]*">
-                            </div>
-                        </div>
+                    <div class="row mb-4" id="div-equipo" hidden>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
                                     Aula</label>
-                                <select class="form-select" name="aula" id="aula" required>
+                                <select class="form-select" name="aula" id="aula" required
+                                    onchange="cargarEtiquetas()">
                                     <option selected disabled value="-1">Selecciona el aula</option>
-                                    @foreach ($aulas as $aula)
-                                        <option value={{ $aula->id }}>{{ $aula->codigo }}</option>
-                                    @endforeach
+
+                                        @foreach ($aulas as $aula)
+                                            <option value="{{ $aula->id }}" {{ $aula->id == $incidencia->equipo->aula_id ? 'selected' : '' }}>
+                                                {{ $aula->codigo }}
+                                            </option>
+                                        @endforeach
+
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
-                                    Aula</label>
-                                <input type="number" class="form-control" name="puesto" id="puesto" placeholder="1"
-                                    pattern="[0-9]*">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
+                                    etiqueta</label>
+                                <select class="form-select" name="num_etiqueta" id="num_etiqueta" required>
+                                    <option selected disabled value="-1">Selecciona la etiqueta</option>
+                                </select>
                             </div>
                         </div>
+
+                        {{-- Igual lo quitamos porque no es necesario realmente, creo
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
+                                    Aula</label>
+                                <select class="form-select" name="puesto" id="puesto" required>
+                                    <option selected disabled value="-1">Selecciona ell puesto</option>
+                                </select>
+                            </div>
+                        </div>
+                        --}}
+
                     </div>
 
                     {{-- Fila 3 prioridad, estado y duracion --}}
@@ -125,16 +135,16 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="prioridad">Prioridad</label>
                                 <select class="form-select" name="prioridad" id="prioridad" required>
                                     <option selected disabled value="-1">Selecciona la prioridad</option>
-                                    <option value="BAJA" {{ $incidencia->prioridad == 'baja' ? 'selected' : '' }}>
+                                    <option value="BAJA" {{ $incidencia->prioridad == 'BAJA' ? 'selected' : '' }}>
                                         Baja
                                     </option>
-                                    <option value="MEDIA" {{ $incidencia->prioridad == 'media' ? 'selected' : '' }}>
+                                    <option value="MEDIA" {{ $incidencia->prioridad == 'MEDIA' ? 'selected' : '' }}>
                                         Media
                                     </option>
-                                    <option value="ALTA" {{ $incidencia->prioridad == 'alta' ? 'selected' : '' }}>
+                                    <option value="ALTA" {{ $incidencia->prioridad == 'ALTA' ? 'selected' : '' }}>
                                         Alta
                                     </option>
-                                    <option value="URGENTE"{{ $incidencia->prioridad == 'urgente' ? 'selected' : '' }}>
+                                    <option value="URGENTE"{{ $incidencia->prioridad == 'URGENTE' ? 'selected' : '' }}>
                                         Urgente
                                     </option>
                                 </select>
@@ -145,30 +155,29 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="estado">Estado</label>
                                 <select class="form-select" name="estado" id="estado" required>
                                     <option selected value="-1">Selecciona el estado</option>
-                                    <option value="ABIERTA" {{ $incidencia->estado == 'abierta' ? 'selected' : '' }}>
+                                    <option value="ABIERTA" {{ $incidencia->estado == 'ABIERTA' ? 'selected' : '' }}>
                                         Abierta
                                     </option>
-                                    <option value="CERRADA"{{ $incidencia->estado == 'cerrada' ? 'selected' : '' }}>
+                                    <option value="CERRADA"{{ $incidencia->estado == 'CERRADA' ? 'selected' : '' }}>
                                         Cerrada
                                     </option>
-                                    <option value="RESUELTA"{{ $incidencia->estado == 'resuelta' ? 'selected' : '' }}>
+                                    <option value="RESUELTA"{{ $incidencia->estado == 'RESUELTA' ? 'selected' : '' }}>
                                         Resuelta
                                     </option>
-                                    <option value="ASIGNADA"{{ $incidencia->estado == 'asignada' ? 'selected' : '' }}>
+                                    <option value="ASIGNADA"{{ $incidencia->estado == 'ASIGNADA' ? 'selected' : '' }}>
                                         Asignada
                                     </option>
                                     <option
-                                        value="ENVIADA A INFORTEC"{{ $incidencia->estado == 'enviada a Infortec' ? 'selected' : '' }}>
+                                        value="ENVIADA A INFORTEC"{{ $incidencia->estado == 'ENVIADA A INFORTEC' ? 'selected' : '' }}>
                                         Enviada a Infortec
                                     </option>
-                                    <option value="EN PROCESO"
-                                        {{ $incidencia->estado == 'en proceso' ? 'selected' : '' }}>
+                                    <option value="EN PROCESO" {{ $incidencia->estado == 'EN PROCESO' ? 'selected' : '' }}>
                                         En proceso
                                     </option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" id="div-duracion" hidden>
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="duracion">
                                     Duración
@@ -222,7 +231,8 @@
                                 @forelse ($usuarios as $usuario)
                                     <div>
                                         <input class="form-check-input" type="checkbox" id="asignado[]"
-                                            name="asignado[]" value={{ $usuario->id }}>
+                                            name="asignado[]" value="{{ $usuario->id }}"
+                                            {{ $responsables->contains($usuario) ? 'checked' : '' }}>
                                         <label class="form-check-label"
                                             for="asignado[]">{{ $usuario->nombre_completo }}</label>
                                     </div>
@@ -246,7 +256,30 @@
 @endsection
 
 <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
+
+{{-- Carga los datos de etiquetas segun el aula seleccionado --}}
+<script>
+    function cargarEtiquetas() {
+        var aulaId = document.getElementById('aula').value;
+
+        // Realizar una petición AJAX para obtener las etiquetas según el aula seleccionada
+        fetch('/obtener-etiquetas/' + aulaId)
+            .then(response => response.json())
+            .then(data => {
+                var selectEtiqueta = document.getElementById('num_etiqueta');
+                selectEtiqueta.innerHTML = ""; // Limpiar opciones existentes
+
+                data.forEach(etiqueta => {
+                    var option = document.createElement('option');
+                    option.value = etiqueta.etiqueta;
+                    option.text = etiqueta.etiqueta;
+                    selectEtiqueta.add(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
 <script>
     addEventListener('load', () => {
         //Guardamos en una variable el selec de tipo
@@ -254,6 +287,12 @@
 
         //Guardamos en una variable el selec de subtipos
         var subtipo = document.getElementById("sub-tipo");
+
+        //Guardamos en una variable el selec de estado
+        var estado = document.getElementById("estado");
+
+        //Comprueba la primera vez que se carga la pagina si el tipo es EQUIPOS, y si es asi muestra el div-equipo
+        comprobarTipo();
 
         //Genera los sub-tipos cuando se elije una opcion de tipos
         tipo.addEventListener('change', generarSubtipos);
@@ -267,7 +306,23 @@
         //Genera los sub-sub-tipos cuando se elije una opcion de tipos
         subtipo.addEventListener('change', generarSubSubTipos);
 
+        //Mostrar la duración solo si el estado es cerrado o resuelto
+        estado.addEventListener('change', mostrarDuracion);
+
     });
+
+    /**
+     * Comprueba la primera vez que se carga la pagina si el tipo es EQUIPOS, y si es asi muestra el div-equipo
+     */
+    function comprobarTipo() {
+
+        var tipo = document.getElementById("tipo");
+        var divEquipo = document.getElementById("div-equipo");
+
+        if (tipo.value == "EQUIPOS") {
+            divEquipo.hidden = false;
+        }
+    }
 
     /**
      * Genera los sub-tipos dependiendo de lo seleccionado en tipos
@@ -399,6 +454,25 @@
             document.getElementById("div-equipo").hidden = false;
         } else {
             document.getElementById("div-equipo").hidden = true;
+        }
+    }
+
+    /**
+     * Muestra la duración si el estado es cerrado o resuelto
+     */
+    function mostrarDuracion() {
+
+        var estado = document.getElementById("estado");
+        var divDuracion = document.getElementById("div-duracion");
+
+        switch (estado.value) {
+            case "CERRADA":
+            case "RESUELTA":
+                divDuracion.hidden = false;
+                break;
+            default:
+                divDuracion.hidden = true;
+                break;
         }
     }
 </script>

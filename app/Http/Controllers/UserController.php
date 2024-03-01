@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+        $departamentos = Departamento::all();
+        return view('usuarios.create', compact('departamentos'));
     }
 
     /**

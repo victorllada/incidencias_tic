@@ -110,32 +110,39 @@
                     <div class="row mb-4" id="div-equipo" hidden>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
-                                    etiqueta</label>
-                                <input type="number" class="form-control" name="num_etiqueta" id="num_etiqueta"
-                                    placeholder="123456" pattern="[0-9]*">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
                                     Aula</label>
-                                <select class="form-select" name="aula" id="aula" required>
+                                <select class="form-select" name="aula" id="aula" required
+                                    onchange="cargarEtiquetas()">
                                     <option selected disabled value="-1">Selecciona el aula</option>
                                     @foreach ($aulas as $aula)
-                                        <option value{{ $aula->id }}>{{ $aula->codigo }}</option>
+                                        <option value={{ $aula->id }}>{{ $aula->codigo }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
-                                    Aula</label>
-                                <input type="number" class="form-control" name="puesto" id="puesto"
-                                    placeholder="1" pattern="[0-9]*">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
+                                    etiqueta</label>
+                                <select class="form-select" name="num_etiqueta" id="num_etiqueta" required>
+                                    <option selected disabled value="-1">Selecciona la etiqueta</option>
+                                </select>
                             </div>
                         </div>
+
+                        {{-- Igual lo quitamos porque no es necesario realmente, creo
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
+                                    Aula</label>
+                                <select class="form-select" name="puesto" id="puesto" required>
+                                    <option selected disabled value="-1">Selecciona ell puesto</option>
+                                </select>
+                            </div>
+                        </div>
+                        --}}
+
                     </div>
 
                     {{-- Fila 4 prioridad --}}
@@ -176,23 +183,25 @@
                     </div>
 
                     {{-- Aqui se generara un checklist con todos los profesores del centro --}}
-                    <div class="row mb-4">
-                        <div class="col input-group">
-                            <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
-                            <div class="d-flex flex-wrap gap-4 form-control ">
-                                @forelse ($usuarios as $usuario)
-                                    <div>
-                                        <input class="form-check-input" type="checkbox" id="asignado[]"
-                                            name="asignado[]" value={{ $usuario->id }}>
-                                        <label class="form-check-label"
-                                            for="asignado[]">{{ $usuario->nombre_completo }}</label>
-                                    </div>
-                                @empty
-                                    <div>No hay usuarios</div>
-                                @endforelse
+                    @role('administrador')
+                        <div class="row mb-4">
+                            <div class="col input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
+                                <div class="d-flex flex-wrap gap-4 form-control ">
+                                    @forelse ($usuarios as $usuario)
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" id="asignado[]"
+                                                name="asignado[]" value={{ $usuario->id }}>
+                                            <label class="form-check-label"
+                                                for="asignado[]">{{ $usuario->nombre_completo }}</label>
+                                        </div>
+                                    @empty
+                                        <div>No hay usuarios</div>
+                                    @endforelse
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endrole
 
                     {{-- Boton para crear incidencia --}}
                     <div class="row mt-5">
@@ -206,6 +215,27 @@
     </div>
 @endsection
 
+<script>
+    function cargarEtiquetas() {
+        var aulaId = document.getElementById('aula').value;
+
+        // Realizar una petición AJAX para obtener las etiquetas según el aula seleccionada
+        fetch('/obtener-etiquetas/' + aulaId)
+            .then(response => response.json())
+            .then(data => {
+                var selectEtiqueta = document.getElementById('num_etiqueta');
+                selectEtiqueta.innerHTML = ""; // Limpiar opciones existentes
+
+                data.forEach(etiqueta => {
+                    var option = document.createElement('option');
+                    option.value = etiqueta.etiqueta;
+                    option.text = etiqueta.etiqueta;
+                    selectEtiqueta.add(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 
 <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
 <script>

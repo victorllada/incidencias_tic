@@ -21,7 +21,6 @@ use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -37,6 +36,7 @@ class IncidenciaController extends Controller
      */
     public function index()
     {
+        //Obtenemos el usuario logueado y lo guardamos en una variable
         $user = auth()->user();
 
         // Comprobamos si el rol del usuario es administrador.
@@ -44,6 +44,7 @@ class IncidenciaController extends Controller
         // En caso contrario (rol de profesor), devolvemos las incidencias creadas por el usuario.
         $incidencias = $user->hasRole('administrador') ? Incidencia::all() : Incidencia::where('creador_id', $user->id)->get();
 
+        //Devolvemos la vista con las incidencias
         return view('incidencias.index', compact('incidencias'));
     }
 
@@ -52,7 +53,7 @@ class IncidenciaController extends Controller
     */
     public function datosIncidencias()
     {
-
+        //Obtenemos el usuario logueado y lo guardamos en una variable
         $user = auth()->user();
 
         // Comprobamos si el rol del usuario es administrador.
@@ -69,10 +70,29 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
+        //Obtenemos los usuarios con el rol administrador
         $usuarios = User::role('administrador')->get();
+
+        //Obtenemos todas las aulas
         $aulas = Aula::all();
+
+        //Obtenemos todos los departamentos
         $departamentos = Departamento::all();
+
+        //Devolvemos la vista con todos los objetos y colecciones
         return view('incidencias.create', compact('usuarios', 'aulas', 'departamentos'));
+    }
+
+    /**
+     * Funcion para poder enviar a ajax las etiquetas de los equipos del aula seleccionado.
+     */
+    public function obtenerEtiquetas(int $aulaId)
+    {
+        //Obtenemos los equipos del aula (id) pasado por parametro
+        $etiquetas = Equipo::where('aula_id', $aulaId)->get();
+
+        //Devolvemos un JSON con los equipos
+        return response()->json($etiquetas);
     }
 
     /**
@@ -120,12 +140,16 @@ class IncidenciaController extends Controller
                 $usuario->save();
             }
 
+            //Empezamos transaccion
             DB::beginTransaction();
 
+            //Creamos una nnueva incidencia
             $incidencia = new Incidencia();
 
+            //Ponemos el tipo segun el seleccionado
             $incidencia->tipo = $request->tipo;
 
+            //Guardamos en dos variables el sub-tipo y el sub-sub-tipo
             $subtipo = $request->input('sub-tipo');
             $subsubtipo = $request->input('sub-sub-tipo');
 
@@ -145,23 +169,34 @@ class IncidenciaController extends Controller
             //Metemos el id de subincidencia en el campo correspondiente
             $incidencia->subtipo_id = $idSubincidencia;
 
+            //Fecha de creación la ponemos al momento exacto en el que se cree
             $incidencia->fecha_creacion = now();
+
+            //Ponemos la descripcion segun la introducida
             $incidencia->descripcion = $request->descripcion;
+
+            //El estado al crear una incidencia es por defecto ABIERTA
             $incidencia->estado = "ABIERTA";
+
+            //Ponemos la prioridad segun la seleccionada
             $incidencia->prioridad = $request->prioridad;
 
+            //Si se ha subido fichero, lo guardamos en la carpeta adjunto en public/assets, usando el disco discoAssets y subimos la ruta a la base de datos
             if ($request->hasFile('fichero')) {
                 $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
             } else {
                 $incidencia->adjunto_url = null;
             }
 
+            //Ponemos el usuario actual com el creador
             $incidencia->creador_id = auth()->user()->id;
 
+            //Buscamos el equipo con el aula y la etiqueta seleccionados
             $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
-                ->where('puesto', $request->puesto)
                 ->where('aula_id', $request->aula)
                 ->first();
+
+            // ->where('puesto', $request->puesto) Es realmente necesario?
 
             // Verificar si se encontró un equipo
             if ($incidencia_equipo_query) {
@@ -171,20 +206,28 @@ class IncidenciaController extends Controller
                 $incidencia->equipo_id = null;
             }
 
+            //Guardamos la incidencia
             $incidencia->save();
 
-            $asignados = $request->input('asignado', []); // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
-            $incidencia->responsables()->sync($asignados); //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
+            // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
+            $asignados = $request->input('asignado', []);
+            //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
+            $incidencia->responsables()->sync($asignados);
 
+            //Comitamos
             DB::commit();
 
             // Envío de correo poniéndolo en cola para que no interrumpa la redirección
             //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
 
+            //Redirección al show con mensaje de exito
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {
-            dd($e);
+
+            //Cancelamos la transacion
             DB::rollBack();
+
+            //Redirección al index con mensaje de error
             return redirect()->route('incidencias.index')->with('error', 'No se pudo crear la incidencia. Detalles: ' . $e->getMessage());
         }
     }
@@ -196,7 +239,10 @@ class IncidenciaController extends Controller
 
     public function show(Incidencia $incidencia)
     {
+        //Guardamos todos los responsables de la incidencia en una variable
         $responsables = $incidencia->responsables;
+
+        //Devolvemos la vista con la incidencia y sus responsables
         return view('incidencias.show', compact('incidencia', 'responsables'));
     }
 
@@ -205,9 +251,20 @@ class IncidenciaController extends Controller
      */
     public function edit(Incidencia $incidencia)
     {
+        //Obtenemos todos los departamentos
+        $departamentos = Departamento::all();
+
+        //Obtenemos los usuarios con el rol administrador
         $usuarios = User::role('administrador')->get();
+
+        //Guardamos todos los responsables de la incidencia en una variable
+        $responsables = $incidencia->responsables;
+
+        //Obtenemos todas las aulas
         $aulas = Aula::all();
-        return view('incidencias.edit', compact('incidencia', 'usuarios', 'aulas'));
+
+        //Devolvemos la vista con todos los objetos y colecciones
+        return view('incidencias.edit', compact('incidencia', 'responsables', 'usuarios', 'aulas'));
     }
 
     /**
@@ -216,10 +273,13 @@ class IncidenciaController extends Controller
     public function update(ModificarIncidenciaRequest $request, Incidencia $incidencia)
     {
         try {
+            //Comenzamos transaccion
             DB::beginTransaction();
 
+            //Ponemos el tipo segun el seleccionado
             $incidencia->tipo = $request->tipo;
 
+            //Guardamos en dos variables el sub-tipo y el sub-sub-tipo
             $subtipo = $request->input('sub-tipo');
             $subsubtipo = $request->input('sub-sub-tipo');
 
@@ -239,14 +299,20 @@ class IncidenciaController extends Controller
             //Metemos el id de subincidencia en el campo correspondiente
             $incidencia->subtipo_id = $idSubincidencia;
 
-            //$incidencia->fecha_creacion = now();
+            //Ponemos la descripcion segun la introducida
             $incidencia->descripcion = $request->descripcion;
+
+            //Ponemos las actuaciones segun las introducidas
             $incidencia->actuaciones = $request->actuaciones;
-            //$incidencia->estado =  $request->estado;
-            $incidencia->estado =  "ABIERTA"; //Hay que poner la de arriba
+
+            //Ponemos el estado segun el introducida
+            $incidencia->estado =  $request->estado;
+
+            //Ponemos la prioridad segun la prioridad
             $incidencia->prioridad = $request->prioridad;
 
-            $incidencia->duracion = $request->duracion; //Solo sale cuando la incidencia esta resuelta o cerrada
+            //Ponemos la duracion segun la introducida
+            $incidencia->duracion = $request->duracion;
 
             //Comprobamos que el request traiga el campo fichero
             if ($request->hasFile('fichero')) {
@@ -261,10 +327,12 @@ class IncidenciaController extends Controller
                 $incidencia->adjunto_url = null;
             }
 
+            //Buscamos el equipo con el aula y la etiqueta seleccionados
             $incidencia_equipo_query = Equipo::where('etiqueta', $request->num_etiqueta)
-                ->where('puesto', $request->puesto)
                 ->where('aula_id', $request->aula)
                 ->first();
+
+            //  ->where('puesto', $request->puesto)
 
             // Verificar si se encontró un equipo
             if ($incidencia_equipo_query) {
@@ -274,20 +342,28 @@ class IncidenciaController extends Controller
                 $incidencia->equipo_id = null;
             }
 
+            //Guardamos la incidencia
             $incidencia->save();
 
-            $asignados = $request->input('asignado', []); // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
-            $incidencia->responsables()->sync($asignados); //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
+            // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
+            $asignados = $request->input('asignado', []);
+            //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
+            $incidencia->responsables()->sync($asignados);
 
+            //Comitamos
             DB::commit();
 
             // Envío de correo poniéndolo en cola para que no interrumpa la redirección
             //Mail::to([$incidencia->creador->nombre_completo])->queue(new EnvioCorreo($incidencia, 'creado'));
 
+            //Redirección al show con mensaje de exito
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia modificada correctamente.');
         } catch (Exception $e) {
-            dd($e);
+
+            //Cancelamos la transacion
             DB::rollBack();
+
+            //Redirección al index con mensaje de error
             return redirect()->route('incidencias.show', compact('incidencia'))->with('error', 'No se pudo modificar la incidencia. Detalles: ' . $e->getMessage());
         }
     }
@@ -305,10 +381,17 @@ class IncidenciaController extends Controller
             // Iniciar la transacción
             DB::beginTransaction();
 
+            //Buscamos todos los comentarios de la incidencia
             $comentarios = Comentario::where('incidencia_num', $id)->get();
 
+            //Borramos todos los comentarios de la incidencia
             foreach ($comentarios as $comentario) {
                 $comentario->delete();
+            }
+
+            // Si la incidencia tiene fichero adjunto lo eliminamos del disco
+            if ($incidencia->adjunto_url != null) {
+                Storage::disk('discoAssets')->delete($incidencia->adjunto_url);
             }
 
             // Eliminar la incidencia
@@ -319,8 +402,6 @@ class IncidenciaController extends Controller
         } catch (Exception $e) {
             // Deshacer la transacción en caso de error
             DB::rollBack();
-
-            dd("Cagadon" . $e);
 
             //Redirigiar al index con mensaje de error
             return redirect()->route('incidencias.index')->with('error', 'Error al eliminar la incidencia. Detalles: ' . $e->getMessage());
