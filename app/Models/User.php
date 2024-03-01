@@ -17,6 +17,11 @@ use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 //Spatie
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * Clase que representa un usuario en la aplicación.
+ *
+ * Extiende la clase Authenticatable de Laravel e implementa la interfaz LdapAuthenticatable para la autenticación LDAP.
+ */
 class User extends Authenticatable implements LdapAuthenticatable
 {
     use HasApiTokens;

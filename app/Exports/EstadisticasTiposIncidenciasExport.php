@@ -6,8 +6,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
+/**
+ * Clase que representa la exportación de estadísticas de tipos de incidencias a un archivo.
+ *
+ * Implementa la interfaz FromView para obtener los datos desde una vista.
+ */
 class EstadisticasTiposIncidenciasExport implements FromView
 {
+    /**
+     * Obtiene la vista que representa los datos para la exportación.
+     *
+     * @return View La vista que contiene los datos.
+     */
     public function view(): View
     {
         // Número total de incidencias por tipo
@@ -45,6 +55,7 @@ class EstadisticasTiposIncidenciasExport implements FromView
             'tiempoPromedioPorTipo' => $tiempoPromedioPorTipo,
         ]);
 
+        // Devuelve la vista con los datos
         return view('exports.estadisticas_tipos_incidencias', $datos);
     }
 }
