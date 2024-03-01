@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Usuarios - Inicio')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/incidencias.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/usuarios.js'])
 @endsection
 @section('contenido')
 
@@ -48,19 +48,19 @@
 
                                 {{-- Filtro nombre --}}
                                 <div class="input-group">
-                                    <label class="col-5 input-group-text aquamarine-200" for="usuarioFiltro">
+                                    <label class="col-5 input-group-text aquamarine-200" for="nombreUsuarioFiltro">
                                         Usuario
                                     </label>
-                                    <input class="form-control" id="usuarioFiltro" name="usuarioFiltro" type="search"
+                                    <input class="form-control" id="nombreUsuarioFiltro" name="nombreUsuarioFiltro" type="search"
                                         placeholder="Introduce el usuario">
                                 </div>
 
                                 {{-- Filtro nombre completo --}}
                                 <div class="input-group">
-                                    <label class="col-5 input-group-text aquamarine-200" for="nombre_completoFiltro">
+                                    <label class="col-5 input-group-text aquamarine-200" for="nombreCompletoFiltro">
                                         Nombre completo
                                     </label>
-                                    <input class="form-control" id="nombre_completoFiltro" name="nombre_completoFiltro"
+                                    <input class="form-control" id="nombreCompletoFiltro" name="nombreCompletoFiltro"
                                         type="search" placeholder="Introduce nombre completo">
                                 </div>
 
@@ -79,7 +79,11 @@
                                         Departamento
                                     </label>
                                     <select class="form-select" id="departamentoFiltro" name="departamentoFiltro">
-                                        <option selected value="-1">Selecciona el departamento</option>
+                                        <option selected value="-1">Seleccione el departamento</option>
+                                        <option value="Mecánica">Mecánica</option>
+                                        <option value="Administración">Administración</option>
+                                        <option value="Robótica">Robótica</option>
+                                        <option value="Informática">Informática</option>
                                     </select>
                                 </div>
 
@@ -90,6 +94,8 @@
                                     </label>
                                     <select class="form-select" id="rolFiltro" name="rolFiltro">
                                         <option selected value="-1">Selecciona el rol</option>
+                                        <option value="ADMINISTRADOR">Administrador</option>
+                                        <option value="PROFESOR">Profesor</option>
                                     </select>
                                 </div>
 
@@ -139,8 +145,8 @@
 
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
-            <div class="row mb-6">
-                @forelse ($usuarios as $usuario)
+            <div class="row mb-6" id="contenedorUsuarios">
+                {{--@forelse ($usuarios as $usuario)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
                             <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
@@ -157,7 +163,7 @@
                             </div>
                             <div class="col p-3 text-ellipsis"
                                 onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{-- Aqui va el rol del usuario --}}
+                                -- Aqui va el rol del usuario --
                             </div>
                             <div class="col p-3 movil-res">
                                 <div class="d-flex flex-column justify-content-center gap-2">
@@ -165,17 +171,15 @@
                                         href="{{ route('usuarios.edit', $usuario) }}">
                                         Editar
                                     </a>
-                                    <form action="" class="d-flex">
-                                        <input type="button" class="btn aquamarine-400 text-white flex-fill"
-                                            value="Borrar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    </form>
+                                    <input type="button" class="btn aquamarine-400 text-white flex-fill"
+                                        value="Borrar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 </div>
                             </div>
                         </div>
                     </div>
                 @empty
                     <p>No hay incidencias que mostrar.</p>
-                @endforelse
+                @endforelse--}}
             </div>
         </div>
 

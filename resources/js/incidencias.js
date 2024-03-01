@@ -565,13 +565,6 @@ function generarIncidencias(datos)
         let divBotonesInterno=document.createElement("div");//div interno a los botones
         divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
 
-        //creo el formulario de borrado y le doy el action con el id y el atributo para el metodo de preguntarBorrado
-        let formBorrar=document.createElement("form");
-        formBorrar.classList="d-flex";
-        formBorrar.action="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
-        formBorrar.id="formulario"+datos[pagina][i].id;
-        formBorrar.setAttribute("idincidencia",datos[pagina][i].id);
-
         //creo los textos de los divs
         let textId=document.createTextNode(datos[pagina][i].id);//id
         let textUsuario=document.createTextNode(datos[pagina][i].creador.nombre_completo);//usuario
@@ -595,13 +588,13 @@ function generarIncidencias(datos)
         inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
         inputBorrar.setAttribute("data-bs-toggle","modal");
         inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+        inputBorrar.setAttribute("idincidencia",datos[pagina][i].id);
         inputBorrar.addEventListener("click",preguntarBorrado,false);
 
         //meto el boton de detalles
         divBotonesInterno.appendChild(aDetalles);
-        formBorrar.appendChild(inputBorrar);
-        //meto dentro del div de botones el formulario
-        divBotonesInterno.appendChild(formBorrar);
+        //meto dentro del div de botones el boton de borrado
+        divBotonesInterno.appendChild(inputBorrar);
 
 
         //meto los textos de la incidencia dentro del sus divs
@@ -978,7 +971,10 @@ function preguntarBorrado(event)
     idFormularioBorrado=event.target.parentNode.id;*/
     //console.log(event.target.parentNode);
 
-    let ruta="http://127.0.0.1:8000/incidencias/"+event.target.parentNode.getAttribute("idincidencia");
+    //coloco en el modal el valor del id de la incidencia
+    numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
+
+    let ruta="http://127.0.0.1:8000/incidencias/"+event.target.getAttribute("idincidencia");
 
     formBorrado.action=ruta;
 }
