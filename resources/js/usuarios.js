@@ -155,16 +155,136 @@ function paginacionFin()
 function filtroUsuarioTemp(datosFiltrados,nombreInput)
 {
     //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
-    return datosFiltrados.filter
-    (item =>
+    return datosFiltrados.filter(item =>
         //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
-        item.creador.nombre_completo.toLowerCase().includes(nombreInput.toLowerCase())
+        item.name.toLowerCase().includes(nombreInput.toLowerCase())
     );
+}
+
+
+function filtroNombreCompletoTemp(datosFiltrados,nombrCompletoeInput)
+{
+    //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
+    return datosFiltrados.filter(item =>
+        //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
+        item.nombre_completo.toLowerCase().includes(nombrCompletoeInput.toLowerCase())
+    );
+}
+
+
+function filtroEmailTemp(datosFiltrados,emailInput)
+{
+    datosFiltrados.forEach(item => {
+        console.log(item.email);
+    });
+    //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
+    return datosFiltrados.filter(item =>
+                    //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
+                    item.email.includes(emailInput.toLowerCase())
+                    );
 }
 
 function aplicacionFiltros()
 {
+    //objeto para sarle los criterios de filtrado
+    let criterios={};
+    //primer array de datos filtrados de valores estaricos (selects)
+    let filtrados=[];
+    //segundo array de datos filtrados por nombre de creador
+    let filtradosNombreusuario=[];
+    let filtradosNombreCompleto=[];
+    let filtradosEmail=[];
+    //array final de datos filtrados
+    datosFinales=[];
 
+    if(departamentoFiltro.value!="-1")
+    {
+        criterios.nombre_departamento=departamentoFiltro.value;
+    }
+
+    if(rolFiltro.value!="-1")
+    {
+        let rol={rol:rolFiltro.value};
+        criterios.rol=rol;
+    }
+
+    //console.log(criterios);
+    //guardo las incidencias que esten filtrado en esta variable
+    filtrados=filtrarObjetos(datosUsuarios,criterios);
+    //console.log(filtrados);
+
+    if(nombreUsuarioFiltro.value!="")
+    {
+        filtradosNombreusuario=filtroUsuarioTemp(filtrados,nombreUsuarioFiltro.value);
+    }
+
+    if(nombreCompletoFiltro.value!="")
+    {
+        if(filtradosNombreusuario.length>0)
+        {
+            filtradosNombreCompleto=filtroNombreCompletoTemp(filtradosNombreusuario,nombreCompletoFiltro.value);
+        }
+        else
+        {
+            filtradosNombreCompleto=filtroNombreCompletoTemp(filtrados,nombreCompletoFiltro.value);
+        }
+    }
+
+    if(emailFiltro.value!="")
+    {
+        //emailFiltro
+
+        if(filtradosNombreusuario.length>0 && filtradosNombreCompleto.length>0)
+        {
+            filtradosEmail=filtroEmailTemp(filtradosNombreusuario,emailFiltro.value);
+        }
+        else if(filtradosNombreusuario.length>0 && filtradosNombreCompleto.length<0)
+        {
+            filtradosEmail=filtroEmailTemp(filtradosNombreusuario,emailFiltro.value);
+        }
+        else
+        {
+            filtradosEmail=filtroEmailTemp(filtrados,emailFiltro.value);
+        }
+    }
+
+    //pregunto en donde estan los datos filtrados para poder guardarlos en otra variable final
+    if(filtrados.length>0 && filtradosNombreusuario.length==0 && filtradosNombreCompleto.length==0 && filtradosEmail.length==0)
+    {
+        datosFinales=filtrados;
+    }
+    else if(filtrados.length>0 && filtradosNombreusuario.length>0 && filtradosNombreCompleto.length==0 && filtradosEmail.length==0)
+    {
+        datosFinales=filtradosNombreusuario;
+    }
+    else if(filtrados.length>0 && filtradosNombreusuario.length==0 && filtradosNombreCompleto.length>0 && filtradosEmail.length==0)
+    {
+        datosFinales=filtradosNombreCompleto;
+    }
+    else if(filtrados.length>0 && filtradosNombreusuario.length>0 && filtradosNombreCompleto.length>0 && filtradosEmail.length==0)
+    {
+        datosFinales=filtradosNombreCompleto;
+    }
+    else if(filtrados.length>0 && filtradosNombreusuario.length>0 && filtradosNombreCompleto.length>0 && filtradosEmail.length>0)
+    {
+        datosFinales=filtradosEmail;
+    }
+    else if(filtrados.length>0 && filtradosNombreusuario.length==0 && filtradosNombreCompleto.length==0 && filtradosEmail.length>0)
+    {
+        datosFinales=filtradosEmail;
+    }
+
+    //console.log(datosFinales);
+
+    //pongo la pagina a 0 y el valor del input a la primera pagina
+    pagina=0;
+    paginaActual.value=1;
+
+    //metodo para crear el array de paginacion pero con los datos filtrados
+    crearArrayPaginacion(datosFinales);
+
+    //metodo generico para mostrar las incidencias
+    generarUsuarios(datosPaginacion);
 }
 
 function borrarFiltros()
@@ -182,10 +302,35 @@ function borrarFiltros()
     paginaActual.value=1;
 
     //creo el array de paginacion con todos los datos
-    crearArrayPaginacion(datosIncidencias);
+    crearArrayPaginacion(datosUsuarios);
 
     //metodo generico para mostrar las incidencias
-    generarIncidencias(datosPaginacion);
+    generarUsuarios(datosPaginacion);
+}
+
+// Funcion para filtrado de atributos estaticos
+function filtrarObjetos(objetos, criterios)
+{
+    //recorro el array de todo y devolviendo un array filtrado
+    return objetos.filter(objeto =>
+        {
+            //recorro las propiedades
+            for (let propiedad in criterios)
+            {
+                //comparo si esta indefinida para que pase a la siguiente
+                if (criterios[propiedad] === undefined)
+                {
+                    continue;
+                }
+
+                if (objeto[propiedad] !== criterios[propiedad]) {
+                  return false;
+                }
+            }
+
+            return true;
+        }
+    );
 }
 
 function generarUsuarios(datos)
@@ -254,21 +399,8 @@ function generarUsuarios(datos)
         aDetalles.href="http://127.0.0.1:8000/usuarios/"+datos[pagina][i].id;
         aDetalles.classList="btn aquamarine-400 text-white";
 
-        //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
-        let inputBorrar=document.createElement("input");
-        inputBorrar.value="Borrar";
-        inputBorrar.type="button";
-        inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
-        inputBorrar.setAttribute("data-bs-toggle","modal");
-        inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
-        inputBorrar.setAttribute("idusuario",datos[pagina][i].id);
-        inputBorrar.addEventListener("click",preguntarBorrado,false);
-
         //meto el boton de detalles
         divBotonesInterno.appendChild(aDetalles);
-        //meto dentro del div de botones el boton de borrar
-        divBotonesInterno.appendChild(inputBorrar);
-
 
         //meto los textos del usuario dentro del sus divs
         divNombreUsuario.appendChild(textNombreUsuarios);
