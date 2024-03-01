@@ -4,14 +4,14 @@ let datosIncidencias;
 let datosFinales=[];
 let datosPaginacion=[];
 let pagina=0;
-let idFormularioBorrado="";
+let host=window.location.origin;
 
 function inicio()
 {
     //llamada de ajax y creacion de las incidencias en el html
     obtenerIncidencias().then(data => {
-        datosIncidencias = data; // Guardamos los datos en la variable
-        //console.log(datosIncidencias); // Ahora deberías poder ver los datos
+        datosIncidencias = data.incidencias; // Guardamos los datos en la variable
+        console.log(datosIncidencias); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosIncidencias);
 
@@ -21,6 +21,11 @@ function inicio()
 
 
     });
+    console.log(window.location.origin);
+
+
+    /*const apiKey = process.env.API_KEY;
+    const dbHost = process.env.DB_HOST;*/
     //llamadas a los metodos para los filtros
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
@@ -42,8 +47,9 @@ async function obtenerIncidencias()
 {
     try
     {
+        let ruta=host+"/datos";
         //llamada a la ruta de laravel para obtener los datos
-        let response = await fetch("http://127.0.0.1:8000/datos");
+        let response = await fetch(ruta);
         //console.log(response);
         // Comprueba si la respuesta es exitosa
         if(!response.ok)
@@ -506,13 +512,13 @@ function generarIncidencias(datos)
 
     //vacio el contenedor de incidencias
     document.querySelector("#contenedorIncidencias").innerHTML="";
-
+    let ruta=host+"/incidencias";
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
     for(let i=0;datos[pagina].length;i++)
     {
         //console.log(item.id);
         //ruta para la vista de show de esa incidencia
-        let stringRedirect="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
+        let stringRedirect=ruta+"/"+datos[pagina][i].id;
 
         //creo el div padre de la incidencia y le doy las clases necesarias
         let divPadre=document.createElement("div");//contenedor de la incidencia
@@ -578,14 +584,14 @@ function generarIncidencias(datos)
         let aDetalles=document.createElement("a");
         aDetalles.innerHTML="Detalles";
         aDetalles.type="button";
-        aDetalles.href="http://127.0.0.1:8000/incidencias/"+datos[pagina][i].id;
+        aDetalles.href=ruta+"/"+datos[pagina][i].id;
         aDetalles.classList="btn aquamarine-400 text-white";
 
         //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
         let inputBorrar=document.createElement("input");
         inputBorrar.value="Borrar";
         inputBorrar.type="button";
-        inputBorrar.classList="btn aquamarine-400 text-white flex-fill";
+        inputBorrar.classList="btn btn-danger text-white flex-fill";
         inputBorrar.setAttribute("data-bs-toggle","modal");
         inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
         inputBorrar.setAttribute("idincidencia",datos[pagina][i].id);
@@ -974,7 +980,7 @@ function preguntarBorrado(event)
     //coloco en el modal el valor del id de la incidencia
     numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
 
-    let ruta="http://127.0.0.1:8000/incidencias/"+event.target.getAttribute("idincidencia");
+    let ruta=host+"/incidencias/"+event.target.getAttribute("idincidencia");
 
     formBorrado.action=ruta;
 }
