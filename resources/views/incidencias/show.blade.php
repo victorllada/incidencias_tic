@@ -119,7 +119,7 @@
                             {{ $incidencia->equipo->aula->codigo . ' ' . $incidencia->equipo->etiqueta . ' ' . $incidencia->equipo->puesto }}
                         @endempty
                     </div>
-                @endif
+            @endif
 
             <hr>
 
@@ -139,6 +139,9 @@
             <div class="row mb-4">
                 <div class="col-lg-6">
                     <span class="fw-bolder">Archivo adjunto:</span> {{ $incidencia->adjunto_url }}
+                    @if ($incidencia->adjunto_url != null)
+                        <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}">Descargar Archivo</a>
+                    @endif
                 </div>
 
                 <div class="col-lg-6">

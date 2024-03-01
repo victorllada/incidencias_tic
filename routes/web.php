@@ -23,6 +23,9 @@ Route::get('/', InicioController::class)->name('inicio');
 Route::get('incidencias/exportar/estadistcas/{formato}', [IncidenciaController::class, 'exportarEstadisticasTiposIncidencias'])->name('incidencias.exportar.estadisticas')->middleware('auth');
 Route::get('incidencias/exportar/{tipo}/{formato}', [IncidenciaController::class, 'exportarIncidencias'])->name('incidencias.exportar')->middleware('auth');
 
+//Ruta para descargar el archivo adjunto a cada incidencia
+Route::get('descargar/{id}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo');
+
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
