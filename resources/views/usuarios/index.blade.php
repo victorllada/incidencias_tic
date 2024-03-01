@@ -104,12 +104,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- Boton crear usuario --}}
-                <a class=" btn aquamarine-400 text-white" type="button" href="{{ route('usuarios.create') }}">
-                    Crear usuario
-                    <i class="bi bi-plus-lg"></i>
-                </a>
             </div>
         </div>
 
@@ -155,8 +149,7 @@
                             <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
                                 {{ $usuario->nombre_departamento }}
                             </div>
-                            <div class="col p-3 text-ellipsis"
-                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
                                 {{ $usuario->getRoleNames()->implode(', ') }}
                             </div>
                             <div class="col p-3 movil-res">
@@ -165,10 +158,6 @@
                                         href="{{ route('usuarios.edit', $usuario) }}">
                                         Editar
                                     </a>
-                                    <form action="" class="d-flex">
-                                        <input type="button" class="btn aquamarine-400 text-white flex-fill"
-                                            value="Borrar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    </form>
                                 </div>
                             </div>
                         </div>
