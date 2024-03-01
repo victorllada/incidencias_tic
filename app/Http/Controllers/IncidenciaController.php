@@ -216,13 +216,11 @@ class IncidenciaController extends Controller
                 $incidencia->equipo_id = null;
             }
 
+            //Guardamos el responsable
+            $incidencia->responsable_id = $request->asignado;
+
             //Guardamos la incidencia
             $incidencia->save();
-
-            // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
-            $asignados = $request->input('asignado', []);
-            //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
-            $incidencia->responsables()->sync($asignados);
 
             //Comitamos
             DB::commit();
@@ -246,7 +244,6 @@ class IncidenciaController extends Controller
     /**
      * Display the specified resource.
      */
-
     public function show(Incidencia $incidencia)
     {
         //Guardamos todos los responsables de la incidencia en una variable
@@ -352,13 +349,11 @@ class IncidenciaController extends Controller
                 $incidencia->equipo_id = null;
             }
 
+            //Guardamos el responsable
+            $incidencia->responsable_id = $request->asignado;
+
             //Guardamos la incidencia
             $incidencia->save();
-
-            // Obtenemos el array de checkboxes o un array vacío si no hay seleccionados
-            $asignados = $request->input('asignado', []);
-            //sincronizamos la relación, asegurándo de que los usuarios asignados coincidan con el contenido de $asignados.
-            $incidencia->responsables()->sync($asignados);
 
             //Comitamos
             DB::commit();
