@@ -138,9 +138,10 @@
             {{-- Fila archivo y responsable --}}
             <div class="row mb-4">
                 <div class="col-lg-6">
-                    <span class="fw-bolder">Archivo adjunto:</span> {{ $incidencia->adjunto_url }}
+                    <span class="fw-bolder">Archivo adjunto:</span>
                     @if ($incidencia->adjunto_url != null)
-                        <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}">Descargar Archivo</a>
+                        <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
+                            class="btn aquamarine-400 text-white">Descargar Archivo</a>
                     @endif
                 </div>
 
