@@ -11,7 +11,7 @@ function inicio()
     //llamada de ajax y creacion de las incidencias en el html
     obtenerIncidencias().then(data => {
         datosUsuarios = data; // Guardamos los datos en la variable
-        //console.log(datosUsuarios); // Ahora deberías poder ver los datos
+        console.log(datosUsuarios); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosUsuarios);
 
@@ -40,7 +40,7 @@ async function obtenerIncidencias()
     {
         //llamada a la ruta de laravel para obtener los datos
         let response = await fetch("http://127.0.0.1:8000/datosUsuarios");
-        console.log(response);
+        //console.log(response);
         // Comprueba si la respuesta es exitosa
         if(!response.ok)
         {
@@ -173,10 +173,26 @@ function filtroNombreCompletoTemp(datosFiltrados,nombrCompletoeInput)
 //metodo para filtrar por email
 function filtroEmailTemp(datosFiltrados,emailInput)
 {
+    let usuarios=[];
+
+    for(let i=0;i<datosFiltrados.length;i++)
+    {
+        //console.log(datosFiltrados[i]);
+        if(datosFiltrados[i].email!=null)
+        {
+            if(datosFiltrados[i].email.includes(emailInput.toLowerCase()))
+            {
+                usuarios.push(datosFiltrados[i]);
+            }
+        }
+    }
+
+    return usuarios;
+
     //filtro el usuario por su email o parte de el
-    return datosFiltrados.filter(item =>
+    /*return datosFiltrados.filter(item =>
         item.email.includes(emailInput.toLowerCase())
-    );
+    );*/
 }
 
 function aplicacionFiltros()
@@ -384,11 +400,11 @@ function generarUsuarios(datos)
         divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
 
         //creo los textos de los divs
-        let textNombreUsuarios=document.createTextNode(datos[pagina][i].name);//id
+        let textNombreUsuarios=document.createTextNode(datos[pagina][i].usuario);//id
         let textNombreCompleto=document.createTextNode(datos[pagina][i].nombre_completo);//usuario
         let textEmail=document.createTextNode(datos[pagina][i].email);//tipo
-        let textNombreDepartamento=document.createTextNode(datos[pagina][i].nombre_departamento);//subtipo
-        let textRol=document.createTextNode(datos[pagina][i].rol);
+        let textNombreDepartamento=document.createTextNode(datos[pagina][i].departamento);//subtipo
+        let textRol=document.createTextNode(datos[pagina][i].roles[0]);
 
         //creo el boton de detaller y le doy las clases y la ruta para que funcione
         let aDetalles=document.createElement("a");
