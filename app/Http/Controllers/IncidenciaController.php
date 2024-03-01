@@ -56,13 +56,22 @@ class IncidenciaController extends Controller
         //Obtenemos el usuario logueado y lo guardamos en una variable
         $user = auth()->user();
 
+        // Rol del usuario logueado
+        $rolUsuario = $user->getRoleNames()->toArray();
+
         // Comprobamos si el rol del usuario es administrador.
         // Si lo es, devolvemos todas las incidencias.
         // En caso contrario (rol de profesor), devolvemos las incidencias creadas por el usuario.
-        $incidenciasJSON = $user->hasRole('administrador') ? Incidencia::with(['subtipo', 'creador', 'equipo', 'comentarios'])->get() : Incidencia::where('creador_id', $user->id)->with(['subtipo', 'creador', 'equipo', 'comentarios'])->get();
+        $incidencias = $user->hasRole('administrador') ? Incidencia::with(['subtipo', 'creador', 'equipo', 'comentarios'])->get() : Incidencia::where('creador_id', $user->id)->with(['subtipo', 'creador', 'equipo', 'comentarios'])->get();
+
+        // Construir los datos del JSON
+        $datosJSON = [
+            'incidencias' => $incidencias->toArray(),
+            'rol_usuario' => $rolUsuario,
+        ];
 
         //Devolvemos el JSON
-        return response()->json($incidenciasJSON);
+        return response()->json($datosJSON);
     }
 
     /**
