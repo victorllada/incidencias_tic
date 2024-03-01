@@ -230,11 +230,11 @@
                             <div class="d-flex flex-wrap gap-4 form-control ">
                                 @forelse ($usuarios as $usuario)
                                     <div>
-                                        <input class="form-check-input" type="checkbox" id="asignado[]"
-                                            name="asignado[]" value="{{ $usuario->id }}"
-                                            {{ $responsables->contains($usuario) ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio"
+                                            name="asignado" value="{{ $usuario->id }}"
+                                            {{ $usuario->id == $incidencia->responsable_id ? 'checked' : '' }}>
                                         <label class="form-check-label"
-                                            for="asignado[]">{{ $usuario->nombre_completo }}</label>
+                                            for="asignado">{{ $usuario->nombre_completo }}</label>
                                     </div>
                                 @empty
                                     <div>No hay usuarios</div>
