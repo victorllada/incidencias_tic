@@ -1,6 +1,7 @@
 addEventListener("load",inicio,false);
 
 let datosIncidencias;
+let rol;
 let datosFinales=[];
 let datosPaginacion=[];
 let pagina=0;
@@ -11,15 +12,20 @@ function inicio()
     //llamada de ajax y creacion de las incidencias en el html
     obtenerIncidencias().then(data => {
         datosIncidencias = data.incidencias; // Guardamos los datos en la variable
-        console.log(datosIncidencias); // Ahora deberías poder ver los datos
+        rol=data.rol_usuario[0];
+        console.log(rol); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosIncidencias);
-
         //console.log(datosPaginacion);
-
-        generarIncidencias(datosPaginacion);
-
-
+        if(rol=="administrador")
+        {
+            //metodo generico para mostrar las incidencias para el edministrador
+            generarIncidenciasAdmi(datosPaginacion);
+        }
+        else
+        {
+            generarIncidenciasUsuario(datosPaginacion);
+        }
     });
     console.log(window.location.origin);
 
@@ -91,8 +97,15 @@ function paginacionInicio()
     //mostrar en el input la pagina actual
     paginaActual.value=pagina+1;
 
-    //metodo generico para mostrar las incidencias
-    generarIncidencias(datosPaginacion);
+    if(rol=="administrador")
+    {
+        //metodo generico para mostrar las incidencias para el edministrador
+        generarIncidenciasAdmi(datosPaginacion);
+    }
+    else
+    {
+        generarIncidenciasUsuario(datosPaginacion);
+    }
 }
 
 //metodo para ir a la pagina anterior
@@ -110,8 +123,15 @@ function paginaAnterior()
         //mostrar en el input la pagina actual
         paginaActual.value=pagina+1;
 
-        //metodo generico para mostrar las incidencias
-        generarIncidencias(datosPaginacion);
+        if(rol=="administrador")
+        {
+            //metodo generico para mostrar las incidencias para el edministrador
+            generarIncidenciasAdmi(datosPaginacion);
+        }
+        else
+        {
+            generarIncidenciasUsuario(datosPaginacion);
+        }
     }
 }
 
@@ -124,8 +144,15 @@ function paginaEscrita()
         //le doy el valor del input a la pagina
         pagina=paginaActual.value-1;
 
-        //metodo generico para mostrar las incidencias
-        generarIncidencias(datosPaginacion);
+        if(rol=="administrador")
+        {
+            //metodo generico para mostrar las incidencias para el edministrador
+            generarIncidenciasAdmi(datosPaginacion);
+        }
+        else
+        {
+            generarIncidenciasUsuario(datosPaginacion);
+        }
     }
 }
 
@@ -144,8 +171,15 @@ function paginaSiguiente()
         //muestro a traves del input la pagina actual
         paginaActual.value=pagina+1;
 
-        //metodo generico para mostrar las incidencias
-        generarIncidencias(datosPaginacion);
+        if(rol=="administrador")
+        {
+            //metodo generico para mostrar las incidencias para el edministrador
+            generarIncidenciasAdmi(datosPaginacion);
+        }
+        else
+        {
+            generarIncidenciasUsuario(datosPaginacion);
+        }
     }
 }
 
@@ -158,8 +192,15 @@ function paginacionFin()
     //muestro a traves del input la pagina actual
     paginaActual.value=pagina+1;
 
-    //metodo generico para mostrar las incidencias
-    generarIncidencias(datosPaginacion);
+    if(rol=="administrador")
+    {
+        //metodo generico para mostrar las incidencias para el edministrador
+        generarIncidenciasAdmi(datosPaginacion);
+    }
+    else
+    {
+        generarIncidenciasUsuario(datosPaginacion);
+    }
 }
 
 //metodo para poder genera el select de subtipos en funcion del tipo seleccionado anteriormente
@@ -459,8 +500,17 @@ function aplicacionFiltros()
     //metodo para crear el array de paginacion pero con los datos filtrados
     crearArrayPaginacion(datosFinales);
 
-    //metodo generico para mostrar las incidencias
-    generarIncidencias(datosPaginacion);
+
+    if(rol=="administrador")
+    {
+        //metodo generico para mostrar las incidencias para el edministrador
+        generarIncidenciasAdmi(datosPaginacion);
+    }
+    else
+    {
+        generarIncidenciasUsuario(datosPaginacion);
+    }
+
 }
 
 //metodo para borrar los filtro y mostrar todos los datos por defecto
@@ -485,12 +535,19 @@ function borrarFiltros()
     //creo el array de paginacion con todos los datos
     crearArrayPaginacion(datosIncidencias);
 
-    //metodo generico para mostrar las incidencias
-    generarIncidencias(datosPaginacion);
+    if(rol=="administrador")
+    {
+        //metodo generico para mostrar las incidencias para el edministrador
+        generarIncidenciasAdmi(datosPaginacion);
+    }
+    else
+    {
+        generarIncidenciasUsuario(datosPaginacion);
+    }
 }
 
 //metodo generico para mostrar las incidencias
-function generarIncidencias(datos)
+function generarIncidenciasAdmi(datos)
 {
     //comprovacion para la creacion de las graficas con datos filtrados o todos
     if(datosFinales.length>0)
@@ -616,6 +673,196 @@ function generarIncidencias(datos)
         //meto los divs de la informacion de la incidencia y los botones dentro del divPadreInerno
         divPadreIntero.appendChild(divId);
         divPadreIntero.appendChild(divUsuario);
+        divPadreIntero.appendChild(divTipoIncidencia);
+        divPadreIntero.appendChild(divSubtipo);
+        divPadreIntero.appendChild(divFecha);
+        divPadreIntero.appendChild(divPrioridad);
+        divPadreIntero.appendChild(divEstado);
+        divPadreIntero.appendChild(divBotones);
+
+        //meto el divPadreInterno dentro del div padre
+        divPadre.appendChild(divPadreIntero);
+
+        //meto la incidencia dentro del contenedor de incidencias
+        document.querySelector("#contenedorIncidencias").appendChild(divPadre);
+
+        //pregunto si estoy en la primera pagina
+        if(pagina==0)
+        {
+            //al ser la pagina 0 anterior esta desavilitado y sus clases
+            inicioPaginacion.disabled=true;
+            inicioPaginacion.parentNode.classList="page-item disabled";
+
+            //al ser la pagina 0 anterior esta desavilitado y sus clases
+            anterior.disabled=true;
+            anterior.parentNode.classList="page-item disabled";
+
+            //al ser la pagina 0 siguiente esta avilitado y sus clases
+            siguiente.disabled=false;
+            siguiente.parentNode.classList="page-item";
+
+            //al ser la pagina 0 final esta avilitado y sus clases
+            finalPaginacion.disabled=false;
+            finalPaginacion.parentNode.classList="page-item";
+
+        }
+
+        //pregunto si estoy en la ultima pagina
+        if(pagina==datos.length-1)
+        {
+            //al ser la ultima pagina inicio esta avilitado y sus clases
+            inicioPaginacion.disabled=false;
+            inicioPaginacion.parentNode.classList="page-item";
+
+
+            //al ser la ultima pagina anterior esta avilitado y sus clases
+            anterior.disabled=false;
+            anterior.parentNode.classList="page-item";
+
+            //al ser la ultima pagina siguiente esta desavilitado y sus clases
+            siguiente.disabled=true;
+            siguiente.parentNode.classList="page-item disabled";
+
+            //al ser la ultima pagina final esta desavilitado y sus clases
+            finalPaginacion.disabled=true;
+            finalPaginacion.parentNode.classList="page-item disabled";
+
+        }
+
+        //pregunto si estoy en una pagina que no sea ni la ultima ni la primera para que esnte todas las opciones disponibles
+        if(pagina>0 && pagina<datos.length-1)
+        {
+            inicioPaginacion.disabled=false;
+            inicioPaginacion.parentNode.classList="page-item";
+
+            anterior.disabled=false;
+            anterior.parentNode.classList="page-item";
+
+            siguiente.disabled=false;
+            siguiente.parentNode.classList="page-item";
+
+            finalPaginacion.disabled=false;
+            finalPaginacion.parentNode.classList="page-item";
+
+        }
+
+        //al lado del input escribo el numero total de paginas que hay disponibles para ver
+        paginasTotales.innerHTML="/ "
+        paginasTotales.innerHTML+=datos.length;
+    }
+}
+
+//metodo generico para mostrar las incidencias
+function generarIncidenciasUsuario(datos)
+{
+    //comprovacion para la creacion de las graficas con datos filtrados o todos
+   /* if(datosFinales.length>0)
+    {
+        //metodos para crear grafico circular y sus datos
+        crearGraficaTipos(datosTipo(datosFinales));
+
+        //metodo para crear grafica de barras y sus datos
+        crearGraficaEstado(datosEstado(datosFinales));
+    }
+    else
+    {
+        //metodos para crear grafico circular y sus datos
+        crearGraficaTipos(datosTipo(datosIncidencias));
+
+        //metodo para crear grafica de barras y sus datos
+        crearGraficaEstado(datosEstado(datosIncidencias));
+    }*/
+
+    //vacio el contenedor de incidencias
+    document.querySelector("#contenedorIncidencias").innerHTML="";
+    let ruta=host+"/incidencias";
+    //recorr el array de paginacion en la pagina que tenga el valor de pagina
+    for(let i=0;datos[pagina].length;i++)
+    {
+        //console.log(item.id);
+        //ruta para la vista de show de esa incidencia
+        let stringRedirect=ruta+"/"+datos[pagina][i].id;
+
+        //creo el div padre de la incidencia y le doy las clases necesarias
+        let divPadre=document.createElement("div");//contenedor de la incidencia
+        divPadre.classList="lista-incidencias";
+
+        //creo el div intero al padre de la incidencia y le doy las clases necesarias
+        let divPadreIntero=document.createElement("div");//div interno a la incidcencia
+        divPadreIntero.classList="row d-flex justify-content-between align-items-center flex-nowrap rounded";
+
+        //creo el div del tipo de la incidencia y le doy las clases necesarias y el metodo para cuando haga click en el te rediriga a la vista show
+        let divTipoIncidencia=document.createElement("div");//tipo
+        divTipoIncidencia.classList="col p-3 text-ellipsis";
+        divTipoIncidencia.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        //creo el div del subtipo de la incidencia y le doy las clases necesarias y el metodo para cuando haga click en el te rediriga a la vista show
+        let divSubtipo=document.createElement("div");//subtipo
+        divSubtipo.classList="col p-3 text-ellipsis";
+        divSubtipo.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        //creo el div de la fecha de la incidencia y le doy las clases necesarias y el metodo para cuando haga click en el te rediriga a la vista show
+        let divFecha=document.createElement("div");
+        divFecha.classList="col p-3 baja-res";
+        divFecha.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        //creo el div de la prioridad de la incidencia y le doy las clases necesarias y el metodo para cuando haga click en el te rediriga a la vista show
+        let divPrioridad=document.createElement("div");//prioridad
+        divPrioridad.classList="col p-3 text-ellipsis";
+        divPrioridad.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        //creo el div del id de la incidencia y le doy las clases necesarias y el metodo para cuando haga click en el te rediriga a la vista show
+        let divEstado=document.createElement("div");//estado
+        divEstado.classList="col p-3 text-ellipsis";
+        divEstado.addEventListener("click",()=>redirect(stringRedirect),false);
+
+        //creo el div de los botones y le doy las clases necesarias
+        let divBotones=document.createElement("div");//botones
+        divBotones.classList="col p-3 movil-res";
+
+        //creo el div interno de los botones y le doy las clases necesarias
+        let divBotonesInterno=document.createElement("div");//div interno a los botones
+        divBotonesInterno.classList="d-flex flex-column justify-content-center gap-2";
+
+        //creo los textos de los divs
+        let textTipoIncidencia=document.createTextNode(datos[pagina][i].tipo);//tipo
+        let textSubtipo=document.createTextNode(datos[pagina][i].subtipo.subtipo_nombre);//subtipo
+        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion);
+        let textPrioridad=document.createTextNode(datos[pagina][i].prioridad);//prioridad
+        let textEstado=document.createTextNode(datos[pagina][i].estado);//estado
+
+        //creo el boton de detaller y le doy las clases y la ruta para que funcione
+        let aDetalles=document.createElement("a");
+        aDetalles.innerHTML="Detalles";
+        aDetalles.type="button";
+        aDetalles.href=ruta+"/"+datos[pagina][i].id;
+        aDetalles.classList="btn aquamarine-400 text-white";
+
+        //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
+        /*let inputBorrar=document.createElement("input");
+        inputBorrar.value="Borrar";
+        inputBorrar.type="button";
+        inputBorrar.classList="btn btn-danger text-white flex-fill";
+        inputBorrar.setAttribute("data-bs-toggle","modal");
+        inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+        inputBorrar.setAttribute("idincidencia",datos[pagina][i].id);
+        inputBorrar.addEventListener("click",preguntarBorrado,false);*/
+
+        //meto el boton de detalles
+        divBotonesInterno.appendChild(aDetalles);
+        //meto dentro del div de botones el boton de borrado
+        //divBotonesInterno.appendChild(inputBorrar);
+
+
+        //meto los textos de la incidencia dentro del sus divs
+        divTipoIncidencia.appendChild(textTipoIncidencia);
+        divSubtipo.appendChild(textSubtipo);
+        divFecha.appendChild(textFecha);
+        divPrioridad.appendChild(textPrioridad);
+        divEstado.appendChild(textEstado);
+        divBotones.appendChild(divBotonesInterno);
+
+        //meto los divs de la informacion de la incidencia y los botones dentro del divPadreInerno
         divPadreIntero.appendChild(divTipoIncidencia);
         divPadreIntero.appendChild(divSubtipo);
         divPadreIntero.appendChild(divFecha);
