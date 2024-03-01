@@ -84,8 +84,8 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="departamento">
                                     Departamento
                                 </label>
-                                <input type="email" class="form-control" name="email" id="email"
-                                    value="{{ $usuario->nombre_departamento }}" disabled>
+                                <input type="text" class="form-control" name="email" id="email"
+                                value="{{ $usuario->nombre_departamento }}" disabled>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -95,18 +95,7 @@
                                 </label>
                                 <select class="form-select" name="rol" id="rol" required>
                                     <option selected disabled value="-1">Selecciona el rol</option>
-                                    <option value="BAJA" {{ $usuario->prioridad == 'BAJA' ? 'selected' : '' }}>
-                                        Baja
-                                    </option>
-                                    <option value="MEDIA" {{ $usuario->prioridad == 'MEDIA' ? 'selected' : '' }}>
-                                        Media
-                                    </option>
-                                    <option value="ALTA" {{ $usuario->prioridad == 'ALTA' ? 'selected' : '' }}>
-                                        Alta
-                                    </option>
-                                    <option value="URGENTE"{{ $usuario->prioridad == 'URGENTE' ? 'selected' : '' }}>
-                                        Urgente
-                                    </option>
+
                                 </select>
                             </div>
                         </div>
