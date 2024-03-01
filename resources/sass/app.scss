@@ -76,11 +76,16 @@ main {
 }
 
 // Paginacion
+.numero-pagina{
+    background-color: #f8fafc;
+}
+
 .numero-pagina input {
  width: 50%;
  border: none;
  text-align: center;
  background-color: #f8fafc;
+ cursor: pointer;
 }
 
 .numero-pagina input:hover {
