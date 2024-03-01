@@ -11,11 +11,11 @@ function inicio()
     //llamada de ajax y creacion de las incidencias en el html
     obtenerIncidencias().then(data => {
         datosUsuarios = data; // Guardamos los datos en la variable
-        console.log(datosUsuarios); // Ahora deberías poder ver los datos
+        //console.log(datosUsuarios); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosUsuarios);
 
-        console.log(datosPaginacion);
+        //console.log(datosPaginacion);
 
         generarUsuarios(datosPaginacion);
 
@@ -152,36 +152,31 @@ function paginacionFin()
     generarUsuarios(datosPaginacion);
 }
 
+//metodo para filtroar por nombre de usuario
 function filtroUsuarioTemp(datosFiltrados,nombreInput)
 {
-    //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
+    //filtro el usuario por su nombre de usuario
     return datosFiltrados.filter(item =>
-        //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
         item.name.toLowerCase().includes(nombreInput.toLowerCase())
     );
 }
 
-
+//metodo para filtroar por nombre completo
 function filtroNombreCompletoTemp(datosFiltrados,nombrCompletoeInput)
 {
-    //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
+    //filtro el usuario por su nombre completo
     return datosFiltrados.filter(item =>
-        //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
         item.nombre_completo.toLowerCase().includes(nombrCompletoeInput.toLowerCase())
     );
 }
 
-
+//metodo para filtrar por email
 function filtroEmailTemp(datosFiltrados,emailInput)
 {
-    datosFiltrados.forEach(item => {
-        console.log(item.email);
-    });
-    //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
+    //filtro el usuario por su email o parte de el
     return datosFiltrados.filter(item =>
-                    //obtenerNombreCompleto(item.creador).toLowerCase().includes(nombreInput.toLowerCase())
-                    item.email.includes(emailInput.toLowerCase())
-                    );
+        item.email.includes(emailInput.toLowerCase())
+    );
 }
 
 function aplicacionFiltros()
@@ -190,12 +185,15 @@ function aplicacionFiltros()
     let criterios={};
     //primer array de datos filtrados de valores estaricos (selects)
     let filtrados=[];
-    //segundo array de datos filtrados por nombre de creador
+    //segundo array de datos filtrados por nombre de usuario
     let filtradosNombreusuario=[];
+    //segundo array de datos filtrados por nombre completo
     let filtradosNombreCompleto=[];
+    //segundo array de datos filtrados por email
     let filtradosEmail=[];
     //array final de datos filtrados
     datosFinales=[];
+
 
     if(departamentoFiltro.value!="-1")
     {
