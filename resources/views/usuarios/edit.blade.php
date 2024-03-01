@@ -95,7 +95,9 @@
                                 </label>
                                 <select class="form-select" name="rol" id="rol" required>
                                     <option selected disabled value="-1">Selecciona el rol</option>
-
+                                    @foreach ($rolesDisponibles as $rol)
+                                        <option value="{{ $rol }}" {{ $usuario->hasRole($rol) ? 'selected' : '' }}>{{ $rol }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

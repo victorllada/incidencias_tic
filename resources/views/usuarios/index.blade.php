@@ -157,7 +157,7 @@
                             </div>
                             <div class="col p-3 text-ellipsis"
                                 onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                {{-- Aqui va el rol del usuario --}}
+                                {{ $usuario->getRoleNames()->implode(', ') }}
                             </div>
                             <div class="col p-3 movil-res">
                                 <div class="d-flex flex-column justify-content-center gap-2">

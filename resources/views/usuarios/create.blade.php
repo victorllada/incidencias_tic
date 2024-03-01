@@ -76,6 +76,9 @@
                                     Rol
                                 </label>
                                 <select class="form-select" name="rol" id="rol" required>
+                                    @foreach ($rolesDisponibles as $rol)
+                                        <option value="{{ $rol }}">{{ $rol }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
