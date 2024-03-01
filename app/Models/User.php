@@ -105,13 +105,13 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Define la relación muchos a muchos entre User e Incidencia a través de la tabla incidencia_user.
+     * Define la relación muchos a uno entre User e Incidencia a través de la tabla incidencia_user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function incidenciasAsignadas()
     {
-        return $this->belongsToMany(Incidencia::class, 'incidencia_user', 'user_id', 'incidencia_id');
+        return $this->hasMany(Incidencia::class, 'personal_id');
     }
 
     /**

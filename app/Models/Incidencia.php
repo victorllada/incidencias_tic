@@ -39,11 +39,11 @@ class Incidencia extends Model
     /**
      * Define la relación muchos a uno con la tabla 'Users' (responsable de la incidencia).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function responsables()
+    public function responsable()
     {
-        return $this->belongsToMany(User::class, 'incidencia_user', 'incidencia_id', 'user_id');
+        return $this->hasOne(User::class, 'responsable_id');
     }
 
     /**
