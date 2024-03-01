@@ -5,13 +5,15 @@ namespace App\Exports;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 /**
  * Clase que representa la exportación de estadísticas de tipos de incidencias a un archivo.
  *
  * Implementa la interfaz FromView para obtener los datos desde una vista.
+ * Implementa la interfaz ShouldAutoSize para auto ajustar el tamaño de la tabla.
  */
-class EstadisticasTiposIncidenciasExport implements FromView
+class EstadisticasTiposIncidenciasExport implements FromView, ShouldAutoSize
 {
     /**
      * Obtiene la vista que representa los datos para la exportación.
