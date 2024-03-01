@@ -28,7 +28,10 @@ Route::resource('incidencias', IncidenciaController::class)->parameters([
     'incidencias' => 'incidencia'
 ])->middleware('auth');
 
-//ruta para poder enviar el json de incidencias
+//Ruta para obtener las etiquetas de cada aula
+Route::get('/obtener-etiquetas/{aulaId}', [IncidenciaController::class, 'obtenerEtiquetas']);
+
+//Ruta para poder enviar el json de incidencias
 Route::get("/datos",[IncidenciaController::class,"datosIncidencias"])->middleware('auth');
 
 //Usuarios
