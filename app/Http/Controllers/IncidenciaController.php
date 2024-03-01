@@ -482,9 +482,9 @@ class IncidenciaController extends Controller
         $rutaArchivo = public_path('assets/' . $incidencia->adjunto_url);
 
         // Obtener el nombre original del archivo
-        $nombreArchivo = pathinfo($rutaArchivo, PATHINFO_BASENAME);
+        //$nombreArchivo = pathinfo($rutaArchivo, PATHINFO_BASENAME);
 
         // Devolver la respuesta para la descarga
-        return response()->download($rutaArchivo, $nombreArchivo);
+    return response()->download($rutaArchivo, /*$nombreArchivo*/);
     }
 }
