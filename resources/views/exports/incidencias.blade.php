@@ -34,7 +34,11 @@
                     <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_cierre }}</td>
                     <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->estado }}</td>
                     <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->descripcion }}</td>
-                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->responsable->nombre_completo }}</td>
+                    @isset($incidencia->responsable->nombre_completo)
+                        <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->responsable->nombre_completo }}</td>
+                    @else
+                        <td style="font-family: Arial, Helvetica, sans-serif"></td>
+                    @endisset
                 </tr>
             @empty
                 <tr>
