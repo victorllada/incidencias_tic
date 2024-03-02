@@ -190,7 +190,7 @@
                                 <div class="d-flex flex-wrap gap-4 form-control ">
                                     @forelse ($usuarios as $usuario)
                                         <div>
-                                            <input class="form-check-input" type="radio" id="asignado" name="asignado"
+                                            <input class="form-check-input" type="radio" name="asignado"
                                                 value={{ $usuario->id }}>
                                             <label class="form-check-label"
                                                 for="asignado">{{ $usuario->nombre_completo }}</label>
@@ -217,23 +217,34 @@
 
 <script>
     function cargarEtiquetas() {
-        var aulaId = document.getElementById('aula').value;
+        var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
 
         // Realizar una petición AJAX para obtener las etiquetas según el aula seleccionada
         fetch('/obtener-etiquetas/' + aulaId)
             .then(response => response.json())
             .then(data => {
-                var selectEtiqueta = document.getElementById('num_etiqueta');
+                var selectEtiqueta = document.getElementById('num_etiqueta'); //obtenemos el select de etiquetas
                 selectEtiqueta.innerHTML = ""; // Limpiar opciones existentes
 
-                data.forEach(etiqueta => {
-                    var option = document.createElement('option');
-                    option.value = etiqueta.etiqueta;
-                    option.text = etiqueta.etiqueta;
-                    selectEtiqueta.add(option);
-                });
+                var defaultOption = document.createElement('option'); //Creamos la opcion
+                defaultOption.value = null; //Valor nulo
+                defaultOption.text = "No hay equipos en este aula"; //Texto de muestra
+                selectEtiqueta.add(defaultOption); //Añadimos la opcion
+
+                if (data && data.length > 0) { //Si hay datos mostramos las etiquetas
+
+                    selectEtiqueta.removeChild(defaultOption); //Borramos la opcion default
+
+                    data.forEach(etiqueta => { //Por cada etiqueta
+                        var option = document.createElement('option'); //Creamos una opcion
+                        option.value = etiqueta.etiqueta; //Valor de la opcion es la etiqueta
+                        option.text = etiqueta.etiqueta; //texto de la opcion es la etiqueta
+                        selectEtiqueta.add(option); //Añadimos la opcion
+                    });
+                }
+
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error)); //Obtenemos el error
     }
 </script>
 
