@@ -4,7 +4,10 @@ let datosUsuarios;
 let datosFinales=[];
 let datosPaginacion=[];
 let pagina=0;
-let host=window.location.origin;
+//varialbe de host del servidor para poder conectarme al mismo
+import {hostServer} from "./variableHost.js";
+//variable para poder usar en todo donde haga falta llamar al servidor
+let host=hostServer;
 
 function inicio()
 {
@@ -189,11 +192,6 @@ function filtroEmailTemp(datosFiltrados,emailInput)
     }
 
     return usuarios;
-
-    //filtro el usuario por su email o parte de el
-    /*return datosFiltrados.filter(item =>
-        item.email.includes(emailInput.toLowerCase())
-    );*/
 }
 
 function aplicacionFiltros()
@@ -245,10 +243,9 @@ function aplicacionFiltros()
         }
     }
 
+    //pregunto si el input de email tiene valor para hacer el filtro o no
     if(emailFiltro.value!="")
     {
-        //emailFiltro
-
         if(filtradosNombreusuario.length>0 && filtradosNombreCompleto.length>0)
         {
             filtradosEmail=filtroEmailTemp(filtradosNombreusuario,emailFiltro.value);
@@ -348,6 +345,7 @@ function filtrarObjetos(objetos, criterios)
     );
 }
 
+//metodo generica para poder mosrtrar los usuarios
 function generarUsuarios(datos)
 {
     //vacio el contenedor de incidencias

@@ -424,12 +424,16 @@
 
             {{-- Encabezado de la lista de incidencias --}}
             <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300 rounded-top">
-                <div class="col fw-bolder p-3 baja-res">
-                    ID
-                </div>
-                <div class="col fw-bolder p-3 baja-res">
-                    Usuario
-                </div>
+                @role('administrador')
+                    <div class="col fw-bolder p-3 baja-res">
+                        ID
+                    </div>
+                @endrole
+                @role('administrador')
+                    <div class="col fw-bolder p-3 baja-res">
+                        Usuario
+                    </div>
+                @endrole
                 <div class="col fw-bolder p-3">
                     Tipo
                 </div>
