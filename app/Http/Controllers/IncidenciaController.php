@@ -106,8 +106,6 @@ class IncidenciaController extends Controller
         //Obtenemos los equipos del aula (id) pasado por parametro
         $datosJSON = Equipo::where('aula_id', $aulaId)->get();
 
-
-
         //Devolvemos un JSON con los equipos
         return response()->json($datosJSON);
     }
