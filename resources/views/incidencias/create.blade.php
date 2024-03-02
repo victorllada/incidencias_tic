@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Crear')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 @endsection
 @section('contenido')
 
