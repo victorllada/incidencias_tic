@@ -252,7 +252,8 @@ class IncidenciaController extends Controller
         $user = auth()->user();
 
         if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
-            abort(403, 'No tiene permisos para ver los detalles de esta incidencia.');
+            //abort(403, 'No tiene permisos para ver los detalles de esta incidencia.');
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para ver los detalles de esta incidencia.');
         }
 
         //Obtenemos los comentarios de la incidencia
@@ -270,7 +271,8 @@ class IncidenciaController extends Controller
         $user = auth()->user();
 
         if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
-            abort(403, 'No tiene permisos para editar esta incidencia.');
+            //abort(403, 'No tiene permisos para editar esta incidencia.');
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para editar esta incidencia.');
         }
 
         //Obtenemos todos los departamentos
@@ -441,7 +443,8 @@ class IncidenciaController extends Controller
 
         // Comprobar si el usuario es profesor, el tipo de exportación no es 'profesor' y el tipo de exportación no es un número
         if (!$user->hasRole('administrador') && $tipoOID !== 'profesor' && !is_numeric($tipoOID)) {
-            abort(403, 'No tiene permisos para exportar este tipo de incidencias.');
+            //abort(403, 'No tiene permisos para exportar este tipo de incidencias.');
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para exportar este tipo de incidencias.');
         }
 
         if (is_numeric($tipoOID)) {
@@ -450,7 +453,8 @@ class IncidenciaController extends Controller
 
             // Comprobar si el usuario es el creador de la incidencia o es administrador
             if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
-                abort(403, 'No tiene permisos para exportar esta incidencia.');
+                //abort(403, 'No tiene permisos para exportar esta incidencia.');
+                return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para exportar esta incidencia.');
             }
 
             $incidenciasExport = new IncidenciaExport(Incidencia::findOrFail($id));
@@ -482,7 +486,8 @@ class IncidenciaController extends Controller
         $user = auth()->user();
 
         if (!$user->hasRole('administrador')) {
-            abort(403, 'No tiene permisos para exportar este tipo de incidencias.');
+            //abort(403, 'No tiene permisos para exportar este tipo de incidencias.');
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para exportar este tipo de incidencias.');
         }
 
         return $this->exportarEnFormato(new EstadisticasTiposIncidenciasExport, $formato, "_Estadisticas_Tipos_Incidencias");
@@ -515,11 +520,13 @@ class IncidenciaController extends Controller
         $user = auth()->user();
 
         if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
-            abort(403, 'No tiene permisos para descargar el adjunto de esta incidencia.');
+            //abort(403, 'No tiene permisos para descargar el adjunto de esta incidencia.');
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para descargar el adjunto de esta incidencia.');
         }
 
         if (!$incidencia || !$incidencia->adjunto_url) {
-            abort(404, 'No se encuentra la incidencia o no tiene adjunto.');
+            //abort(404, 'No se encuentra la incidencia o no tiene adjunto.');
+            return redirect()->route('incidencias.index')->with('error', 'No se encuentra la incidencia o no tiene adjunto.');
         }
 
         // Ruta del archivo en el sistema de archivos
