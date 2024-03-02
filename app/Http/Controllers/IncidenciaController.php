@@ -251,6 +251,12 @@ class IncidenciaController extends Controller
      */
     public function show(Incidencia $incidencia)
     {
+        $user = auth()->user();
+
+        if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
+            abort(403, 'No tiene permisos para ver los detalles de esta incidencia.');
+        }
+
         //Obtenemos los comentarios de la incidencia
         $comentarios = Comentario::where('incidencia_num', $incidencia->id)->get();
 
@@ -263,6 +269,12 @@ class IncidenciaController extends Controller
      */
     public function edit(Incidencia $incidencia)
     {
+        $user = auth()->user();
+
+        if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
+            abort(403, 'No tiene permisos para editar esta incidencia.');
+        }
+
         //Obtenemos todos los departamentos
         $departamentos = Departamento::all();
 
