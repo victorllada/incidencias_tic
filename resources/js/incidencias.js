@@ -629,8 +629,8 @@ function generarIncidenciasAdmi(datos)
         let textId=document.createTextNode(datos[pagina][i].id);//id
         let textUsuario=document.createTextNode(datos[pagina][i].creador.nombre_completo);//usuario
         let textTipoIncidencia=document.createTextNode(datos[pagina][i].tipo);//tipo
-        let textSubtipo=document.createTextNode(datos[pagina][i].subtipo.subtipo_nombre);//subtipo
-        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion);
+        let textSubtipo=document.createTextNode(datos[pagina][i].tipo!="INTERNET"?datos[pagina][i].subtipo.subtipo_nombre:"N/A");//subtipo, si es internet pone n/a por que no tiene subtipos, si no el subtipo de la incidencia
+        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion);//fecha de creacion de la incidencia
         let textPrioridad=document.createTextNode(datos[pagina][i].prioridad);//prioridad
         let textEstado=document.createTextNode(datos[pagina][i].estado);//estado
 
@@ -744,8 +744,8 @@ function generarIncidenciasAdmi(datos)
         }
 
         //al lado del input escribo el numero total de paginas que hay disponibles para ver
-        paginasTotales.innerHTML = "";
-        paginasTotales.innerHTML+=datos.length;
+        //paginasTotales.innerHTML = "";
+        paginasTotales.innerHTML=datos.length;
     }
 }
 
@@ -804,8 +804,8 @@ function generarIncidenciasUsuario(datos)
 
         //creo los textos de los divs
         let textTipoIncidencia=document.createTextNode(datos[pagina][i].tipo);//tipo
-        let textSubtipo=document.createTextNode(datos[pagina][i].subtipo.subtipo_nombre);//subtipo
-        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion);
+        let textSubtipo=document.createTextNode(datos[pagina][i].tipo!="INTERNET"?datos[pagina][i].subtipo.subtipo_nombre:"n/a");
+        console.log(datos[pagina][i].tipo!="INTERNET"?datos[pagina][i].subtipo.subtipo_nombre:"n/a");//subtipo
         let textPrioridad=document.createTextNode(datos[pagina][i].prioridad);//prioridad
         let textEstado=document.createTextNode(datos[pagina][i].estado);//estado
 
