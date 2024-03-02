@@ -417,7 +417,7 @@ function aplicacionFiltros()
         criterios.estado=estadoFiltro.value;
     }
 
-    //preguntar para saver si hay que filtroar por responsable de la incidencia
+    //preguntar para saver si hay que filtrar por responsable de la incidencia
     if(responsableFiltro.value!="-1")
     {
         criterios.responsable_id=parseInt(responsableFiltro.value);
