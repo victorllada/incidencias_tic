@@ -212,19 +212,19 @@ function aplicacionFiltros()
 
     if(departamentoFiltro.value!="-1")
     {
-        criterios.nombre_departamento=departamentoFiltro.value;
+        criterios.departamento=departamentoFiltro.value;
     }
 
     if(rolFiltro.value!="-1")
     {
-        let rol={rol:rolFiltro.value};
-        criterios.rol=rol;
+        let rol=[rolFiltro.value];
+        criterios.roles=rol;
     }
 
     //console.log(criterios);
     //guardo las incidencias que esten filtrado en esta variable
     filtrados=filtrarObjetos(datosUsuarios,criterios);
-    //console.log(filtrados);
+    console.log(filtrados);
 
     if(nombreUsuarioFiltro.value!="")
     {
@@ -329,6 +329,14 @@ function filtrarObjetos(objetos, criterios)
             //recorro las propiedades
             for (let propiedad in criterios)
             {
+                if(propiedad =="roles")
+                {
+                    if(criterios[propiedad][0]==objeto.roles[0])
+                    {
+                        continue;
+                    }
+                }
+
                 //comparo si esta indefinida para que pase a la siguiente
                 if (criterios[propiedad] === undefined)
                 {

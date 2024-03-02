@@ -80,9 +80,11 @@
                                         Rol
                                     </label>
                                     <select class="form-select" id="rolFiltro" name="rolFiltro">
-                                        <option selected value="-1">Selecciona rol</option>
-                                        <option value="ADMINISTRADOR">Administrador</option>
-                                        <option value="PROFESOR">Profesor</option>
+
+                                        <option selected value="-1">Selecciona el rol</option>
+                                        <option value="administrador">Administrador</option>
+                                        <option value="profesor">Profesor</option>
+
                                     </select>
                                 </div>
 
