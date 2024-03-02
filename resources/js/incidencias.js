@@ -386,10 +386,13 @@ function aplicacionFiltros()
         return;
     }
 
-    //pregunta para saber si hay que filtrar por id
-    if(idFiltro.value!="")
+    if(rol=="administrador")
     {
-        criterios.id=parseInt(idFiltro.value);
+        //pregunta para saber si hay que filtrar por id
+        if(idFiltro.value!="")
+        {
+            criterios.id=parseInt(idFiltro.value);
+        }
     }
 
     //pregunta para saber si hay que filtrar por el tipo de filtro
@@ -428,12 +431,15 @@ function aplicacionFiltros()
     filtrados=filtrarObjetos(datosIncidencias,criterios);
     //console.log(filtrados);
 
-    //pregunta para saber si hay que filtrar por nombre del creador
-    if(nombreFiltro.value!="")
+    if(rol=="administrador")
     {
-        //guardo las incidencias filtradas, y tambien por nombre
-        filtradosNombre=filtroUsuarioTemp(filtrados,nombreFiltro.value);
-        //console.log(filtradosNombre);
+            //pregunta para saber si hay que filtrar por nombre del creador
+        if(nombreFiltro.value!="")
+        {
+            //guardo las incidencias filtradas, y tambien por nombre
+            filtradosNombre=filtroUsuarioTemp(filtrados,nombreFiltro.value);
+            //console.log(filtradosNombre);
+        }
     }
 
     //pregunta para saber si hay que filtrar por fecha en est caso solo por un dia en conreto
@@ -522,8 +528,11 @@ function aplicacionFiltros()
 function borrarFiltros()
 {
     //poner todos los inputs y select a valor por defecto y quitar los valores del select de subtipos
-    idFiltro.value="";
-    nombreFiltro.value="";
+    if(rol=="administrador")
+    {
+        idFiltro.value="";
+        nombreFiltro.value="";
+    }
     tipoFiltro.value="-1";
     subtipoFiltro.value="-1";
     generarSubtipos();
