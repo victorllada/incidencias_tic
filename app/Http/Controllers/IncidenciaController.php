@@ -99,10 +99,12 @@ class IncidenciaController extends Controller
     public function obtenerEtiquetas(int $aulaId)
     {
         //Obtenemos los equipos del aula (id) pasado por parametro
-        $etiquetas = Equipo::where('aula_id', $aulaId)->get();
+        $datosJSON = Equipo::where('aula_id', $aulaId)->get();
+
+
 
         //Devolvemos un JSON con los equipos
-        return response()->json($etiquetas);
+        return response()->json($datosJSON);
     }
 
     /**
@@ -348,8 +350,6 @@ class IncidenciaController extends Controller
 
             //Comitamos
             DB::commit();
-
-            dd($incidencia);
 
             // Envío de correo poniéndolo en cola para que no interrumpa la redirección
             //Mail::to([$incidencia->creador->nombre_completo])->queue(new EnvioCorreo($incidencia, 'creado'));

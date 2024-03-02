@@ -94,15 +94,14 @@
                                 <select class="form-select" name="aula" id="aula" required
                                     onchange="cargarEtiquetas()">
                                     <option selected disabled value="-1">Selecciona el aula</option>
-                                    @if ($incidencia->tipo == "EQUIPOS")
+                                    @if ($incidencia->tipo == 'EQUIPOS')
                                         @foreach ($aulas as $aula)
-                                            <option value="{{ $aula->id }}" {{ $aula->id == $incidencia->equipo->aula_id ? 'selected' : '' }}>
+                                            <option value="{{ $aula->id }}"
+                                                {{ $aula->id == optional($incidencia->equipo)->aula_id ? 'selected' : '' }}>
                                                 {{ $aula->codigo }}
                                             </option>
                                         @endforeach
                                     @endif
-
-
                                 </select>
                             </div>
                         </div>
@@ -115,19 +114,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        {{-- Igual lo quitamos porque no es necesario realmente, creo
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
-                                    Aula</label>
-                                <select class="form-select" name="puesto" id="puesto" required>
-                                    <option selected disabled value="-1">Selecciona ell puesto</option>
-                                </select>
-                            </div>
-                        </div>
-                        --}}
-
                     </div>
 
                     {{-- Fila 3 prioridad, estado y duracion --}}
@@ -179,7 +165,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4" id="div-duracion" hidden>
+                        <div class="col-lg-4" id="div-duracion">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="duracion">
                                     Duración
@@ -232,9 +218,9 @@
                             <div class="d-flex flex-wrap gap-4 form-control ">
                                 @forelse ($usuarios as $usuario)
                                     <div>
-                                        <input class="form-check-input" type="radio"
-                                            name="asignado" value="{{ $usuario->id }}"
-                                            {{ $usuario->id == $incidencia->responsable_id ? 'selected' : '' }}>
+                                        <input class="form-check-input" type="radio" name="asignado"
+                                            value="{{ $usuario->id }}"
+                                            {{ $usuario->id == $incidencia->responsable_id ? 'checked' : '' }}>
                                         <label class="form-check-label"
                                             for="asignado">{{ $usuario->nombre_completo }}</label>
                                     </div>
@@ -262,23 +248,34 @@
 {{-- Carga los datos de etiquetas segun el aula seleccionado --}}
 <script>
     function cargarEtiquetas() {
-        var aulaId = document.getElementById('aula').value;
+        var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
 
         // Realizar una petición AJAX para obtener las etiquetas según el aula seleccionada
         fetch('/obtener-etiquetas/' + aulaId)
             .then(response => response.json())
             .then(data => {
-                var selectEtiqueta = document.getElementById('num_etiqueta');
+                var selectEtiqueta = document.getElementById('num_etiqueta'); //obtenemos el select de etiquetas
                 selectEtiqueta.innerHTML = ""; // Limpiar opciones existentes
 
-                data.forEach(etiqueta => {
-                    var option = document.createElement('option');
-                    option.value = etiqueta.etiqueta;
-                    option.text = etiqueta.etiqueta;
-                    selectEtiqueta.add(option);
-                });
+                var defaultOption = document.createElement('option'); //Creamos la opcion
+                defaultOption.value = null; //Valor nulo
+                defaultOption.text = "No hay equipos en este aula"; //Texto de muestra
+                selectEtiqueta.add(defaultOption); //Añadimos la opcion
+
+                if (data && data.length > 0) { //Si hay datos mostramos las etiquetas
+
+                    selectEtiqueta.removeChild(defaultOption); //Borramos la opcion default
+
+                    data.forEach(etiqueta => { //Por cada etiqueta
+                        var option = document.createElement('option'); //Creamos una opcion
+                        option.value = etiqueta.etiqueta; //Valor de la opcion es la etiqueta
+                        option.text = etiqueta.etiqueta; //texto de la opcion es la etiqueta
+                        selectEtiqueta.add(option); //Añadimos la opcion
+                    });
+                }
+
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error)); //Obtenemos el error
     }
 </script>
 
@@ -307,10 +304,6 @@
 
         //Genera los sub-sub-tipos cuando se elije una opcion de tipos
         subtipo.addEventListener('change', generarSubSubTipos);
-
-        //Mostrar la duración solo si el estado es cerrado o resuelto
-        estado.addEventListener('change', mostrarDuracion);
-
     });
 
     /**
@@ -456,25 +449,6 @@
             document.getElementById("div-equipo").hidden = false;
         } else {
             document.getElementById("div-equipo").hidden = true;
-        }
-    }
-
-    /**
-     * Muestra la duración si el estado es cerrado o resuelto
-     */
-    function mostrarDuracion() {
-
-        var estado = document.getElementById("estado");
-        var divDuracion = document.getElementById("div-duracion");
-
-        switch (estado.value) {
-            case "CERRADA":
-            case "RESUELTA":
-                divDuracion.hidden = false;
-                break;
-            default:
-                divDuracion.hidden = true;
-                break;
         }
     }
 </script>

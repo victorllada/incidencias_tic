@@ -181,12 +181,11 @@
             <div class="col-lg-6">
                 <span class="fw-bolder">Responsable:</span>
                 <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
-                @if ($incidencia->responsable_id == null)
+                @if ($incidencia->responsable == null)
                     Aún no hay responsables
                 @else
                     <span>{{ $incidencia->responsable->nombre_completo  }} </span>
                 @endif
-
             </div>
         </div>
 
