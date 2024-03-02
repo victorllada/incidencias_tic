@@ -39,7 +39,7 @@ Route::get('/obtener-etiquetas/{aulaId}', [IncidenciaController::class, 'obtener
 Route::get("/datos",[IncidenciaController::class,"datosIncidencias"])->middleware('auth');
 
 //Ruta para poder enviar el json de usuarios
-Route::get("/datosUsuarios",[UserController::class,"datosUsuarios"])->middleware('auth');
+Route::get("/datosUsuarios",[UserController::class,"datosUsuarios"])->middleware(['auth', 'role:administrador']);
 
 //Usuarios
 Route::resource('usuarios', UserController::class)->parameters([
