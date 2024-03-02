@@ -21,7 +21,7 @@
                         </li>
                     @endrole
                 </ul>
-                <div class="nav-item dropdown">
+
                     <a href="#"
                         class="d-block link-body-emphasis text-decoration-none dropdown-toggle nav-linl text-white"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,7 +31,16 @@
                             <path fill-rule="evenodd"
                                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
                         </svg>
-                    </a>
+                    </a> <div class="nav-item dropdown d-flex align-items-center gap-2 text-white"><div class="d-flex flex-column gap-2">
+                        <h5>{{ auth()->user()->nombre_completo }}</h5>
+                        <h6>
+                            @role('administrador')
+                                Administrador
+                            @else
+                                Profesor
+                            @endrole
+                        </h6>
+                    </div>
                     <div class="desplegable-usuario">
                         @auth
                             <ul class="dropdown-menu">
