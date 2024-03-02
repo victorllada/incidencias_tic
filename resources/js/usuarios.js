@@ -363,7 +363,7 @@ function generarUsuarios(datos)
     for(let i=0;datos[pagina].length;i++)
     {
         //ruta para la vista de show de esa incidencia
-        let stringRedirect=ruta+"/"+datos[pagina][i].usuario;
+        let stringRedirect=ruta+"/"+datos[pagina][i].usuario+"/edit";
 
         //creo el div padre de la incidencia y le doy las clases necesarias
         let divPadre=document.createElement("div");//contenedor de la incidencia
