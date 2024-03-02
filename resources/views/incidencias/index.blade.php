@@ -123,13 +123,15 @@
                                     </select>
                                 </div>
 
-                                {{--Filtro responsable--}}
+                                {{-- Filtro responsable --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="responsableFiltro">Responsable</label>
+                                    <label class="col-3 input-group-text aquamarine-200"
+                                        for="responsableFiltro">Responsable</label>
                                     <select class="form-select" id="responsableFiltro" name="responsableFiltro">
                                         <option selected value="-1">Selecciona un responsable</option>
                                         @foreach ($responsables as $responsable)
-                                            <option value={{$responsable->id}}>{{$responsable->nombre_completo}}</option>
+                                            <option value={{ $responsable->id }}>{{ $responsable->nombre_completo }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

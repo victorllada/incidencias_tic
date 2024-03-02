@@ -261,6 +261,26 @@ main .custom-dropdown-menu .dropdown-item:active {
     overflow: hidden;
 }
 
+#radius-shape-3 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    height: 250px;
+    width: 250px;
+    top: 250px;
+    left: -50px;
+    background: radial-gradient(#38b1f8, #ffffff);
+    overflow: hidden;
+}
+
+#radius-shape-4 {
+    border-radius: 48% 52% 63% 40% / 70% 33% 77% 30%;
+    bottom: -300px;
+    right: -155px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(#b444f5, #60bffb);
+    overflow: hidden;
+}
+
 @keyframes rotateAnimation {
     0% {
         transform: rotate(0deg);
@@ -271,19 +291,6 @@ main .custom-dropdown-menu .dropdown-item:active {
     }
 }
 
-@keyframes scaleAnimation {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
 
 #radius-shape-1.animate {
     animation: rotateAnimation 15s infinite;
@@ -291,6 +298,24 @@ main .custom-dropdown-menu .dropdown-item:active {
 
 #radius-shape-2.animate {
     animation: rotateAnimation 25s infinite;
+}
+
+#radius-shape-3.animate {
+    animation: rotateAnimation 15s infinite;
+}
+
+#radius-shape-4.animate {
+    animation: rotateAnimation 25s infinite;
+}
+
+// Pantalla de error 404
+.volver {
+    color:#ffffff;
+}
+
+.volver:hover {
+    color: #60bffb;
+    cursor: pointer;
 }
 
 // Botones descarga desplegable informes
@@ -310,9 +335,9 @@ main .custom-dropdown-menu .dropdown-item:active {
     border-radius: 0.5em;
     font-family: "Arial";
     transition: background 0.7s;
-  }
+}
 
-  .button::before {
+.button::before {
     position: absolute;
     content: attr(data-tooltip);
     width: var(--tooltip-width);
@@ -324,9 +349,9 @@ main .custom-dropdown-menu .dropdown-item:active {
     line-height: var(--tooltip-height);
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
     left: calc(50% - var(--tooltip-width) / 2);
-  }
+}
 
-  .button::after {
+.button::after {
     position: absolute;
     content: "";
     width: 0;
@@ -335,77 +360,77 @@ main .custom-dropdown-menu .dropdown-item:active {
     border-top-color: $aquamarine-600;
     left: calc(50% - 10px);
     bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
-  }
+}
 
-  .button::after,
-  .button::before {
+.button::after,
+.button::before {
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s;
-  }
+}
 
-  .text {
+.text {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .button-wrapper,
-  .text,
-  .icon {
+.button-wrapper,
+.text,
+.icon {
     overflow: hidden;
     position: absolute;
     width: 100%;
     height: 100%;
     left: 0;
     color: #fff;
-  }
+}
 
-  .text {
+.text {
     top: 0;
-  }
+}
 
-  .text,
-  .icon {
+.text,
+.icon {
     transition: top 0.5s;
-  }
+}
 
-  .icon {
+.icon {
     color: #fff;
     top: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .icon i {
+.icon i {
     width: 24px;
     height: 24px;
-  }
+}
 
-  .button:hover {
+.button:hover {
     background-color: $aquamarine-600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
+}
 
-  .button:hover .text {
+.button:hover .text {
     top: -100%;
-  }
+}
 
-  .button:hover .icon {
+.button:hover .icon {
     top: 0;
-  }
+}
 
-  .button:hover:before,
-  .button:hover:after {
+.button:hover:before,
+.button:hover:after {
     opacity: 1;
     visibility: visible;
-  }
+}
 
-  .button:hover:after {
+.button:hover:after {
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 20px);
-  }
+}
 
-  .button:hover:before {
+.button:hover:before {
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
-  }
+}
