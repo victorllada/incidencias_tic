@@ -153,4 +153,14 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return $this->hasMany(Incidencia::class, 'responsable_id')->whereIn('estado', ['RESUELTA', 'CERRADA']);
     }
+
+    /**
+     * Obtener el nombre de la columna utilizada para la búsqueda por ruta (en lugar del ID).
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }
