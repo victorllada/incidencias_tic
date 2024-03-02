@@ -58,12 +58,14 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li>
-                                    <a href="{{ route('usuarios.edit', auth()->user()) }}" class="dropdown-item">Editar</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+                                @role('administrador')
+                                    <li>
+                                        <a href="{{ route('usuarios.edit', auth()->user()) }}" class="dropdown-item">Editar</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @endrole
                                 <li class="d-flex align-items-center">
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
