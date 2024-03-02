@@ -8,13 +8,6 @@
     <h1>Usuarios Show</h1>
 
     <div>
-
-        @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             {{-- Migas de pan --}}
             <nav aria-label="breadcrumb">

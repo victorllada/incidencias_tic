@@ -9,13 +9,31 @@
     <title>@yield('titulo')</title>
     @vite(['resources/sass/app.scss'])
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    @yield("archivosJS")
+    @yield('archivosJS')
 </head>
 
 <body class="d-flex flex-column">
     @include('layouts.partials.header')
 
     <main class="container">
+
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                Hubo errores al mandar el mensaje:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @yield('contenido')
     </main>
 
