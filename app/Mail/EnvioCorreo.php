@@ -15,7 +15,7 @@ use Illuminate\Queue\SerializesModels;
  *
  * Implementa la interfaz ShouldQueue para que el correo pueda ser encolado y procesado de forma asíncrona.
  */
-class EnvioCorreo extends Mailable
+class EnvioCorreo extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
