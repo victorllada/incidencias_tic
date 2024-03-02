@@ -206,8 +206,6 @@ class IncidenciaController extends Controller
                 ->where('aula_id', $request->aula)
                 ->first();
 
-            // ->where('puesto', $request->puesto) Es realmente necesario?
-
             // Verificar si se encontró un equipo
             if ($incidencia_equipo_query) {
                 $incidencia->equipo_id = $incidencia_equipo_query->id;
@@ -285,13 +283,13 @@ class IncidenciaController extends Controller
             $subsubtipo = $request->input('sub-sub-tipo');
 
             // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
-            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo)
-                ->when(!is_null($subtipo), function ($query) use ($subtipo) {
-                    return $query->where('subtipo_nombre', $subtipo);
-                })
-                ->when(!is_null($subsubtipo), function ($query) use ($subsubtipo) {
-                    return $query->where('sub_subtipo', $subsubtipo);
-                });
+            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo);
+            if (!is_null($subtipo)) {
+                $incidencia_subtipo_query->where('subtipo_nombre', $subtipo);
+            }
+            if (!is_null($subsubtipo)) {
+                $incidencia_subtipo_query->where('sub_subtipo', $subsubtipo);
+            }
 
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
@@ -333,7 +331,6 @@ class IncidenciaController extends Controller
                 ->where('aula_id', $request->aula)
                 ->first();
 
-            //  ->where('puesto', $request->puesto)
 
             // Verificar si se encontró un equipo
             if ($incidencia_equipo_query) {
@@ -491,7 +488,7 @@ class IncidenciaController extends Controller
         $infoArchivo = new SplFileInfo($rutaArchivo);
 
         //Ponemos el nombre del archivo
-        $nombreArchivo = "Incidecnia-" . $id . '.' . $infoArchivo->getExtension();
+        $nombreArchivo = "Incidencia-" . $id . '.' . $infoArchivo->getExtension();
 
         // Devolver la respuesta para la descarga
         return response()->download($rutaArchivo, $nombreArchivo);
