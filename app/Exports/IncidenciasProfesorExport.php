@@ -8,12 +8,12 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithProperties;
 
 /**
- * Clase que representa una exportación de incidencias para su visualización en una vista.
+ * Clase que representa una exportación de incidencias creados por el profesor logueado para su visualización en una vista.
  *
  * Implementa la interfaz FromView para obtener los datos desde una vista.
  * Implementa la interfaz WithProperties para definir propieades al archivo.
  */
-class IncidenciasExport implements FromView, WithProperties
+class IncidenciasProfesorExport implements FromView, WithProperties
 {
     /**
      * Aplicar propiedades al archivo generado.
@@ -23,7 +23,7 @@ class IncidenciasExport implements FromView, WithProperties
     public function properties(): array
     {
         return [
-            'title' => 'Incidencias - Detalles'
+            'title' => 'Incidencias - Profesor'
         ];
     }
 
@@ -34,8 +34,11 @@ class IncidenciasExport implements FromView, WithProperties
      */
     public function view(): View
     {
-        return view('exports.incidencias', [
-            'incidencias' => Incidencia::all()
+        $profesor = auth()->user();
+        $incidencias = Incidencia::where('creador_id', $profesor->id)->get();
+
+        return view('exports.incidencias_profesor', [
+            'incidencias' => $incidencias,
         ]);
     }
 }

@@ -13,7 +13,6 @@
         <thead>
             <tr>
                 <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">ID</th>
-                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Creador</th>
                 <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Tipo</th>
                 <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Subtipo</th>
                 <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Fecha creación</th>
@@ -26,7 +25,6 @@
         <tbody>
             <tr>
                 <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->id }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->creador->nombre_completo }}</td>
                 <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->tipo }}</td>
                 <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->subtipo->subtipo_nombre }}</td>
                 <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_creacion }}</td>
