@@ -555,6 +555,8 @@ function generarIncidenciasAdmi(datos)
 
         //metodo para crear grafica de barras y sus datos
         crearGraficaEstado(datosEstado(datosFinales));
+
+        crearGraficaTipomMedio(datosTiempoMedio(datosFinales));
     }
     else
     {
@@ -563,6 +565,8 @@ function generarIncidenciasAdmi(datos)
 
         //metodo para crear grafica de barras y sus datos
         crearGraficaEstado(datosEstado(datosIncidencias));
+
+        crearGraficaTipomMedio(datosTiempoMedio(datosIncidencias));
     }
 
     //vacio el contenedor de incidencias
@@ -1125,7 +1129,7 @@ function datosEstado(datos)
     });
 
     //devuelvo el array con el formato adecuado para la grafica de barras
-    return [['Abierta', 'Cerrada', 'Resuelta', 'Asignada', 'Enviada a infortec','En proceso',{ role: 'annotation' } ],equipos,cuentas,wifi,internet,software];
+    return [['','Abierta', 'Cerrada', 'Resuelta', 'Asignada', 'Enviada a infortec','En proceso'],equipos,cuentas,wifi,internet,software];
 }
 
 //metodo para le creacion de grafica de barras que le paso un array con los datos en le formato del metodo anterior
@@ -1155,9 +1159,11 @@ function crearGraficaEstado(datos)
                        2]);*/
                        view.setColumns([0,1,2,3,4,5,6,
                         {
+                            calc: "stringify",
+                            sourceColumn: 0,
                             type: "string",
-                            role: "annotation"
-                        },2]);
+                            role: "annotation"}
+                        ],2);
 
       let options = {
         width: 600,
@@ -1170,6 +1176,89 @@ function crearGraficaEstado(datos)
       let chart = new google.visualization.BarChart(document.querySelector("#graficaEstasdo"));
       chart.draw(view, options);
       }
+}
+
+//funcion para obtener los datos de el tiempo medio de duracion por tipo de incidencia en formato adecuado para la grafica fircular
+function datosTiempoMedio(datos)
+{
+    //varibles para contar el numero de incidencias
+    let equpos=0;
+    let tiempoMedioEquipos=0;
+    let cuentas=0;
+    let tiempoMedioCuentas=0;
+    let wifi=0;
+    let tiempoMedioWifi=0;
+    let internet=0;
+    let tiempoMedioInternet=0;
+    let software=0;
+    let tiempoMedioSoftware=0;
+
+    //recorro y cuento los tipos de incidencias
+    datos.forEach(item => {
+
+        //console.log(item.duracion)
+        if(item.tipo=="EQUIPOS" && item.duracion!=null)
+        {
+            //console.log(item.duracion);
+            equpos++;
+            tiempoMedioEquipos+=item.duracion;
+        }
+        else if(item.tipo=="CUENTAS" && item.duracion!=null)
+        {
+            //console.log(item.duracion);
+            cuentas++;
+            tiempoMedioCuentas+=item.duracion;
+        }
+        else if(item.tipo=="WIFI" && item.duracion!=null)
+        {
+            //console.log(item.duracion);
+            wifi++;
+            tiempoMedioWifi+=item.duracion;
+        }
+        else if(item.tipo=="INTERNET" && item.duracion!=null)
+        {
+            //console.log(item.duracion);
+            internet++;
+            tiempoMedioInternet+=item.duracion;
+        }
+        else if(item.tipo=="SOFTWARE" && item.duracion!=null)
+        {
+            //console.log(item.duracion);
+            software++;
+            tiempoMedioSoftware+=item.duracion;
+        }
+    });
+
+    //devuelvo el array en el formato adecuado
+    return [['Tipo', 'Tiempo medio por incidencia'],["Equipos",tiempoMedioEquipos/equpos],["Cuentas",tiempoMedioCuentas/cuentas],["Wifi",tiempoMedioWifi/wifi],["Internet",tiempoMedioInternet/internet],["Software",tiempoMedioSoftware/software]];
+}
+
+//funcion para poder crear la grfica con los datos que le pase el metodo anterior
+function crearGraficaTipomMedio(datos)
+{
+    google.charts.load('current', {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable(datos);
+      /*var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
+      ]);*/
+
+      let options = {
+        title: 'Tiempo medio de incidencias'
+      };
+
+      let chart = new google.visualization.PieChart(document.querySelector('#graficaTiempoMedio'));
+
+      chart.draw(data, options);
+    }
 }
 
 //metodo para poder enviar a la ruta que se le pase

@@ -540,6 +540,7 @@
 
         <div id="graficas" class="d-flex flex-wrap justify-content-between gap-2 mb-5">
             <div id="graficaTipos" class="col border"></div>
+            <div id="graficaTiempoMedio" class="col border"></div>
             <div id="graficaEstasdo" class="col border"></div>
         </div>
 
