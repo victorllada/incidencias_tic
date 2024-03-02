@@ -52,7 +52,7 @@ Route::resource('comentarios', ComentarioController::class)->parameters([
 ])->middleware('auth');
 
 //Ruta para descargar el archivo adjunto a cada comentario
-Route::get('descargar/{id}', [ComentarioController::class, 'descargarComentarioArchivo'])->name('descargar.comentario.archivo')->middleware('auth');
+Route::get('descargar/comentario/{id}', [ComentarioController::class, 'descargarComentarioArchivo'])->name('descargar.comentario.archivo')->middleware('auth');
 
 /*Route::middleware([
     'auth:sanctum',
