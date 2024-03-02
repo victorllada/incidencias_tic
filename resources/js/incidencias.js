@@ -16,7 +16,7 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data.incidencias; // Guardamos los datos en la variable
         rol=data.rol_usuario[0];
-        //console.log(data);
+        console.log(data);
 
         crearArrayPaginacion(datosIncidencias);
         if(rol=="administrador")
@@ -415,6 +415,12 @@ function aplicacionFiltros()
     if(estadoFiltro.value!="-1")
     {
         criterios.estado=estadoFiltro.value;
+    }
+
+    //preguntar para saver si hay que filtroar por responsable de la incidencia
+    if(responsableFiltro.value!="-1")
+    {
+        criterios.responsable_id=parseInt(responsableFiltro.value);
     }
 
     //console.log(criterios);
