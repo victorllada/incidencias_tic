@@ -362,7 +362,7 @@ function generarUsuarios(datos)
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
     for(let i=0;datos[pagina].length;i++)
     {
-        //ruta para la vista de show de esa incidencia
+        //ruta para la vista de edit de esa incidencia
         let stringRedirect=ruta+"/"+datos[pagina][i].usuario+"/edit";
 
         //creo el div padre de la incidencia y le doy las clases necesarias
