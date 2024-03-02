@@ -1,13 +1,13 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Usuarios - Show')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/incidencias.js'])
+    @vite(['resources/js/app.js', 'resources/js/incidencias.js'])
 @endsection
 @section('contenido')
 
     <h1>Usuarios Show</h1>
 
-    <div class="container">
+    <div>
 
         @if (session('success'))
             <div class="alert alert-success" role="alert">

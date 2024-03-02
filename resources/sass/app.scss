@@ -176,11 +176,6 @@ header .dropdown-item:active {
     color: black;
 }
 
-header .dropdown-item:active {
-    background-color: #f8fafc;
-    color: black;
-}
-
 main .dropdown-toggle:active,
 main .dropdown-toggle:focus {
     background-color: $aquamarine-400;
@@ -199,8 +194,8 @@ main .custom-dropdown-menu .dropdown-item:active {
 //Media Querys
 @media (width > 990px) {
     header .desplegable-usuario{
-        position: absolute;
-        right: 158.5px;
+        position: relative;
+        right: 200px;
     }
 }
 

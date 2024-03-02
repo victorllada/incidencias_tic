@@ -1,11 +1,11 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Usuarios - Edit')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/incidencias.js'])
+    @vite(['resources/js/app.js', 'resources/js/incidencias.js'])
 @endsection
 @section('contenido')
 
-    <div class="container">
+    <div>
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             {{-- Migas de pan --}}
             <nav aria-label="breadcrumb">

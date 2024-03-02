@@ -1,11 +1,11 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Usuarios - Inicio')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/usuarios.js'])
+    @vite(['resources/js/app.js', 'resources/js/usuarios.js'])
 @endsection
 @section('contenido')
 
-    <div class="container">
+    <div>
 
         @if ($errors->any())
             <div class="alert alert-danger" role="alert">
@@ -190,8 +190,9 @@
                         </li>
                         <li class="page-item d-flex justify-content-center align-items-center numero-pagina border">
                             <input type="text" id="paginaActual" value="1"
-                                class="text-aquamarine-400 input-numero" size="1">
-                            <span id="paginasTotales" class="text-aquamarine-400"></span>
+                                class="text-aquamarine-400 input-numero">
+                            <span class="d-flex justify-content-center text-aquamarine-400">/</span>
+                            <span id="paginasTotales" class="text-aquamarine-400 d-flex justify-content-center"></span>
                         </li>
                         <li class="page-item">
                             <button class="page-link text-aquamarine-400" id="siguiente">

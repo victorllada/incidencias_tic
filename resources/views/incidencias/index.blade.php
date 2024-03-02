@@ -1,11 +1,11 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Inicio')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/incidencias.js'])
+    @vite(['resources/js/app.js', 'resources/js/incidencias.js'])
 @endsection
 @section('contenido')
 
-    <div class="container">
+    <div>
 
         @if ($errors->any())
             <div class="alert alert-danger" role="alert">
@@ -47,21 +47,21 @@
                             <div class="offcanvas-body d-flex flex-column justify-between gap-4">
 
                                 @role('administrador')
-                                {{-- Filtro id, solo lo ve los admins--}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
-                                    <input class="form-control" id="idFiltro" name="idFiltro" type="search"
-                                        placeholder="Introduce el ID">
-                                </div>
+                                    {{-- Filtro id, solo lo ve los admins --}}
+                                    <div class="input-group">
+                                        <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
+                                        <input class="form-control" id="idFiltro" name="idFiltro" type="search"
+                                            placeholder="Introduce el ID">
+                                    </div>
                                 @endrole
 
                                 @role('administrador')
-                                {{-- Filtro usuario, solo lo ve los admins --}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
-                                    <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
-                                        placeholder="Introduce nombre del usuario">
-                                </div>
+                                    {{-- Filtro usuario, solo lo ve los admins --}}
+                                    <div class="input-group">
+                                        <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
+                                        <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
+                                            placeholder="Introduce nombre del usuario">
+                                    </div>
                                 @endrole
 
                                 {{-- Filtro tipo --}}
@@ -164,262 +164,262 @@
                     </ul>
                 </div>
 
-                {{-- @role('administrador') --}}
-                {{-- Boton y desplegabale de informes --}}
-                <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
-                    <div>
-                        <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasNavbarLight2" aria-controls="offcanvasNavbarLight2"
-                            aria-label="Toggle navigation">Informes
-                        </button>
+                @role('administrador')
+                    {{-- Boton y desplegabale de informes --}}
+                    <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
+                        <div>
+                            <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasNavbarLight2" aria-controls="offcanvasNavbarLight2"
+                                aria-label="Toggle navigation">Informes
+                            </button>
 
-                        {{-- Desplegable con informes --}}
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
-                            aria-labelledby="offcanvasNavbarLightLabel2">
-                            <div class="offcanvas-header mb-2">
-                                <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Tipos de informes</h5>
+                            {{-- Desplegable con informes --}}
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
+                                aria-labelledby="offcanvasNavbarLightLabel2">
+                                <div class="offcanvas-header mb-2">
+                                    <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Tipos de informes</h5>
 
-                                {{-- Boton para cerrar el desplegable --}}
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
-                            </div>
+                                    {{-- Boton para cerrar el desplegable --}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
 
-                            {{-- Contendor con tipos de informes --}}
-                            <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Incidencias resueltas por cada administrador
+                                {{-- Contendor con tipos de informes --}}
+                                <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+                                    <div class="row">
+                                        <div class="col-7 fw-bolder">Incidencias resueltas por cada administrador
+                                        </div>
+                                        <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'pdf']) }}"
+                                                class="button" data-tooltip="PDF">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'xlsx']) }}"
+                                                class="button" data-tooltip="EXCEL">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-excel"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'csv']) }}"
+                                                class="button" data-tooltip="CSV">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-filetype-csv"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'pdf']) }}"
-                                            class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    <div class="row">
+                                        <div class="col-7 fw-bolder">Incidencias abiertas por cada usuario</div>
+                                        <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'pdf']) }}"
+                                                class="button" data-tooltip="PDF">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'xlsx']) }}"
-                                            class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'xlsx']) }}"
+                                                class="button" data-tooltip="EXCEL">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-excel"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltas', 'formato' => 'csv']) }}"
-                                            class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'csv']) }}"
+                                                class="button" data-tooltip="CSV">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-filetype-csv"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Incidencias abiertas por cada usuario</div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'pdf']) }}"
-                                            class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    <div class="row">
+                                        <div class="col-7 fw-bolder">Estadísticas sobre los tipos de incidencias</div>
+                                        <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                            <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'pdf']) }}"
+                                                class="button" data-tooltip="PDF">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'xlsx']) }}"
-                                            class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'xlsx']) }}"
+                                                class="button" data-tooltip="EXCEL">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-excel"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'abiertas', 'formato' => 'csv']) }}"
-                                            class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'csv']) }}"
+                                                class="button" data-tooltip="CSV">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-filetype-csv"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Estadísticas sobre los tipos de incidencias</div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'pdf']) }}"
-                                            class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    <div class="row">
+                                        <div class="col-7 fw-bolder">Tiempo dedicado a cada incidencia</div>
+                                        <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'pdf']) }}"
+                                                class="button" data-tooltip="PDF">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'xlsx']) }}"
-                                            class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'xlsx']) }}"
+                                                class="button" data-tooltip="EXCEL">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-excel"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar.estadisticas', ['formato' => 'csv']) }}"
-                                            class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'csv']) }}"
+                                                class="button" data-tooltip="CSV">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-filetype-csv"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Tiempo dedicado a cada incidencia</div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'pdf']) }}"
-                                            class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    <div class="row">
+                                        <div class="col-7 fw-bolder">Tiempos de resolución por tipo de incidencia</div>
+                                        <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'pdf']) }}"
+                                                class="button" data-tooltip="PDF">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'xlsx']) }}"
-                                            class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'xlsx']) }}"
+                                                class="button" data-tooltip="EXCEL">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-excel"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'todasTiempoDedicado', 'formato' => 'csv']) }}"
-                                            class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'csv']) }}"
+                                                class="button" data-tooltip="CSV">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-filetype-csv"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Tiempos de resolución por tipo de incidencia</div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'pdf']) }}"
-                                            class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    <div class="row">
+                                        <div class="col-7 fw-bolder">Tiempo dedicado por cada administrador</div>
+                                        <div class="col-5 d-flex gap-2 align-items-center px-0">
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'pdf']) }}"
+                                                class="button" data-tooltip="PDF">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'xlsx']) }}"
-                                            class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'xlsx']) }}"
+                                                class="button" data-tooltip="EXCEL">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-file-earmark-excel"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'resueltasTiempoPorTipo', 'formato' => 'csv']) }}"
-                                            class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
+                                            </a>
+                                            <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'csv']) }}"
+                                                class="button" data-tooltip="CSV">
+                                                <div class="button-wrapper">
+                                                    <div class="text">
+                                                        <i class="bi bi-filetype-csv"></i>
+                                                    </div>
+                                                    <span class="icon">
+                                                        <i class="bi bi-download"></i>
+                                                    </span>
                                                 </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7 fw-bolder">Tiempo dedicado por cada administrador</div>
-                                    <div class="col-5 d-flex gap-2 align-items-center px-0">
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'pdf']) }}"
-                                            class="button" data-tooltip="PDF">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
-                                                </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'xlsx']) }}"
-                                            class="button" data-tooltip="EXCEL">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-file-earmark-excel"></i>
-                                                </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('incidencias.exportar', ['tipo' => 'asignadas', 'formato' => 'csv']) }}"
-                                            class="button" data-tooltip="CSV">
-                                            <div class="button-wrapper">
-                                                <div class="text">
-                                                    <i class="bi bi-filetype-csv"></i>
-                                                </div>
-                                                <span class="icon">
-                                                    <i class="bi bi-download"></i>
-                                                </span>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{-- @endrole --}}
+                @endrole
             </div>
         </div>
 
@@ -459,7 +459,7 @@
 
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
-            <div class="row mb-5" id="contenedorIncidencias">
+            <div class="row" id="contenedorIncidencias">
                 {{-- @forelse ($incidencias as $incidencia)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
@@ -521,8 +521,9 @@
                         </li>
                         <li class="page-item d-flex justify-content-center align-items-center numero-pagina border">
                             <input type="text" id="paginaActual" value="1"
-                                class="text-aquamarine-400 input-numero" size="1">
-                            <span id="paginasTotales" class="text-aquamarine-400"></span>
+                                class="text-aquamarine-400 input-numero">
+                            <span class="d-flex justify-content-center text-aquamarine-400">/</span>
+                            <span id="paginasTotales" class="text-aquamarine-400 d-flex justify-content-center"></span>
                         </li>
                         <li class="page-item">
                             <button class="page-link text-aquamarine-400" id="siguiente">

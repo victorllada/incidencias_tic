@@ -744,7 +744,7 @@ function generarIncidenciasAdmi(datos)
         }
 
         //al lado del input escribo el numero total de paginas que hay disponibles para ver
-        paginasTotales.innerHTML="/ "
+        paginasTotales.innerHTML = "";
         paginasTotales.innerHTML+=datos.length;
     }
 }
@@ -902,7 +902,7 @@ function generarIncidenciasUsuario(datos)
         }
 
         //al lado del input escribo el numero total de paginas que hay disponibles para ver
-        paginasTotales.innerHTML="/ "
+        paginasTotales.innerHTML=""
         paginasTotales.innerHTML+=datos.length;
     }
 }
