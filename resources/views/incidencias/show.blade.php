@@ -8,6 +8,17 @@
     <div>
         <div>
 
+            @if ($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    Hubo errores al mandar el mensaje:
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if (session('success'))
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
@@ -66,6 +77,37 @@
                                 {{-- Contendor comentarios --}}
                                 <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
 
+                                    @forelse ($comentarios as $comentario)
+                                        <p><span>{{ $comentario->user->nombre_completo }}:</span>
+                                            {{ $comentario->texto }}
+                                            {{-- Si el comentario tiene archivo adjunto se muestra botón para descargar --}}
+                                            @if ($comentario->adjunto_url != null)
+                                                {{-- Maquetar esto bien para que se vea un poquito separado del texto o lo que sea --}}
+                                                <span>Archivo adjunto: <a
+                                                        href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
+                                                        class="btn aquamarine-400 text-white">Descargar Archivo</a> <span>
+                                            @endif
+                                        </p>
+                                    @empty
+                                        <p>No hay comentarios</p>
+                                    @endforelse
+
+                                    {{-- Contenedor de envio de mensaje --}}
+                                    <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+                                        <form action="{{ route('comentarios.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            {{-- Campo escondido para mandar el id de la incidencia --}}
+                                            <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
+                                            {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
+                                            <div>
+                                                <input type="text" name="texto" placeholder="Mensaje">
+                                                <input type="file" id="fichero" name="fichero">
+                                            </div>
+                                            {{-- Botonn de enviar puede ser icono como whatsapp o alguna cosa así --}}
+                                            <button type="submit" class="btn btn-danger text-white">Enviar</button>
+                                        </form>
+                                    </div>
 
                                 </div>
                             </div>
@@ -153,63 +195,63 @@
                             {{ $incidencia->equipo->aula->codigo . ' ' . $incidencia->equipo->etiqueta . ' ' . $incidencia->equipo->puesto }}
                         @endempty
                     </div>
-                @endif
+            @endif
 
-                <hr>
+            <hr>
 
-                {{-- Fila descripcion y actuaciones --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Descripción:</span>
-                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
-                    </div>
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Actuaciones:</span>
-                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
-                    </div>
+            {{-- Fila descripcion y actuaciones --}}
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Descripción:</span>
+                    <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
+                </div>
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Actuaciones:</span>
+                    <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
+                </div>
+            </div>
+
+            {{-- Fila archivo y responsable --}}
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    @if ($incidencia->adjunto_url != null)
+                        <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
+                            class="btn aquamarine-400 text-white">Descargar Archivo</a>
+                    @else
+                        <span class="fw-bolder">No hay archivo adjunto</span>
+                    @endif
                 </div>
 
-                {{-- Fila archivo y responsable --}}
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        @if ($incidencia->adjunto_url != null)
-                            <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
-                                class="btn aquamarine-400 text-white">Descargar Archivo</a>
-                        @else
-                            <span class="fw-bolder">No hay archivo adjunto</span>
-                        @endif
-                    </div>
-
-                    <div class="col-lg-6">
-                        <span class="fw-bolder">Responsable:</span>
-                        <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
-                        @if ($incidencia->responsable == null)
-                            Aún no hay responsables
-                        @else
-                            <span>{{ $incidencia->responsable->nombre_completo }} </span>
-                        @endif
-                    </div>
+                <div class="col-lg-6">
+                    <span class="fw-bolder">Responsable:</span>
+                    <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
+                    @if ($incidencia->responsable == null)
+                        Aún no hay responsables
+                    @else
+                        <span>{{ $incidencia->responsable->nombre_completo }} </span>
+                    @endif
                 </div>
+            </div>
 
-                {{-- Botones actilizar y borrar incidencia --}}
-                <div class="row mt-5">
-                    <div class="d-flex gap-2">
-                        <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                            class="btn aquamarine-400 text-white">Editar</a>
-                        <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger text-white"data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">Borrar</button>
-                        </form>
-                    </div>
+            {{-- Botones actilizar y borrar incidencia --}}
+            <div class="row mt-5">
+                <div class="d-flex gap-2">
+                    <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
+                        class="btn aquamarine-400 text-white">Editar</a>
+                    <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger text-white"data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Borrar</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

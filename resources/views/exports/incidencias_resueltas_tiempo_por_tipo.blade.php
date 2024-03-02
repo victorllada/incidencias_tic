@@ -12,15 +12,15 @@
     <table>
         <thead>
             <tr>
-                <th>Tipo de Incidencia</th>
-                <th>Tiempo de Resolución</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Tipo de Incidencia</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Tiempo de Resolución</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($tiposIncidenciasConTiempos as $tipo => $tiempo)
                 <tr>
-                    <td>{{ $tipo }}</td>
-                    <td>{{ $tiempo }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $tipo }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $tiempo }}</td>
                 </tr>
             @endforeach
         </tbody>

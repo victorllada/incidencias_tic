@@ -7,6 +7,7 @@ use App\Exports\IncidenciaExport;
 use App\Exports\IncidenciasAbiertasUsuarioExport;
 use App\Exports\IncidenciasAsignadasAdministradoresExport;
 use App\Exports\IncidenciasExport;
+use App\Exports\IncidenciasProfesorExport;
 use App\Exports\IncidenciasResueltasAdministradoresExport;
 use App\Exports\IncidenciasResueltasTiempoPorTipoExport;
 use App\Exports\IncidenciasTiempoDedicadoExport;
@@ -250,8 +251,11 @@ class IncidenciaController extends Controller
      */
     public function show(Incidencia $incidencia)
     {
-        //Devolvemos la vista con la incidencia y sus responsables
-        return view('incidencias.show', compact('incidencia'));
+        //Obtenemos los comentarios de la incidencia
+        $comentarios = Comentario::where('incidencia_num', $incidencia->id)->get();
+
+        //Devolvemos la vista con la incidencia y los comentarios
+        return view('incidencias.show', compact('incidencia', 'comentarios'));
     }
 
     /**
@@ -437,6 +441,7 @@ class IncidenciaController extends Controller
                 'asignadas' => IncidenciasAsignadasAdministradoresExport::class,
                 'todasTiempoDedicado' => IncidenciasTiempoDedicadoExport::class,
                 'resueltasTiempoPorTipo' => IncidenciasResueltasTiempoPorTipoExport::class,
+                'profesor' => IncidenciasProfesorExport::class,
             };
 
             $incidenciasExport = new $claseExport;
@@ -486,9 +491,6 @@ class IncidenciaController extends Controller
 
         // Ruta del archivo en el sistema de archivos
         $rutaArchivo = public_path('assets/' . $incidencia->adjunto_url);
-
-        // Obtener el nombre original del archivo
-        $nombreArchivo = pathinfo($rutaArchivo, PATHINFO_BASENAME);
 
         // Obtener el tipo de archivo
         $infoArchivo = new SplFileInfo($rutaArchivo);

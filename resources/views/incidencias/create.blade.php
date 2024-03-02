@@ -130,19 +130,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        {{-- Igual lo quitamos porque no es necesario realmente, creo
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="puesto">Puesto de
-                                    Aula</label>
-                                <select class="form-select" name="puesto" id="puesto" required>
-                                    <option selected disabled value="-1">Selecciona ell puesto</option>
-                                </select>
-                            </div>
-                        </div>
-                        --}}
-
                     </div>
 
                     {{-- Fila 4 prioridad --}}
