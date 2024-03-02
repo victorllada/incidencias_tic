@@ -165,15 +165,28 @@
                         Exportar
                     </button>
                     <ul class="dropdown-menu custom-dropdown-menu">
-                        <li><a class="dropdown-item"
-                                href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'pdf']) }}">PDF</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'xlsx']) }}">EXCEL</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'csv']) }}">CSV</a>
-                        </li>
+                        @role('administrador')
+                            <li><a class="dropdown-item"
+                                    href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'pdf']) }}">PDF</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'xlsx']) }}">EXCEL</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'csv']) }}">CSV</a>
+                            </li>
+                        @endrole
+                        @role('profesor')
+                            <li><a class="dropdown-item"
+                                    href="{{ route('incidencias.exportar', ['tipo' => 'profesor', 'formato' => 'pdf']) }}">PDF</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('incidencias.exportar', ['tipo' => 'profesor', 'formato' => 'xlsx']) }}">EXCEL</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('incidencias.exportar', ['tipo' => 'profesor', 'formato' => 'csv']) }}">CSV</a>
+                            </li>
+                        @endrole
                     </ul>
                 </div>
 

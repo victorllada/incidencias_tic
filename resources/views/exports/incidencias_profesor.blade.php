@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Incidencia</title>
+    <title>Incidencias profesor</title>
 </head>
 
 <body>
@@ -23,16 +23,22 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->id }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->tipo }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->subtipo->subtipo_nombre }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_creacion }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_cierre }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->estado }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->descripcion }}</td>
-                <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->responsable->nombre_completo }}</td>
-            </tr>
+            @forelse ($incidencias as $incidencia)
+                <tr>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->id }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->tipo }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->subtipo->subtipo_nombre }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_creacion }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_cierre }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->estado }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->descripcion }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->responsable->nombre_completo }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="8" style="font-family: Arial, Helvetica, sans-serif">No hay incidencias</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </body>
