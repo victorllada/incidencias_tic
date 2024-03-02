@@ -137,22 +137,21 @@
                 </div>
             </div>
 
-            {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
-            {{-- Lista de incidencias --}}
+            {{-- Lista de usuarios --}}
             <div class="row mb-6" id="contenedorUsuarios">
                 {{-- @forelse ($usuarios as $usuario)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
                                 {{ $usuario->name }}
                             </div>
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
                                 {{ $usuario->nombre_completo }}
                             </div>
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
                                 {{ $usuario->email }}
                             </div>
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
+                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
                                 {{ $usuario->nombre_departamento }}
                             </div>
                             <div class="col p-3 text-ellipsis"
@@ -165,8 +164,6 @@
                                         href="{{ route('usuarios.edit', $usuario) }}">
                                         Editar
                                     </a>
-                                    <input type="button" class="btn aquamarine-400 text-white flex-fill"
-                                        value="Borrar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 </div>
                             </div>
                         </div>
