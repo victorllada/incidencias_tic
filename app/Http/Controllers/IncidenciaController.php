@@ -288,13 +288,6 @@ class IncidenciaController extends Controller
             //Ponemos el tipo segun el seleccionado
             $incidencia->tipo = $request->tipo;
 
-            //Si el tipo es Cerrada pondremos la fecha de cierre actual, si no lo es será null
-            if($request->estado == "CERRADA"){
-                $incidencia->fecha_cierre = now();
-            }else{
-                $incidencia->fecha_cierre = null;
-            }
-
             // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
             $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo);
             if (!is_null($request->input('sub-tipo'))) {
@@ -319,6 +312,13 @@ class IncidenciaController extends Controller
 
             //Ponemos el estado segun el introducida
             $incidencia->estado =  $request->estado;
+
+            //Si el tipo es Cerrada pondremos la fecha de cierre actual, si no lo es será null
+            if ($request->estado == "CERRADA") {
+                $incidencia->fecha_cierre = now();
+            } else {
+                $incidencia->fecha_cierre = null;
+            }
 
             //Ponemos la prioridad segun la prioridad
             $incidencia->prioridad = $request->prioridad;
