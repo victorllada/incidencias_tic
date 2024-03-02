@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', InicioController::class)->name('inicio');
 
 // Exportaciones
-Route::get('incidencias/exportar/estadistcas/{formato}', [IncidenciaController::class, 'exportarEstadisticasTiposIncidencias'])->name('incidencias.exportar.estadisticas')->middleware('auth');
+Route::get('incidencias/exportar/estadisticas/{formato}', [IncidenciaController::class, 'exportarEstadisticasTiposIncidencias'])->name('incidencias.exportar.estadisticas')->middleware('auth');
 Route::get('incidencias/exportar/{tipo}/{formato}', [IncidenciaController::class, 'exportarIncidencias'])->name('incidencias.exportar')->middleware('auth');
 
 //Ruta para descargar el archivo adjunto a cada incidencia
-Route::get('descargar/{id}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo');
+Route::get('descargar/{id}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo')->middleware('auth');;
 
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
@@ -32,7 +32,7 @@ Route::resource('incidencias', IncidenciaController::class)->parameters([
 ])->middleware('auth');
 
 //Ruta para obtener las etiquetas de cada aula
-Route::get('/obtener-etiquetas/{aulaId}', [IncidenciaController::class, 'obtenerEtiquetas']);
+Route::get('/obtener-etiquetas/{aulaId}', [IncidenciaController::class, 'obtenerEtiquetas'])->middleware('auth');;
 
 //Ruta para poder enviar el json de incidencias
 Route::get("/datos",[IncidenciaController::class,"datosIncidencias"])->middleware('auth');
