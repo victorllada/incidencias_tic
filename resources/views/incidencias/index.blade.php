@@ -47,21 +47,21 @@
                             <div class="offcanvas-body d-flex flex-column justify-between gap-4">
 
                                 @role('administrador')
-                                {{-- Filtro id, solo lo ve los admins--}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
-                                    <input class="form-control" id="idFiltro" name="idFiltro" type="search"
-                                        placeholder="Introduce el ID">
-                                </div>
+                                    {{-- Filtro id, solo lo ve los admins --}}
+                                    <div class="input-group">
+                                        <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
+                                        <input class="form-control" id="idFiltro" name="idFiltro" type="search"
+                                            placeholder="Introduce el ID">
+                                    </div>
                                 @endrole
 
                                 @role('administrador')
-                                {{-- Filtro usuario, solo lo ve los admins --}}
-                                <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
-                                    <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
-                                        placeholder="Introduce nombre del usuario">
-                                </div>
+                                    {{-- Filtro usuario, solo lo ve los admins --}}
+                                    <div class="input-group">
+                                        <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
+                                        <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
+                                            placeholder="Introduce nombre del usuario">
+                                    </div>
                                 @endrole
 
                                 {{-- Filtro tipo --}}
@@ -459,7 +459,7 @@
 
             {{-- <a href="{{ route('incidencias.show', $incidencia) }}"></a> --}}
             {{-- Lista de incidencias --}}
-            <div class="row mb-5" id="contenedorIncidencias">
+            <div class="row" id="contenedorIncidencias">
                 {{-- @forelse ($incidencias as $incidencia)
                     <div class="lista-incidencias">
                         <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">

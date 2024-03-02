@@ -184,7 +184,7 @@
                 @if ($incidencia->responsable == null)
                     Aún no hay responsables
                 @else
-                    <span>{{ $incidencia->responsable->nombre_completo  }} </span>
+                    <span>{{ $incidencia->responsable->nombre_completo }} </span>
                 @endif
             </div>
         </div>
@@ -197,7 +197,7 @@
                 <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn aquamarine-400 text-white">Borrar</button>
+                    <button type="submit" class="btn btn-danger text-white">Borrar</button>
                 </form>
             </div>
         </div>
