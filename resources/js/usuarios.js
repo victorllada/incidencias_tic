@@ -161,7 +161,7 @@ function filtroUsuarioTemp(datosFiltrados,nombreInput)
 {
     //filtro el usuario por su nombre de usuario
     return datosFiltrados.filter(item =>
-        item.name.toLowerCase().includes(nombreInput.toLowerCase())
+        item.usuario.toLowerCase().includes(nombreInput.toLowerCase())
     );
 }
 
