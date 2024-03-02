@@ -26,7 +26,7 @@ class ComentarioFactory extends Factory
             'fechahora' => $this->faker->dateTime(),
             'incidencia_num' => $this->faker->randomElement($incidencias),
             'personal_id' => $this->faker->randomElement($personas),
-            'adjunto_url' => $this->faker->optional()->imageUrl(),
+            'adjunto_url' => null,
         ];
     }
 }

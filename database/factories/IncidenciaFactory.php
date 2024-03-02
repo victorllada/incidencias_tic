@@ -21,26 +21,38 @@ class IncidenciaFactory extends Factory
     {
         $subtipos = IncidenciaSubtipo::all()->pluck('tipo', 'id')->toArray();
         $personas = User::pluck('id')->toArray();
+        $administrador = User::role('administrador')->first();
         $equipos = Equipo::pluck('id')->toArray();
 
-        // Selecciona un id de subtipo aleatorio y obtiene su tipo asociado
         $randomSubtipoId = $this->faker->randomElement(array_keys($subtipos));
         $tipo = $subtipos[$randomSubtipoId];
+
+        $fechaCreacion = $this->faker->dateTimeBetween('-5 years', 'now');
+
+        $estado = $this->faker->randomElement(['ABIERTA', 'ASIGNADA', 'EN PROCESO', 'ENVIADA A INFORTEC', 'RESUELTA', 'CERRADA']);
+
+        if ($estado === 'CERRADA') {
+            $fechaCierre = $this->faker->dateTimeBetween($fechaCreacion, 'now');
+        } else {
+            $fechaCierre = null;
+        }
+
+        $equipoId = ($tipo === 'EQUIPOS') ? $this->faker->randomElement($equipos) : null;
 
         return [
             'tipo' => $tipo,
             'subtipo_id' => $randomSubtipoId,
-            'fecha_creacion' => $this->faker->dateTime,
-            'fecha_cierre' => $this->faker->optional()->dateTime,
-            'duracion' => $this->faker->numberBetween(5, 600),
+            'fecha_creacion' => $fechaCreacion,
+            'fecha_cierre' => $fechaCierre,
+            'duracion' => $this->faker->numberBetween(1, 10080),
             'descripcion' => $this->faker->sentence,
             'actuaciones' => $this->faker->sentence,
-            'estado' => $this->faker->randomElement(['ABIERTA', 'ASIGNADA', 'EN PROCESO', 'ENVIADA A INFORTEC', 'RESUELTA', 'CERRADA']),
+            'estado' => $estado,
             'prioridad' => $this->faker->randomElement(['BAJA', 'MEDIA', 'ALTA', 'URGENTE']),
-            'adjunto_url' => $this->faker->optional()->url,
+            'adjunto_url' => null,
             'creador_id' => $this->faker->randomElement($personas),
-            'responsable_id' => $this->faker->optional()->randomElement($personas),
-            'equipo_id' => $this->faker->optional()->randomElement($equipos),
+            'responsable_id' => $administrador->id,
+            'equipo_id' => $equipoId,
         ];
     }
 }
