@@ -63,7 +63,7 @@
                                 Comentarios
                             </button>
 
-                            {{-- Desplegable con informes --}}
+                            {{-- Desplegable con comentarios --}}
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
                                 aria-labelledby="offcanvasNavbarLightLabel2">
                                 <div class="offcanvas-header mb-2">
@@ -75,17 +75,27 @@
                                 </div>
 
                                 {{-- Contendor comentarios --}}
-                                <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
-
+                                <div class="offcanvas-body d-flex flex-column">
                                     @forelse ($comentarios as $comentario)
-                                        <p><span>{{ $comentario->user->nombre_completo }}:</span>
+                                        <p>
+                                            <span>{{ $comentario->user->nombre_completo }}:</span>
                                             {{ $comentario->texto }}
-                                            {{-- Si el comentario tiene archivo adjunto se muestra botón para descargar --}}
+                                            {{-- Verificar si el usuario tiene el rol "admin" --}}
+                                            @if ($comentario->user->hasRole('admin'))
+                                                <span>(Admin)</span>
+                                            @endif
+
+                                            {{-- O verificar si el usuario tiene alguno de los roles especificados --}}
+                                            @if ($comentario->user->hasAnyRole(['admin', 'moderator']))
+                                                <span>(Admin o Moderador)</span>
+                                            @endif
+
+                                            {{-- Si el comentario tiene archivo adjunto, muestra el botón para descargar --}}
                                             @if ($comentario->adjunto_url != null)
-                                                {{-- Maquetar esto bien para que se vea un poquito separado del texto o lo que sea --}}
+                                                {{-- Maquetar esto bien para que se vea un poco separado del texto o lo que sea --}}
                                                 <span>Archivo adjunto: <a
                                                         href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
-                                                        class="btn aquamarine-400 text-white">Descargar Archivo</a> <span>
+                                                        class="btn aquamarine-400 text-white">Descargar Archivo</a></span>
                                             @endif
                                         </p>
                                     @empty
@@ -93,7 +103,10 @@
                                     @endforelse
 
                                     {{-- Contenedor de envio de mensaje --}}
-                                    <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+                                    <div class="offcanvas-body d-flex flex-column fixed-bottom">
+
+                                    </div>
+                                    <div class="offcanvas-footer mb-2 fixed-bottom position-relative">
                                         <form action="{{ route('comentarios.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -108,7 +121,6 @@
                                             <button type="submit" class="btn btn-danger text-white">Enviar</button>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

@@ -239,6 +239,7 @@ main .custom-dropdown-menu .dropdown-item:active {
             hsl(218, 41%, 19%) 80%,
             transparent 100%);
     overflow: hidden;
+    min-height: 100vh;
 }
 
 #radius-shape-1 {
