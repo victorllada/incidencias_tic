@@ -12,31 +12,33 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Creador</th>
-                <th>Tipo</th>
-                <th>Subtipo</th>
-                <th>Fecha creación</th>
-                <th>Prioridad</th>
-                <th>Estado</th>
-                <th>Duración</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">ID</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Creador</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Tipo</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Subtipo</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Fecha creación</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Fecha cierre</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Estado</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Responsable</th>
+                <th style="background-color: #0e97e9; font-family: Arial, Helvetica, sans-serif">Duración</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($incidencias as $incidencia)
                 <tr>
-                    <td>{{ $incidencia->id }}</td>
-                    <td>{{ $incidencia->creador->nombre_completo }}</td>
-                    <td>{{ $incidencia->tipo }}</td>
-                    <td>{{ $incidencia->subtipo->subtipo_nombre }}</td>
-                    <td>{{ $incidencia->fecha_creacion }}</td>
-                    <td>{{ $incidencia->prioridad }}</td>
-                    <td>{{ $incidencia->estado }}</td>
-                    <td>{{ $incidencia->duracion }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->id }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->creador->nombre_completo }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->tipo }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->subtipo->subtipo_nombre }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_creacion }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->fecha_cierre }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->estado }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->responsable->nombre_completo }}</td>
+                    <td style="font-family: Arial, Helvetica, sans-serif">{{ $incidencia->duracion }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7">No hay incidencias</td>
+                    <td colspan="9" style="font-family: Arial, Helvetica, sans-serif">No hay incidencias</td>
                 </tr>
             @endforelse
         </tbody>

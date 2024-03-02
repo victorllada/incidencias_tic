@@ -7,6 +7,7 @@ use App\Exports\IncidenciaExport;
 use App\Exports\IncidenciasAbiertasUsuarioExport;
 use App\Exports\IncidenciasAsignadasAdministradoresExport;
 use App\Exports\IncidenciasExport;
+use App\Exports\IncidenciasProfesorExport;
 use App\Exports\IncidenciasResueltasAdministradoresExport;
 use App\Exports\IncidenciasResueltasTiempoPorTipoExport;
 use App\Exports\IncidenciasTiempoDedicadoExport;
@@ -437,6 +438,7 @@ class IncidenciaController extends Controller
                 'asignadas' => IncidenciasAsignadasAdministradoresExport::class,
                 'todasTiempoDedicado' => IncidenciasTiempoDedicadoExport::class,
                 'resueltasTiempoPorTipo' => IncidenciasResueltasTiempoPorTipoExport::class,
+                'profesor' => IncidenciasProfesorExport::class,
             };
 
             $incidenciasExport = new $claseExport;
