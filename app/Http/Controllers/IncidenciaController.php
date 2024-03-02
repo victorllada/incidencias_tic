@@ -517,8 +517,14 @@ class IncidenciaController extends Controller
         // Obtener la incidencia por ID
         $incidencia = Incidencia::find($id);
 
+        $user = auth()->user();
+
+        if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
+            abort(403, 'No tiene permisos para descargar el adjunto de esta incidencia.');
+        }
+
         if (!$incidencia || !$incidencia->adjunto_url) {
-            abort(404);
+            abort(404, 'No se encuentra la incidencia o no tiene adjunto.');
         }
 
         // Ruta del archivo en el sistema de archivos
