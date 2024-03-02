@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\UserController;
@@ -24,7 +25,7 @@ Route::get('incidencias/exportar/estadisticas/{formato}', [IncidenciaController:
 Route::get('incidencias/exportar/{tipo}/{formato}', [IncidenciaController::class, 'exportarIncidencias'])->name('incidencias.exportar')->middleware('auth');
 
 //Ruta para descargar el archivo adjunto a cada incidencia
-Route::get('descargar/{id}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo')->middleware('auth');;
+Route::get('descargar/{id}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo')->middleware('auth');
 
 //Incidencias
 Route::resource('incidencias', IncidenciaController::class)->parameters([
@@ -44,6 +45,14 @@ Route::get("/datosUsuarios",[UserController::class,"datosUsuarios"])->middleware
 Route::resource('usuarios', UserController::class)->parameters([
     'usuarios' => 'usuario'
 ])->middleware(['auth', 'role:administrador']);
+
+//Comentarios
+Route::resource('comentarios', ComentarioController::class)->parameters([
+    'comentarios' => 'comentario'
+])->middleware('auth');
+
+//Ruta para descargar el archivo adjunto a cada comentario
+Route::get('descargar/{id}', [ComentarioController::class, 'descargarComentarioArchivo'])->name('descargar.comentario.archivo')->middleware('auth');
 
 /*Route::middleware([
     'auth:sanctum',

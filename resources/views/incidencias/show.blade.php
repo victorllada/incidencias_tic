@@ -8,9 +8,50 @@
     <div>
         <div>
 
-            @if (session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                Hubo errores al mandar el mensaje:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
+            {{-- Migas de pan --}}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('incidencias.index', $incidencia) }}">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Incidencia {{ $incidencia->id }}</li>
+                </ol>
+            </nav>
+
+            <div class="d-flex gap-2">
+                {{-- Boton para exportar en los distitos formatos --}}
+                <div class="dropdown custom-dropdown">
+                    <button class="btn aquamarine-400 text-white dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Exportar
+                    </button>
+                    <ul class="dropdown-menu custom-dropdown-menu">
+                        <li><a class="dropdown-item"
+                                href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'pdf']) }}">PDF</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'xlsx']) }}">EXCEL</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'csv']) }}">CSV</a>
+                        </li>
+                    </ul>
                 </div>
             @endif
 
@@ -63,11 +104,42 @@
                                         aria-label="Close"></button>
                                 </div>
 
-                                {{-- Contendor comentarios --}}
-                                <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+
+                                @forelse ($comentarios as $comentario)
+                                    <p><span>{{ $comentario->user->nombre_completo }}:</span>
+                                        {{ $comentario->texto }}
+                                        {{-- Si el comentario tiene archivo adjunto se muestra botón para descargar --}}
+                                        @if ($comentario->adjunto_url != null)
+                                            {{-- Maquetar esto bien para que se vea un poquito separado del texto o lo que sea --}}
+                                            <span>Archivo adjunto: <a href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
+                                                class="btn aquamarine-400 text-white">Descargar Archivo</a> <span>
+
+                                        @endif
+                                    </p>
+                                @empty
+                                    <p>No hay comentarios</p>
+                                @endforelse
+
 
 
                                 </div>
+                            </div>
+
+                            {{-- Contenedor de envio de mensaje --}}
+                            <div class="offcanvas-body d-flex flex-column gap-5 pt-5">
+                                <form action="{{ route('comentarios.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    {{-- Campo escondido para mandar el id de la incidencia --}}
+                                    <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
+                                    {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
+                                    <div>
+                                        <input type="text" name="texto" placeholder="Mensaje">
+                                        <input  type="file" id="fichero"
+                                        name="fichero">
+                                    </div>
+                                    {{-- Botonn de enviar puede ser icono como whatsapp o alguna cosa así --}}
+                                    <button type="submit" class="btn btn-danger text-white">Enviar</button>
+                                </form>
                             </div>
                         </div>
                     </div>

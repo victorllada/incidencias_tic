@@ -1,11 +1,11 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Editar')
 @section('archivosJS')
-    @vite(['resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 @endsection
 @section('contenido')
 
-    <div>
+    <div class="container">
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             {{-- Migas de pan --}}
             <nav aria-label="breadcrumb">
@@ -34,7 +34,6 @@
             </div>
         @endif
 
-        <!--Falta añadir la ruta del store en el atributo action del form-->
         <form action="{{ route('incidencias.update', $incidencia) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
