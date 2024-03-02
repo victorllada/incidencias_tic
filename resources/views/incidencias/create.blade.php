@@ -190,8 +190,8 @@
                                 <div class="d-flex flex-wrap gap-4 form-control ">
                                     @forelse ($usuarios as $usuario)
                                         <div>
-                                            <input class="form-check-input" type="radio" id="asignado"
-                                                name="asignado" value={{ $usuario->id }}>
+                                            <input class="form-check-input" type="radio" id="asignado" name="asignado"
+                                                value={{ $usuario->id }}>
                                             <label class="form-check-label"
                                                 for="asignado">{{ $usuario->nombre_completo }}</label>
                                         </div>
@@ -284,11 +284,11 @@
             case "WIFI":
                 var array = ["IESMIGUELHERRERO", "WIECAN"];
                 break;
-            case "INTERNET":
-                var array = [];
-                break;
             case "SOFTWARE":
                 var array = ["INSTALACION", "ACTUALIZACION"];
+                break;
+            case "INTERNET":
+                var array = [];
                 break;
             default:
                 break;
