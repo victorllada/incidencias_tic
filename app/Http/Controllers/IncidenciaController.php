@@ -172,13 +172,6 @@ class IncidenciaController extends Controller
                 $incidencia_subtipo_query->where('sub_subtipo', $subsubtipo);
             }
 
-            /*->when(!is_null($subtipo), function ($query) use ($subtipo) {
-                    return $query->where('subtipo_nombre', $subtipo);
-                })
-                ->when(!is_null($subsubtipo), function ($query) use ($subsubtipo) {
-                    return $query->where('sub_subtipo', $subsubtipo);
-                });*/
-
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
             // Obtener el ID
