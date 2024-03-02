@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared('
-        CREATE PROCEDURE IF NOT EXISTS cerrarIncidenciasResueltas()
-        BEGIN
-            UPDATE incidencias
-            SET estado = "cerrada"
-            WHERE estado = "resuelta" AND fecha_cierre IS NOT NULL AND fecha_cierre < NOW() - INTERVAL 1 DAY;
-        END;
-    ');
+            CREATE PROCEDURE IF NOT EXISTS cerrarIncidenciasResueltas()
+            BEGIN
+                UPDATE incidencias
+                SET estado = "cerrada", fecha_cierre = NOW()
+                WHERE estado = "resuelta" AND fecha_cierre IS NOT NULL AND fecha_cierre < NOW() - INTERVAL 1 DAY;
+            END;
+        ');
     }
 
     /**
