@@ -7,7 +7,7 @@
 
     <h1>Usuarios Show</h1>
 
-    <div class="container">
+    <div>
 
         @if (session('success'))
             <div class="alert alert-success" role="alert">

@@ -5,7 +5,7 @@
 @endsection
 @section('contenido')
 
-    <div class="container">
+    <div>
 
         {{-- Migas de pan --}}
         <nav aria-label="breadcrumb">

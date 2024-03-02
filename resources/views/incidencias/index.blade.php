@@ -5,7 +5,7 @@
 @endsection
 @section('contenido')
 
-    <div class="container">
+    <div>
 
         @if ($errors->any())
             <div class="alert alert-danger" role="alert">

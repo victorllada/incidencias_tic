@@ -5,7 +5,7 @@
 @endsection
 @section('contenido')
 
-    <div class="container">
+    <div>
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             {{-- Migas de pan --}}
             <nav aria-label="breadcrumb">
