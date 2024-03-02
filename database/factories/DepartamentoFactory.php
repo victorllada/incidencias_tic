@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Personal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,6 +9,24 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class DepartamentoFactory extends Factory
 {
+    private array $departamentos = [
+        'Informática',
+        'Administración',
+        'Mecánica',
+        'Robótica',
+        'Electrónica',
+        'Electricidad',
+        'Automoción',
+        'Física',
+        'Química',
+        'Biología',
+        'Historia',
+        'Educación Física',
+        'Arte',
+        'Música',
+        'Matemáticas',
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -17,11 +34,22 @@ class DepartamentoFactory extends Factory
      */
     public function definition(): array
     {
+        $nombreDepartamento = $this->departamentos[$this->faker->unique()->numberBetween(0, count($this->departamentos) - 1)];
+        $codigo = strtoupper(preg_replace('/[^a-zA-Z0-9]/', '', substr(str_replace(['á','é','í','ó','ú','Á','É','Í','Ó','Ú'], ['a','e','i','o','u','A','E','I','O','U'], $nombreDepartamento), 0, 3))) . '01';
+
         return [
-            'cod' => $this->faker->unique()->text(6),
-            'nombre' => $this->faker->unique()->randomElement(['Informática', 'Administración', 'Mecánica', 'Robótica']),
+            'cod' => $codigo,
+            'nombre' => $nombreDepartamento,
             'activo' => $this->faker->boolean(),
-            //'jefedep_id' => null,
         ];
+    }
+
+    /**
+     * Devuelve un array con los departamentos disponibles.
+     *
+     * @return array Departamentos disponibles.
+     */
+    public function getDepartamentos() : array {
+        return $this->departamentos;
     }
 }

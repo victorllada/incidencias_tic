@@ -111,7 +111,7 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     public function incidenciasAsignadas()
     {
-        return $this->hasMany(Incidencia::class, 'personal_id');
+        return $this->hasMany(Incidencia::class, 'responsable_id');
     }
 
     /**
