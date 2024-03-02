@@ -27,8 +27,11 @@ class Incidencias_subtiposSeeder extends Seeder
         [15, 'CUENTAS', 'YEDRA', 'GESTIONA J.EST.'],
         [16, 'WIFI', 'IESMIGUELHERRERO', NULL],
         [17, 'WIFI', 'WIECAN', NULL],
-        [18, 'INTERNET', NULL, NULL],
-        [19, 'INTERNET', NULL, NULL],
+        [18, 'SOFTWARE', 'ACTUALIZACION', NULL],
+        [19, 'SOFTWARE', 'INSTALACION', NULL],
+        [20, 'WIFI', 'WIECAN', NULL],
+        [21, 'INTERNET', NULL, NULL],
+        [22, 'INTERNET', NULL, NULL],
     ];
 
     /**

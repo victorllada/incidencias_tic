@@ -164,13 +164,20 @@ class IncidenciaController extends Controller
             $subsubtipo = $request->input('sub-sub-tipo');
 
             // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
-            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo)
-                ->when(!is_null($subtipo), function ($query) use ($subtipo) {
+            $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo);
+            if (!is_null($subtipo)) {
+                $incidencia_subtipo_query->where('subtipo_nombre', $subtipo);
+            }
+            if (!is_null($subsubtipo)) {
+                $incidencia_subtipo_query->where('sub_subtipo', $subsubtipo);
+            }
+
+            /*->when(!is_null($subtipo), function ($query) use ($subtipo) {
                     return $query->where('subtipo_nombre', $subtipo);
                 })
                 ->when(!is_null($subsubtipo), function ($query) use ($subsubtipo) {
                     return $query->where('sub_subtipo', $subsubtipo);
-                });
+                });*/
 
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
@@ -225,12 +232,16 @@ class IncidenciaController extends Controller
             //Comitamos
             DB::commit();
 
+            dd($incidencia_subtipo_query, $subtipo, $subsubtipo);
+
             // Envío de correo poniéndolo en cola para que no interrumpa la redirección
             //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
 
             //Redirección al show con mensaje de exito
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
         } catch (Exception $e) {
+
+            dd($e, $subtipo, $subsubtipo);
 
             //Cancelamos la transacion
             DB::rollBack();
@@ -246,11 +257,8 @@ class IncidenciaController extends Controller
      */
     public function show(Incidencia $incidencia)
     {
-        //Guardamos todos los responsables de la incidencia en una variable
-        $responsables = $incidencia->responsables;
-
         //Devolvemos la vista con la incidencia y sus responsables
-        return view('incidencias.show', compact('incidencia', 'responsables'));
+        return view('incidencias.show', compact('incidencia'));
     }
 
     /**
@@ -264,14 +272,11 @@ class IncidenciaController extends Controller
         //Obtenemos los usuarios con el rol administrador
         $usuarios = User::role('administrador')->get();
 
-        //Guardamos todos los responsables de la incidencia en una variable
-        $responsables = $incidencia->responsables;
-
         //Obtenemos todas las aulas
         $aulas = Aula::all();
 
         //Devolvemos la vista con todos los objetos y colecciones
-        return view('incidencias.edit', compact('incidencia', 'responsables', 'usuarios', 'aulas'));
+        return view('incidencias.edit', compact('incidencia', 'usuarios', 'aulas'));
     }
 
     /**
@@ -358,12 +363,16 @@ class IncidenciaController extends Controller
             //Comitamos
             DB::commit();
 
+            dd($incidencia);
+
             // Envío de correo poniéndolo en cola para que no interrumpa la redirección
             //Mail::to([$incidencia->creador->nombre_completo])->queue(new EnvioCorreo($incidencia, 'creado'));
 
             //Redirección al show con mensaje de exito
             return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia modificada correctamente.');
         } catch (Exception $e) {
+
+            dd($e);
 
             //Cancelamos la transacion
             DB::rollBack();

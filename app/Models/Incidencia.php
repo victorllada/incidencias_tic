@@ -43,7 +43,7 @@ class Incidencia extends Model
      */
     public function responsable()
     {
-        return $this->hasOne(User::class, 'responsable_id');
+        return $this->hasOne(User::class , 'id');
     }
 
     /**
