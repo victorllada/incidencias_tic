@@ -421,14 +421,28 @@ class IncidenciaController extends Controller
     /**
      * Método para exportar incidencias del tipo y formato indicado por parámetro.
      *
-     * @param mixed $tipoOID Tipo de incidencias a exportar ('todas', 'resueltas', 'abiertas', 'asignadas', 'todasTiempoDedicado', resueltasTiempoPorTipo). Si se pasa un ID de la incidencia se exportarán los detalles de esa incidencia.
+     * @param mixed $tipoOID Tipo de incidencias a exportar ('todas', 'resueltas', 'abiertas', 'asignadas', 'todasTiempoDedicado', 'resueltasTiempoPorTipo', 'profesor'). Si se pasa un ID de la incidencia se exportarán los detalles de esa incidencia.
      * @param string $formato Formato a exportar ('pdf', 'xlsx' o 'csv').
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function exportarIncidencias(mixed $tipoOID, string $formato)
     {
+        $user = auth()->user();
+
+        // Comprobar si el usuario es profesor, el tipo de exportación no es 'profesor' y el tipo de exportación no es un número
+        if (!$user->hasRole('administrador') && $tipoOID !== 'profesor' && !is_numeric($tipoOID)) {
+            abort(403, 'No tiene permisos para exportar este tipo de incidencias.');
+        }
+
         if (is_numeric($tipoOID)) {
             $id = (int)$tipoOID;
+            $incidencia = Incidencia::findOrFail($id);
+
+            // Comprobar si el usuario es el creador de la incidencia o es administrador
+            if (!$user->hasRole('administrador') && $user->id !== $incidencia->creador_id) {
+                abort(403, 'No tiene permisos para exportar esta incidencia.');
+            }
+
             $incidenciasExport = new IncidenciaExport(Incidencia::findOrFail($id));
         } else {
             $claseExport = match ($tipoOID) {
@@ -455,6 +469,12 @@ class IncidenciaController extends Controller
      */
     public function exportarEstadisticasTiposIncidencias($formato)
     {
+        $user = auth()->user();
+
+        if (!$user->hasRole('administrador')) {
+            abort(403, 'No tiene permisos para exportar este tipo de incidencias.');
+        }
+
         return $this->exportarEnFormato(new EstadisticasTiposIncidenciasExport, $formato, "_Estadisticas_Tipos_Incidencias");
     }
 
