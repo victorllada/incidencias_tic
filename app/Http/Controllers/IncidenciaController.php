@@ -45,8 +45,12 @@ class IncidenciaController extends Controller
         // En caso contrario (rol de profesor), devolvemos las incidencias creadas por el usuario.
         $incidencias = $user->hasRole('administrador') ? Incidencia::all() : Incidencia::where('creador_id', $user->id)->get();
 
+        $responsables = User::whereHas('roles', function ($query) {
+            $query->where('name', 'administrador');
+        })->get();
+
         //Devolvemos la vista con las incidencias
-        return view('incidencias.index', compact('incidencias'));
+        return view('incidencias.index', compact('incidencias', 'responsables'));
     }
 
     /*
@@ -280,17 +284,20 @@ class IncidenciaController extends Controller
             //Ponemos el tipo segun el seleccionado
             $incidencia->tipo = $request->tipo;
 
-            //Guardamos en dos variables el sub-tipo y el sub-sub-tipo
-            $subtipo = $request->input('sub-tipo');
-            $subsubtipo = $request->input('sub-sub-tipo');
+            //Si el tipo es Cerrada pondremos la fecha de cierre actual, si no lo es será null
+            if($request->estado == "CERRADA"){
+                $incidencia->fecha_cierre = now();
+            }else{
+                $incidencia->fecha_cierre = null;
+            }
 
             // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
             $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo);
-            if (!is_null($subtipo)) {
-                $incidencia_subtipo_query->where('subtipo_nombre', $subtipo);
+            if (!is_null($request->input('sub-tipo'))) {
+                $incidencia_subtipo_query->where('subtipo_nombre', $request->input('sub-tipo'));
             }
-            if (!is_null($subsubtipo)) {
-                $incidencia_subtipo_query->where('sub_subtipo', $subsubtipo);
+            if (!is_null($request->input('sub-sub-tipo'))) {
+                $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
             }
 
             //Recogemos el primer registro con esas caracteristicas
@@ -374,7 +381,6 @@ class IncidenciaController extends Controller
     public function destroy(int $id)
     {
         try {
-
             // Buscar la incidencia por su ID
             $incidencia = Incidencia::findOrFail($id);
 

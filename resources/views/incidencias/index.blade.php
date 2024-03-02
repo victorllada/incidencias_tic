@@ -58,9 +58,9 @@
                                 @role('administrador')
                                     {{-- Filtro usuario, solo lo ve los admins --}}
                                     <div class="input-group">
-                                        <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
+                                        <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Creador</label>
                                         <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
-                                            placeholder="Introduce nombre del usuario">
+                                            placeholder="Introduce nombre del creador">
                                     </div>
                                 @endrole
 
@@ -120,6 +120,17 @@
                                         <option value="ASIGNADA">Asignada</option>
                                         <option value="ENVIADA A INFORTEC">Enviada a Infortec</option>
                                         <option value="EN PROCESO">En proceso</option>
+                                    </select>
+                                </div>
+
+                                {{--Filtro responsable--}}
+                                <div class="input-group">
+                                    <label class="col-3 input-group-text aquamarine-200" for="responsableFiltro">Responsable</label>
+                                    <select class="form-select" id="responsableFiltro" name="responsableFiltro">
+                                        <option selected value="-1">Selecciona un responsable</option>
+                                        @foreach ($responsables as $responsable)
+                                            <option value={{$responsable->id}}>{{$responsable->nombre_completo}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -435,7 +446,7 @@
                 @endrole
                 @role('administrador')
                     <div class="col fw-bolder p-3 baja-res">
-                        Usuario
+                        Creador
                     </div>
                 @endrole
                 <div class="col fw-bolder p-3">
