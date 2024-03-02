@@ -107,7 +107,8 @@
                     {{-- Boton para editar el usuario --}}
                     <div class="row mt-5">
                         <div class="col">
-                            <input type="submit" class="btn aquamarine-400 text-white" value="Actualizar">
+                            <button type="button" class="btn aquamarine-400 text-white"data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">Actualizar</button>
                         </div>
                     </div>
                 </div>

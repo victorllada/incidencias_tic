@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="background-radial-gradient overflow-hidden d-flex align-items-center" style="height: 100vh;">
+    <div class="background-radial-gradient overflow-hidden d-flex align-items-center">
         <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
             <div id="radius-shape-1" class="position-absolute shadow-5-strong animate"></div>
             <div class="row gx-lg-5 align-items-center mb-5">
