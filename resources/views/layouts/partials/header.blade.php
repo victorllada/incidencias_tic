@@ -45,15 +45,22 @@
                     <div class="desplegable-usuario">
                         @auth
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item">{{ auth()->user()->nombre_completo }}</a></li>
-                                <li><a class="dropdown-item">{{ auth()->user()->email }}</a></li>
-                                <li><a class="dropdown-item">
+                                <li><span class="dropdown-item">{{ auth()->user()->nombre_completo }}</span></li>
+                                <li><span class="dropdown-item">{{ auth()->user()->email }}</span></li>
+                                <li><span class="dropdown-item">
                                         @role('administrador')
                                             Administrador
                                         @else
                                             Profesor
                                         @endrole
-                                    </a></li>
+                                    </span>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a href="{{ route('usuarios.edit', auth()->user()) }}" class="dropdown-item">Editar</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
