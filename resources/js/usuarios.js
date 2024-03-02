@@ -417,7 +417,7 @@ function generarUsuarios(datos)
         let aDetalles=document.createElement("a");
         aDetalles.innerHTML="Detalles";
         aDetalles.type="button";
-        aDetalles.href=ruta+"/"+datos[pagina][i].id;
+        aDetalles.href=ruta+"/"+datos[pagina][i].id+"/edit";
         aDetalles.classList="btn aquamarine-400 text-white";
 
         //meto el boton de detalles
