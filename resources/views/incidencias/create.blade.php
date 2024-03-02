@@ -15,17 +15,6 @@
             </ol>
         </nav>
 
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                Hubo errores al rellenar el formulario:
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <!--Falta añadir la ruta del store en el atributo action del form-->
         <form action="{{ route('incidencias.store') }}" method="post" enctype="multipart/form-data">
             @csrf

@@ -6,18 +6,6 @@
 @section('contenido')
 
     <div>
-
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                Hubo errores al rellenar el formulario:
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         {{-- Contenedor del boton filtrar y los botones exportar --}}
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             <div class="d-flex gap-2">
@@ -79,11 +67,10 @@
                                         Departamento
                                     </label>
                                     <select class="form-select" id="departamentoFiltro" name="departamentoFiltro">
-                                        <option selected value="-1">Seleccione el departamento</option>
-                                        <option value="Mecánica">Mecánica</option>
-                                        <option value="Administración">Administración</option>
-                                        <option value="Robótica">Robótica</option>
-                                        <option value="Informática">Informática</option>
+                                        <option selected value="-1">Selecciona departamento</option>
+                                        @foreach ($departamentos as $departamento)
+                                            <option value={{$departamento->nombre}}>{{$departamento->nombre}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -93,9 +80,11 @@
                                         Rol
                                     </label>
                                     <select class="form-select" id="rolFiltro" name="rolFiltro">
+
                                         <option selected value="-1">Selecciona el rol</option>
                                         <option value="administrador">Administrador</option>
                                         <option value="profesor">Profesor</option>
+
                                     </select>
                                 </div>
 

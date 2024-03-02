@@ -23,17 +23,6 @@
             </nav>
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                Hubo errores al rellenar el formulario:
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <form action="{{ route('incidencias.update', $incidencia) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
@@ -211,24 +200,26 @@
                     </div>
 
                     {{-- Aqui se generara un checklist con todos los profesores del centro --}}
-                    <div class="row mb-4">
-                        <div class="col input-group">
-                            <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
-                            <div class="d-flex flex-wrap gap-4 form-control ">
-                                @forelse ($usuarios as $usuario)
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="asignado"
-                                            value="{{ $usuario->id }}"
-                                            {{ $usuario->id == $incidencia->responsable_id ? 'checked' : '' }}>
-                                        <label class="form-check-label"
-                                            for="asignado">{{ $usuario->nombre_completo }}</label>
-                                    </div>
-                                @empty
-                                    <div>No hay usuarios</div>
-                                @endforelse
+                    @role('administrador')
+                        <div class="row mb-4">
+                            <div class="col input-group">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="asignado">Asignado</label>
+                                <div class="d-flex flex-wrap gap-4 form-control ">
+                                    @forelse ($usuarios as $usuario)
+                                        <div>
+                                            <input class="form-check-input" type="radio" name="asignado"
+                                                value="{{ $usuario->id }}"
+                                                {{ $usuario->id == $incidencia->responsable_id ? 'checked' : '' }}>
+                                            <label class="form-check-label"
+                                                for="asignado">{{ $usuario->nombre_completo }}</label>
+                                        </div>
+                                    @empty
+                                        <div>No hay usuarios</div>
+                                    @endforelse
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endrole
 
                     {{-- Boton para editar incidencia --}}
                     <div class="row mt-5">

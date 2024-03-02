@@ -8,23 +8,6 @@
     <div>
         <div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    Hubo errores al mandar el mensaje:
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if (session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
                 {{-- Migas de pan --}}
                 <nav aria-label="breadcrumb">

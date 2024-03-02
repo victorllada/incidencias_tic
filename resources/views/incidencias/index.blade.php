@@ -6,18 +6,6 @@
 @section('contenido')
 
     <div>
-
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                Hubo errores al rellenar el formulario:
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         {{-- Contenedor del boton filtrar y los botones exportar --}}
         <div class="d-flex justify-content-between align-items-center gap-3 mb-5">
             <div class="d-flex gap-2">
