@@ -16,6 +16,7 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data.incidencias; // Guardamos los datos en la variable
         rol=data.rol_usuario[0];
+        //console.log(data);
 
         crearArrayPaginacion(datosIncidencias);
         if(rol=="administrador")
@@ -573,7 +574,7 @@ function generarIncidenciasAdmi(datos)
     document.querySelector("#contenedorIncidencias").innerHTML="";
     let ruta=host+"/incidencias";
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
-    for(let i=0;datos[pagina].length;i++)
+    for(let i=0;i<datos[pagina].length;i++)
     {
         //ruta para la vista de show de esa incidencia
         let stringRedirect=ruta+"/"+datos[pagina][i].id;
@@ -756,12 +757,14 @@ function generarIncidenciasAdmi(datos)
 //metodo generico para mostrar las incidencias para el profesor
 function generarIncidenciasUsuario(datos)
 {
+    //console.log(datos[pagina]);
     //vacio el contenedor de incidencias
     document.querySelector("#contenedorIncidencias").innerHTML="";
     let ruta=host+"/incidencias";
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
-    for(let i=0;datos[pagina].length;i++)
+    for(let i=0;i<datos[pagina].length;i++)
     {
+        //console.log(datos[pagina][i]);
         //ruta para la vista de show de esa incidencia
         let stringRedirect=ruta+"/"+datos[pagina][i].id;
 
@@ -809,7 +812,7 @@ function generarIncidenciasUsuario(datos)
         //creo los textos de los divs
         let textTipoIncidencia=document.createTextNode(datos[pagina][i].tipo);//tipo
         let textSubtipo=document.createTextNode(datos[pagina][i].tipo!="INTERNET"?datos[pagina][i].subtipo.subtipo_nombre:"n/a");
-        console.log(datos[pagina][i].tipo!="INTERNET"?datos[pagina][i].subtipo.subtipo_nombre:"n/a");//subtipo
+        let textFecha=document.createTextNode(datos[pagina][i].fecha_creacion)//fecha de creacion
         let textPrioridad=document.createTextNode(datos[pagina][i].prioridad);//prioridad
         let textEstado=document.createTextNode(datos[pagina][i].estado);//estado
 
