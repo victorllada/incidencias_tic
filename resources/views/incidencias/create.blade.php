@@ -155,7 +155,7 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="descripcion">Descripción</label>
                                 <textarea class="form-control" placeholder="Deja aqui la descripción" name="descripcion" id="floatingTextarea"
-                                    rows="8" maxlength="256"></textarea>
+                                    rows="8" maxlength="256">{{ old('descripcion') }}</textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
