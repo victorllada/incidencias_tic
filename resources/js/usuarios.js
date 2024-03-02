@@ -413,7 +413,7 @@ function generarUsuarios(datos)
         let textNombreDepartamento=document.createTextNode(datos[pagina][i].departamento);//subtipo
         let textRol=document.createTextNode(datos[pagina][i].roles[0]);
 
-        //creo el boton de detaller y le doy las clases y la ruta para que funcione
+        //creo el boton de detaller y le doy las clases y la ruta
         let aDetalles=document.createElement("a");
         aDetalles.innerHTML="Detalles";
         aDetalles.type="button";
