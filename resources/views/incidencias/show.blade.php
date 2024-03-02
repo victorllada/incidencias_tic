@@ -54,77 +54,83 @@
                         </ul>
                     </div>
 
-                    {{-- Boton y desplegabale para los comentarios --}}
-                    <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
-                        <div>
-                            <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasNavbarLight2" aria-controls="offcanvasNavbarLight2"
-                                aria-label="Toggle navigation">
-                                Comentarios
-                            </button>
+                    @if (
+                        (auth()->user()->hasrole('profesor') && $incidencia->estado != 'CERRADA') ||
+                            auth()->user()->hasrole('administrador'))
+                        {{-- Boton y desplegabale para los comentarios --}}
+                        <div class="navbar bg-body-tertiary py-0" aria-label="Light offcanvas navbar">
+                            <div>
+                                <button class="btn aquamarine-400 text-white" type="button" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasNavbarLight2" aria-controls="offcanvasNavbarLight2"
+                                    aria-label="Toggle navigation">
+                                    Comentarios
+                                    <i class="bi bi-chat"></i>
+                                </button>
 
-                            {{-- Desplegable con comentarios --}}
-                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
-                                aria-labelledby="offcanvasNavbarLightLabel2">
-                                <div class="offcanvas-header mb-2">
-                                    <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Comentarios</h5>
+                                {{-- Desplegable con comentarios --}}
+                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight2"
+                                    aria-labelledby="offcanvasNavbarLightLabel2">
+                                    <div class="offcanvas-header mb-2">
+                                        <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Comentarios</h5>
 
-                                    {{-- Boton para cerrar el desplegable --}}
-                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                        aria-label="Close"></button>
-                                </div>
-
-                                {{-- Contendor comentarios --}}
-                                <div class="offcanvas-body d-flex flex-column">
-                                    @forelse ($comentarios as $comentario)
-                                        <p>
-                                            <span>{{ $comentario->user->nombre_completo }}:</span>
-                                            {{ $comentario->texto }}
-                                            {{-- Verificar si el usuario tiene el rol "admin" --}}
-                                            @if ($comentario->user->hasRole('admin'))
-                                                <span>(Admin)</span>
-                                            @endif
-
-                                            {{-- O verificar si el usuario tiene alguno de los roles especificados --}}
-                                            @if ($comentario->user->hasAnyRole(['admin', 'moderator']))
-                                                <span>(Admin o Moderador)</span>
-                                            @endif
-
-                                            {{-- Si el comentario tiene archivo adjunto, muestra el botón para descargar --}}
-                                            @if ($comentario->adjunto_url != null)
-                                                {{-- Maquetar esto bien para que se vea un poco separado del texto o lo que sea --}}
-                                                <span>Archivo adjunto: <a
-                                                        href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
-                                                        class="btn aquamarine-400 text-white">Descargar Archivo</a></span>
-                                            @endif
-                                        </p>
-                                    @empty
-                                        <p>No hay comentarios</p>
-                                    @endforelse
-
-                                    {{-- Contenedor de envio de mensaje --}}
-                                    <div class="offcanvas-body d-flex flex-column fixed-bottom">
-
+                                        {{-- Boton para cerrar el desplegable --}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
                                     </div>
-                                    <div class="offcanvas-footer mb-2 fixed-bottom position-relative">
-                                        <form action="{{ route('comentarios.store') }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
-                                            {{-- Campo escondido para mandar el id de la incidencia --}}
-                                            <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
-                                            {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
-                                            <div>
-                                                <input type="text" name="texto" placeholder="Mensaje">
-                                                <input type="file" id="fichero" name="fichero">
-                                            </div>
-                                            {{-- Botonn de enviar puede ser icono como whatsapp o alguna cosa así --}}
-                                            <button type="submit" class="btn btn-danger text-white">Enviar</button>
-                                        </form>
+
+                                    {{-- Contendor comentarios --}}
+                                    <div class="offcanvas-body d-flex flex-column">
+                                        @forelse ($comentarios as $comentario)
+                                            <p>
+                                                <span>{{ $comentario->user->nombre_completo }}:</span>
+                                                {{ $comentario->texto }}
+                                                {{-- Verificar si el usuario tiene el rol "admin" --}}
+                                                @if ($comentario->user->hasRole('admin'))
+                                                    <span>(Admin)</span>
+                                                @endif
+
+                                                {{-- O verificar si el usuario tiene alguno de los roles especificados --}}
+                                                @if ($comentario->user->hasAnyRole(['admin', 'moderator']))
+                                                    <span>(Admin o Moderador)</span>
+                                                @endif
+
+                                                {{-- Si el comentario tiene archivo adjunto, muestra el botón para descargar --}}
+                                                @if ($comentario->adjunto_url != null)
+                                                    {{-- Maquetar esto bien para que se vea un poco separado del texto o lo que sea --}}
+                                                    <span>Archivo adjunto: <a
+                                                            href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
+                                                            class="btn aquamarine-400 text-white">Descargar
+                                                            Archivo</a></span>
+                                                @endif
+                                            </p>
+                                        @empty
+                                            <p>No hay comentarios</p>
+                                        @endforelse
+
+                                        {{-- Contenedor de envio de mensaje --}}
+                                        <div class="offcanvas-body d-flex flex-column fixed-bottom">
+
+                                        </div>
+                                        <div class="offcanvas-footer mb-2 fixed-bottom position-relative">
+                                            <form action="{{ route('comentarios.store') }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                {{-- Campo escondido para mandar el id de la incidencia --}}
+                                                <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
+                                                {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
+                                                <div>
+                                                    <input type="text" name="texto" placeholder="Mensaje">
+                                                    <input type="file" id="fichero" name="fichero">
+                                                </div>
+                                                {{-- Botonn de enviar puede ser icono como whatsapp o alguna cosa así --}}
+                                                <button type="submit" class="btn btn-danger text-white">Enviar</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
