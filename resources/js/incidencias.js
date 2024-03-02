@@ -5,7 +5,10 @@ let rol;
 let datosFinales=[];
 let datosPaginacion=[];
 let pagina=0;
-let host=window.location.origin;
+//varialbe de host del servidor para poder conectarme al mismo
+import {hostServer} from "./variableHost.js";
+//variable para poder usar en todo donde haga falta llamar al servidor
+let host=hostServer;
 
 function inicio()
 {
@@ -13,10 +16,8 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data.incidencias; // Guardamos los datos en la variable
         rol=data.rol_usuario[0];
-        console.log(rol); // Ahora deberías poder ver los datos
 
         crearArrayPaginacion(datosIncidencias);
-        //console.log(datosPaginacion);
         if(rol=="administrador")
         {
             //metodo generico para mostrar las incidencias para el edministrador
@@ -27,11 +28,7 @@ function inicio()
             generarIncidenciasUsuario(datosPaginacion);
         }
     });
-    console.log(window.location.origin);
 
-
-    /*const apiKey = process.env.API_KEY;
-    const dbHost = process.env.DB_HOST;*/
     //llamadas a los metodos para los filtros
     filtrar.addEventListener("click",aplicacionFiltros,false);
     borrar.addEventListener("click",borrarFiltros,false);
@@ -500,14 +497,15 @@ function aplicacionFiltros()
     //metodo para crear el array de paginacion pero con los datos filtrados
     crearArrayPaginacion(datosFinales);
 
-
+    //pregunta para poder usar un metodo u otro en funcion del rol
     if(rol=="administrador")
     {
-        //metodo generico para mostrar las incidencias para el edministrador
+        //metodo generico para mostrar las incidencias para el administrador
         generarIncidenciasAdmi(datosPaginacion);
     }
     else
     {
+        //metodo generico para mostrar las incidencias para el profesor
         generarIncidenciasUsuario(datosPaginacion);
     }
 
@@ -546,7 +544,7 @@ function borrarFiltros()
     }
 }
 
-//metodo generico para mostrar las incidencias
+//metodo generico para mostrar las incidencias de administrador
 function generarIncidenciasAdmi(datos)
 {
     //comprovacion para la creacion de las graficas con datos filtrados o todos
@@ -573,7 +571,6 @@ function generarIncidenciasAdmi(datos)
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
     for(let i=0;datos[pagina].length;i++)
     {
-        //console.log(item.id);
         //ruta para la vista de show de esa incidencia
         let stringRedirect=ruta+"/"+datos[pagina][i].id;
 
@@ -752,34 +749,15 @@ function generarIncidenciasAdmi(datos)
     }
 }
 
-//metodo generico para mostrar las incidencias
+//metodo generico para mostrar las incidencias para el profesor
 function generarIncidenciasUsuario(datos)
 {
-    //comprovacion para la creacion de las graficas con datos filtrados o todos
-   /* if(datosFinales.length>0)
-    {
-        //metodos para crear grafico circular y sus datos
-        crearGraficaTipos(datosTipo(datosFinales));
-
-        //metodo para crear grafica de barras y sus datos
-        crearGraficaEstado(datosEstado(datosFinales));
-    }
-    else
-    {
-        //metodos para crear grafico circular y sus datos
-        crearGraficaTipos(datosTipo(datosIncidencias));
-
-        //metodo para crear grafica de barras y sus datos
-        crearGraficaEstado(datosEstado(datosIncidencias));
-    }*/
-
     //vacio el contenedor de incidencias
     document.querySelector("#contenedorIncidencias").innerHTML="";
     let ruta=host+"/incidencias";
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
     for(let i=0;datos[pagina].length;i++)
     {
-        //console.log(item.id);
         //ruta para la vista de show de esa incidencia
         let stringRedirect=ruta+"/"+datos[pagina][i].id;
 
@@ -838,21 +816,8 @@ function generarIncidenciasUsuario(datos)
         aDetalles.href=ruta+"/"+datos[pagina][i].id;
         aDetalles.classList="btn aquamarine-400 text-white";
 
-        //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
-        /*let inputBorrar=document.createElement("input");
-        inputBorrar.value="Borrar";
-        inputBorrar.type="button";
-        inputBorrar.classList="btn btn-danger text-white flex-fill";
-        inputBorrar.setAttribute("data-bs-toggle","modal");
-        inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
-        inputBorrar.setAttribute("idincidencia",datos[pagina][i].id);
-        inputBorrar.addEventListener("click",preguntarBorrado,false);*/
-
         //meto el boton de detalles
         divBotonesInterno.appendChild(aDetalles);
-        //meto dentro del div de botones el boton de borrado
-        //divBotonesInterno.appendChild(inputBorrar);
-
 
         //meto los textos de la incidencia dentro del sus divs
         divTipoIncidencia.appendChild(textTipoIncidencia);
@@ -1216,14 +1181,6 @@ function redirect(url)
 //funcion para cambiar el actrion del formulario de borrado por el del id del elemento clickado
 function preguntarBorrado(event)
 {
-    //elimino el evento de enviar
-    /*event.preventDefault();
-    //coloco en el modal el valor del id de la incidencia
-    numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
-    //guardo en esta variable el id de la incidencia a borrar
-    idFormularioBorrado=event.target.parentNode.id;*/
-    //console.log(event.target.parentNode);
-
     //coloco en el modal el valor del id de la incidencia
     numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
 
@@ -1231,15 +1188,5 @@ function preguntarBorrado(event)
 
     formBorrado.action=ruta;
 }
-/*
-// funcion para realizar la confirmacion del borrado del registro
-function confiramarBorrado()
-{
-    //console.log(idFormularioBorrado);
-    //si le ha dado que quiere borrar obtengo el formulario que tiene la ruta de borrado
-    let formulario=document.querySelector("#"+idFormularioBorrado);
-    //activo el evento de envio del formulario
-    formulario.submit();
-}*/
 
 

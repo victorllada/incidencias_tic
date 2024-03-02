@@ -46,19 +46,23 @@
                             {{-- Contendor con los filtros y boton de filtrado --}}
                             <div class="offcanvas-body d-flex flex-column justify-between gap-4">
 
-                                {{-- Filtro id --}}
+                                @role('administrador')
+                                {{-- Filtro id, solo lo ve los admins--}}
                                 <div class="input-group">
                                     <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
                                     <input class="form-control" id="idFiltro" name="idFiltro" type="search"
                                         placeholder="Introduce el ID">
                                 </div>
+                                @endrole
 
-                                {{-- Filtro usuario --}}
+                                @role('administrador')
+                                {{-- Filtro usuario, solo lo ve los admins --}}
                                 <div class="input-group">
                                     <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Usuario</label>
                                     <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
                                         placeholder="Introduce nombre del usuario">
                                 </div>
+                                @endrole
 
                                 {{-- Filtro tipo --}}
                                 <div class="input-group">
@@ -424,12 +428,16 @@
 
             {{-- Encabezado de la lista de incidencias --}}
             <div class="row d-flex justify-content-between flex-nowrap text-white aquamarine-300 rounded-top">
-                <div class="col fw-bolder p-3 baja-res">
-                    ID
-                </div>
-                <div class="col fw-bolder p-3 baja-res">
-                    Usuario
-                </div>
+                @role('administrador')
+                    <div class="col fw-bolder p-3 baja-res">
+                        ID
+                    </div>
+                @endrole
+                @role('administrador')
+                    <div class="col fw-bolder p-3 baja-res">
+                        Usuario
+                    </div>
+                @endrole
                 <div class="col fw-bolder p-3">
                     Tipo
                 </div>
