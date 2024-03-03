@@ -82,14 +82,14 @@
                                     <div class="offcanvas-body d-flex flex-column gap-4 overflow-y-auto scroller">
                                         @forelse ($comentarios as $comentario)
                                             <div class=" card aquamarine-100">
-
                                                 <div class="card-header">
+                                                    {{-- Comprueba si el usuario del comentario es el mismo que el de la sesion --}}
                                                     @if ($comentario->user->id != auth()->user()->id)
                                                         {{-- Verificar si el usuario tiene el rol "administrador" --}}
                                                         @if ($comentario->user->hasRole('administrador'))
                                                             <div class="fw-bolder">Administrador</div>
                                                         @endif
-                                                        {{-- verificar si el usuario tiene el rol de profesor --}}
+                                                        {{-- verificar si el usuario tiene el rol de "profesor" --}}
                                                         @if ($comentario->user->hasRole('profesor'))
                                                             <div class="fw-bolder">Profesor</div>
                                                         @endif
@@ -117,14 +117,14 @@
                                         @endforelse
                                     </div>
 
-                                    <div class="offcanvas-header mb-0">
+                                    <div class="offcanvas-header mb-0 border-top">
                                         <form action="{{ route('comentarios.store') }}" method="POST"
-                                            enctype="multipart/form-data">
+                                            enctype="multipart/form-data" class="chat">
                                             @csrf
-                                            <div class="input-group chat">
+                                            <div class="input-group">
                                                 {{-- Campo escondido para mandar el id de la incidencia --}}
                                                 <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
-                                                {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
+                                                {{-- El input esta oculto con un display none y para añadir un archivo se clicka en el label --}}
                                                 <input type="file" id="fichero" name="fichero"
                                                     class="fichero-comentario">
                                                 <label for="fichero"
@@ -133,7 +133,7 @@
                                                 </label>
                                                 <input type="text" class="form-control" name="texto"
                                                     placeholder="Mensaje">
-                                                {{-- Boton de enviar puede ser icono como whatsapp o alguna cosa así --}}
+                                                {{-- Boton de enviar --}}
                                                 <button type="submit" class="form-control btn aquamarine-400 text-white">
                                                     Enviar
                                                     <i class="bi bi-send"></i>
