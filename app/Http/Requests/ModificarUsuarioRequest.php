@@ -15,7 +15,7 @@ class ModificarUsuarioRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Validaciones para el request
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -29,7 +29,7 @@ class ModificarUsuarioRequest extends FormRequest
     }
 
     /**
-     * Get custom error messages for validator errors.
+     * Mostrar mensajes personalizados de error
      *
      * @return array
      */

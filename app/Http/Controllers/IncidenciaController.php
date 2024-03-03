@@ -34,7 +34,9 @@ use function PHPUnit\Framework\isNull;
 class IncidenciaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra unas incidecnias u otras dependiendo del rol del usuario
+     *
+     * @return view Devuelve la vista de incidencias.index
      */
     public function index()
     {
@@ -46,6 +48,7 @@ class IncidenciaController extends Controller
         // En caso contrario (rol de profesor), devolvemos las incidencias creadas por el usuario.
         $incidencias = $user->hasRole('administrador') ? Incidencia::all() : Incidencia::where('creador_id', $user->id)->get();
 
+        //Buscamos los usuarios con rol de administrador
         $responsables = User::whereHas('roles', function ($query) {
             $query->where('name', 'administrador');
         })->get();
@@ -54,9 +57,11 @@ class IncidenciaController extends Controller
         return view('incidencias.index', compact('incidencias', 'responsables'));
     }
 
-    /*
-    * Funcion para poder enviar las incidencias a ajax
-    */
+    /**
+     * Funcion para poder enviar las incidencias a ajax
+     *
+     * @return Illuminate\Contracts\Routing\ResponseFactory::json
+     */
     public function datosIncidencias()
     {
         //Obtenemos el usuario logueado y lo guardamos en una variable
@@ -81,7 +86,9 @@ class IncidenciaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra la vista de crear incidencias
+     *
+     * @return view Devuelve la vista de incidecnias.create
      */
     public function create()
     {
@@ -98,8 +105,11 @@ class IncidenciaController extends Controller
         return view('incidencias.create', compact('usuarios', 'aulas', 'departamentos'));
     }
 
+
     /**
-     * Funcion para poder enviar a ajax las etiquetas de los equipos del aula seleccionado.
+     * Muestra la vista de crear incidencias
+     *
+     * @return Illuminate\Contracts\Routing\ResponseFactory::json
      */
     public function obtenerEtiquetas(int $aulaId)
     {
@@ -110,8 +120,12 @@ class IncidenciaController extends Controller
         return response()->json($datosJSON);
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Guarda la nueva incidencia en la base de datos.
+     *
+     * @param App\Http\Requests\CrearIncidenciaRequest
+     * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
     public function store(CrearIncidenciaRequest $request)
     {
@@ -245,7 +259,10 @@ class IncidenciaController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * Muestra la vista de show incidencias
+     *
+     * @param App\Models\Incidencia La incidencia concreta que quermos ver en detalle.
+     * @return view Devuelve la vista de incidecnias.show
      */
     public function show(Incidencia $incidencia)
     {
@@ -263,7 +280,10 @@ class IncidenciaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra la vista de edit incidencias
+     *
+     * @param App\Models\Incidencia La incidencia concreta que quermos editar.
+     * @return view Devuelve la vista de incidecnias.edit
      */
     public function edit(Incidencia $incidencia)
     {
@@ -286,8 +306,13 @@ class IncidenciaController extends Controller
         return view('incidencias.edit', compact('incidencia', 'usuarios', 'aulas'));
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * Modifica la incidencia pasada por parametro y la guarda en la base de datos.
+     *
+     * @param App\Http\Requests\ModificarIncidenciaRequest
+     * @param App\Models\Incidencia
+     * @return Illuminate\Routing\Redirector::route Devuelve una ruta u otra dependiendo del resultado de la operación
      */
     public function update(ModificarIncidenciaRequest $request, Incidencia $incidencia)
     {
@@ -387,7 +412,11 @@ class IncidenciaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina la incidencia pasada por parametro de la base de datos.
+     *
+     * @param App\Http\Requests\ModificarIncidenciaRequest
+     * @param App\Models\Incidencia
+     * @return Illuminate\Routing\Redirector::route Devuelve una ruta u otra dependiendo del resultado de la operación
      */
     public function destroy(int $id)
     {
@@ -507,6 +536,12 @@ class IncidenciaController extends Controller
         };
     }
 
+    /**
+     * Devuelve la descarga del archivo
+     *
+     * @param  int  $id  Identificador único de la incidencia.
+     * @return \Illuminate\Contracts\Routing\ResponseFactory::download devuelve la respuesta para la descarga
+     */
     public function descargarArchivo(int $id)
     {
         // Obtener la incidencia por ID

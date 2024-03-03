@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class ModificarIncidenciaRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Validaciones para el request
      */
     public function rules(): array
     {
@@ -23,7 +23,7 @@ class ModificarIncidenciaRequest extends FormRequest
     }
 
     /**
-     * Get custom error messages for validator errors.
+     * Mostrar mensajes personalizados de error
      *
      * @return array
      */

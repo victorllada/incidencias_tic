@@ -6,20 +6,22 @@ use App\Http\Requests\CrearComentarioRequest;
 use App\Models\Comentario;
 use App\Models\Incidencia;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use SplFileInfo;
 
 class ComentarioController extends Controller
 {
+
     /**
-     * Store a newly created resource in storage.
+     * Guarda el nuevo comentario en la base de datos
+     *
+     * @param  App\Http\Requests\CrearComentarioRequest
+     * @return \Illuminate\Support\Facades\Redirect Redirije a una vista u otra dependiendo del resultado
      */
     public function store(CrearComentarioRequest $request)
     {
         try {
-            //Comenzamos transaccion
             DB::beginTransaction();
 
             $comentario = new Comentario();
@@ -38,33 +40,36 @@ class ComentarioController extends Controller
 
             $comentario->save();
 
-            //Comitamos
             DB::commit();
 
             $incidencia = Incidencia::find($request->incidencia_id);
 
-            //Redirección al show con mensaje de exito
             return Redirect::route('incidencias.show', $incidencia)->with('success', 'Comentario enviado.');
         } catch (Exception $e) {
 
             $incidencia = Incidencia::find($request->incidencia_id);
 
             if ($incidencia) {
-                //Cancelamos la transacción
+
                 DB::rollBack();
 
-                //Redirección al show con mensaje de error
                 return Redirect::route('incidencias.show', $incidencia)->with('error', 'No se pudo enviar el comentario.');
             } else {
-                // Si no se puede encontrar la incidencia, redirigimos al index
+
                 return redirect()->route('incidencias.index')->with('error', 'No se pudo encontrar la incidencia asociada al comentario.');
             }
         }
     }
 
+
+    /**
+     * Devuelve la descarga del archivo
+     *
+     * @param  int  $id  Identificador único del comentario.
+     * @return \Illuminate\Contracts\Routing\ResponseFactory::download devuelve la respuesta para la descarga
+     */
     public function descargarComentarioArchivo(int $id)
     {
-        // Obtener el comentario por ID
         $coment = Comentario::find($id);
 
         if (!$coment || !$coment->adjunto_url) {
@@ -74,29 +79,11 @@ class ComentarioController extends Controller
         // Ruta del archivo en el sistema de archivos
         $rutaArchivo = public_path('assets/' . $coment->adjunto_url);
 
-        // Obtener el tipo de archivo
+        // Obtener la informacion del archivo
         $infoArchivo = new SplFileInfo($rutaArchivo);
 
-        //Ponemos el nombre del archivo
         $nombreArchivo = "comentario-" . $id . '.' . $infoArchivo->getExtension();
 
-        // Devolver la respuesta para la descarga
         return response()->download($rutaArchivo, $nombreArchivo);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

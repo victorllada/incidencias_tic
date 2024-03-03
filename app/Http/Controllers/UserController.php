@@ -15,7 +15,9 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los usuarios
+     *
+     * @return view Devuelve la vista de usuarios.index
      */
     public function index()
     {
@@ -24,9 +26,11 @@ class UserController extends Controller
         return view('usuarios.index', compact('usuarios', 'departamentos'));
     }
 
-    /*
-    * Funcion para poder enviar los usuarios a ajax
-    */
+    /**
+     * Funcion para poder enviar los usuarios a ajax
+     *
+     * @return Illuminate\Contracts\Routing\ResponseFactory::json
+     */
     public function datosUsuarios()
     {
         $usuarios = User::all();
@@ -47,7 +51,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra la vista para crear un usuario
+     *
+     * @return view Devuelve la vista de usuarios.create
      */
     public function create()
     {
@@ -57,7 +63,11 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda el nuevo usuario en la base de datos.
+     * Este método no se va a usar pero lo dejamos hecho por si en futuras actulizacioones es necesario.
+     *
+     * @param App\Http\Requests\CrearUsuarioRequest
+     * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
     public function store(CrearUsuarioRequest $request, User $usuario)
     {
@@ -97,7 +107,10 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra la vista de show usuarios
+     *
+     * @param App\Models\User
+     * @return view Devuelve la vista de usuarios.show
      */
     public function show(User $usuario)
     {
@@ -111,11 +124,15 @@ class UserController extends Controller
     {
         $departamentos = Departamento::all();
         $rolesDisponibles = Role::pluck('name')->toArray();
-        return view('usuarios.edit', compact('usuario', 'departamentos','rolesDisponibles'));
+        return view('usuarios.edit', compact('usuario', 'departamentos', 'rolesDisponibles'));
     }
 
-    /**
-     * Update the specified resource in storage.
+   /**
+     * Modifica el usuario pasado por parametro en la base de datos.
+     *
+     * @param App\Http\Requests\ModificarUsuarioRequest
+     * @param App\Models\User
+     * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
     public function update(ModificarUsuarioRequest $request, User $usuario)
     {
@@ -148,7 +165,11 @@ class UserController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el usuario pasado por parametro de la base de datos.
+     * Este método no se va a usar pero lo dejamos hecho por si en futuras actulizacioones es necesario.
+     *
+     * @param App\Models\User
+     * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
     public function destroy(User $usuario)
     {
