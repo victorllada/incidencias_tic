@@ -37,7 +37,7 @@
                                 @role('administrador')
                                     {{-- Filtro id, solo lo ve los admins --}}
                                     <div class="input-group">
-                                        <label class="col-3 input-group-text aquamarine-200" for="idFiltro">ID</label>
+                                        <label class="col-4 input-group-text aquamarine-200" for="idFiltro">ID</label>
                                         <input class="form-control" id="idFiltro" name="idFiltro" type="search"
                                             placeholder="Introduce el ID">
                                     </div>
@@ -46,7 +46,7 @@
                                 @role('administrador')
                                     {{-- Filtro usuario, solo lo ve los admins --}}
                                     <div class="input-group">
-                                        <label class="col-3 input-group-text aquamarine-200" for="nombreFiltro">Creador</label>
+                                        <label class="col-4 input-group-text aquamarine-200" for="nombreFiltro">Creador</label>
                                         <input class="form-control" id="nombreFiltro" name="nombreFiltro" type="search"
                                             placeholder="Introduce nombre del creador">
                                     </div>
@@ -54,7 +54,7 @@
 
                                 {{-- Filtro tipo --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
+                                    <label class="col-4 input-group-text aquamarine-200" for="tipoFiltro">Tipo</label>
                                     <select class="form-select" id="tipoFiltro" name="tipoFiltro">
                                         <option selected value="-1">Selecciona el tipo</option>
                                         <option value="EQUIPOS">Equipos</option>
@@ -67,7 +67,7 @@
 
                                 {{-- Filtro subtipo --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
+                                    <label class="col-4 input-group-text aquamarine-200" for="subtipoFiltro">Subtipo</label>
                                     <select class="form-select" id="subtipoFiltro" name="subtipoFiltro">
                                         <option selected value="-1">Selecciona el subtipo</option>
                                     </select>
@@ -75,7 +75,7 @@
 
                                 {{-- Filtro prioridad --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200"
+                                    <label class="col-4 input-group-text aquamarine-200"
                                         for="prioridadFiltro">Prioridad</label>
                                     <select class="form-select" id="prioridadFiltro" name="prioridadFiltro">
                                         <option selected value="-1">Selecciona la prioridad</option>
@@ -88,7 +88,7 @@
 
                                 {{-- Filtro fecha desde hasta --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200"
+                                    <label class="col-4 input-group-text aquamarine-200"
                                         for="fechaDesdeFiltro">Fecha</label>
                                     <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
                                         aria-label="Desde">
@@ -99,7 +99,7 @@
 
                                 {{-- Filtro estado --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
+                                    <label class="col-4 input-group-text aquamarine-200" for="estadoFiltro">Estado</label>
                                     <select class="form-select" id="estadoFiltro" name="estadoFiltro">
                                         <option selected value="-1">Selecciona el estado</option>
                                         <option value="ABIERTA">Abierta</option>
@@ -113,7 +113,7 @@
 
                                 {{-- Filtro responsable --}}
                                 <div class="input-group">
-                                    <label class="col-3 input-group-text aquamarine-200"
+                                    <label class="col-4 input-group-text aquamarine-200"
                                         for="responsableFiltro">Responsable</label>
                                     <select class="form-select" id="responsableFiltro" name="responsableFiltro">
                                         <option selected value="-1">Selecciona un responsable</option>
