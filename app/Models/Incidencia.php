@@ -27,7 +27,7 @@ class Incidencia extends Model
     }
 
     /**
-     * Define la relación muchos a uno con la tabla 'personal' (creador de la incidencia).
+     * Define la relación muchos a uno con la tabla 'users' (creador de la incidencia).
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -37,7 +37,7 @@ class Incidencia extends Model
     }
 
     /**
-     * Define la relación muchos a uno con la tabla 'Users' (responsable de la incidencia).
+     * Define la relación uno a uno con la tabla 'Users' (responsable de la incidencia).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

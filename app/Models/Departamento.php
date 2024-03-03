@@ -26,13 +26,4 @@ class Departamento extends Model
         return $this->hasMany(User::class, 'id_departamento');
     }
 
-    /**
-     * Define la relación muchos a uno con la tabla 'personal' (jefe de departamento).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    /*public function jefeDepartamento()
-    {
-        return $this->belongsTo(User::class, 'jefedep_id');
-    }*/
 }

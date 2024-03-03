@@ -44,7 +44,7 @@ class ComentarioController extends Controller
 
             $incidencia = Incidencia::find($request->incidencia_id);
 
-            return Redirect::route('incidencias.show', $incidencia)->with('success', 'Comentario enviado.');
+            return redirect()->route('incidencias.show', $incidencia)->with('success', 'Comentario enviado.');
         } catch (Exception $e) {
 
             $incidencia = Incidencia::find($request->incidencia_id);
@@ -53,10 +53,10 @@ class ComentarioController extends Controller
 
                 DB::rollBack();
 
-                return Redirect::route('incidencias.show', $incidencia)->with('error', 'No se pudo enviar el comentario.');
+                return redirect()->route('incidencias.show', $incidencia)->with('error', 'No se pudo enviar el comentario.');
             } else {
 
-                return redirect()->route('incidencias.index')->with('error', 'No se pudo encontrar la incidencia asociada al comentario.');
+                return redirect()->route('incidencias.index')->with('error', 'No se pudo encontrar la incidencia asociada al comentario. Detalles: ' . $e->getMessage());
             }
         }
     }

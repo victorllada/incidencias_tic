@@ -153,15 +153,17 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4" id="div-duracion">
-                            <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="duracion">
-                                    Duración
-                                </label>
-                                <input type="number" class="form-control" name="duracion" id="duracion"
-                                    placeholder="60" pattern="[0-9]*" value="{{ $incidencia->duracion }}">
+                        @role('administrador')
+                            <div class="col-lg-4" id="div-duracion">
+                                <div class="input-group">
+                                    <label class="input-group-text aquamarine-200 fw-bolder" for="duracion">
+                                        Duración
+                                    </label>
+                                    <input type="number" class="form-control" name="duracion" id="duracion"
+                                        placeholder="60" pattern="[0-9]*" value="{{ $incidencia->duracion }}">
+                                </div>
                             </div>
-                        </div>
+                        @endrole
                     </div>
 
                     {{-- Fila 4 descripción y actuaciones --}}
