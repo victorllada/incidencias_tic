@@ -12,5 +12,6 @@ Software para la gestión de incidencias realizadas por el departamento TIC del 
 ## Contenidos
 
 - [DOCUMENTACIÓN PROYECTO](DocumentacionProyecto.md)
-- [DOCUMENTO TÉCNICO](DocumentoTecnico.md)
-- [PHPDOC](docs/api/index.html)
+- [MANUAL DE USUARIO](DocumentoTecnico.md)
+- [PHPDOC](docs/php/index.html)
+- [JSDOC](docs/js/index.html)
