@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - show')
 @section('archivosJS')
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js','resources/js/showIncidencia.js'])
 @endsection
 @section('contenido')
 
@@ -281,10 +281,10 @@
         <div class="d-flex gap-2">
             <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
                 class="btn aquamarine-400 text-white">Editar</a>
-            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST" id="formBorrar">
                 @csrf
                 @method('delete')
-                <button type="submit" class="btn btn-danger text-white"data-bs-toggle="modal"
+                <button type="submit" id="botonBorrar" class="btn btn-danger text-white"data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop">Borrar</button>
             </form>
         </div>
@@ -303,16 +303,12 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        Desea borrar la incidencia con id: <span id="numeroID"></span>
+        Desea borrar la incidencia
     </div>
     <div class="modal-footer">
         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-        <form action="" id="formBorrado" method="POST">
-            @csrf
-            @method('delete')
-            <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
-                name="activarBorrado">
-        </form>
+        <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
+            name="activarBorrado" data-idIncidencia="">
     </div>
 </div>
 </div>

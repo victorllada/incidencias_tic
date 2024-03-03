@@ -66,7 +66,7 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data.incidencias; // Guardamos los datos en la variable
         rol=data.rol_usuario[0];
-        console.log(data);
+        //console.log(data);
 
         crearArrayPaginacion(datosIncidencias);
         if(rol=="administrador")
@@ -640,6 +640,7 @@ function borrarFiltros()
     fechaDesdeFiltro.value="";
     fechaHastaFiltro.value="";
     estadoFiltro.value="-1";
+    responsableFiltro.value="-1";
     datosFinales=[];
 
     //poner la pagina 1
@@ -1445,7 +1446,7 @@ function redirect(url)
 function preguntarBorrado(event)
 {
     //coloco en el modal el valor del id de la incidencia
-    numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
+    numeroID.innerHTML=event.target.getAttribute("idincidencia");
 
     let ruta=host+"/incidencias/"+event.target.getAttribute("idincidencia");
 
