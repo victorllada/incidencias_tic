@@ -16,7 +16,7 @@ class CrearComentarioRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Validaciones para el request
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -24,12 +24,12 @@ class CrearComentarioRequest extends FormRequest
     {
         return [
             'texto' => 'required',
-            //'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
+            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ];
     }
 
     /**
-     * Get custom error messages for validator errors.
+     * Mostrar mensajes personalizados de error
      *
      * @return array
      */
@@ -37,7 +37,7 @@ class CrearComentarioRequest extends FormRequest
     {
         return [
             'texto.required' => 'El texto del comentario es obligatorio.',
-            //'fichero.mimes' => 'El fichero adjunto debe tener un formato valido'
+            'fichero.mimes' => 'El fichero adjunto debe tener un formato valido'
         ];
     }
 }
