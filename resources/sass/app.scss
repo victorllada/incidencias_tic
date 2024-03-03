@@ -435,3 +435,19 @@ main .custom-dropdown-menu .dropdown-item:active {
 .button:hover:before {
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
 }
+
+.fichero-comentario{
+    display: none;
+}
+
+.custom-file-input{
+    cursor: pointer;
+}
+
+.offcanvas-footer {
+    position: fixed;
+    bottom: 0;
+    margin-right:10px ;
+    background-color: #f8fafc;
+    border-top: 1px solid #dee2e6;
+  }

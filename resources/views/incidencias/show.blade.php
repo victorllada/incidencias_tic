@@ -78,8 +78,8 @@
                                             aria-label="Close"></button>
                                     </div>
 
-                                    {{-- Contendor comentarios --}}
-                                    <div class="offcanvas-body d-flex flex-column">
+                                    {{-- Contenedor de envio de mensaje --}}
+                                    <div class="offcanvas-body d-flex flex-column overflow-y-auto">
                                         @forelse ($comentarios as $comentario)
                                             <p>
                                                 <span>{{ $comentario->user->nombre_completo }}:</span>
@@ -100,32 +100,38 @@
                                                     <span>Archivo adjunto: <a
                                                             href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
                                                             class="btn aquamarine-400 text-white">Descargar
-                                                            Archivo</a></span>
+                                                            Archivo</a>
+                                                    </span>
                                                 @endif
                                             </p>
                                         @empty
                                             <p>No hay comentarios</p>
                                         @endforelse
+                                    </div>
 
-                                        {{-- Contenedor de envio de mensaje --}}
-                                        <div class="offcanvas-body d-flex flex-column fixed-bottom">
-
-                                        </div>
-                                        <div class="offcanvas-footer mb-2 fixed-bottom position-relative">
-                                            <form action="{{ route('comentarios.store') }}" method="POST"
-                                                enctype="multipart/form-data">
-                                                @csrf
+                                    <div class="offcanvas-footer mb-4">
+                                        <form action="{{ route('comentarios.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="input-group">
                                                 {{-- Campo escondido para mandar el id de la incidencia --}}
                                                 <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
                                                 {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
-                                                <div>
-                                                    <input type="text" name="texto" placeholder="Mensaje">
-                                                    <input type="file" id="fichero" name="fichero">
-                                                </div>
-                                                {{-- Botonn de enviar puede ser icono como whatsapp o alguna cosa así --}}
-                                                <button type="submit" class="btn btn-danger text-white">Enviar</button>
-                                            </form>
-                                        </div>
+                                                <input type="file" id="fichero" name="fichero"
+                                                    class="fichero-comentario">
+                                                <label for="fichero"
+                                                    class="form-label form-control btn aquamarine-400 text-white">
+                                                    <i class="bi bi-paperclip"></i>
+                                                </label>
+                                                <input type="text" class="form-control" name="texto"
+                                                    placeholder="Mensaje">
+                                                {{-- Boton de enviar puede ser icono como whatsapp o alguna cosa así --}}
+                                                <button type="submit" class="form-control btn aquamarine-400 text-white">
+                                                    Enviar
+                                                    <i class="bi bi-send"></i>
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
