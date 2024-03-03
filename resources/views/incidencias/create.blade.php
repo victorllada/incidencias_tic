@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Crear')
 @section('archivosJS')
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js','resources/js/createIncidencias.js'])
 @endsection
 @section('contenido')
 
@@ -101,8 +101,7 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
                                     Aula</label>
-                                <select class="form-select" name="aula" id="aula" required
-                                    onchange="cargarEtiquetas()">
+                                <select class="form-select" name="aula" id="aula" required><!--onchange="cargarEtiquetas()"-->
                                     <option selected disabled value="-1">Selecciona el aula</option>
                                     @foreach ($aulas as $aula)
                                         <option value={{ $aula->id }}>{{ $aula->codigo }}</option>
@@ -191,7 +190,7 @@
     </div>
 @endsection
 
-<script>
+<!--script>
     function cargarEtiquetas() {
         var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
 
@@ -222,10 +221,10 @@
             })
             .catch(error => console.error('Error:', error)); //Obtenemos el error
     }
-</script>
+</script-->
 
 <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-<script>
+<!--script>
     addEventListener('load', () => {
         //Guardamos en una variable el selec de tipo
         var tipo = document.getElementById("tipo");
@@ -379,4 +378,4 @@
             document.getElementById("div-equipo").hidden = true;
         }
     }
-</script>
+</script-->
