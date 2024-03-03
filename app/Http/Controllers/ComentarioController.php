@@ -71,9 +71,17 @@ class ComentarioController extends Controller
     public function descargarComentarioArchivo(int $id)
     {
         $coment = Comentario::find($id);
+        $creadorIncidencia = $coment->incidencia->creador_id;
+
+        $user = auth()->user();
+
+        if (!$user->hasRole('administrador') && $user->id !== $creadorIncidencia) {
+            //abort(403, 'No tiene permisos para descargar el adjunto de este comentario.');
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para descargar el adjunto de este comentario.');
+        }
 
         if (!$coment || !$coment->adjunto_url) {
-            abort(404);
+            return redirect()->route('incidencias.index')->with('error', 'No se encuentra el adjunto o no tiene.');
         }
 
         // Ruta del archivo en el sistema de archivos
