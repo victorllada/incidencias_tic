@@ -205,8 +205,8 @@ main .custom-dropdown-menu .dropdown-item:active {
         display: none;
     }
 
-    // Hace que los row y las col tengan el mismo espaciado
-    .row{
+    // Hace que los row y las col dentro de las .card tengan el mismo espaciado
+    .card .row{
         display: flex;
         gap: 1.5rem;
     }
