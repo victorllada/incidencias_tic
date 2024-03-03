@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: incidencias.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: incidencias.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Event listener que se ejecuta cuando la página se carga por completo.
  * Llama a la función 'inicio'.
  *
@@ -98,7 +126,7 @@ function inicio()
 
 /**
  * Función asincrónica para obtener datos de incidencias mediante una llamada a una ruta en Laravel.
- * @returns {Promise<Object>} Una promesa que se resuelve con los datos de incidencias obtenidos.
+ * @returns {Promise&lt;Object>} Una promesa que se resuelve con los datos de incidencias obtenidos.
  * @throws {Error} Error HTTP si la respuesta no es exitosa.
  */
 async function obtenerIncidencias()
@@ -137,7 +165,7 @@ function crearArrayPaginacion(array)
     datosPaginacion=[];
 
     //dividir el array de entrada en arrays de tamaño 10
-    for (let i=0;i<array.length; i+=10)
+    for (let i=0;i&lt;array.length; i+=10)
     {
         datosPaginacion.push(array.slice(i, i+10));
     }
@@ -200,7 +228,7 @@ function paginaAnterior()
 function paginaEscrita()
 {
     //comprueba que el valor del inpu sea un numero entre 0 y el tamaño de las paginas posibles
-    if(paginaActual.value>0 && paginaActual.value<=datosPaginacion.length)
+    if(paginaActual.value>0 &amp;&amp; paginaActual.value&lt;=datosPaginacion.length)
     {
         //le doy el valor del input a la pagina
         pagina=paginaActual.value-1;
@@ -226,7 +254,7 @@ function paginaSiguiente()
     let pajTemp=pagina;
 
     //compruebo que la pagina +1 no sea mayor al total de las paginas
-    if(++pajTemp<datosPaginacion.length)
+    if(++pajTemp&lt;datosPaginacion.length)
     {
         //sumo la pagina
         pagina++;
@@ -274,7 +302,7 @@ function paginacionFin()
 function generarSubtipos()
 {
     //escribir el primer option del select
-    subtipoFiltro.innerHTML="<option selected value='-1'>Selecciona el subtipo</option>";
+    subtipoFiltro.innerHTML="&lt;option selected value='-1'>Selecciona el subtipo&lt;/option>";
     //creacion del array para los valores de los option
     let array=[];
 
@@ -299,7 +327,7 @@ function generarSubtipos()
     }
 
     //for para poder crear los option del select
-    for (let i=0;i<array.length;i++)
+    for (let i=0;i&lt;array.length;i++)
     {
         //creacion de option
         let opt=document.createElement("option");
@@ -336,12 +364,12 @@ function filtrarObjetos(objetos, criterios)
                 // comparo por si la propiedad es un subtipo
                 if (propiedad === "subtipo")
                 {
-                    if (criterios[propiedad].id !== undefined && objeto.subtipo.id !== criterios[propiedad].id)
+                    if (criterios[propiedad].id !== undefined &amp;&amp; objeto.subtipo.id !== criterios[propiedad].id)
                     {
                         return false;
                     }
 
-                    if (criterios[propiedad].subtipo_nombre !== undefined && objeto.subtipo.subtipo_nombre !== criterios[propiedad].subtipo_nombre)
+                    if (criterios[propiedad].subtipo_nombre !== undefined &amp;&amp; objeto.subtipo.subtipo_nombre !== criterios[propiedad].subtipo_nombre)
                     {
                         return false;
                     }
@@ -387,8 +415,8 @@ function filtrarPorUsuario(objetosFiltrados, nombre, apellido1, apellido2)
 
             //devuelvo la incidencia si el creador de la misma es el mismo por el que preguntan
             return(
-                creador.nombre.toLowerCase().includes(nombre.toLowerCase()) &&
-                creador.apellido1.toLowerCase().includes(apellido1.toLowerCase()) &&
+                creador.nombre.toLowerCase().includes(nombre.toLowerCase()) &amp;&amp;
+                creador.apellido1.toLowerCase().includes(apellido1.toLowerCase()) &amp;&amp;
                 creador.apellido2.toLowerCase().includes(apellido2.toLowerCase())
             );
         }
@@ -433,7 +461,7 @@ function filtroFecha(datos,fechaDesde,fechaHasta="")
                 let fechaItem = new Date(item.fecha_creacion);
 
                 //devuelvo la incidencia si la fecha es la misma
-                return (fechaBusqueda.getDate()===fechaItem.getDate() && fechaBusqueda.getMonth()===fechaItem.getMonth() && fechaBusqueda.getFullYear()===fechaItem.getFullYear());
+                return (fechaBusqueda.getDate()===fechaItem.getDate() &amp;&amp; fechaBusqueda.getMonth()===fechaItem.getMonth() &amp;&amp; fechaBusqueda.getFullYear()===fechaItem.getFullYear());
             }
         );
     }
@@ -451,9 +479,9 @@ function filtroFecha(datos,fechaDesde,fechaHasta="")
 
                 //devuelvo la incidencia si la fecha esta entre las dos dadas
                 return (
-                    fechaBusquedaDesde.getFullYear()<=fechaItem.getFullYear() && fechaBusquedaHasta.getFullYear()>=fechaItem.getFullYear() &&
-                    (fechaBusquedaDesde.getFullYear()<fechaItem.getFullYear() || (fechaBusquedaDesde.getFullYear()===fechaItem.getFullYear() && fechaBusquedaDesde.getMonth()<=fechaItem.getMonth())) &&
-                    (fechaBusquedaDesde.getFullYear()<fechaItem.getFullYear() || (fechaBusquedaDesde.getFullYear()===fechaItem.getFullYear() && fechaBusquedaDesde.getMonth()===fechaItem.getMonth() && fechaBusquedaDesde.getDate()<=fechaItem.getDate()))
+                    fechaBusquedaDesde.getFullYear()&lt;=fechaItem.getFullYear() &amp;&amp; fechaBusquedaHasta.getFullYear()>=fechaItem.getFullYear() &amp;&amp;
+                    (fechaBusquedaDesde.getFullYear()&lt;fechaItem.getFullYear() || (fechaBusquedaDesde.getFullYear()===fechaItem.getFullYear() &amp;&amp; fechaBusquedaDesde.getMonth()&lt;=fechaItem.getMonth())) &amp;&amp;
+                    (fechaBusquedaDesde.getFullYear()&lt;fechaItem.getFullYear() || (fechaBusquedaDesde.getFullYear()===fechaItem.getFullYear() &amp;&amp; fechaBusquedaDesde.getMonth()===fechaItem.getMonth() &amp;&amp; fechaBusquedaDesde.getDate()&lt;=fechaItem.getDate()))
                 );
             }
         );
@@ -477,7 +505,7 @@ function aplicacionFiltros()
     datosFinales=[];
 
     //si solo esta la fecha desde con valor no se aplican filtros y se indica al usuario
-    if(fechaDesdeFiltro.value=="" && fechaHastaFiltro.value!="")
+    if(fechaDesdeFiltro.value=="" &amp;&amp; fechaHastaFiltro.value!="")
     {
         //mensaje para el usuario
         alert("la fecha como minimo hay que poner desde cuando hay que buscar");
@@ -541,20 +569,20 @@ function aplicacionFiltros()
     }
 
     //pregunta para saber si hay que filtrar por fecha en est caso solo por un dia en conreto
-    if(fechaDesdeFiltro.value!="" && fechaHastaFiltro.value=="")
+    if(fechaDesdeFiltro.value!="" &amp;&amp; fechaHastaFiltro.value=="")
     {
 
-        if(filtradosNombre.length==0 && filtrados.length==0)
+        if(filtradosNombre.length==0 &amp;&amp; filtrados.length==0)
         {
             filtradosFecha=filtroFecha(datosIncidencias,fechaDesdeFiltro.value);
             //console.log(filtradosFecha);
         }
-        else if(filtrados.length>0 && filtradosNombre.length==0)
+        else if(filtrados.length>0 &amp;&amp; filtradosNombre.length==0)
         {
             filtradosFecha=filtroFecha(filtrados,fechaDesdeFiltro.value);
             //console.log(filtradosFecha);
         }
-        else if(filtrados.length>0 && filtradosNombre.length>0)
+        else if(filtrados.length>0 &amp;&amp; filtradosNombre.length>0)
         {
             filtradosFecha=filtroFecha(filtradosNombre,fechaDesdeFiltro.value);
             //console.log(filtradosFecha);
@@ -562,19 +590,19 @@ function aplicacionFiltros()
 
     }
     //pregunta para saber si hay que filtrar por fecha, en este caso por un intervalo de fechas
-    else if(fechaDesdeFiltro.value!="" && fechaHastaFiltro.value!="")
+    else if(fechaDesdeFiltro.value!="" &amp;&amp; fechaHastaFiltro.value!="")
     {
-        if(filtradosNombre.length==0 && filtrados.length==0)
+        if(filtradosNombre.length==0 &amp;&amp; filtrados.length==0)
         {
             filtradosFecha=filtroFecha(datosIncidencias,fechaDesdeFiltro.value,fechaHastaFiltro.value);
             //console.log(filtradosFecha);
         }
-        else if(filtrados.length>0 && filtradosNombre.length==0)
+        else if(filtrados.length>0 &amp;&amp; filtradosNombre.length==0)
         {
             filtradosFecha=filtroFecha(filtrados,fechaDesdeFiltro.value,fechaHastaFiltro.value);
             //console.log(filtradosFecha);
         }
-        else if(filtrados.length>0 && filtradosNombre.length>0)
+        else if(filtrados.length>0 &amp;&amp; filtradosNombre.length>0)
         {
             filtradosFecha=filtroFecha(filtradosNombre,fechaDesdeFiltro.value,fechaHastaFiltro.value);
             //console.log(filtradosFecha);
@@ -582,19 +610,19 @@ function aplicacionFiltros()
     }
 
     //pregunto en donde estan los datos filtrados para poder guardarlos en otra variable final
-    if(filtrados.length>0 && filtradosNombre.length==0 && filtradosFecha.length==0)
+    if(filtrados.length>0 &amp;&amp; filtradosNombre.length==0 &amp;&amp; filtradosFecha.length==0)
     {
         datosFinales=filtrados;
     }
-    else if(filtrados.length>0 && filtradosNombre.length>0 && filtradosFecha.length==0)
+    else if(filtrados.length>0 &amp;&amp; filtradosNombre.length>0 &amp;&amp; filtradosFecha.length==0)
     {
         datosFinales=filtradosNombre;
     }
-    else if(filtrados.length>0 && filtradosNombre.length==0 && filtradosFecha.length>0)
+    else if(filtrados.length>0 &amp;&amp; filtradosNombre.length==0 &amp;&amp; filtradosFecha.length>0)
     {
         datosFinales=filtradosFecha;
     }
-    else if(filtrados.length>0 && filtradosNombre.length>0 && filtradosFecha.length>0)
+    else if(filtrados.length>0 &amp;&amp; filtradosNombre.length>0 &amp;&amp; filtradosFecha.length>0)
     {
         datosFinales=filtradosFecha;
     }
@@ -692,7 +720,7 @@ function generarIncidenciasAdmi(datos)
     document.querySelector("#contenedorIncidencias").innerHTML="";
     let ruta=host+"/incidencias";
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
-    for(let i=0;i<datos[pagina].length;i++)
+    for(let i=0;i&lt;datos[pagina].length;i++)
     {
         //ruta para la vista de show de esa incidencia
         let stringRedirect=ruta+"/"+datos[pagina][i].id;
@@ -850,7 +878,7 @@ function generarIncidenciasAdmi(datos)
         }
 
         //pregunto si estoy en una pagina que no sea ni la ultima ni la primera para que esnte todas las opciones disponibles
-        if(pagina>0 && pagina<datos.length-1)
+        if(pagina>0 &amp;&amp; pagina&lt;datos.length-1)
         {
             inicioPaginacion.disabled=false;
             inicioPaginacion.parentNode.classList="page-item";
@@ -883,7 +911,7 @@ function generarIncidenciasUsuario(datos)
     document.querySelector("#contenedorIncidencias").innerHTML="";
     let ruta=host+"/incidencias";
     //recorr el array de paginacion en la pagina que tenga el valor de pagina
-    for(let i=0;i<datos[pagina].length;i++)
+    for(let i=0;i&lt;datos[pagina].length;i++)
     {
         //console.log(datos[pagina][i]);
         //ruta para la vista de show de esa incidencia
@@ -1013,7 +1041,7 @@ function generarIncidenciasUsuario(datos)
         }
 
         //pregunto si estoy en una pagina que no sea ni la ultima ni la primera para que esnte todas las opciones disponibles
-        if(pagina>0 && pagina<datos.length-1)
+        if(pagina>0 &amp;&amp; pagina&lt;datos.length-1)
         {
             inicioPaginacion.disabled=false;
             inicioPaginacion.parentNode.classList="page-item";
@@ -1357,31 +1385,31 @@ function datosTiempoMedio(datos)
     datos.forEach(item => {
 
         //console.log(item.duracion)
-        if(item.tipo=="EQUIPOS" && item.duracion!=null)
+        if(item.tipo=="EQUIPOS" &amp;&amp; item.duracion!=null)
         {
             //console.log(item.duracion);
             equpos++;
             tiempoMedioEquipos+=item.duracion;
         }
-        else if(item.tipo=="CUENTAS" && item.duracion!=null)
+        else if(item.tipo=="CUENTAS" &amp;&amp; item.duracion!=null)
         {
             //console.log(item.duracion);
             cuentas++;
             tiempoMedioCuentas+=item.duracion;
         }
-        else if(item.tipo=="WIFI" && item.duracion!=null)
+        else if(item.tipo=="WIFI" &amp;&amp; item.duracion!=null)
         {
             //console.log(item.duracion);
             wifi++;
             tiempoMedioWifi+=item.duracion;
         }
-        else if(item.tipo=="INTERNET" && item.duracion!=null)
+        else if(item.tipo=="INTERNET" &amp;&amp; item.duracion!=null)
         {
             //console.log(item.duracion);
             internet++;
             tiempoMedioInternet+=item.duracion;
         }
-        else if(item.tipo=="SOFTWARE" && item.duracion!=null)
+        else if(item.tipo=="SOFTWARE" &amp;&amp; item.duracion!=null)
         {
             //console.log(item.duracion);
             software++;
@@ -1451,3 +1479,26 @@ function preguntarBorrado(event)
 
     formBorrado.action=ruta;
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aplicacionFiltros">aplicacionFiltros</a></li><li><a href="global.html#borrarFiltros">borrarFiltros</a></li><li><a href="global.html#confirmarBorrado">confirmarBorrado</a></li><li><a href="global.html#crearArrayPaginacion">crearArrayPaginacion</a></li><li><a href="global.html#crearGraficaEstado">crearGraficaEstado</a></li><li><a href="global.html#crearGraficaTipomMedio">crearGraficaTipomMedio</a></li><li><a href="global.html#crearGraficaTipos">crearGraficaTipos</a></li><li><a href="global.html#datosEstado">datosEstado</a></li><li><a href="global.html#datosFinales">datosFinales</a></li><li><a href="global.html#datosIncidencias">datosIncidencias</a></li><li><a href="global.html#datosPaginacion">datosPaginacion</a></li><li><a href="global.html#datosTiempoMedio">datosTiempoMedio</a></li><li><a href="global.html#datosTipo">datosTipo</a></li><li><a href="global.html#datosUsuarios">datosUsuarios</a></li><li><a href="global.html#filtrarObjetos">filtrarObjetos</a></li><li><a href="global.html#filtrarPorUsuario">filtrarPorUsuario</a></li><li><a href="global.html#filtroEmailTemp">filtroEmailTemp</a></li><li><a href="global.html#filtroFecha">filtroFecha</a></li><li><a href="global.html#filtroNombreCompletoTemp">filtroNombreCompletoTemp</a></li><li><a href="global.html#filtroUsuarioTemp">filtroUsuarioTemp</a></li><li><a href="global.html#generarIncidenciasAdmi">generarIncidenciasAdmi</a></li><li><a href="global.html#generarIncidenciasUsuario">generarIncidenciasUsuario</a></li><li><a href="global.html#generarSubtipos">generarSubtipos</a></li><li><a href="global.html#generarUsuarios">generarUsuarios</a></li><li><a href="global.html#host">host</a></li><li><a href="global.html#hostServer">hostServer</a></li><li><a href="global.html#inicio">inicio</a></li><li><a href="global.html#obtenerIncidencias">obtenerIncidencias</a></li><li><a href="global.html#obtenerNombreCompleto">obtenerNombreCompleto</a></li><li><a href="global.html#pagina">pagina</a></li><li><a href="global.html#paginaAnterior">paginaAnterior</a></li><li><a href="global.html#paginaEscrita">paginaEscrita</a></li><li><a href="global.html#paginaSiguiente">paginaSiguiente</a></li><li><a href="global.html#paginacionFin">paginacionFin</a></li><li><a href="global.html#paginacionInicio">paginacionInicio</a></li><li><a href="global.html#preguntarBorrado">preguntarBorrado</a></li><li><a href="global.html#redirect">redirect</a></li><li><a href="global.html#rol">rol</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 03 2024 01:39:39 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
