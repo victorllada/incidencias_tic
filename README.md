@@ -3,11 +3,10 @@
 Software para la gestión de incidencias realizadas por el departamento TIC del IES Miguel Herrero.
 
 ## Autores
-
-- César Torre
-- Hugo Cayón
-- Luis Concha
-- Víctor Sánchez
+- [César Torre](https://github.com/cesartg11)
+- [Hugo Cayón](https://github.com/Hugocl01)
+- [Luis Concha](https://github.com/DAW201)
+- [Víctor Sánchez](https://github.com/victorllada)
 
 ## Contenidos
 
