@@ -11,10 +11,11 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 html{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: $font-family-sans-serif;
     scrollbar-width: thin;
 }
 
+// Hacen que el footer se quede siempre abajo, haciendo que el body ocupe todo el alto de la pantalla
 body {
     display: flex;
     flex-direction: column;
@@ -26,7 +27,7 @@ main {
     flex: 1;
 }
 
-// Clase para los colores
+// Clase para los colores, con ellas se le da color a los elementos
 .aquamarine-50 {
     background-color: $aquamarine-50;
 }
@@ -71,20 +72,21 @@ main {
     background-color: $aquamarine-950;
 }
 
+// Clase para cambiar de color el texto
 .text-aquamarine-400 {
     color: $aquamarine-400;
 }
 
 // Paginacion
 .numero-pagina{
-    background-color: #f8fafc;
+    background-color: $blanco-100;
 }
 
 .numero-pagina input {
  width: 50%;
  border: none;
  text-align: center;
- background-color: #f8fafc;
+ background-color: $blanco-100;
  cursor: pointer;
 }
 
@@ -97,7 +99,7 @@ main {
     width: 50%;
    }
 
-   // Botones
+// Botones
 .btn.aquamarine-400:hover {
     background-color: $aquamarine-600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -153,11 +155,11 @@ form>.card{
 }
 
 .filtros::placeholder {
-    color: black;
+    color: #000;
 }
 
 .filtros:hover{
-    outline: 1px solid black;
+    outline: 1px solid #000;
 }
 
 .overflow-auto{
@@ -172,8 +174,8 @@ form>.card{
 
 /* Estilo para el botón del dropdown cuando está pulsado */
 header .dropdown-item:active {
-    background-color: #f8fafc;
-    color: black;
+    background-color: $blanco-100;
+    color: #000;
 }
 
 main .dropdown-toggle:active,
@@ -185,7 +187,7 @@ main .dropdown-toggle:focus {
 main .custom-dropdown-menu .dropdown-item:hover {
     background-color: $aquamarine-600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: $blanco-100;
 }
 
 main .custom-dropdown-menu .dropdown-item:active {
@@ -194,6 +196,7 @@ main .custom-dropdown-menu .dropdown-item:active {
 
 //Media Querys
 @media (width > 990px) {
+    // Hace que el dropdown del header en el que esta la info del usuario quede bien en cualquier tamaño de pantalla
     header .desplegable-usuario {
         position: relative;
         right: 200px;
@@ -202,11 +205,13 @@ main .custom-dropdown-menu .dropdown-item:active {
 }
 
 @media(width <= 990px) {
-    .info-desplazada{
+    // Mete el padding correspondiente en el menú desplegable del header
+    .info-desplazada {
         padding: 0.5rem 1.5rem;
     }
 
-    .baja-res{
+    // Es usada para hacer desaparecer campos en las tablas de usuarios e incidencias
+    .baja-res {
         display: none;
     }
 
@@ -224,14 +229,18 @@ main .custom-dropdown-menu .dropdown-item:active {
 }
 
 // Clases para el login
+// Efecto cristal traslúcido
 .bg-glass {
     background-color: hsla(0, 0%, 100%, 0.8) !important;
     backdrop-filter: saturate(200%) blur(25px);
 }
 
+// Fondo con degradado usado el login y las paginas de error 403 y 404
 .background-radial-gradient {
     background-color: hsl(218, 41%, 15%);
-    background-image: radial-gradient(650px circle at 0% 0%,
+    // Crear dos gradiantes circulares
+    background-image:
+        radial-gradient(650px circle at 0% 0%,
             hsl(218, 41%, 35%) 15%,
             hsl(218, 41%, 30%) 35%,
             hsl(218, 41%, 20%) 75%,
@@ -247,6 +256,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     min-height: 100vh;
 }
 
+// Circulos usado en las animaciones del login y las paginas de error 403 y 404
 #radius-shape-1 {
     border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
     height: 220px;
@@ -287,6 +297,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     overflow: hidden;
 }
 
+// Animación de giro se usa en el login y las paginas de error 403 y 404
 @keyframes rotateAnimation {
     0% {
         transform: rotate(0deg);
@@ -297,7 +308,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     }
 }
 
-
+// Duración de las animaciones de los circulos
 #radius-shape-1.animate {
     animation: rotateAnimation 15s infinite;
 }
@@ -316,7 +327,7 @@ main .custom-dropdown-menu .dropdown-item:active {
 
 // Pantalla de error 404
 .volver {
-    color:#ffffff;
+    color:#fff;
 }
 
 .volver:hover {
@@ -331,8 +342,8 @@ main .custom-dropdown-menu .dropdown-item:active {
     --tooltip-height: 25px;
     --tooltip-width: 90px;
     --gap-between-tooltip-to-button: 18px;
-    --button-color: #38b1f8;
-    --tooltip-color: #fff;
+    --button-color: $aquamarine-400;
+    --tooltip-color: $blanco-50;
     width: var(--width);
     height: var(--height);
     background: var(--button-color);
@@ -389,7 +400,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     width: 100%;
     height: 100%;
     left: 0;
-    color: #fff;
+    color: $blanco-50;
 }
 
 .text {
@@ -402,7 +413,7 @@ main .custom-dropdown-menu .dropdown-item:active {
 }
 
 .icon {
-    color: #fff;
+    color: $blanco-50;
     top: 100%;
     display: flex;
     align-items: center;
