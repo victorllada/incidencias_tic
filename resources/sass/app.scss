@@ -183,7 +183,8 @@ main .dropdown-toggle:focus {
 }
 
 main .custom-dropdown-menu .dropdown-item:hover {
-    background-color: $aquamarine-400;
+    background-color: $aquamarine-600;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     color: #fff;
 }
 
