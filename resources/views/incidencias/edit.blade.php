@@ -82,14 +82,12 @@
                                 <select class="form-select" name="aula" id="aula" required
                                     onchange="cargarEtiquetas()">
                                     <option selected disabled value="-1">Selecciona el aula</option>
-                                    @if ($incidencia->tipo == 'EQUIPOS')
                                         @foreach ($aulas as $aula)
                                             <option value="{{ $aula->id }}"
                                                 {{ $aula->id == optional($incidencia->equipo)->aula_id ? 'selected' : '' }}>
                                                 {{ $aula->codigo }}
                                             </option>
                                         @endforeach
-                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -99,6 +97,12 @@
                                     etiqueta</label>
                                 <select class="form-select" name="num_etiqueta" id="num_etiqueta" required>
                                     <option selected disabled value="-1">Selecciona la etiqueta</option>
+                                        @foreach ($etiquetas as $etiqueta)
+                                            <option value="{{ $etiqueta->etiqueta }}"
+                                                {{ $etiqueta->etiqueta == optional($incidencia->equipo)->etiqueta ? 'selected' : '' }}>
+                                                {{ $etiqueta->etiqueta }}
+                                            </option>
+                                        @endforeach
                                 </select>
                             </div>
                         </div>
