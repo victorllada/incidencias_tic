@@ -11,7 +11,7 @@ export default defineConfig({
                 'resources/js/usuarios.js',
                 'resources/js/showIncidencia.js',
                 'resources/js/createIncidencias.js',
-                'resources/js/editIncidencias.js'
+                'resources/js/editIncidencia.js'
             ],
             refresh: true,
         }),
