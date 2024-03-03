@@ -21,6 +21,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    background-color: $body-bg;
 }
 
 main {
@@ -155,11 +156,11 @@ form>.card{
 }
 
 .filtros::placeholder {
-    color: #000;
+    color: $negro-50;
 }
 
 .filtros:hover{
-    outline: 1px solid #000;
+    outline: 1px solid $negro-50;
 }
 
 .overflow-auto{
@@ -175,7 +176,7 @@ form>.card{
 /* Estilo para el botón del dropdown cuando está pulsado */
 header .dropdown-item:active {
     background-color: $blanco-100;
-    color: #000;
+    color: $negro-50;
 }
 
 main .dropdown-toggle:active,
