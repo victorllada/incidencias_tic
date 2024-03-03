@@ -290,8 +290,16 @@ class IncidenciaController extends Controller
         //Obtenemos todas las aulas
         $aulas = Aula::all();
 
+        // Inicializamos $etiquetas como un array vacío
+        $etiquetas = [];
+
+        //Obtenemos todas las etiquetas del aula de la incidecnia (si no es null)
+        if (!is_null($incidencia->equipo)) {
+            $etiquetas = Equipo::where('aula_id', $incidencia->equipo->aula_id)->get();
+        }
+
         //Devolvemos la vista con todos los objetos y colecciones
-        return view('incidencias.edit', compact('incidencia', 'usuarios', 'aulas'));
+        return view('incidencias.edit', compact('incidencia', 'etiquetas', 'usuarios', 'aulas'));
     }
 
 
