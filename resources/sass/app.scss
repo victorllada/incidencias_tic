@@ -193,20 +193,24 @@ main .custom-dropdown-menu .dropdown-item:active {
 
 //Media Querys
 @media (width > 990px) {
-    header .desplegable-usuario{
+    header .desplegable-usuario {
         position: relative;
         right: 200px;
         top: 25px;
     }
 }
 
-@media(width <= 990px){
+@media(width <= 990px) {
+    .info-desplazada{
+        padding: 0.5rem 1.5rem;
+    }
+
     .baja-res{
         display: none;
     }
 
-    // Hace que los row y las col tengan el mismo espaciado
-    .row{
+    // Hace que los row y las col dentro de las .card tengan el mismo espaciado
+    .card .row {
         display: flex;
         gap: 1.5rem;
     }
@@ -239,6 +243,7 @@ main .custom-dropdown-menu .dropdown-item:active {
             hsl(218, 41%, 19%) 80%,
             transparent 100%);
     overflow: hidden;
+    min-height: 100vh;
 }
 
 #radius-shape-1 {
@@ -433,4 +438,24 @@ main .custom-dropdown-menu .dropdown-item:active {
 
 .button:hover:before {
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
+}
+
+.fichero-comentario {
+    display: none;
+}
+
+.custom-file-input {
+    cursor: pointer;
+}
+
+.scroller {
+    scrollbar-width: thin;
+}
+
+.chat {
+    width: 100%;
+}
+
+.chat label {
+    width: 20px;
 }
