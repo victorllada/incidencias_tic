@@ -81,36 +81,39 @@
                                     {{-- Contenedor de envio de mensaje --}}
                                     <div class="offcanvas-body d-flex flex-column gap-4 overflow-y-auto scroller">
                                         @forelse ($comentarios as $comentario)
-                                            <div class="d-flex justify-content-start card aquamarine-100">
+                                            <div class=" card aquamarine-100">
+
                                                 <div class="card-header">
-                                                    {{-- Verificar si el usuario tiene el rol "administrador" --}}
-                                                    @if ($comentario->user->hasRole('administrador'))
-                                                        <span>Administrador</span>
+                                                    @if ($comentario->user->id != auth()->user()->id)
+                                                        {{-- Verificar si el usuario tiene el rol "administrador" --}}
+                                                        @if ($comentario->user->hasRole('administrador'))
+                                                            <div class="fw-bolder">Administrador</div>
+                                                        @endif
+                                                        {{-- verificar si el usuario tiene el rol de profesor --}}
+                                                        @if ($comentario->user->hasRole('profesor'))
+                                                            <div class="fw-bolder">Profesor</div>
+                                                        @endif
+                                                        <div>{{ $comentario->user->nombre_completo }}</div>
+                                                    @else
+                                                        <div class="fw-bolder">Tu</div>
                                                     @endif
-                                                    {{-- verificar si el usuario tiene el rol de profesor --}}
-                                                    @if ($comentario->user->hasRole('profesor'))
-                                                        <span>Profesor</span>
-                                                    @endif
-                                                    {{ $comentario->user->nombre_completo }}
                                                 </div>
                                                 <div class="card-body">
-                                                    {{ $comentario->texto }}
+                                                    <div>{{ $comentario->texto }}</div>
+                                                    {{-- Si el comentario tiene archivo adjunto, muestra el botón para descargar --}}
+                                                    @if ($comentario->adjunto_url != null)
+                                                        <a href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
+                                                            class="btn aquamarine-400 text-white mt-2">
+                                                            Descargar archivo adjunto
+                                                        </a>
+                                                    @endif
                                                 </div>
-
-
-
-                                                {{-- Si el comentario tiene archivo adjunto, muestra el botón para descargar --}}
-                                                @if ($comentario->adjunto_url != null)
-                                                    {{-- Maquetar esto bien para que se vea un poco separado del texto o lo que sea --}}
-                                                    <span>Archivo adjunto: <a
-                                                            href="{{ route('descargar.comentario.archivo', ['id' => $comentario->id]) }}"
-                                                            class="btn aquamarine-400 text-white">Descargar
-                                                            Archivo</a>
-                                                    </span>
-                                                @endif
+                                                <div class="card-footer">
+                                                    <div>{{ $comentario->fechahora }}</div>
+                                                </div>
                                             </div>
                                         @empty
-                                            <p>No hay comentarios</p>
+                                            No hay comentarios
                                         @endforelse
                                     </div>
 
