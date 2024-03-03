@@ -109,7 +109,7 @@
                                         @endforelse
                                     </div>
 
-                                    <div class="offcanvas-footer mb-4">
+                                    <div class="offcanvas-footer d-flex justify-content-center mb-0">
                                         <form action="{{ route('comentarios.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -120,7 +120,7 @@
                                                 <input type="file" id="fichero" name="fichero"
                                                     class="fichero-comentario">
                                                 <label for="fichero"
-                                                    class="form-label form-control btn aquamarine-400 text-white">
+                                                    class="form-label form-control btn aquamarine-400 text-white rounded-start m-0">
                                                     <i class="bi bi-paperclip"></i>
                                                 </label>
                                                 <input type="text" class="form-control" name="texto"

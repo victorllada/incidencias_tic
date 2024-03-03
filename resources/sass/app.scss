@@ -445,9 +445,10 @@ main .custom-dropdown-menu .dropdown-item:active {
 }
 
 .offcanvas-footer {
+    background-color: #f8fafc;
+    width: 399px;
     position: fixed;
     bottom: 0;
-    margin-right:10px ;
-    background-color: #f8fafc;
-    border-top: 1px solid #dee2e6;
+    right: 0;
+    margin: 0 auto;
   }
