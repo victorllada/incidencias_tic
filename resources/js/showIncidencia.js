@@ -39,9 +39,13 @@ function preguntarBorrado(event)
  *
  * @function
  * @name confirmarBorrado
+ * @param {Event} event - Objeto de evento que desencadena la función.
  * @returns {void}
  */
-function confirmarBorrado()
+function confirmarBorrado(event)
 {
-    formBorrar.submit()
+    if(event.id=="activarBorrado")
+    {
+        formBorrar.submit()
+    }
 }

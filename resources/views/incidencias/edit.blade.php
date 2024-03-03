@@ -55,8 +55,8 @@
                         </div>
                         <div class="col-lg-4" id="div-sub-tipo">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="sub-tipo">Sub-tipo</label>
-                                <select class="form-select" name="sub-tipo" id="sub-tipo">
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="subTipo">Sub-tipo</label>
+                                <select class="form-select" name="subTipo" id="subTipo">
                                     <option selected disabled value="-1">Selecciona el subtipo</option>
                                 </select>
                             </div>
@@ -64,8 +64,8 @@
                         <div class="col-lg-4" id="div-sub-sub-tipo">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
-                                    for="sub-sub-tipo">Sub-sub-tipo</label>
-                                <select class="form-select" name="sub-sub-tipo" id="sub-sub-tipo">
+                                    for="subSubTipo">Sub-sub-tipo</label>
+                                <select class="form-select" name="subSubTipo" id="subSubTipo">
                                     <option selected disabled value="-1">Selecciona el sub-subtipo</option>
                                 </select>
                             </div>
@@ -79,8 +79,8 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
                                     Aula</label>
-                                <select class="form-select" name="aula" id="aula" required
-                                    onchange="cargarEtiquetas()">
+                                <select class="form-select" name="aula" id="aula" required>
+                                    <!--onchange="cargarEtiquetas()"-->
                                     <option selected disabled value="-1">Selecciona el aula</option>
                                         @foreach ($aulas as $aula)
                                             <option value="{{ $aula->id }}"

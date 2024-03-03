@@ -303,16 +303,12 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        Desea borrar la incidencia con id: <span id="numeroID"></span>
+        Desea borrar la incidencia
     </div>
     <div class="modal-footer">
         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-        <form action="" id="formBorrado" method="POST">
-            @csrf
-            @method('delete')
-            <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
-                name="activarBorrado">
-        </form>
+        <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
+            name="activarBorrado" data-idIncidencia="">
     </div>
 </div>
 </div>

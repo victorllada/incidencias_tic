@@ -1,23 +1,26 @@
 addEventListener("load",inicio,false);
 
+//vaiable para poder obtener el host
 import {hostServer} from "./variableHost.js";
 let host=hostServer;
 
+//Funcion que se ejecuta cuando carga el html
 function inicio()
 {
-    obtenerIncidencias().then(data => {
-        console.log(data);
+    //para que muestre los valores de la clase y el numero de etiqueta
+    if(tipo.value=="EQUIPOS")
+    {
+        divEquipo.removeAttribute('hidden');
+    }
+    generarSubtipos();
 
-        //cargarEtiquetas(data);
-
-        if(divEquipo.value=="EQUIPOS")
-        {
-            divEquipo.removeAttribute('hidden');
-        }
-    });
+    tipo.addEventListener("change",generarSubtipos,false);
+    subTipo.addEventListener("change",generarSubSubTipos,false);
+    aula.addEventListener("change",obtenerEquiposAula,false);
 }
 
-async function obtenerIncidencias()
+//funcion para poder obtener los equipos de la aula seleccionada
+async function obtenerEquiposAula()
 {
     try
     {
@@ -34,8 +37,9 @@ async function obtenerIncidencias()
         //obtener un array de la respuesta del json
         let data = await response.json();
 
-        //devolver el array final
-        return data;
+        //metodo para poder reyenar el select de los equipos
+        cargarEtiquetas(data)
+        //return data;
     }
     catch (error)
     {
@@ -43,213 +47,124 @@ async function obtenerIncidencias()
     }
 }
 
-function cargarEtiquetas(datos)
+function cargarEtiquetas(equipos)
 {
-    //num_etiqueta
-    num_etiqueta.innerHTML = ""; // Limpiar opciones existentes
-    let defaultOption = document.createElement('option'); //Creamos la opcion
-    defaultOption.value = null; //Valor nulo
-    defaultOption.text = "No hay equipos en este aula"; //Texto de muestra
-    num_etiqueta.appendChild(defaultOption); //Añadimos la opcion
+    //console.log(equipos);
 
-    //Si hay datos mostramos las etiquetas
-    if (datos && datos.length>0)
+    //comprovacion por si el aula no tiene equipos
+    if(equipos.length>0)
     {
-        datos.forEach(item => {
-            num_etiqueta.removeChild(defaultOption); //Borramos la opcion default
-            let option = document.createElement('option'); //Creamos una opcion
-            option.value = item.etiqueta; //Valor de la opcion es la etiqueta
-            option.text = item.etiqueta; //texto de la opcion es la etiqueta
-            num_etiqueta.appendChild(option);
+        num_etiqueta.innerHTML="";
+
+        equipos.forEach(equipo=> {
+            //console.log(equipo);
+
+            let opt=document.createElement("option");
+            opt.value=equipo.etiqueta;
+            opt.innerHTML=equipo.etiqueta;
+
+            num_etiqueta.appendChild(opt);
         });
+    }
+    else
+    {
+        num_etiqueta.innerHTML="";
+
+        let opt=document.createElement("option");
+        opt.value=null;
+        opt.innerHTML="no hay equipos registrados en esta aula";
+
+        num_etiqueta.appendChild(opt);
     }
 }
 
+//metodo para poder generar los subtipos en funcion del tipo
+function generarSubtipos()
+{
+    subTipo.innerHTML="<option selected value='-1'>Seleccione el sub-tipo</option>";
+    let subtipos=[];
 
-/*
-    function cargarEtiquetas() {
-        var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
-
-        // Realizar una petición AJAX para obtener las etiquetas según el aula seleccionada
-        fetch('/obtener-etiquetas/' + aulaId)
-            .then(response => response.json())
-            .then(data => {
-                var selectEtiqueta = document.getElementById('num_etiqueta'); //obtenemos el select de etiquetas
-                selectEtiqueta.innerHTML = ""; // Limpiar opciones existentes
-
-                var defaultOption = document.createElement('option'); //Creamos la opcion
-                defaultOption.value = null; //Valor nulo
-                defaultOption.text = "No hay equipos en este aula"; //Texto de muestra
-                selectEtiqueta.add(defaultOption); //Añadimos la opcion
-
-                if (data && data.length > 0) { //Si hay datos mostramos las etiquetas
-
-                    selectEtiqueta.removeChild(defaultOption); //Borramos la opcion default
-
-                    data.forEach(etiqueta => { //Por cada etiqueta
-                        var option = document.createElement('option'); //Creamos una opcion
-                        option.value = etiqueta.etiqueta; //Valor de la opcion es la etiqueta
-                        option.text = etiqueta.etiqueta; //texto de la opcion es la etiqueta
-                        selectEtiqueta.add(option); //Añadimos la opcion
-                    });
-                }
-
-            })
-            .catch(error => console.error('Error:', error)); //Obtenemos el error
+    switch (tipo.value)
+    {
+        case "CUENTAS":
+            subtipos = ["EDUCANTABRIA","GOOGLE CLASSROOM","DOMINIO","YEDRA"];
+            break;
+        case "EQUIPOS":
+            subtipos=["ALTAVOCES","PC","MONITOR","PROYECTOR","PANALLA INTERACTIVA","PORTATIL","IMPRESORA"];
+            break;
+        case "WIFI":
+            subtipos=["IESMIGUELHERRERO","WIECAN"];
+            break;
+        case "INTERNET":
+            subtipos=[];
+            break;
+        case "SOFTWARE":
+            subtipos=["INSTALACION","ACTUALIZACION"];
+            break;
     }
 
-    addEventListener('load', () => {
-        //Guardamos en una variable el selec de tipo
-        var tipo = document.getElementById("tipo");
+    for (let i = 0; i < subtipos.length; i++)
+    {
+        let opt=document.createElement("option");
+        opt.innerHTML=subtipos[i];
+        opt.value=subtipos[i];
 
-        //Guardamos en una variable el selec de subtipos
-        var subtipo = document.getElementById("sub-tipo");
-
-        //Guardamos en una variable el selec de estado
-        var estado = document.getElementById("estado");
-
-        //Comprueba la primera vez que se carga la pagina si el tipo es EQUIPOS, y si es asi muestra el div-equipo
-        comprobarTipo();
-
-        //Genera los sub-tipos cuando se elije una opcion de tipos
-        tipo.addEventListener('change', generarSubtipos);
-
-        //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
-        tipo.addEventListener('change', EquiposSelected);
-
-        //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
-        subtipo.addEventListener('change', comprobarYedra);
-
-        //Genera los sub-sub-tipos cuando se elije una opcion de tipos
-        subtipo.addEventListener('change', generarSubSubTipos);
-    });
-
-
-    function comprobarTipo() {
-
-        var tipo = document.getElementById("tipo");
-        var divEquipo = document.getElementById("div-equipo");
-
-        if (tipo.value == "EQUIPOS") {
-            divEquipo.hidden = false;
-        }
+        subTipo.appendChild(opt);
     }
 
-
-    function generarSubtipos() {
-        var selec = document.getElementById("tipo");
-        var subtipo = document.getElementById("sub-tipo");
-
-        var subsubtipo = document.getElementById("sub-sub-tipo");
-
-        borrarSubOpciones();
-        borrarSubSubOpciones();
-
-        switch (selec.value) {
-            case "CUENTAS":
-                var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
-                break;
-            case "EQUIPOS":
-                var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
-                    "IMPRESORA"
-                ];
-                break;
-            case "WIFI":
-                var array = ["IESMIGUELHERRERO", "WIECAN"];
-                break;
-            case "INTERNET":
-                var array = [];
-                break;
-            case "SOFTWARE":
-                var array = ["INSTALACION", "ACTUALIZACION"];
-                break;
-            default:
-                break;
-        }
-
-        for (let i = 0; i < array.length; i++) {
-            var opt = document.createElement("option");
-            opt.textContent = array[i];
-            opt.setAttribute("value", array[i]);
-            subtipo.appendChild(opt);
-        }
-
-        if (selec.value == "INTERNET") {
-            document.getElementById("div-sub-tipo").hidden = true;
-        } else {
-            document.getElementById("div-sub-tipo").hidden = false;
-        }
-
+    //if para enseñar el select de aula y de numero de etiqueta
+    if(tipo.value!="EQUIPOS")
+    {
+        document.querySelector("#divEquipo").hidden=true;
+        document.querySelector("#div-sub-sub-tipo").hidden=true;
+    }
+    else
+    {
+        document.querySelector("#divEquipo").hidden=false;
+        document.querySelector("#div-sub-sub-tipo").hidden=false;
     }
 
+    //if para poder saber si el tipo es interne, por que no tiene subtipos
+    if (tipo.value=="INTERNET")
+    {
+        document.querySelector("#div-sub-tipo").hidden=true;
+        document.querySelector("#div-sub-sub-tipo").hidden=true;
+    }
+    else
+    {
+        document.querySelector("#div-sub-tipo").hidden=false;
+    }
+}
 
-    function borrarSubOpciones() {
-        var subtipo = document.getElementById("sub-tipo");
+//funcion para poder generar los subsubtipos en funcion de los subtipos
+function generarSubSubTipos()
+{
+    subSubTipo.innerHTML="<option selected value='-1'>Selecciona el sub-subtipo</option>";
+    let subsubtipos=[];
 
-        while (subtipo.firstChild) {
-            subtipo.removeChild(subtipo.firstChild);
-        }
+    switch (subTipo.value) {
+        case "PC":
+            subsubtipos = ["RATON", "ORDENADOR", "TECLADO"];
+            break;
+        case "PORTATIL":
+            subsubtipos = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
+            break;
+        default:
+            document.querySelector("#div-sub-sub-tipo").hidden=true;
+            break;
     }
 
+    if (subsubtipos.length>0)
+    {
+        for (let i=0;i<subsubtipos.length;i++)
+        {
+            var opt=document.createElement("option");
+            opt.textContent=subsubtipos[i];
+            opt.setAttribute("value",subsubtipos[i]);
 
-    function comprobarYedra() {
-        var subtipo = document.getElementById("sub-tipo");
-
-        if (subtipo.value == "YEDRA") {
-            alert("Esta gestión la realiza Jefatura de estudios");
+            subSubTipo.appendChild(opt);
         }
+
+        document.querySelector("#div-sub-sub-tipo").hidden=false;
     }
-
-
-    function generarSubSubTipos() {
-
-        var subtipo = document.getElementById("sub-tipo");
-        var subsubtipo = document.getElementById("sub-sub-tipo");
-
-        borrarSubSubOpciones();
-
-        switch (subtipo.value) {
-            case "PC":
-                var array = ["RATON", "ORDENADOR", "TECLADO"];
-                break;
-            case "Portátil":
-                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
-                break;
-            default:
-                borrarSubSubOpciones();
-                document.getElementById("div-sub-sub-tipo").hidden = true;
-                break;
-        }
-
-        if (array) {
-            for (let i = 0; i < array.length; i++) {
-                var opt = document.createElement("option");
-                opt.textContent = array[i];
-                opt.setAttribute("value", array[i]);
-                subsubtipo.appendChild(opt);
-            }
-
-            document.getElementById("div-sub-sub-tipo").hidden = false;
-        }
-
-    }
-
-
-    function borrarSubSubOpciones() {
-        var subsubtipo = document.getElementById("sub-sub-tipo");
-
-        while (subsubtipo.firstChild) {
-            subsubtipo.removeChild(subsubtipo.firstChild);
-        }
-    }
-
-    function EquiposSelected() {
-
-        var selec = document.getElementById("tipo");
-
-        if (selec.value === "EQUIPOS") {
-            document.getElementById("div-equipo").hidden = false;
-        } else {
-            document.getElementById("div-equipo").hidden = true;
-        }
-    }*/
+}
