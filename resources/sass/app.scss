@@ -436,19 +436,14 @@ main .custom-dropdown-menu .dropdown-item:active {
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
 }
 
-.fichero-comentario{
+.fichero-comentario {
     display: none;
 }
 
-.custom-file-input{
+.custom-file-input {
     cursor: pointer;
 }
 
-.offcanvas-footer {
-    background-color: #f8fafc;
-    width: 399px;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 0 auto;
-  }
+.scroller {
+    scrollbar-width: thin;
+}

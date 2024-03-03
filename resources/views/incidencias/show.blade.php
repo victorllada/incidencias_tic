@@ -79,20 +79,25 @@
                                     </div>
 
                                     {{-- Contenedor de envio de mensaje --}}
-                                    <div class="offcanvas-body d-flex flex-column overflow-y-auto">
+                                    <div class="offcanvas-body d-flex flex-column gap-4 overflow-y-auto scroller">
                                         @forelse ($comentarios as $comentario)
-                                            <p>
-                                                <span>{{ $comentario->user->nombre_completo }}:</span>
-                                                {{ $comentario->texto }}
-                                                {{-- Verificar si el usuario tiene el rol "admin" --}}
-                                                @if ($comentario->user->hasRole('admin'))
-                                                    <span>(Admin)</span>
-                                                @endif
+                                            <div class="d-flex justify-content-start card aquamarine-100">
+                                                <div class="card-header">
+                                                    {{-- Verificar si el usuario tiene el rol "administrador" --}}
+                                                    @if ($comentario->user->hasRole('administrador'))
+                                                        <span>Administrador</span>
+                                                    @endif
+                                                    {{-- verificar si el usuario tiene el rol de profesor --}}
+                                                    @if ($comentario->user->hasRole('profesor'))
+                                                        <span>Profesor</span>
+                                                    @endif
+                                                    {{ $comentario->user->nombre_completo }}
+                                                </div>
+                                                <div class="card-body">
+                                                    {{ $comentario->texto }}
+                                                </div>
 
-                                                {{-- O verificar si el usuario tiene alguno de los roles especificados --}}
-                                                @if ($comentario->user->hasAnyRole(['admin', 'moderator']))
-                                                    <span>(Admin o Moderador)</span>
-                                                @endif
+
 
                                                 {{-- Si el comentario tiene archivo adjunto, muestra el botón para descargar --}}
                                                 @if ($comentario->adjunto_url != null)
@@ -103,17 +108,17 @@
                                                             Archivo</a>
                                                     </span>
                                                 @endif
-                                            </p>
+                                            </div>
                                         @empty
                                             <p>No hay comentarios</p>
                                         @endforelse
                                     </div>
 
-                                    <div class="offcanvas-footer d-flex justify-content-center mb-0">
+                                    <div class="offcanvas-header mb-0">
                                         <form action="{{ route('comentarios.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <div class="input-group">
+                                            <div class="input-group chat">
                                                 {{-- Campo escondido para mandar el id de la incidencia --}}
                                                 <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
                                                 {{-- Molaria un div como whatsapp en el que puedas meter mensaje y a la derecha un clip para elegir archivo --}}
