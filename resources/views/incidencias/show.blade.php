@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - show')
 @section('archivosJS')
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js','resources/js/showIncidencia.js'])
 @endsection
 @section('contenido')
 
@@ -281,10 +281,10 @@
         <div class="d-flex gap-2">
             <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
                 class="btn aquamarine-400 text-white">Editar</a>
-            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST" id="formBorrar">
                 @csrf
                 @method('delete')
-                <button type="submit" class="btn btn-danger text-white"data-bs-toggle="modal"
+                <button type="submit" id="botonBorrar" class="btn btn-danger text-white"data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop">Borrar</button>
             </form>
         </div>
