@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Incidencias - Editar')
 @section('archivosJS')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/js/editIncidencia.js'])
 @endsection
 @section('contenido')
 
@@ -74,7 +74,7 @@
 
                     {{-- Fila 2  en caso de que el tipo sea equipos --}}
                     {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
-                    <div class="row mb-4" id="div-equipo" hidden>
+                    <div class="row mb-4" id="divEquipo" hidden>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="aula">
@@ -259,12 +259,11 @@
             </div>
         </form>
     </div>
-@endsection
 
 <!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
 
 {{-- Carga los datos de etiquetas segun el aula seleccionado --}}
-<script>
+<!--script>
     function cargarEtiquetas() {
         var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
 
@@ -469,4 +468,6 @@
             document.getElementById("div-equipo").hidden = true;
         }
     }
-</script>
+</script-->
+
+@endsection
