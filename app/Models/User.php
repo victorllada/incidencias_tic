@@ -72,16 +72,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    /*protected $appends = [
-        'profile_photo_url',
-    ];*/
-
-    // Error: The given role or permission should use guard `` instead of `web`.
+    // Usamos esto para que no de este error: The given role or permission should use guard `` instead of `web`.
     protected $guard_name = 'web';
 
     /**
@@ -95,7 +86,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Define la relación uno a muchos con la tabla 'incidencias' (incidencias creadas por el personal).
+     * Define la relación uno a muchos con la tabla 'incidencias' (incidencias creadas por el user).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -105,7 +96,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Define la relación muchos a uno entre User e Incidencia a través de la tabla incidencia_user.
+     * Define la relación uno a muchos con la tabla 'users' (incidecnias asignadas al user).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -115,7 +106,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Define la relación uno a muchos con la tabla 'comentarios' (comentarios realizados por el personal).
+     * Define la relación uno a muchos con la tabla 'comentarios' (comentarios realizados por el user).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -125,7 +116,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Obtiene las incidencias resueltas asignadas al usuario.
+     * Obtiene las incidencias resueltas asignadas al user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -135,7 +126,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Obtiene las incidencias abiertas del usuario.
+     * Obtiene las incidencias abiertas del user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -145,7 +136,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
-     * Obtiene las incidencias resueltas o cerradas asignadas al usuario.
+     * Obtiene las incidencias resueltas o cerradas asignadas al user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -64,13 +64,14 @@ class UserController extends Controller
 
     /**
      * Guarda el nuevo usuario en la base de datos.
-     * Este método no se va a usar pero lo dejamos hecho por si en futuras actulizacioones es necesario.
+     * Este método no se va a usar pero lo dejamos hecho por si en futuras actulizaciones es necesario.
      *
      * @param App\Http\Requests\CrearUsuarioRequest
      * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
     public function store(CrearUsuarioRequest $request, User $usuario)
     {
+        /*
         try {
             // Iniciar la transacción
             DB::beginTransaction();
@@ -104,6 +105,7 @@ class UserController extends Controller
 
             return redirect()->route('usuarios.index')->with('error', 'No se pudo crear el usuario.');
         }
+        */
     }
 
     /**
@@ -127,7 +129,7 @@ class UserController extends Controller
         return view('usuarios.edit', compact('usuario', 'departamentos', 'rolesDisponibles'));
     }
 
-   /**
+    /**
      * Modifica el usuario pasado por parametro en la base de datos.
      *
      * @param App\Http\Requests\ModificarUsuarioRequest
@@ -158,7 +160,7 @@ class UserController extends Controller
             //Cancelamos la transacion
             DB::rollBack();
 
-            return redirect()->route('usuarios.index')->with('error', 'No se pudo modificar el usuario.');
+            return redirect()->route('usuarios.index')->with('error', 'No se pudo modificar el usuario. Detalles: ' . $e->getMessage());
         }
     }
 
@@ -167,12 +169,14 @@ class UserController extends Controller
     /**
      * Elimina el usuario pasado por parametro de la base de datos.
      * Este método no se va a usar pero lo dejamos hecho por si en futuras actulizacioones es necesario.
+     * En caso de querer ser utilizado habría que borrar las incidecnias creadas por el usuario.
      *
      * @param App\Models\User
      * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
     public function destroy(User $usuario)
     {
+        /*
         try {
             // Iniciar la transacción
             DB::beginTransaction();
@@ -207,5 +211,6 @@ class UserController extends Controller
 
             return redirect()->route('usuarios.index')->with('error', 'No se pudo eliminar el usuario.');
         }
+        */
     }
 }

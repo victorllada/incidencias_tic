@@ -130,14 +130,15 @@ class IncidenciaController extends Controller
     public function store(CrearIncidenciaRequest $request)
     {
         try {
+
+            //Sacamos usuario en una variable
+            $userId = auth()->user()->id;
+
+            //Sacamos el usuario por el id
+            $usuario = User::where('id', $userId)->first();
+
             //Si el usuario no tiene email, le asignaremos el email qe inserte.
             if (is_null(auth()->user()->email)) {
-
-                //Sacamos usuario en una variable
-                $userId = auth()->user()->id;
-
-                //Sacamos el usuario por el id
-                $usuario = User::where('id', $userId)->first();
 
                 //Hacemos que el mail sea el introducido
                 $usuario->email = $request->email;
@@ -148,12 +149,6 @@ class IncidenciaController extends Controller
 
             //Si el usuario no tiene departamento_id o nombre_departamento, le asignaremos el departamento que elija.
             if (is_null(auth()->user()->id_departamento) || is_null(auth()->user()->nombre_departamento)) {
-
-                //Sacamos usuario en una variable
-                $userId = auth()->user()->id;
-
-                //Sacamos el usuario por el id
-                $usuario = User::where('id', $userId)->first();
 
                 //Buscamos el departamento por id y sacamos el objeto
                 $objDept = Departamento::where('id', $request->departamento)->first();
@@ -178,17 +173,13 @@ class IncidenciaController extends Controller
             //Ponemos el tipo segun el seleccionado
             $incidencia->tipo = $request->tipo;
 
-            //Guardamos en dos variables el sub-tipo y el sub-sub-tipo
-            $subtipo = $request->input('sub-tipo');
-            $subsubtipo = $request->input('sub-sub-tipo');
-
             // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
             $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo);
-            if (!is_null($subtipo)) {
-                $incidencia_subtipo_query->where('subtipo_nombre', $subtipo);
+            if (!is_null($request->input('sub-tipo'))) {
+                $incidencia_subtipo_query->where('subtipo_nombre',  $request->input('sub-tipo'));
             }
-            if (!is_null($subsubtipo)) {
-                $incidencia_subtipo_query->where('sub_subtipo', $subsubtipo);
+            if (!is_null($request->input('sub-sub-tipo'))) {
+                $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
             }
 
             //Recogemos el primer registro con esas caracteristicas
@@ -213,8 +204,6 @@ class IncidenciaController extends Controller
             //Si se ha subido fichero, lo guardamos en la carpeta adjunto en public/assets, usando el disco discoAssets y subimos la ruta a la base de datos
             if ($request->hasFile('fichero')) {
                 $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
-            } else {
-                $incidencia->adjunto_url = null;
             }
 
             //Ponemos el usuario actual com el creador
@@ -228,9 +217,6 @@ class IncidenciaController extends Controller
             // Verificar si se encontró un equipo
             if ($incidencia_equipo_query) {
                 $incidencia->equipo_id = $incidencia_equipo_query->id;
-            } else {
-                // No se encontró un equipo, establecer el equipo_id a null
-                $incidencia->equipo_id = null;
             }
 
             //Guardamos el responsable
@@ -350,7 +336,7 @@ class IncidenciaController extends Controller
             //Ponemos el estado segun el introducida
             $incidencia->estado =  $request->estado;
 
-            //Si el tipo es Cerrada pondremos la fecha de cierre actual, si no lo es será null
+            //Si el tipo es Cerrada pondremos la fecha de cierre actual, si se vuelve a cambiar a otro valor se pndrá a null
             if ($request->estado == "CERRADA") {
                 $incidencia->fecha_cierre = now();
             } else {
@@ -371,9 +357,6 @@ class IncidenciaController extends Controller
                 }
                 // Almacenamos el nuevo fichero
                 $incidencia->adjunto_url = $request->file('fichero')->store('adjunto', 'discoAssets');
-            } else {
-                // Si no hay un nuevo archivo, establecer el adjunto_url a null
-                $incidencia->adjunto_url = null;
             }
 
             //Buscamos el equipo con el aula y la etiqueta seleccionados
@@ -385,9 +368,6 @@ class IncidenciaController extends Controller
             // Verificar si se encontró un equipo
             if ($incidencia_equipo_query) {
                 $incidencia->equipo_id = $incidencia_equipo_query->id;
-            } else {
-                // No se encontró un equipo, establecer el equipo_id a null o cualquier otro valor predeterminado
-                $incidencia->equipo_id = null;
             }
 
             //Guardamos el responsable

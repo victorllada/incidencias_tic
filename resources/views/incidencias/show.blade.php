@@ -148,7 +148,12 @@
                         <span class="fw-bolder">Fecha de creación:</span> {{ $incidencia->fecha_creacion }}
                     </div>
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Fecha de cierre:</span> {{ $incidencia->fecha_cierre }}
+                        <span class="fw-bolder">Fecha de cierre:</span>
+                        @if ($incidencia->fecha_cierre != null)
+                            {{ $incidencia->fecha_cierre }}
+                        @else
+                            Aún no se ha cerrado la incidencia
+                        @endif
                     </div>
                 </div>
 
@@ -161,7 +166,12 @@
                         <span class="fw-bolder">Prioridad:</span> {{ $incidencia->prioridad }}
                     </div>
                     <div class="col-lg-4">
-                        <span class="fw-bolder">Duración:</span> {{ $incidencia->duracion }}
+                        <span class="fw-bolder">Duración:</span>
+                        @if ($incidencia->duracion != null)
+                            {{ $incidencia->duracion }}
+                        @else
+                            Aún no hay
+                        @endif
                     </div>
                 </div>
 
@@ -171,83 +181,83 @@
                     <div class="row mb-4">
                         <!-- Si el equipo no es null mostramos sus datos, en caso contrario mostramos mensaje -->
                         <div class="col">
-                            @empty($incidencia->equipo)
-                                <span class="fw-bolder">Aula:</span> No hay aula asignada
-                            @else
-                                <span class="fw-bolder">Aula:</span>
-                                {{ $incidencia->equipo->aula->codigo  }}
-                            @endempty
-                        </div>
-                        <div class="col">
-                            @empty($incidencia->equipo)
-                            <span class="fw-bolder">Etiqueta:</span> No hay etiqueta asignadas
-                            @else
-                                <span class="fw-bolder">Etiqueta:</span>
-                                {{ $incidencia->equipo->etiqueta }}
-                            @endempty
-                        </div>
-                        <div class="col">
-                            @empty($incidencia->equipo)
-                            <span class="fw-bolder">Equipo:</span> No hay equipo asignado
-                            @else
-                                <span class="fw-bolder">Equipo:</span>
-                                {{ $incidencia->equipo->marca. ' ' . $incidencia->equipo->modelo }}
-                            @endempty
-                        </div>
-
+                        @empty($incidencia->equipo)
+                            <span class="fw-bolder">Aula:</span> No hay aula asignada
+                        @else
+                            <span class="fw-bolder">Aula:</span>
+                            {{ $incidencia->equipo->aula->codigo }}
+                        @endempty
                     </div>
-        @endif
-
-        <hr>
-
-        {{-- Fila descripcion y actuaciones --}}
-        <div class="row mb-4">
-            <div class="col-lg-6">
-                <span class="fw-bolder">Descripción:</span>
-                <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
-            </div>
-            <div class="col-lg-6">
-                <span class="fw-bolder">Actuaciones:</span>
-                <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
-            </div>
-        </div>
-
-        {{-- Fila archivo y responsable --}}
-        <div class="row mb-4">
-            <div class="col-lg-6">
-                @if ($incidencia->adjunto_url != null)
-                    <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
-                        class="btn aquamarine-400 text-white">Descargar Archivo</a>
+                    <div class="col">
+                    @empty($incidencia->equipo)
+                        <span class="fw-bolder">Etiqueta:</span> No hay etiqueta asignadas
+                    @else
+                        <span class="fw-bolder">Etiqueta:</span>
+                        {{ $incidencia->equipo->etiqueta }}
+                    @endempty
+                </div>
+                <div class="col">
+                @empty($incidencia->equipo)
+                    <span class="fw-bolder">Equipo:</span> No hay equipo asignado
                 @else
-                    <span class="fw-bolder">No hay archivo adjunto</span>
-                @endif
+                    <span class="fw-bolder">Equipo:</span>
+                    {{ $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
+                @endempty
             </div>
 
-            <div class="col-lg-6">
-                <span class="fw-bolder">Responsable:</span>
-                <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
-                @if ($incidencia->responsable == null)
-                    Aún no hay responsables
-                @else
-                    <span>{{ $incidencia->responsable->nombre_completo }} </span>
-                @endif
-            </div>
         </div>
+    @endif
 
-        {{-- Botones actilizar y borrar incidencia --}}
-        <div class="row mt-5">
-            <div class="d-flex gap-2">
-                <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                    class="btn aquamarine-400 text-white">Editar</a>
-                <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger text-white"data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">Borrar</button>
-                </form>
-            </div>
+    <hr>
+
+    {{-- Fila descripcion y actuaciones --}}
+    <div class="row mb-4">
+        <div class="col-lg-6">
+            <span class="fw-bolder">Descripción:</span>
+            <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
+        </div>
+        <div class="col-lg-6">
+            <span class="fw-bolder">Actuaciones:</span>
+            <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
         </div>
     </div>
+
+    {{-- Fila archivo y responsable --}}
+    <div class="row mb-4">
+        <div class="col-lg-6">
+            @if ($incidencia->adjunto_url != null)
+                <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
+                    class="btn aquamarine-400 text-white">Descargar Archivo</a>
+            @else
+                <span class="fw-bolder">No hay archivo adjunto</span>
+            @endif
+        </div>
+
+        <div class="col-lg-6">
+            <span class="fw-bolder">Responsable:</span>
+            <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
+            @if ($incidencia->responsable == null)
+                Aún no hay responsables
+            @else
+                <span>{{ $incidencia->responsable->nombre_completo }} </span>
+            @endif
+        </div>
+    </div>
+
+    {{-- Botones actilizar y borrar incidencia --}}
+    <div class="row mt-5">
+        <div class="d-flex gap-2">
+            <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
+                class="btn aquamarine-400 text-white">Editar</a>
+            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger text-white"data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">Borrar</button>
+            </form>
+        </div>
+    </div>
+</div>
 </div>
 </div>
 
@@ -255,24 +265,24 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Petición de borrado</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Desea borrar la incidencia con id: <span id="numeroID"></span>
-        </div>
-        <div class="modal-footer">
-            <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-            <form action="" id="formBorrado" method="POST">
-                @csrf
-                @method('delete')
-                <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
-                    name="activarBorrado">
-            </form>
-        </div>
+<div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Petición de borrado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
+    <div class="modal-body">
+        Desea borrar la incidencia con id: <span id="numeroID"></span>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
+        <form action="" id="formBorrado" method="POST">
+            @csrf
+            @method('delete')
+            <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
+                name="activarBorrado">
+        </form>
+    </div>
+</div>
 </div>
 </div>
 </div>
