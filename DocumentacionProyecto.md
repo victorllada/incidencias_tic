@@ -91,7 +91,7 @@ Aquí tienes una tabla con los colores utilizados en la página.
 
 ### Diseño
 
-Para tener una estica limpia se ha optado por un CRUD con 
+Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación.
 
 ### Uso de Bootstrap
 
@@ -108,6 +108,33 @@ Componenetes usados:
 * Navbar (Barra de navegación)
 * Offcanvas (Barra lateral desplegable)
 * Pagination (Pagianción)
+
+Alerts (Alertas):
+> Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.
+
+Breadcrumb (Migas de pan)
+> También llamadas migas de pan son usadas para informar al usuario en qué parte de la aplicación está situado, además puede usar lo puede usar para navegar por las distintas secciones.
+
+Buttons (Botones) y Dropdowns (Botones desplegables)
+> Son usados para realizar acciones y/o confirmar cambios, además los botones desplegables contienen diferentes acciones.
+
+Cards (Tarjetas)
+> Están presentes en toda la información de las incidencias, usuarios y el chat de comentarios.
+
+Navbar (Barra de navegación)
+> Usado en la cabecera de la página, contiene el logo con los distintos enlaces a las distintas páginas.
+
+Modals (Modales)
+> Proporciona información al usuario antes de realizar acciones críticas, como borrado y actualización de incidencias y usuarios.
+
+Offcanvas (Barra lateral desplegable)
+> Usados par contener los filtros de incidencias y usuarios, los informes, y el chat de comentarios de cada incidencia.
+
+Close button (Botones de cerrado)
+> Sirven para cerrar los modales o las barras laterales desplegables.
+
+Pagination (Pagianción)
+> Para navegar en la tabla de incidencias y usuarios.
 
 ### Implementación de clases reutilizables
 
