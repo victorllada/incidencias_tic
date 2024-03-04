@@ -1,29 +1,46 @@
+/**
+ * Registra un evento para el manejo del evento 'load'.
+ * @param {string} type - El tipo de evento ('load' en este caso).
+ * @param {function} listener - La función que se llamará cuando ocurra el evento.
+ * @param {boolean} useCapture - Especifica si se debe usar la fase de captura (false en este caso).
+ * @returns {void}
+ */
 addEventListener("load",inicio,false);
 
+/**
+ * Función de inicio que realiza diversas acciones al cargar la página.
+ * - Registra eventos para cambios en los elementos tipo, sub-tipo, aula y sub-sub-tipo.
+ * - Ejecuta funciones específicas en respuesta a ciertos eventos.
+ * @returns {void}
+ */
 function inicio()
 {
-//Guardamos en una variable el selec de tipo
-var tipo = document.getElementById("tipo");
+    //Guardamos en una variable el selec de tipo
+    var tipo = document.getElementById("tipo");
 
-//Guardamos en una variable el selec de subtipos
-var subtipo = document.getElementById("sub-tipo");
+    //Guardamos en una variable el selec de subtipos
+    var subtipo = document.getElementById("sub-tipo");
 
-//Genera los sub-tipos cuando se elije una opcion de tipos
-tipo.addEventListener('change', generarSubtipos);
+    //Genera los sub-tipos cuando se elije una opcion de tipos
+    tipo.addEventListener('change', generarSubtipos);
 
-//Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
-tipo.addEventListener('change', EquiposSelected);
+    //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
+    tipo.addEventListener('change', EquiposSelected);
 
-//Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
-subtipo.addEventListener('change', comprobarYedra);
+    //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
+    subtipo.addEventListener('change', comprobarYedra);
 
-//Genera los sub-sub-tipos cuando se elije una opcion de tipos
-subtipo.addEventListener('change', generarSubSubTipos);
+    //Genera los sub-sub-tipos cuando se elije una opcion de tipos
+    subtipo.addEventListener('change', generarSubSubTipos);
 
-//Genera las etiquetas
-aula.addEventListener("change",cargarEtiquetas,false);
+    //Genera las etiquetas
+    aula.addEventListener("change",cargarEtiquetas,false);
 }
 
+/**
+ * Realiza una petición AJAX para obtener las etiquetas según el aula seleccionada y actualiza el select de etiquetas.
+ * @returns {void}
+ */
 function cargarEtiquetas() {
     var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
 
@@ -103,7 +120,6 @@ function generarSubtipos() {
     }
 
 }
-
 
 /**
  *Borra todas las opciones del selec de sub-tipos
