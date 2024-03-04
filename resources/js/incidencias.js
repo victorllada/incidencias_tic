@@ -948,6 +948,25 @@ function generarIncidenciasUsuario(datos)
         //meto el boton de detalles
         divBotonesInterno.appendChild(aDetalles);
 
+        //los profesores solo pueden borrar si la incidencia esta abierta
+        if(datos[pagina][i].estado=="ABIERTA")
+        {
+            //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
+            let inputBorrar=document.createElement("input");
+            inputBorrar.value="Borrar";
+            inputBorrar.type="button";
+            inputBorrar.classList="btn btn-danger text-white flex-fill";
+            inputBorrar.setAttribute("data-bs-toggle","modal");
+            inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+            inputBorrar.setAttribute("idincidencia",datos[pagina][i].id);
+            inputBorrar.addEventListener("click",preguntarBorrado,false);
+
+
+            //meto dentro del div de botones el boton de borrado
+            divBotonesInterno.appendChild(inputBorrar);
+        }
+
+
         //meto los textos de la incidencia dentro del sus divs
         divTipoIncidencia.appendChild(textTipoIncidencia);
         divSubtipo.appendChild(textSubtipo);
