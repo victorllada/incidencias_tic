@@ -94,7 +94,7 @@ function inicio()
     obtenerIncidencias().then(data => {
         datosIncidencias = data.incidencias; // Guardamos los datos en la variable
         rol=data.rol_usuario[0];
-        console.log(data);
+        //console.log(data);
 
         crearArrayPaginacion(datosIncidencias);
         if(rol=="administrador")
@@ -668,6 +668,7 @@ function borrarFiltros()
     fechaDesdeFiltro.value="";
     fechaHastaFiltro.value="";
     estadoFiltro.value="-1";
+    responsableFiltro.value="-1";
     datosFinales=[];
 
     //poner la pagina 1
@@ -974,6 +975,25 @@ function generarIncidenciasUsuario(datos)
 
         //meto el boton de detalles
         divBotonesInterno.appendChild(aDetalles);
+
+        //los profesores solo pueden borrar si la incidencia esta abierta
+        if(datos[pagina][i].estado=="ABIERTA")
+        {
+            //creo el boton de borrado y le doy los valores y las clase y atributos para que funcione
+            let inputBorrar=document.createElement("input");
+            inputBorrar.value="Borrar";
+            inputBorrar.type="button";
+            inputBorrar.classList="btn btn-danger text-white flex-fill";
+            inputBorrar.setAttribute("data-bs-toggle","modal");
+            inputBorrar.setAttribute("data-bs-target","#staticBackdrop");
+            inputBorrar.setAttribute("idincidencia",datos[pagina][i].id);
+            inputBorrar.addEventListener("click",preguntarBorrado,false);
+
+
+            //meto dentro del div de botones el boton de borrado
+            divBotonesInterno.appendChild(inputBorrar);
+        }
+
 
         //meto los textos de la incidencia dentro del sus divs
         divTipoIncidencia.appendChild(textTipoIncidencia);
@@ -1473,7 +1493,7 @@ function redirect(url)
 function preguntarBorrado(event)
 {
     //coloco en el modal el valor del id de la incidencia
-    numeroID.innerHTML=event.target.parentNode.getAttribute("idincidencia");
+    numeroID.innerHTML=event.target.getAttribute("idincidencia");
 
     let ruta=host+"/incidencias/"+event.target.getAttribute("idincidencia");
 
@@ -1489,13 +1509,13 @@ function preguntarBorrado(event)
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aplicacionFiltros">aplicacionFiltros</a></li><li><a href="global.html#borrarFiltros">borrarFiltros</a></li><li><a href="global.html#confirmarBorrado">confirmarBorrado</a></li><li><a href="global.html#crearArrayPaginacion">crearArrayPaginacion</a></li><li><a href="global.html#crearGraficaEstado">crearGraficaEstado</a></li><li><a href="global.html#crearGraficaTipomMedio">crearGraficaTipomMedio</a></li><li><a href="global.html#crearGraficaTipos">crearGraficaTipos</a></li><li><a href="global.html#datosEstado">datosEstado</a></li><li><a href="global.html#datosFinales">datosFinales</a></li><li><a href="global.html#datosIncidencias">datosIncidencias</a></li><li><a href="global.html#datosPaginacion">datosPaginacion</a></li><li><a href="global.html#datosTiempoMedio">datosTiempoMedio</a></li><li><a href="global.html#datosTipo">datosTipo</a></li><li><a href="global.html#datosUsuarios">datosUsuarios</a></li><li><a href="global.html#filtrarObjetos">filtrarObjetos</a></li><li><a href="global.html#filtrarPorUsuario">filtrarPorUsuario</a></li><li><a href="global.html#filtroEmailTemp">filtroEmailTemp</a></li><li><a href="global.html#filtroFecha">filtroFecha</a></li><li><a href="global.html#filtroNombreCompletoTemp">filtroNombreCompletoTemp</a></li><li><a href="global.html#filtroUsuarioTemp">filtroUsuarioTemp</a></li><li><a href="global.html#generarIncidenciasAdmi">generarIncidenciasAdmi</a></li><li><a href="global.html#generarIncidenciasUsuario">generarIncidenciasUsuario</a></li><li><a href="global.html#generarSubtipos">generarSubtipos</a></li><li><a href="global.html#generarUsuarios">generarUsuarios</a></li><li><a href="global.html#host">host</a></li><li><a href="global.html#hostServer">hostServer</a></li><li><a href="global.html#inicio">inicio</a></li><li><a href="global.html#obtenerIncidencias">obtenerIncidencias</a></li><li><a href="global.html#obtenerNombreCompleto">obtenerNombreCompleto</a></li><li><a href="global.html#pagina">pagina</a></li><li><a href="global.html#paginaAnterior">paginaAnterior</a></li><li><a href="global.html#paginaEscrita">paginaEscrita</a></li><li><a href="global.html#paginaSiguiente">paginaSiguiente</a></li><li><a href="global.html#paginacionFin">paginacionFin</a></li><li><a href="global.html#paginacionInicio">paginacionInicio</a></li><li><a href="global.html#preguntarBorrado">preguntarBorrado</a></li><li><a href="global.html#redirect">redirect</a></li><li><a href="global.html#rol">rol</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#EquiposSelected">EquiposSelected</a></li><li><a href="global.html#aplicacionFiltros">aplicacionFiltros</a></li><li><a href="global.html#borrarFiltros">borrarFiltros</a></li><li><a href="global.html#borrarSubOpciones">borrarSubOpciones</a></li><li><a href="global.html#borrarSubSubOpciones">borrarSubSubOpciones</a></li><li><a href="global.html#cargarEtiquetas">cargarEtiquetas</a></li><li><a href="global.html#comprobarYedra">comprobarYedra</a></li><li><a href="global.html#confirmarBorrado">confirmarBorrado</a></li><li><a href="global.html#crearArrayPaginacion">crearArrayPaginacion</a></li><li><a href="global.html#crearGraficaEstado">crearGraficaEstado</a></li><li><a href="global.html#crearGraficaTipomMedio">crearGraficaTipomMedio</a></li><li><a href="global.html#crearGraficaTipos">crearGraficaTipos</a></li><li><a href="global.html#datosEstado">datosEstado</a></li><li><a href="global.html#datosFinales">datosFinales</a></li><li><a href="global.html#datosIncidencias">datosIncidencias</a></li><li><a href="global.html#datosPaginacion">datosPaginacion</a></li><li><a href="global.html#datosTiempoMedio">datosTiempoMedio</a></li><li><a href="global.html#datosTipo">datosTipo</a></li><li><a href="global.html#datosUsuarios">datosUsuarios</a></li><li><a href="global.html#filtrarObjetos">filtrarObjetos</a></li><li><a href="global.html#filtrarPorUsuario">filtrarPorUsuario</a></li><li><a href="global.html#filtroEmailTemp">filtroEmailTemp</a></li><li><a href="global.html#filtroFecha">filtroFecha</a></li><li><a href="global.html#filtroNombreCompletoTemp">filtroNombreCompletoTemp</a></li><li><a href="global.html#filtroUsuarioTemp">filtroUsuarioTemp</a></li><li><a href="global.html#generarIncidenciasAdmi">generarIncidenciasAdmi</a></li><li><a href="global.html#generarIncidenciasUsuario">generarIncidenciasUsuario</a></li><li><a href="global.html#generarSubSubTipos">generarSubSubTipos</a></li><li><a href="global.html#generarSubtipos">generarSubtipos</a></li><li><a href="global.html#generarUsuarios">generarUsuarios</a></li><li><a href="global.html#host">host</a></li><li><a href="global.html#hostServer">hostServer</a></li><li><a href="global.html#inicio">inicio</a></li><li><a href="global.html#obtenerEquiposAula">obtenerEquiposAula</a></li><li><a href="global.html#obtenerIncidencias">obtenerIncidencias</a></li><li><a href="global.html#obtenerNombreCompleto">obtenerNombreCompleto</a></li><li><a href="global.html#pagina">pagina</a></li><li><a href="global.html#paginaAnterior">paginaAnterior</a></li><li><a href="global.html#paginaEscrita">paginaEscrita</a></li><li><a href="global.html#paginaSiguiente">paginaSiguiente</a></li><li><a href="global.html#paginacionFin">paginacionFin</a></li><li><a href="global.html#paginacionInicio">paginacionInicio</a></li><li><a href="global.html#preguntarBorrado">preguntarBorrado</a></li><li><a href="global.html#redirect">redirect</a></li><li><a href="global.html#rol">rol</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 03 2024 01:39:39 GMT+0100 (hora estándar de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 04 2024 20:58:09 GMT+0100 (hora estándar de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>
