@@ -27,7 +27,7 @@ class CrearIncidenciaRequest extends FormRequest
             'sub-sub-tipo' => 'in:RATON,ORDENADOR,TECLADO,PORTATIL PROPORCIONADO POR CONSERJERIA,DE AULA,DE PUESTO',
             'descripcion' => 'required|min:5',
             'prioridad' => 'required|in:BAJA,MEDIA,ALTA,URGENTE',
-            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
+            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,txt,xls,xlsx,ppt,pptx,zip',
         ];
 
         //Si el usuario no tiene email, pondremos que el campo email sea requerido
