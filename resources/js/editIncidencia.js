@@ -1,10 +1,26 @@
+/**
+ * Registra un evento para el manejo del evento 'load', ejecutando la función 'inicio' cuando la página se carga completamente.
+ * @param {string} type - El tipo de evento ('load' en este caso).
+ * @param {function} listener - La función que se llamará cuando ocurra el evento.
+ * @param {boolean} useCapture - Especifica si se debe usar la fase de captura (false en este caso).
+ * @returns {void}
+ */
 addEventListener("load",inicio,false);
 
-//vaiable para poder obtener el host
+/**
+ * Importa la constante 'hostServer' desde el módulo "./variableHost.js" y la asigna a la variable 'host'.
+ * @type {string} - El valor de 'hostServer' importado.
+ */
 import {hostServer} from "./variableHost.js";
 let host=hostServer;
 
-//Funcion que se ejecuta cuando carga el html
+/**
+ * Función que realiza acciones al cargar la página.
+ * - Muestra los valores de la clase y el número de etiqueta si el tipo es "EQUIPOS".
+ * - Genera los subtipos.
+ * - Registra eventos para cambios en los elementos tipo, sub-tipo y aula, ejecutando funciones específicas.
+ * @returns {void}
+ */
 function inicio()
 {
     //para que muestre los valores de la clase y el numero de etiqueta
@@ -19,7 +35,12 @@ function inicio()
     aula.addEventListener("change",obtenerEquiposAula,false);
 }
 
-//funcion para poder obtener los equipos de la aula seleccionada
+/**
+ * Realiza una llamada asíncrona a la ruta de Laravel para obtener etiquetas según el aula seleccionada.
+ * Actualiza el select de equipos con los datos obtenidos.
+ * @throws {Error} - Lanza un error si la respuesta HTTP no es exitosa.
+ * @returns {Promise<void>} - Una promesa que se resuelve después de actualizar el select de equipos.
+ */
 async function obtenerEquiposAula()
 {
     try
@@ -47,6 +68,11 @@ async function obtenerEquiposAula()
     }
 }
 
+/**
+ * Rellena el select de números de etiqueta con los datos de los equipos proporcionados.
+ * @param {Array} equipos - Un array de objetos representando los equipos con sus números de etiqueta.
+ * @returns {void}
+ */
 function cargarEtiquetas(equipos)
 {
     //console.log(equipos);
@@ -78,7 +104,11 @@ function cargarEtiquetas(equipos)
     }
 }
 
-//metodo para poder generar los subtipos en funcion del tipo
+/**
+ * Genera y actualiza las opciones del select de subtipos según el tipo seleccionado.
+ * Además, controla la visibilidad de los elementos divEquipo, div-sub-sub-tipo y div-sub-tipo en función del tipo seleccionado.
+ * @returns {void}
+ */
 function generarSubtipos()
 {
     subTipo.innerHTML="<option selected value='-1'>Seleccione el sub-tipo</option>";
@@ -136,7 +166,11 @@ function generarSubtipos()
     }
 }
 
-//funcion para poder generar los subsubtipos en funcion de los subtipos
+/**
+ * Genera y actualiza las opciones del select de sub-subtipos según el sub-tipo seleccionado.
+ * Controla la visibilidad del elemento div-sub-sub-tipo en función del sub-tipo seleccionado.
+ * @returns {void}
+ */
 function generarSubSubTipos()
 {
     subSubTipo.innerHTML="<option selected value='-1'>Selecciona el sub-subtipo</option>";
