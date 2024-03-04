@@ -40,12 +40,12 @@ class DatabaseSeeder extends Seeder
 
         // Factory de usuarios
         $this->command->info('Inicializando con datos tabla users...');
-        User::factory(50)->create();
+        User::factory(40)->create();
         $this->command->info('Tabla users inicializada con datos.');
 
         // Factory de incidencias
         $this->command->info('Inicializando con datos tabla incidencias...');
-        Incidencia::factory(500)->create();
+        Incidencia::factory(200)->create();
         $this->command->info('Tabla incidencias inicializada con datos.');
 
         //Factory de comentarios
