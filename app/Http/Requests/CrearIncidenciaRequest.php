@@ -59,7 +59,7 @@ class CrearIncidenciaRequest extends FormRequest
             'descripcion.min' => 'La descripción debe tener almenos 5 caracteres.',
             'prioridad.required' => 'La prioridad es obligatria.',
             'prioridad.in' => 'La prioridad debe ser una del select.',
-            'fichero.mimes' => 'El fichero adjunto debe tener un formato valido'
+            'fichero.mimes' => 'El fichero adjunto debe tener un formato valido.'
         ];
 
         //Si el usuario no tiene email, y no pone/selecciona un valor en email se mostrará este mensaje

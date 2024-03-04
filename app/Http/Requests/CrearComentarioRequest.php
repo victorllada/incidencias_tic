@@ -37,7 +37,7 @@ class CrearComentarioRequest extends FormRequest
     {
         return [
             'texto.required' => 'El texto del comentario es obligatorio.',
-            'fichero.mimes' => 'El fichero adjunto debe tener un formato valido'
+            'fichero.mimes' => 'El fichero adjunto debe tener un formato valido.'
         ];
     }
 }

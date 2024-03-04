@@ -43,7 +43,7 @@ class CrearUsuarioRequest extends FormRequest
             'email.required' => 'El email es obligatrio.',
             'departamento.required' => 'El departamento es obligatrio.',
             'rol.required' => 'El rol es obligatrio.',
-            'rol.in' => 'El rol debe ser profesor o administrador',
+            'rol.in' => 'El rol debe ser profesor o administrador.',
         ];
     }
 }
