@@ -440,10 +440,14 @@ class IncidenciaController extends Controller
         // Buscar la incidencia por su ID
         $incidencia = Incidencia::findOrFail($id);
 
-        $user = auth()->user();
+        if ($incidencia != null) {
+            $user = auth()->user();
 
-        if ($user->hasRole('profesor') && $incidencia->estado !== "ABIERTA") {
-            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para borrar la incidencia.');
+            if ($user->hasRole('profesor') && $incidencia->estado !== "ABIERTA") {
+                return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para borrar la incidencia.');
+            }
+        } else {
+            return redirect()->route('incidencias.index')->with('error', 'Error: la incidencia no existe');
         }
 
         try {
