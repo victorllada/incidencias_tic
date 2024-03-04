@@ -19,7 +19,7 @@
 
         @if ($errors->any())
             <div class="alert alert-danger" role="alert">
-                Hubo errores al mandar el mensaje:
+                Hubo los siguientes errores de validación:
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
