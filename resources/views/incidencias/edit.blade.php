@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Editar')
 @section('archivosJS')
-    @vite(['resources/js/app.js','resources/js/editIncidencia.js'])
+    @vite(['resources/js/app.js', 'resources/js/editIncidencia.js'])
 @endsection
 @section('contenido')
 
@@ -80,12 +80,12 @@
                                 <select class="form-select" name="aula" id="aula" required>
                                     <!--onchange="cargarEtiquetas()"-->
                                     <option selected disabled value="-1">Selecciona el aula</option>
-                                        @foreach ($aulas as $aula)
-                                            <option value="{{ $aula->id }}"
-                                                {{ $aula->id == optional($incidencia->equipo)->aula_id ? 'selected' : '' }}>
-                                                {{ $aula->codigo }}
-                                            </option>
-                                        @endforeach
+                                    @foreach ($aulas as $aula)
+                                        <option value="{{ $aula->id }}"
+                                            {{ $aula->id == optional($incidencia->equipo)->aula_id ? 'selected' : '' }}>
+                                            {{ $aula->codigo }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -95,12 +95,12 @@
                                     etiqueta</label>
                                 <select class="form-select" name="num_etiqueta" id="num_etiqueta" required>
                                     <option selected disabled value="-1">Selecciona la etiqueta</option>
-                                        @foreach ($etiquetas as $etiqueta)
-                                            <option value="{{ $etiqueta->etiqueta }}"
-                                                {{ $etiqueta->etiqueta == optional($incidencia->equipo)->etiqueta ? 'selected' : '' }}>
-                                                {{ $etiqueta->etiqueta }}
-                                            </option>
-                                        @endforeach
+                                    @foreach ($etiquetas as $etiqueta)
+                                        <option value="{{ $etiqueta->etiqueta }}"
+                                            {{ $etiqueta->etiqueta == optional($incidencia->equipo)->etiqueta ? 'selected' : '' }}>
+                                            {{ $etiqueta->etiqueta }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -183,7 +183,10 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="actuaciones">Actuaciones</label>
                                 <textarea class="form-control" placeholder="Deja aqui las actuaciones" name="actuaciones" id="actuaciones"
-                                    rows="8" maxlength="256">{{ $incidencia->actuaciones }}</textarea>
+                                    rows="8" maxlength="256"
+                                    @role('profesor')
+                                    readonly
+                                    @endrole>{{ $incidencia->actuaciones }}</textarea>
                             </div>
                         </div>
                     </div>
