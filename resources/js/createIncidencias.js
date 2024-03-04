@@ -89,7 +89,7 @@ function generarSubtipos() {
             var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
             break;
         case "EQUIPOS":
-            var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
+            var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANTALLA INTERACTIVA", "PORTATIL",
                 "IMPRESORA"
             ];
             break;
