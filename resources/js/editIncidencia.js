@@ -120,7 +120,7 @@ function generarSubtipos()
             subtipos = ["EDUCANTABRIA","GOOGLE CLASSROOM","DOMINIO","YEDRA"];
             break;
         case "EQUIPOS":
-            subtipos=["ALTAVOCES","PC","MONITOR","PROYECTOR","PANALLA INTERACTIVA","PORTATIL","IMPRESORA"];
+            subtipos=["ALTAVOCES","PC","MONITOR","PROYECTOR","PANTALLA INTERACTIVA","PORTATIL","IMPRESORA"];
             break;
         case "WIFI":
             subtipos=["IESMIGUELHERRERO","WIECAN"];

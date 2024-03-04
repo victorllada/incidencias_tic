@@ -78,7 +78,7 @@
                                                         @endif
                                                         <div>{{ $comentario->user->nombre_completo }}</div>
                                                     @else
-                                                        <div class="fw-bolder">Tu</div>
+                                                        <div class="fw-bolder">Tú</div>
                                                     @endif
                                                 </div>
                                                 <div class="card-body">
