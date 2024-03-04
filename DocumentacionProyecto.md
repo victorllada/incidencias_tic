@@ -5,8 +5,8 @@
   - [Índice](#índice)
   - [Introducción](#introducción)
   - [Base de datos](#base-de-datos)
-    - [Subsección 1.1](#subsección-11)
-    - [Subsección 1.2](#subsección-12)
+    - [Eventos](#eventos)
+    - [Triggers](#triggers)
   - [PHP](#php)
     - [Subsección 2.1](#subsección-21)
     - [Subsección 2.2](#subsección-22)
@@ -29,15 +29,91 @@ Este es el inicio de tu documento.
 
 ## Base de datos
 
-Contenido de la primera sección.
+Tendremos una base de datos llamada 'incidencias_tic' con cotejamiento 'utf8mb4_unicode_ci'.
 
-### Subsección 1.1
+Almacenará los datos necesarios para gestionar las incidencias TIC que pueden surgir en un instituto. Además de disponer de tablas de roles y permisos para las usuarios de la aplicación.
 
-Contenido de la subsección 1.1.
+Todo lo relacionado con base de datos estará creado mediante migraciones para las tablas y factories y seeders para la inserción de datos. El diagrama de la base de datos de incidencias es el siguiente:
 
-### Subsección 1.2
+![](imagenes_documentacion/Diagrama_BD.png)
 
-Contenido de la subsección 1.2.
+### Eventos
+
+Activaremos los eventos en la base de datos para crear un trabajo que establecerá en estado 'cerrado' las incidencias que pasen más de un día en estado 'resuelto'. Este evento se ejecutará todos los días a las 23:59h llamando al procedimiento almacenado correspondiente.
+
+```sql
+SET GLOBAL event_scheduler = 1;
+
+CREATE PROCEDURE IF NOT EXISTS cerrarIncidenciasResueltas()
+BEGIN
+    UPDATE incidencias
+    SET estado = "cerrada", fecha_cierre = NOW()
+    WHERE estado = "resuelta" AND fecha_cierre IS NOT NULL AND fecha_cierre < NOW() - INTERVAL 1 DAY;
+END;
+
+CREATE EVENT IF NOT EXISTS cerrarIncidenciasEvent
+ON SCHEDULE EVERY 1 DAY
+STARTS CURRENT_DATE + INTERVAL 23 HOUR + INTERVAL 59 MINUTE
+ON COMPLETION PRESERVE
+DO CALL cerrarIncidenciasResueltas();
+```
+
+### Triggers
+
+Crearemos dos triggers en la base de datos.
+
+El primero se ejecutará antes de la inserción de un registro en la tabla 'users' y consistirá en comprobar si el departamento que tiene, si es que tiene, existe en la tabla 'departamentos' para así recoger el id del departamento y grabarle junto al registro en la tabla 'users'.
+
+```sql
+CREATE TRIGGER before_insert_user
+BEFORE INSERT ON users FOR EACH ROW
+BEGIN
+    -- Almacenar temporalmente el ID del departamento encontrado
+    DECLARE departamento_id bigint(20);
+
+    -- Verificar si el campo nombre_departamento no es NULL
+    IF NEW.nombre_departamento IS NOT NULL THEN
+        -- Buscar el departamento en la tabla departamentos
+        SELECT id INTO departamento_id FROM departamentos WHERE nombre = NEW.nombre_departamento;
+
+        -- Si se encuentra el departamento, actualizar id_departamento en users
+        IF departamento_id IS NOT NULL THEN
+            SET NEW.id_departamento = departamento_id;
+        END IF;
+    END IF;
+END;
+```
+
+El segundo se ejecutará después de la inserción de un registro en la tabla 'users' y consistirá en establacer su rol. Si es el primer registro que se inserta en la tabla, su rol será 'administrador' de lo contrario será 'profesor'.
+
+```sql
+CREATE TRIGGER IF NOT EXISTS asignar_rol_after_insert_user
+AFTER INSERT ON users FOR EACH ROW
+BEGIN
+    -- Variables
+    DECLARE usuarios_totales INT; -- Cantidad de usuarios en la tabla users. Nos indicará si es el primer login o no.
+    DECLARE administrador_role_id INT; -- ID del rol administrador en la tabla roles
+    DECLARE usuario_role_id INT; -- ID del rol usuario en la tabla roles
+    DECLARE user_model_type VARCHAR(255); -- Espacio de nombres que será el tipo del modelo en la tabla model_has_roles
+
+    -- Guardar el namespace del modelo de usuario
+    SET user_model_type = "App\\\\Models\\\\User";
+
+    -- Obtener el número total de usuarios
+    SELECT COUNT(*) INTO usuarios_totales FROM users;
+
+    -- Obtener los IDs de los roles por su nombre
+    SELECT id INTO administrador_role_id FROM roles WHERE name = "administrador";
+    SELECT id INTO usuario_role_id FROM roles WHERE name = "profesor";
+
+    -- Asignar el rol según si es el primer login o no
+    IF usuarios_totales = 1 THEN
+        INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES (administrador_role_id, user_model_type, NEW.id);
+    ELSE
+        INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES (usuario_role_id, user_model_type, NEW.id);
+    END IF;
+END;
+```
 
 ## PHP
 
