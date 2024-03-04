@@ -57,9 +57,13 @@ class UserController extends Controller
      */
     public function create()
     {
+        /*
         $departamentos = Departamento::all();
         $rolesDisponibles = Role::pluck('name')->toArray();
         return view('usuarios.create', compact('departamentos', 'rolesDisponibles'));
+        */
+
+        abort('404');
     }
 
     /**
@@ -106,6 +110,7 @@ class UserController extends Controller
             return redirect()->route('usuarios.index')->with('error', 'No se pudo crear el usuario.');
         }
         */
+        abort('404');
     }
 
     /**
@@ -116,7 +121,10 @@ class UserController extends Controller
      */
     public function show(User $usuario)
     {
+        /*
         return view('usuarios.show', compact('usuario'));
+        */
+        abort('404');
     }
 
     /**
@@ -212,5 +220,6 @@ class UserController extends Controller
             return redirect()->route('usuarios.index')->with('error', 'No se pudo eliminar el usuario.');
         }
         */
+        abort('404');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.plantilla')
-@section('titulo', 'Incidencias - Usuarios - Show')
+@section('titulo', 'Incidencias - Usuarios - Detalles')
 @section('archivosJS')
     @vite(['resources/js/app.js', 'resources/js/incidencias.js'])
 @endsection
