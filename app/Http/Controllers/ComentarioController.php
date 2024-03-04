@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearComentarioRequest;
+use App\Mail\EnvioCorreo;
 use App\Models\Comentario;
 use App\Models\Incidencia;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use SplFileInfo;
 
@@ -21,6 +23,8 @@ class ComentarioController extends Controller
      */
     public function store(CrearComentarioRequest $request)
     {
+        $comentarioEnviado = false;
+
         try {
             DB::beginTransaction();
 
@@ -44,7 +48,7 @@ class ComentarioController extends Controller
 
             $incidencia = Incidencia::find($request->incidencia_id);
 
-            return redirect()->route('incidencias.show', $incidencia)->with('success', 'Comentario enviado.');
+            $comentarioEnviado = true;
         } catch (Exception $e) {
 
             $incidencia = Incidencia::find($request->incidencia_id);
@@ -57,6 +61,20 @@ class ComentarioController extends Controller
             } else {
 
                 return redirect()->route('incidencias.index')->with('error', 'No se pudo encontrar la incidencia asociada al comentario. Detalles: ' . $e->getMessage());
+            }
+        }
+
+        // Si se ha creado correctamente el comentario enviamos un email
+        if ($comentarioEnviado) {
+            try {
+                // Envío de correo poniéndolo en cola para que no interrumpa la redirección
+                //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'comentado'));
+
+                //Redirección al show con mensaje de exito
+                return redirect()->route('incidencias.show', $incidencia)->with('success', 'Comentario enviado.');
+            } catch (Exception $e) {
+                //Redirección al show con mensaje de error
+                return redirect()->route('incidencias.show', $incidencia)->with('error', 'Comentario enviado. No se ha podido enviar el email. Detalles: ' . $e->getMessage());
             }
         }
     }
