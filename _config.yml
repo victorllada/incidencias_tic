@@ -5,8 +5,8 @@ relative_links:
   enabled: true
 
 theme: jekyll-theme-cayman
-title: Proyecto
-description: Documentacion del proyecto
+title: "Proyecto"
+description: "Documentacion del proyecto"
 github:
   is_project_page: false
 markdown: GFM
