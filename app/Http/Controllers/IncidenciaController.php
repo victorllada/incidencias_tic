@@ -22,6 +22,7 @@ use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
 use App\Models\User;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -437,16 +438,17 @@ class IncidenciaController extends Controller
     public function destroy(int $id)
     {
 
-        // Buscar la incidencia por su ID
-        $incidencia = Incidencia::findOrFail($id);
+        try {
+            $incidencia = Incidencia::findOrFail($id);
 
-        if ($incidencia != null) {
             $user = auth()->user();
 
             if ($user->hasRole('profesor') && $incidencia->estado !== "ABIERTA") {
                 return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para borrar la incidencia.');
             }
-        } else {
+
+        } catch (ModelNotFoundException $mnfe) {
+
             return redirect()->route('incidencias.index')->with('error', 'Error: la incidencia no existe');
         }
 
