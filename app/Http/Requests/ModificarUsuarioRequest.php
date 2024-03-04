@@ -41,7 +41,7 @@ class ModificarUsuarioRequest extends FormRequest
             'email.required' => 'El email es obligatrio.',
             'email.email' => 'El email debe ser una dirección de correo electrónico válida.',
             'rol.required' => 'El rol es obligatrio.',
-            'rol.in' => 'El rol debe ser profesor o administrador',
+            'rol.in' => 'El rol debe ser profesor o administrador.',
         ];
     }
 }
