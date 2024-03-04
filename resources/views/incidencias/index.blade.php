@@ -111,18 +111,20 @@
                                     </select>
                                 </div>
 
-                                {{-- Filtro responsable --}}
-                                <div class="input-group">
-                                    <label class="col-4 input-group-text aquamarine-200"
-                                        for="responsableFiltro">Responsable</label>
-                                    <select class="form-select" id="responsableFiltro" name="responsableFiltro">
-                                        <option selected value="-1">Selecciona un responsable</option>
-                                        @foreach ($responsables as $responsable)
-                                            <option value={{ $responsable->id }}>{{ $responsable->nombre_completo }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @role("administrador")
+                                    {{-- Filtro responsable --}}
+                                    <div class="input-group">
+                                        <label class="col-4 input-group-text aquamarine-200"
+                                            for="responsableFiltro">Responsable</label>
+                                        <select class="form-select" id="responsableFiltro" name="responsableFiltro">
+                                            <option selected value="-1">Selecciona un responsable</option>
+                                            @foreach ($responsables as $responsable)
+                                                <option value={{ $responsable->id }}>{{ $responsable->nombre_completo }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endrole
 
                                 {{-- Boton de filtrado y borrar filtros --}}
                                 <div class="d-flex justify-content-between gap-2">
