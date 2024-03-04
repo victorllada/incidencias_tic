@@ -185,6 +185,8 @@ Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
 
 ### Paleta de colores
 
+Optamos por la siguente paleta de colores, en tonos azules, ademas de colores blancos y negros y un color morado usado en la vista de el login y las vista de error 403 y 403.
+
 | Nombre del Color | Código Hexadecimal | Muestra |
 | ---------------- | ------------------ | ------- |
 | Aquamarine 50    | #f0f8ff            | <div style="width: 20px; height: 20px; background-color: #f0f8ff;"></div> |
@@ -205,7 +207,7 @@ Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
 
 ### Diseño
 
-Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación.
+Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación, el obejetivo era centrar la información en unico punto para que la experiencia de usuario se simple y amigable.
 
 ### Uso de Bootstrap
 
