@@ -20,7 +20,6 @@
             </nav>
         </div>
 
-        <!--Falta añadir la ruta del store en el atributo action del form-->
         <form action="{{ route('usuarios.update', $usuario) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
@@ -113,7 +112,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ¿Estas seguro de guardar los cambios?
+                            ¿Estás seguro de que quieres guardar los cambios?
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">

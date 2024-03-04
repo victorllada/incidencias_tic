@@ -128,38 +128,7 @@
 
             {{-- Lista de usuarios --}}
             <div class="row mb-6" id="contenedorUsuarios">
-                {{-- @forelse ($usuarios as $usuario)
-                    <div class="lista-incidencias">
-                        <div class="row d-flex justify-content-between align-items-center flex-nowrap rounded">
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
-                                {{ $usuario->name }}
-                            </div>
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
-                                {{ $usuario->nombre_completo }}
-                            </div>
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
-                                {{ $usuario->email }}
-                            </div>
-                            <div class="col p-3 text-ellipsis" onclick="redirect('{{ route('usuarios.edit', $usuario) }}')">
-                                {{ $usuario->nombre_departamento }}
-                            </div>
-                            <div class="col p-3 text-ellipsis"
-                                onclick="redirect('{{ route('usuarios.show', $usuario) }}')">
-                                -- Aqui va el rol del usuario --
-                            </div>
-                            <div class="col p-3 movil-res">
-                                <div class="d-flex flex-column justify-content-center gap-2">
-                                    <a class=" btn aquamarine-400 text-white" type="button"
-                                        href="{{ route('usuarios.edit', $usuario) }}">
-                                        Editar
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <p>No hay incidencias que mostrar.</p>
-                @endforelse --}}
+
             </div>
 
             <div class="row d-flex aquamarine-300 rounded-bottom">
@@ -203,7 +172,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea borrar el usuario: <span id="numeroID"></span>{{-- Nombre complreto del usuarios --}}
+                        ¿Desea borrar el usuario: <span id="numeroID"></span>?{{-- Nombre complreto del usuarios --}}
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">

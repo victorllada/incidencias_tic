@@ -276,7 +276,7 @@
         </div>
     </div>
 
-    {{-- Botones actilizar y borrar incidencia --}}
+    {{-- Botones actuailizar y borrar incidencia --}}
     <div class="row mt-5">
         <div class="d-flex gap-2">
             <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
@@ -303,7 +303,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        Desea borrar la incidencia
+        ¿Desea borrar la incidencia?
     </div>
     <div class="modal-footer">
         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">

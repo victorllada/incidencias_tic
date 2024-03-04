@@ -34,7 +34,6 @@
                 <div class="card-body">
 
                     {{-- Fila 1 tipo sub-tipo y sub-sub-tipo --}}
-                    {{-- Hay que hacer el hidden en los div de cada columna para asi hacer invisible sub-tipo y sub-sub-tipo --}}
                     <div class="row mb-4">
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -57,7 +56,7 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="subTipo">Sub-tipo</label>
                                 <select class="form-select" name="subTipo" id="subTipo">
-                                    <option selected disabled value="-1">Selecciona el subtipo</option>
+                                    <option selected disabled value="-1">Selecciona el sub-tipo</option>
                                 </select>
                             </div>
                         </div>
@@ -66,14 +65,13 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="subSubTipo">Sub-sub-tipo</label>
                                 <select class="form-select" name="subSubTipo" id="subSubTipo">
-                                    <option selected disabled value="-1">Selecciona el sub-subtipo</option>
+                                    <option selected disabled value="-1">Selecciona el sub-sub-tipo</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     {{-- Fila 2  en caso de que el tipo sea equipos --}}
-                    {{-- Hay que hacer el hidden en el div de la fila  asi hacer invisible y cuando el tipo sea equipos sea visible --}}
                     <div class="row mb-4" id="divEquipo" hidden>
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -93,7 +91,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Numero de
+                                <label class="input-group-text aquamarine-200 fw-bolder" for="num_etiqueta">Número de
                                     etiqueta</label>
                                 <select class="form-select" name="num_etiqueta" id="num_etiqueta" required>
                                     <option selected disabled value="-1">Selecciona la etiqueta</option>
@@ -205,7 +203,7 @@
                         </div>
                     </div>
 
-                    {{-- Aqui se generara un checklist con todos los profesores del centro --}}
+                    {{-- Aqui se generara un checklist con los administradores --}}
                     @role('administrador')
                         <div class="row mb-4">
                             <div class="col input-group">
@@ -248,7 +246,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ¿Estas seguro de guardar los cambios?
+                            ¿Estás seguro de que quieres guardar los cambios?
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
@@ -259,215 +257,4 @@
             </div>
         </form>
     </div>
-
-<!--Hay que pasar el script a un fichero y ademas añadir validaciones antes de enviar form-->
-
-{{-- Carga los datos de etiquetas segun el aula seleccionado --}}
-<!--script>
-    function cargarEtiquetas() {
-        var aulaId = document.getElementById('aula').value; //Obtener el id del aula actual
-
-        // Realizar una petición AJAX para obtener las etiquetas según el aula seleccionada
-        fetch('/obtener-etiquetas/' + aulaId)
-            .then(response => response.json())
-            .then(data => {
-                var selectEtiqueta = document.getElementById('num_etiqueta'); //obtenemos el select de etiquetas
-                selectEtiqueta.innerHTML = ""; // Limpiar opciones existentes
-
-                var defaultOption = document.createElement('option'); //Creamos la opcion
-                defaultOption.value = null; //Valor nulo
-                defaultOption.text = "No hay equipos en este aula"; //Texto de muestra
-                selectEtiqueta.add(defaultOption); //Añadimos la opcion
-
-                if (data && data.length > 0) { //Si hay datos mostramos las etiquetas
-
-                    selectEtiqueta.removeChild(defaultOption); //Borramos la opcion default
-
-                    data.forEach(etiqueta => { //Por cada etiqueta
-                        var option = document.createElement('option'); //Creamos una opcion
-                        option.value = etiqueta.etiqueta; //Valor de la opcion es la etiqueta
-                        option.text = etiqueta.etiqueta; //texto de la opcion es la etiqueta
-                        selectEtiqueta.add(option); //Añadimos la opcion
-                    });
-                }
-
-            })
-            .catch(error => console.error('Error:', error)); //Obtenemos el error
-    }
-</script>
-
-<script>
-    addEventListener('load', () => {
-        //Guardamos en una variable el selec de tipo
-        var tipo = document.getElementById("tipo");
-
-        //Guardamos en una variable el selec de subtipos
-        var subtipo = document.getElementById("sub-tipo");
-
-        //Guardamos en una variable el selec de estado
-        var estado = document.getElementById("estado");
-
-        //Comprueba la primera vez que se carga la pagina si el tipo es EQUIPOS, y si es asi muestra el div-equipo
-        comprobarTipo();
-
-        //Genera los sub-tipos cuando se elije una opcion de tipos
-        tipo.addEventListener('change', generarSubtipos);
-
-        //Comprueba si se elije el tipo Equipos y hace que aparezcan los campos num_etiqueta, aula y puesto
-        tipo.addEventListener('change', EquiposSelected);
-
-        //Comprueba si se selecciona la opcion "yedra" en sub-tipos, e informa con un alert
-        subtipo.addEventListener('change', comprobarYedra);
-
-        //Genera los sub-sub-tipos cuando se elije una opcion de tipos
-        subtipo.addEventListener('change', generarSubSubTipos);
-    });
-
-    /**
-     * Comprueba la primera vez que se carga la pagina si el tipo es EQUIPOS, y si es asi muestra el div-equipo
-     */
-    function comprobarTipo() {
-
-        var tipo = document.getElementById("tipo");
-        var divEquipo = document.getElementById("div-equipo");
-
-        if (tipo.value == "EQUIPOS") {
-            divEquipo.hidden = false;
-        }
-    }
-
-    /**
-     * Genera los sub-tipos dependiendo de lo seleccionado en tipos
-     */
-    function generarSubtipos() {
-        var selec = document.getElementById("tipo");
-        var subtipo = document.getElementById("sub-tipo");
-
-        var subsubtipo = document.getElementById("sub-sub-tipo");
-
-        borrarSubOpciones();
-        borrarSubSubOpciones();
-
-        switch (selec.value) {
-            case "CUENTAS":
-                var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
-                break;
-            case "EQUIPOS":
-                var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANALLA INTERACTIVA", "PORTATIL",
-                    "IMPRESORA"
-                ];
-                break;
-            case "WIFI":
-                var array = ["IESMIGUELHERRERO", "WIECAN"];
-                break;
-            case "INTERNET":
-                var array = [];
-                break;
-            case "SOFTWARE":
-                var array = ["INSTALACION", "ACTUALIZACION"];
-                break;
-            default:
-                break;
-        }
-
-        for (let i = 0; i < array.length; i++) {
-            var opt = document.createElement("option");
-            opt.textContent = array[i];
-            opt.setAttribute("value", array[i]);
-            subtipo.appendChild(opt);
-        }
-
-        if (selec.value == "INTERNET") {
-            document.getElementById("div-sub-tipo").hidden = true;
-        } else {
-            document.getElementById("div-sub-tipo").hidden = false;
-        }
-
-    }
-
-
-    /**
-     *Borra todas las opciones del selec de sub-tipos
-     */
-    function borrarSubOpciones() {
-        var subtipo = document.getElementById("sub-tipo");
-
-        while (subtipo.firstChild) {
-            subtipo.removeChild(subtipo.firstChild);
-        }
-    }
-
-    /**
-     * Comprueba si se selecciona el sub-tipo "yedra", y si es así saca alert con información
-     */
-    function comprobarYedra() {
-        var subtipo = document.getElementById("sub-tipo");
-
-        if (subtipo.value == "YEDRA") {
-            alert("Esta gestión la realiza Jefatura de estudios");
-        }
-    }
-
-    /**
-     * Genera los sub-sub-tipo dependiendo del sub-tipo seleccionado
-     */
-    function generarSubSubTipos() {
-
-        var subtipo = document.getElementById("sub-tipo");
-        var subsubtipo = document.getElementById("sub-sub-tipo");
-
-        borrarSubSubOpciones();
-
-        switch (subtipo.value) {
-            case "PC":
-                var array = ["RATON", "ORDENADOR", "TECLADO"];
-                break;
-            case "Portátil":
-                var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
-                break;
-            default:
-                borrarSubSubOpciones();
-                document.getElementById("div-sub-sub-tipo").hidden = true;
-                break;
-        }
-
-        if (array) {
-            for (let i = 0; i < array.length; i++) {
-                var opt = document.createElement("option");
-                opt.textContent = array[i];
-                opt.setAttribute("value", array[i]);
-                subsubtipo.appendChild(opt);
-            }
-
-            document.getElementById("div-sub-sub-tipo").hidden = false;
-        }
-
-    }
-
-    /**
-     *Borra todas las sub-sub-opciones del selec de sub-sub-tipos
-     */
-    function borrarSubSubOpciones() {
-        var subsubtipo = document.getElementById("sub-sub-tipo");
-
-        while (subsubtipo.firstChild) {
-            subsubtipo.removeChild(subsubtipo.firstChild);
-        }
-    }
-
-    /**
-     * Cambia si los campos num_etiqueta, aula y puesto se muestran o no, en funcion a si se selecciona el tipo equipos, o no
-     */
-    function EquiposSelected() {
-
-        var selec = document.getElementById("tipo");
-
-        if (selec.value === "EQUIPOS") {
-            document.getElementById("div-equipo").hidden = false;
-        } else {
-            document.getElementById("div-equipo").hidden = true;
-        }
-    }
-</script-->
-
 @endsection

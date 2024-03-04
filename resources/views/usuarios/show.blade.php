@@ -5,6 +5,8 @@
 @endsection
 @section('contenido')
 
+    <!--Esta vista no se usa actualmente, pero lo dejamos hecho por si en futuras actualizaciones de la aplicación se necesita-->
+
     <h1>Usuarios Show</h1>
 
     <div>
