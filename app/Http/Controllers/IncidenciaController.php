@@ -436,6 +436,13 @@ class IncidenciaController extends Controller
      */
     public function destroy(int $id)
     {
+
+        $user = auth()->user();
+
+        if ($user->hasRole('profesor') && $incidencia->estado !== "ABIERTA" ) {
+            return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para borrar la incidencia.');
+        }
+
         try {
             // Buscar la incidencia por su ID
             $incidencia = Incidencia::findOrFail($id);
