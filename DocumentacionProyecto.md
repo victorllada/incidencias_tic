@@ -21,6 +21,16 @@
     - [Paleta de colores](#paleta-de-colores)
     - [Diseño](#diseño)
     - [Uso de Bootstrap](#uso-de-bootstrap)
+      - [Componenetes de Bootstrap usados:](#componenetes-de-bootstrap-usados)
+        - [Alerts (Alertas)](#alerts-alertas)
+        - [Breadcrumb (Migas de pan)](#breadcrumb-migas-de-pan)
+        - [Buttons (Botones) y Dropdowns (Botones desplegables)](#buttons-botones-y-dropdowns-botones-desplegables)
+        - [Cards (Tarjetas)](#cards-tarjetas)
+        - [Navbar (Barra de navegación)](#navbar-barra-de-navegación)
+        - [Modals (Modales)](#modals-modales)
+        - [Offcanvas (Barra lateral desplegable)](#offcanvas-barra-lateral-desplegable)
+        - [Close button (Botones de cerrado)](#close-button-botones-de-cerrado)
+        - [Pagination (Pagianción)](#pagination-pagianción)
     - [Implementación de clases reutilizables](#implementación-de-clases-reutilizables)
   - [Despliegue de la aplicación](#despliegue-de-la-aplicación)
     - [Instalación de Apache2](#instalación-de-apache2)
@@ -185,7 +195,7 @@ Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
 
 ### Paleta de colores
 
-Optamos por la siguente paleta de colores, en tonos azules, ademas de colores blancos y negros y un color morado usado en la vista de el login y las vista de error 403 y 403.
+Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda la interfaz de la aplicación, además de colores blancos y negros y un color morado usado en la vista del login y las vista de error 403 y 403.
 
 | Nombre del Color | Código Hexadecimal | Muestra |
 | ---------------- | ------------------ | ------- |
@@ -213,7 +223,7 @@ Para tener una estética limpia, se ha optado por un CRUD con el menú principal
 
 Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que que concuerde con el diseño que hemos hecho.
 
-Componenetes usados:
+#### Componenetes de Bootstrap usados:
 * Alerts (Alertas)
 * Breadcrumb (Migas de pan)
 * Buttons (Botones)
@@ -225,32 +235,32 @@ Componenetes usados:
 * Offcanvas (Barra lateral desplegable)
 * Pagination (Pagianción)
 
-Alerts (Alertas):
-> Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.
+##### Alerts (Alertas)
+Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.
 
-Breadcrumb (Migas de pan)
-> También llamadas migas de pan son usadas para informar al usuario en qué parte de la aplicación está situado, además puede usar lo puede usar para navegar por las distintas secciones.
+##### Breadcrumb (Migas de pan)
+También llamadas migas de pan son usadas para informar al usuario en qué parte de la aplicación está situado, además puede usar lo puede usar para navegar por las distintas secciones.
 
-Buttons (Botones) y Dropdowns (Botones desplegables)
-> Son usados para realizar acciones y/o confirmar cambios, además los botones desplegables contienen diferentes acciones.
+##### Buttons (Botones) y Dropdowns (Botones desplegables)
+Son usados para realizar acciones y/o confirmar cambios, además los botones desplegables contienen diferentes acciones.
 
-Cards (Tarjetas)
-> Están presentes en toda la información de las incidencias, usuarios y el chat de comentarios.
+##### Cards (Tarjetas)
+Están presentes en toda la información de las incidencias, usuarios y el chat de comentarios.
 
-Navbar (Barra de navegación)
-> Usado en la cabecera de la página, contiene el logo con los distintos enlaces a las distintas páginas.
+##### Navbar (Barra de navegación)
+Usado en la cabecera de la página, contiene el logo con los distintos enlaces a las distintas páginas.
 
-Modals (Modales)
-> Proporciona información al usuario antes de realizar acciones críticas, como borrado y actualización de incidencias y usuarios.
+##### Modals (Modales)
+Proporciona información al usuario antes de realizar acciones críticas, como borrado y actualización de incidencias y usuarios.
 
-Offcanvas (Barra lateral desplegable)
-> Usados par contener los filtros de incidencias y usuarios, los informes, y el chat de comentarios de cada incidencia.
+##### Offcanvas (Barra lateral desplegable)
+Usados par contener los filtros de incidencias y usuarios, los informes, y el chat de comentarios de cada incidencia.
 
-Close button (Botones de cerrado)
-> Sirven para cerrar los modales o las barras laterales desplegables.
+##### Close button (Botones de cerrado)
+Sirven para cerrar los modales o las barras laterales desplegables.
 
-Pagination (Pagianción)
-> Para navegar en la tabla de incidencias y usuarios.
+##### Pagination (Pagianción)
+Para navegar en la tabla de incidencias y usuarios.
 
 ### Implementación de clases reutilizables
 
