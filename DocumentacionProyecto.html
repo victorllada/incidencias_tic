@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DocumentacionProyecto.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="documentaci%C3%B3n-del-proyecto">Documentación del proyecto</h1>
+<h2 id="%C3%ADndice">Índice</h2>
+<ul>
+<li><a href="#documentaci%C3%B3n-del-proyecto">Documentación del proyecto</a>
+<ul>
+<li><a href="#%C3%ADndice">Índice</a></li>
+<li><a href="#introducci%C3%B3n">Introducción</a></li>
+<li><a href="#base-de-datos">Base de datos</a>
+<ul>
+<li><a href="#eventos">Eventos</a></li>
+<li><a href="#triggers">Triggers</a></li>
+</ul>
+</li>
+<li><a href="#php">PHP</a>
+<ul>
+<li><a href="#subsecci%C3%B3n-21">Subsección 2.1</a></li>
+<li><a href="#subsecci%C3%B3n-22">Subsección 2.2</a></li>
+</ul>
+</li>
+<li><a href="#javascript">JavaScript</a>
+<ul>
+<li><a href="#subsecci%C3%B3n-21-1">Subsección 2.1</a></li>
+<li><a href="#subsecci%C3%B3n-22-1">Subsección 2.2</a></li>
+</ul>
+</li>
+<li><a href="#bootstrap-y-css">Bootstrap y CSS</a>
+<ul>
+<li><a href="#paleta-de-colores">Paleta de colores</a></li>
+<li><a href="#dise%C3%B1o">Diseño</a></li>
+<li><a href="#uso-de-bootstrap">Uso de Bootstrap</a></li>
+<li><a href="#implementaci%C3%B3n-de-clases-reutilizables">Implementación de clases reutilizables</a></li>
+</ul>
+</li>
+<li><a href="#despliegue-de-la-aplicaci%C3%B3n">Despliegue de la aplicación</a>
+<ul>
+<li><a href="#instalaci%C3%B3n-apache2">Instalación Apache2</a></li>
+<li><a href="#subsecci%C3%B3n-22-2">Subsección 2.2</a></li>
+</ul>
+</li>
+<li><a href="#conclusi%C3%B3n">Conclusión</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="introducci%C3%B3n">Introducción</h2>
+<p>Este es el inicio de tu documento.</p>
+<h2 id="base-de-datos">Base de datos</h2>
+<p>Tendremos una base de datos llamada 'incidencias_tic' con cotejamiento 'utf8mb4_unicode_ci'.</p>
+<p>Almacenará los datos necesarios para gestionar las incidencias TIC que pueden surgir en un instituto. Además de disponer de tablas de roles y permisos para las usuarios de la aplicación.</p>
+<p>Todo lo relacionado con base de datos estará creado mediante migraciones para las tablas y factories y seeders para la inserción de datos. El diagrama de la base de datos de incidencias es el siguiente:</p>
+<p><img src="imagenes_documentacion/Diagrama_BD.png" alt=""></p>
+<h3 id="eventos">Eventos</h3>
+<p>Activaremos los eventos en la base de datos para crear un trabajo que establecerá en estado 'cerrado' las incidencias que pasen más de un día en estado 'resuelto'. Este evento se ejecutará todos los días a las 23:59h llamando al procedimiento almacenado correspondiente.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> event_scheduler = <span class="hljs-number">1</span>;
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> cerrarIncidenciasResueltas()
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">UPDATE</span> incidencias
+    <span class="hljs-keyword">SET</span> estado = <span class="hljs-string">"cerrada"</span>, fecha_cierre = <span class="hljs-keyword">NOW</span>()
+    <span class="hljs-keyword">WHERE</span> estado = <span class="hljs-string">"resuelta"</span> <span class="hljs-keyword">AND</span> fecha_cierre <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">AND</span> fecha_cierre &lt; <span class="hljs-keyword">NOW</span>() - <span class="hljs-built_in">INTERVAL</span> <span class="hljs-number">1</span> <span class="hljs-keyword">DAY</span>;
+<span class="hljs-keyword">END</span>;
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">EVENT</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> cerrarIncidenciasEvent
+<span class="hljs-keyword">ON</span> SCHEDULE EVERY <span class="hljs-number">1</span> <span class="hljs-keyword">DAY</span>
+STARTS <span class="hljs-keyword">CURRENT_DATE</span> + <span class="hljs-built_in">INTERVAL</span> <span class="hljs-number">23</span> <span class="hljs-keyword">HOUR</span> + <span class="hljs-built_in">INTERVAL</span> <span class="hljs-number">59</span> <span class="hljs-keyword">MINUTE</span>
+<span class="hljs-keyword">ON</span> COMPLETION <span class="hljs-keyword">PRESERVE</span>
+<span class="hljs-keyword">DO</span> <span class="hljs-keyword">CALL</span> cerrarIncidenciasResueltas();
+</div></code></pre>
+<h3 id="triggers">Triggers</h3>
+<p>Crearemos dos triggers en la base de datos.</p>
+<p>El primero se ejecutará antes de la inserción de un registro en la tabla 'users' y consistirá en comprobar si el departamento que tiene, si es que tiene, existe en la tabla 'departamentos' para así recoger el id del departamento y grabarle junto al registro en la tabla 'users'.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> before_insert_user
+<span class="hljs-keyword">BEFORE</span> <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">ON</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-keyword">ROW</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Almacenar temporalmente el ID del departamento encontrado</span>
+    <span class="hljs-keyword">DECLARE</span> departamento_id <span class="hljs-built_in">bigint</span>(<span class="hljs-number">20</span>);
+
+    <span class="hljs-comment">-- Verificar si el campo nombre_departamento no es NULL</span>
+    IF NEW.nombre_departamento IS NOT NULL THEN
+        <span class="hljs-comment">-- Buscar el departamento en la tabla departamentos</span>
+        <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">INTO</span> departamento_id <span class="hljs-keyword">FROM</span> departamentos <span class="hljs-keyword">WHERE</span> nombre = NEW.nombre_departamento;
+
+        <span class="hljs-comment">-- Si se encuentra el departamento, actualizar id_departamento en users</span>
+        IF departamento_id IS NOT NULL THEN
+            <span class="hljs-keyword">SET</span> NEW.id_departamento = departamento_id;
+        <span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;
+    <span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;
+<span class="hljs-keyword">END</span>;
+</div></code></pre>
+<p>El segundo se ejecutará después de la inserción de un registro en la tabla 'users' y consistirá en establacer su rol. Si es el primer registro que se inserta en la tabla, su rol será 'administrador' de lo contrario será 'profesor'.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> asignar_rol_after_insert_user
+<span class="hljs-keyword">AFTER</span> <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">ON</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-keyword">ROW</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Variables</span>
+    <span class="hljs-keyword">DECLARE</span> usuarios_totales <span class="hljs-built_in">INT</span>; <span class="hljs-comment">-- Cantidad de usuarios en la tabla users. Nos indicará si es el primer login o no.</span>
+    <span class="hljs-keyword">DECLARE</span> administrador_role_id <span class="hljs-built_in">INT</span>; <span class="hljs-comment">-- ID del rol administrador en la tabla roles</span>
+    <span class="hljs-keyword">DECLARE</span> usuario_role_id <span class="hljs-built_in">INT</span>; <span class="hljs-comment">-- ID del rol usuario en la tabla roles</span>
+    <span class="hljs-keyword">DECLARE</span> user_model_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">255</span>); <span class="hljs-comment">-- Espacio de nombres que será el tipo del modelo en la tabla model_has_roles</span>
+
+    <span class="hljs-comment">-- Guardar el namespace del modelo de usuario</span>
+    <span class="hljs-keyword">SET</span> user_model_type = <span class="hljs-string">"App\\\\Models\\\\User"</span>;
+
+    <span class="hljs-comment">-- Obtener el número total de usuarios</span>
+    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(*) <span class="hljs-keyword">INTO</span> usuarios_totales <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span>;
+
+    <span class="hljs-comment">-- Obtener los IDs de los roles por su nombre</span>
+    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">INTO</span> administrador_role_id <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">roles</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">"administrador"</span>;
+    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">INTO</span> usuario_role_id <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">roles</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">"profesor"</span>;
+
+    <span class="hljs-comment">-- Asignar el rol según si es el primer login o no</span>
+    IF usuarios_totales = 1 THEN
+        <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> model_has_roles (role_id, model_type, model_id) <span class="hljs-keyword">VALUES</span> (administrador_role_id, user_model_type, NEW.id);
+    ELSE
+        <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> model_has_roles (role_id, model_type, model_id) <span class="hljs-keyword">VALUES</span> (usuario_role_id, user_model_type, NEW.id);
+    <span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;
+<span class="hljs-keyword">END</span>;
+</div></code></pre>
+<h2 id="php">PHP</h2>
+<p>Contenido de la segunda sección.</p>
+<h3 id="subsecci%C3%B3n-21">Subsección 2.1</h3>
+<p>Contenido de la subsección 2.1.</p>
+<h3 id="subsecci%C3%B3n-22">Subsección 2.2</h3>
+<p>Contenido de la subsección 2.2.</p>
+<h2 id="javascript">JavaScript</h2>
+<p>Contenido de la segunda sección.</p>
+<h3 id="subsecci%C3%B3n-21">Subsección 2.1</h3>
+<p>Contenido de la subsección 2.1.</p>
+<h3 id="subsecci%C3%B3n-22">Subsección 2.2</h3>
+<p>Contenido de la subsección 2.2.</p>
+<h2 id="bootstrap-y-css">Bootstrap y CSS</h2>
+<p>Hemos usado Bootstrap un framework css, ademas de css tradicional</p>
+<h3 id="paleta-de-colores">Paleta de colores</h3>
+<p>Aquí tienes una tabla con los colores utilizados en la página.</p>
+<table>
+<thead>
+<tr>
+<th>Nombre del Color</th>
+<th>Código Hexadecimal</th>
+<th>Muestra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aquamarine 50</td>
+<td>#f0f8ff</td>
+<td><div style="width: 20px; height: 20px; background-color: #f0f8ff;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 100</td>
+<td>#e0f0fe</td>
+<td><div style="width: 20px; height: 20px; background-color: #e0f0fe;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 200</td>
+<td>#bae2fd</td>
+<td><div style="width: 20px; height: 20px; background-color: #bae2fd;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 300</td>
+<td>#60bffb</td>
+<td><div style="width: 20px; height: 20px; background-color: #60bffb;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 400</td>
+<td>#38b1f8</td>
+<td><div style="width: 20px; height: 20px; background-color: #38b1f8;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 500</td>
+<td>#0e97e9</td>
+<td><div style="width: 20px; height: 20px; background-color: #0e97e9;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 600</td>
+<td>#0277c7</td>
+<td><div style="width: 20px; height: 20px; background-color: #0277c7;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 700</td>
+<td>#035fa1</td>
+<td><div style="width: 20px; height: 20px; background-color: #035fa1;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 800</td>
+<td>#075185</td>
+<td><div style="width: 20px; height: 20px; background-color: #075185;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 900</td>
+<td>#0c446e</td>
+<td><div style="width: 20px; height: 20px; background-color: #0c446e;"></div></td>
+</tr>
+<tr>
+<td>Aquamarine 950</td>
+<td>#082b49</td>
+<td><div style="width: 20px; height: 20px; background-color: #082b49;"></div></td>
+</tr>
+<tr>
+<td>Blanco 50</td>
+<td>#ffffff</td>
+<td><div style="width: 20px; height: 20px; background-color: #ffffff;"></div></td>
+</tr>
+<tr>
+<td>Blanco 100</td>
+<td>#f8fafc</td>
+<td><div style="width: 20px; height: 20px; background-color: #f8fafc;"></div></td>
+</tr>
+<tr>
+<td>Morado 50</td>
+<td>#b444f5</td>
+<td><div style="width: 20px; height: 20px; background-color: #b444f5;"></div></td>
+</tr>
+<tr>
+<td>Negro 50</td>
+<td>#000000</td>
+<td><div style="width: 20px; height: 20px; background-color: #000000;"></div></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dise%C3%B1o">Diseño</h3>
+<p>Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación.</p>
+<h3 id="uso-de-bootstrap">Uso de Bootstrap</h3>
+<p>Hemos usado Bootstap lo maximo posible, aplicando componentes predefinidos y plicando estilos para que que concuerde con el diseño que hemos hecho</p>
+<p>Componenetes usados:</p>
+<ul>
+<li>Alerts (Alertas)</li>
+<li>Breadcrumb (Migas de pan)</li>
+<li>Buttons (Botones)</li>
+<li>Cards (Tarjetas)</li>
+<li>Close button (Botones de cerrado)</li>
+<li>Dropdowns (Botones desplegables)</li>
+<li>Modals (Modales)</li>
+<li>Navbar (Barra de navegación)</li>
+<li>Offcanvas (Barra lateral desplegable)</li>
+<li>Pagination (Pagianción)</li>
+</ul>
+<p>Alerts (Alertas):</p>
+<blockquote>
+<p>Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.</p>
+</blockquote>
+<p>Breadcrumb (Migas de pan)</p>
+<blockquote>
+<p>También llamadas migas de pan son usadas para informar al usuario en qué parte de la aplicación está situado, además puede usar lo puede usar para navegar por las distintas secciones.</p>
+</blockquote>
+<p>Buttons (Botones) y Dropdowns (Botones desplegables)</p>
+<blockquote>
+<p>Son usados para realizar acciones y/o confirmar cambios, además los botones desplegables contienen diferentes acciones.</p>
+</blockquote>
+<p>Cards (Tarjetas)</p>
+<blockquote>
+<p>Están presentes en toda la información de las incidencias, usuarios y el chat de comentarios.</p>
+</blockquote>
+<p>Navbar (Barra de navegación)</p>
+<blockquote>
+<p>Usado en la cabecera de la página, contiene el logo con los distintos enlaces a las distintas páginas.</p>
+</blockquote>
+<p>Modals (Modales)</p>
+<blockquote>
+<p>Proporciona información al usuario antes de realizar acciones críticas, como borrado y actualización de incidencias y usuarios.</p>
+</blockquote>
+<p>Offcanvas (Barra lateral desplegable)</p>
+<blockquote>
+<p>Usados par contener los filtros de incidencias y usuarios, los informes, y el chat de comentarios de cada incidencia.</p>
+</blockquote>
+<p>Close button (Botones de cerrado)</p>
+<blockquote>
+<p>Sirven para cerrar los modales o las barras laterales desplegables.</p>
+</blockquote>
+<p>Pagination (Pagianción)</p>
+<blockquote>
+<p>Para navegar en la tabla de incidencias y usuarios.</p>
+</blockquote>
+<h3 id="implementaci%C3%B3n-de-clases-reutilizables">Implementación de clases reutilizables</h3>
+<p>Adoptando la idea y filosofía de Bootstrap y de frameworks como Tailwind, hemos implementado clases CSS genéricas que sirven para cambiar los colores de fondo de los elementos y botones, de esta manera la podemos crear componentes reutilizables fácilmente y que la estética de la aplicación sea homogénea.</p>
+<h2 id="despliegue-de-la-aplicaci%C3%B3n">Despliegue de la aplicación</h2>
+<p>La aplicación se desplegará en un servidor linux con Ubuntu 22.04.4 LTS.</p>
+<h3 id="instalaci%C3%B3n-apache2">Instalación Apache2</h3>
+<pre class="hljs"><code><div><span class="hljs-meta">$</span><span class="bash"> apt-get install apache2</span>
+</div></code></pre>
+<h3 id="subsecci%C3%B3n-22">Subsección 2.2</h3>
+<p>Contenido de la subsección 2.2.</p>
+<h2 id="conclusi%C3%B3n">Conclusión</h2>
+<p>Aquí puedes poner tus reflexiones finales.</p>
+
+</body>
+</html>
