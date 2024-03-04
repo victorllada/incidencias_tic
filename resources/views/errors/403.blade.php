@@ -14,8 +14,8 @@
                     <span>No tienes permisos para entrar en esta página</span>
                 </h1>
                 <h3 class=" fw-bold ls-tight volver" onclick="history.back(); return false;">
-                    <i class="bi bi-arrow-left"></i>
-                    Volver
+                    <a href="{{ route('incidencias.index') }}"> <i class="bi bi-arrow-left"></i>
+                        Volver al inicio</a>
                 </h3>
                 <div id="radius-shape-3" class="position-absolute shadow-5-strong animate"></div>
                 <div id="radius-shape-4" class="position-absolute shadow-5-strong animate"></div>
