@@ -245,7 +245,7 @@ class IncidenciaController extends Controller
         if ($incidenciaCreada) {
             try {
                 // Envío de correo poniéndolo en cola para que no interrumpa la redirección
-                Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
+                // Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
 
                 //Redirección al show con mensaje de exito
                 return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
@@ -416,7 +416,7 @@ class IncidenciaController extends Controller
         if ($incidenciaActualizada) {
             try {
                 // Envío de correo poniéndolo en cola para que no interrumpa la redirección
-                Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'actualizado'));
+                // Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'actualizado'));
 
                 //Redirección al show con mensaje de exito
                 return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia modificada correctamente.');

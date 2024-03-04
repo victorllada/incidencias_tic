@@ -68,7 +68,7 @@ class ComentarioController extends Controller
         if ($comentarioEnviado) {
             try {
                 // Envío de correo poniéndolo en cola para que no interrumpa la redirección
-                Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'comentado'));
+                // Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'comentado'));
 
                 //Redirección al show con mensaje de exito
                 return redirect()->route('incidencias.show', $incidencia)->with('success', 'Comentario enviado.');
