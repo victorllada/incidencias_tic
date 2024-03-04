@@ -24,7 +24,7 @@ class CrearComentarioRequest extends FormRequest
     {
         return [
             'texto' => 'required',
-            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
+            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,txt,xls,xlsx,ppt,pptx,zip',
         ];
     }
 

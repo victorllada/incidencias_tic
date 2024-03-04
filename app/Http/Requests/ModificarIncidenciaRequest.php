@@ -18,7 +18,7 @@ class ModificarIncidenciaRequest extends FormRequest
             'estado' => 'required|in:ABIERTA,ASIGNADA,EN PROCESO,ENVIADA A INFORTEC,RESUELTA,CERRADA',
             'descripcion' => 'required|min:5',
             'prioridad' => 'required|in:BAJA,MEDIA,ALTA,URGENTE',
-            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
+            'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,txt,xls,xlsx,ppt,pptx,zip',
         ];
     }
 
