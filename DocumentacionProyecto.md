@@ -8,10 +8,14 @@
     - [Eventos](#eventos)
     - [Triggers](#triggers)
   - [PHP](#php)
-    - [Subsección 2.1](#subsección-21)
+    - [Librerías](#librerías)
+      - [Jetstream (laravel/jetstream)](#jetstream-laraveljetstream)
+      - [LDAPRecord (directorytree/ldaprecord-laravel)](#ldaprecord-directorytreeldaprecord-laravel)
+      - [Laravel Excel (maatwebsite/excel)](#laravel-excel-maatwebsiteexcel)
+      - [DOMPDF (dompdf/dompdf)](#dompdf-dompdfdompdf)
     - [Subsección 2.2](#subsección-22)
   - [JavaScript](#javascript)
-    - [Subsección 2.1](#subsección-21-1)
+    - [Subsección 2.1](#subsección-21)
     - [Subsección 2.2](#subsección-22-1)
   - [Bootstrap y CSS](#bootstrap-y-css)
     - [Paleta de colores](#paleta-de-colores)
@@ -41,7 +45,7 @@
 
 ## Introducción
 
-Este es el inicio de tu documento.
+Documento que detalla lo realizado en el proyecto.
 
 ## Base de datos
 
@@ -137,11 +141,27 @@ END;
 
 ## PHP
 
-Contenido de la segunda sección.
+Para el apartado del backend hemos utilizado el lenguaje PHP 8.2.4 junto al framework Laravel 10.
 
-### Subsección 2.1
+### Librerías
 
-Contenido de la subsección 2.1.
+Para darle ciertas funcionalidades extras, más allá de las que da el propio framework Laravel, hemos utilizado varias librerías.
+
+#### Jetstream (laravel/jetstream)
+
+Utilizada para la autenticación de los usuarios en la aplicación.
+
+#### LDAPRecord (directorytree/ldaprecord-laravel)
+
+Utilizada para utilizar las credenciales de LDAP en el login a la aplicación.
+
+#### Laravel Excel (maatwebsite/excel)
+
+Utilizada para la realización de reports en formatos xlsx y csv.
+
+#### DOMPDF (dompdf/dompdf)
+
+Utilizada, a través de Laravel Excel, para la realización de reports en formato pdf.
 
 ### Subsección 2.2
 
@@ -161,11 +181,9 @@ Contenido de la subsección 2.2.
 
 ## Bootstrap y CSS
 
-Hemos usado Bootstrap un framework css, ademas de css tradicional
+Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
 
 ### Paleta de colores
-
-Aquí tienes una tabla con los colores utilizados en la página.
 
 | Nombre del Color | Código Hexadecimal | Muestra |
 | ---------------- | ------------------ | ------- |
@@ -191,7 +209,7 @@ Para tener una estética limpia, se ha optado por un CRUD con el menú principal
 
 ### Uso de Bootstrap
 
-Hemos usado Bootstap lo maximo posible, aplicando componentes predefinidos y plicando estilos para que que concuerde con el diseño que hemos hecho
+Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que que concuerde con el diseño que hemos hecho.
 
 Componenetes usados:
 * Alerts (Alertas)
