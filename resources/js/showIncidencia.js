@@ -44,7 +44,7 @@ function preguntarBorrado(event)
  */
 function confirmarBorrado(event)
 {
-    if(event.id=="activarBorrado")
+    if(event.target.id=="activarBorrado")
     {
         formBorrar.submit()
     }
