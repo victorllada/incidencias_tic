@@ -129,6 +129,8 @@ class IncidenciaController extends Controller
      */
     public function store(CrearIncidenciaRequest $request)
     {
+        $incidenciaCreada = false;
+
         try {
 
             //Sacamos usuario en una variable
@@ -228,11 +230,8 @@ class IncidenciaController extends Controller
             //Comitamos
             DB::commit();
 
-            // Envío de correo poniéndolo en cola para que no interrumpa la redirección
-            //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
-
-            //Redirección al show con mensaje de exito
-            return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
+            // En este punto la incidencia ha sido creada en BD
+            $incidenciaCreada = true;
         } catch (Exception $e) {
 
             //Cancelamos la transacion
@@ -240,6 +239,20 @@ class IncidenciaController extends Controller
 
             //Redirección al index con mensaje de error
             return redirect()->route('incidencias.index')->with('error', 'No se pudo crear la incidencia. Detalles: ' . $e->getMessage());
+        }
+
+        // Si se ha creado correctamente la incidencia enviamos un email
+        if ($incidenciaCreada) {
+            try {
+                // Envío de correo poniéndolo en cola para que no interrumpa la redirección
+                //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'creado'));
+
+                //Redirección al show con mensaje de exito
+                return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia creada correctamente.');
+            } catch (Exception $e) {
+                //Redirección al show con mensaje de error
+                return redirect()->route('incidencias.show', compact('incidencia'))->with('error', 'Incidencia creada. No se ha podido enviar el email. Detalles: ' . $e->getMessage());
+            }
         }
     }
 
@@ -312,6 +325,8 @@ class IncidenciaController extends Controller
      */
     public function update(ModificarIncidenciaRequest $request, Incidencia $incidencia)
     {
+        $incidenciaActualizada = false;
+
         try {
             //Comenzamos transaccion
             DB::beginTransaction();
@@ -387,17 +402,28 @@ class IncidenciaController extends Controller
             //Comitamos
             DB::commit();
 
-            // Envío de correo poniéndolo en cola para que no interrumpa la redirección
-            //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'actualizado'));
-
-            //Redirección al show con mensaje de exito
-            return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia modificada correctamente.');
+            // En este punto la incidencia ha sido actualizada en BD
+            $incidenciaActualizada = true;
         } catch (Exception $e) {
             //Cancelamos la transacion
             DB::rollBack();
 
             //Redirección al index con mensaje de error
             return redirect()->route('incidencias.show', compact('incidencia'))->with('error', 'No se pudo modificar la incidencia. Detalles: ' . $e->getMessage());
+        }
+
+        // Si se ha actualizado correctamente la incidencia enviamos un email
+        if ($incidenciaActualizada) {
+            try {
+                // Envío de correo poniéndolo en cola para que no interrumpa la redirección
+                //Mail::to([$incidencia->creador->email])->queue(new EnvioCorreo($incidencia, 'actualizado'));
+
+                //Redirección al show con mensaje de exito
+                return redirect()->route('incidencias.show', compact('incidencia'))->with('success', 'Incidencia modificada correctamente.');
+            } catch (Exception $e) {
+                //Redirección al show con mensaje de error
+                return redirect()->route('incidencias.show', compact('incidencia'))->with('error', 'Incidencia modificada correctamente. No se ha podido enviar el email. Detalles: ' . $e->getMessage());
+            }
         }
     }
 
