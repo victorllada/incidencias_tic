@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Incidencia;
 use App\Models\User;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +19,22 @@ class ComentarioFactory extends Factory
      */
     public function definition(): array
     {
-        $incidencias = Incidencia::pluck('id')->toArray();
+        $incidenciasAbiertas = Incidencia::where('estado', '!=', 'CERRADA')->pluck('id')->toArray();
         $personas = User::pluck('id')->toArray();
+
+        if (empty($incidenciasAbiertas)) {
+            throw new Exception('No hay incidencias abiertas para agregar comentarios.');
+        }
+
+        $incidenciaId = $this->faker->randomElement($incidenciasAbiertas);
+        $fechaCreacionIncidencia = Incidencia::find($incidenciaId)->fecha_creacion;
+
+        $fechaComentario = $this->faker->dateTimeBetween($fechaCreacionIncidencia, 'now');
 
         return [
             'texto' => $this->faker->paragraph,
-            'fechahora' => $this->faker->dateTime(),
-            'incidencia_num' => $this->faker->randomElement($incidencias),
+            'fechahora' => $fechaComentario,
+            'incidencia_num' => $incidenciaId,
             'personal_id' => $this->faker->randomElement($personas),
             'adjunto_url' => null,
         ];
