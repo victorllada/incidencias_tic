@@ -264,7 +264,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     width: 220px;
     top: -60px;
     left: -130px;
-    background: radial-gradient(#38b1f8, #ffffff);
+    background: radial-gradient($aquamarine-400, $blanco-50);
     overflow: hidden;
 }
 
@@ -274,7 +274,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     right: -110px;
     width: 280px;
     height: 300px;
-    background: radial-gradient(#b444f5, #60bffb);
+    background: radial-gradient($morado-50, $aquamarine-300);
     overflow: hidden;
 }
 
@@ -284,7 +284,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     width: 250px;
     top: 250px;
     left: -50px;
-    background: radial-gradient(#38b1f8, #ffffff);
+    background: radial-gradient($aquamarine-400, $blanco-50);
     overflow: hidden;
 }
 
@@ -294,7 +294,7 @@ main .custom-dropdown-menu .dropdown-item:active {
     right: -155px;
     width: 280px;
     height: 280px;
-    background: radial-gradient(#b444f5, #60bffb);
+    background: radial-gradient($morado-50, $aquamarine-300);
     overflow: hidden;
 }
 
@@ -332,7 +332,7 @@ main .custom-dropdown-menu .dropdown-item:active {
 }
 
 .volver:hover {
-    color: #60bffb;
+    color: $aquamarine-300;
     cursor: pointer;
 }
 
