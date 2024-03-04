@@ -8,10 +8,10 @@
     <title>Notificación de incidencia</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 'Arial' sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f8fafc;
         }
 
         .card {
