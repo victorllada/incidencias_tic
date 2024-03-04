@@ -157,7 +157,7 @@ function generarSubSubTipos() {
         case "PC":
             var array = ["RATON", "ORDENADOR", "TECLADO"];
             break;
-        case "Portátil":
+        case "PORTATIL":
             var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
             break;
         default:
