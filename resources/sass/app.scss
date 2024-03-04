@@ -469,3 +469,12 @@ main .custom-dropdown-menu .dropdown-item:active {
 .chat {
     width: 100%;
 }
+
+// Títulos login y pantallas de error 403 y 404
+titulo {
+    color: $blanco-50;
+}
+
+titulo span {
+    color: $aquamarine-300;
+}

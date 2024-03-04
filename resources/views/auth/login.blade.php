@@ -7,9 +7,9 @@
             <div class="row gx-lg-5 align-items-center mb-5">
                 <div class="col-lg-6 mb-5 mb-lg-0 d-flex flex-column align-items-center" style="z-index: 10">
                     <img src="{{ asset('assets/imagenes/logo.svg') }}" alt="" class="logo-login">
-                    <h1 class="display-5 fw-bold ls-tight" style="color: #ffffff">
+                    <h1 class="display-5 fw-bold ls-tight titulo">
                         IES
-                        <span style="color: #60bffb">Miguel Herrero</span>
+                        <span>Miguel Herrero</span>
                     </h1>
                 </div>
 
