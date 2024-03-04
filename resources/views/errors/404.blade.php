@@ -9,9 +9,9 @@
         <div id="radius-shape-1" class="position-absolute shadow-5-strong animate"></div>
         <div class="row d-flex align-items-center mb-5">
             <div class="col mb-5 d-flex flex-column gap-5 position-relative">
-                <h1 class="display-5 fw-bold ls-tight" style="color: #ffffff">
+                <h1 class="display-5 fw-bold ls-tight titulo">
                     Ups...
-                    <span style="color: #60bffb">Esta pagina ya no esta disponible</span>
+                    <span>Esta pagina ya no esta disponible</span>
                 </h1>
                 <h3 class=" fw-bold ls-tight volver" onclick="history.back(); return false;">
                     <i class="bi bi-arrow-left"></i>
