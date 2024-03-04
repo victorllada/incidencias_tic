@@ -15,7 +15,7 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: #e0f0fe;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
@@ -33,7 +33,7 @@
             padding: 20px;
         }
 
-        h1,
+        h2,
         h3 {
             margin-bottom: 15px;
             font-weight: bold;
@@ -59,7 +59,7 @@
 <body>
     <div class="card">
         <div class="card-header">
-            <h1>¡Se ha {{ $operacion }} la incidencia con ID: {{ $incidencia->id }}!</h1>
+            <h2>¡Se ha {{ $operacion }} la incidencia con ID: {{ $incidencia->id }}!</h2>
         </div>
         <div class="card-body">
             <h3>Detalles:</h3>
