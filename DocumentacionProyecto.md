@@ -727,6 +727,7 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 ## Mejoras o posibles cambios a futuro
 
 * Sincronización de atributos LDAP del usuario ya existentes.
+* Indagar en la posibilidad de autenticarse con usuarios del LDAP y/o con usuarios locales creados en base de datos.
 * Generación de reports por los filtros de búsqueda aplicados.
 * Implementar animaciones en las tablas de datos de incidencias y usuarios.
 * Añadir un modo oscuro a la aplicación y que cambie dependiendo de la configuración del sistema, además de darle la opción al usuario.
