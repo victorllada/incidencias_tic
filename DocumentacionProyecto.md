@@ -4,6 +4,7 @@
 
 - [Documentación del proyecto](#documentación-del-proyecto)
   - [Índice](#índice)
+  - [Miembros del equipo](#miembros-del-equipo)
   - [Introducción](#introducción)
   - [Base de datos](#base-de-datos)
     - [Eventos](#eventos)
@@ -35,6 +36,8 @@
         - [Close button (Botones de cerrado)](#close-button-botones-de-cerrado)
         - [Pagination (Paginación)](#pagination-paginación)
     - [Implementación de clases reutilizables](#implementación-de-clases-reutilizables)
+    - [Accesibilidad](#accesibilidad)
+    - [Animaciones](#animaciones)
   - [Despliegue de la aplicación](#despliegue-de-la-aplicación)
     - [Instalación de Apache2](#instalación-de-apache2)
     - [Instalación de MySQL](#instalación-de-mysql)
@@ -61,6 +64,12 @@
   - [Bibliografía y Webgrafía](#bibliografía-y-webgrafía)
     - [Bibliografía](#bibliografía)
     - [Webgrafía](#webgrafía)
+
+## Miembros del equipo
+- [César Torre](https://github.com/cesartg11)
+- [Hugo Cayón](https://github.com/Hugocl01)
+- [Luis Concha](https://github.com/DAW201)
+- [Víctor Sánchez](https://github.com/victorllada)
 
 ## Introducción
 
@@ -288,6 +297,12 @@ Para navegar en la tabla de incidencias y usuarios.
 ### Implementación de clases reutilizables
 
 Adoptando la idea y filosofía de Bootstrap y de frameworks como Tailwind, hemos implementado clases CSS genéricas que sirven para cambiar los colores de fondo de los elementos y botones, de esta manera la podemos crear componentes reutilizables fácilmente y que la estética de la aplicación sea homogénea.
+
+### Accesibilidad
+Para hacer mas comoda la aplicacion hemos aplicado el usa de tooltips para proporcionar mas informacion al usuario, ademas de el uso de colores altamente llamativos como el rojo botones que realizan acciones criticas como un borrado y actualizado de datos
+
+### Animaciones
+Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estetica, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animacion o keyframe, se le aplica distintas duraciones a dichas aniaciones
 
 ## Despliegue de la aplicación
 
