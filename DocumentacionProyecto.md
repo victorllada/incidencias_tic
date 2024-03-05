@@ -6,6 +6,7 @@
   - [Índice](#índice)
   - [Miembros del equipo](#miembros-del-equipo)
   - [Introducción](#introducción)
+  - [Entorno de desarrollo](#entorno-de-desarrollo)
   - [Base de datos](#base-de-datos)
     - [Eventos](#eventos)
     - [Triggers](#triggers)
@@ -80,6 +81,26 @@
 ## Introducción
 
 Documento que detalla lo realizado en el proyecto.
+
+## Entorno de desarrollo
+
+Para el desarrollo de esta aplicación se ha utilizado como IDE el Visual Studio Code junto a las extensiones necesarias para cada lenguaje a utilizar y XAMPP cómo paquete de desarrollo que nos integra en un mismo software: Apache, MariaDB/MySQL y PHP. Todo ello bajo el sistema operativo Windows 10.
+
+Para trabajar en equipo se ha creado un repositorio en GitHub con los integrantes del grupo y se ha configurado el IDE en consecuencia. Además se ha llevado la estrategia de trabajar con issues y no trabajar directamente con la rama main del repositorio, en la que siempre estaría una versión 'estable' del proyecto.
+
+Se han configurado varias máquinas virtuales:
+* Máquina virtual Windows 10 para el desarrollo que contiene todo lo mencionado anteriormente.
+* Máquina virtual Windows Server 2019 con el rol de Active Directory configurado para así poder trabajar desde casa con un LDAP debido a la integración que vamos a realizar con el mismo.
+* Máquina virtual Ubuntu 22.04.4 LTS para las pruebas de despliegue de la aplicación.
+
+Otras herramientas utilizadas:
+* Notepad++
+* MySQL Workbench
+
+Navegadores:
+* Chrome
+* Edge
+* Mozilla Firefox
 
 ## Base de datos
 
