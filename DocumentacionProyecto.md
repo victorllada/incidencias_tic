@@ -18,6 +18,11 @@
       - [DOMPDF (dompdf/dompdf)](#dompdf-dompdfdompdf)
     - [Traducciones](#traducciones)
     - [Zona horaria](#zona-horaria)
+    - [Envío de correos electrónicos](#envío-de-correos-electrónicos)
+      - [Tipos de correos electrónicos (avisos)](#tipos-de-correos-electrónicos-avisos)
+        - [Cuando se crea una incidencia](#cuando-se-crea-una-incidencia)
+        - [Cuando se actualiza una incidencia](#cuando-se-actualiza-una-incidencia)
+        - [Cuando se comenta una incidencia](#cuando-se-comenta-una-incidencia)
   - [JavaScript](#javascript)
     - [Subsección 2.1](#subsección-21)
     - [Subsección 2.2](#subsección-22)
@@ -61,6 +66,7 @@
     - [Generación de documentación](#generación-de-documentación)
   - [Implementaciones faltantes](#implementaciones-faltantes)
   - [Mejoras o posibles cambios a futuro](#mejoras-o-posibles-cambios-a-futuro)
+  - [Problemas encontrados](#problemas-encontrados)
   - [Bibliografía y Webgrafía](#bibliografía-y-webgrafía)
     - [Bibliografía](#bibliografía)
     - [Webgrafía](#webgrafía)
@@ -79,9 +85,9 @@ Documento que detalla lo realizado en el proyecto.
 
 Tendremos una base de datos llamada 'incidencias_tic' con cotejamiento 'utf8mb4_unicode_ci'.
 
-Almacenará los datos necesarios para gestionar las incidencias TIC que pueden surgir en un instituto. Además de disponer de tablas de roles y permisos para las usuarios de la aplicación.
+Almacenará los datos necesarios para gestionar las incidencias TIC que pueden surgir en un instituto. Además de disponer de tablas de roles y permisos para los usuarios de la aplicación.
 
-Todo lo relacionado con base de datos estará creado mediante migraciones para las tablas y factories y seeders para la inserción de datos. El diagrama de la base de datos de incidencias es el siguiente:
+Todo lo relacionado con base de datos estará creado mediante PHP con migraciones para las tablas y factories y seeders para la inserción de datos. El diagrama de la base de datos de incidencias es el siguiente:
 
 ![](imagenes_documentacion/Diagrama_BD.png)
 
@@ -208,9 +214,27 @@ Se han instalado las traducciones a español y configurado la aplicación en con
 
 Hemos configurado la aplicación para utilizar la zona horaria 'Europe/Madrid'.
 
+### Envío de correos electrónicos
+
+Para el envío de correos electrónicos en la aplicación se ha creado una clase que construye los datos del correo junto a una vista.
+
+#### Tipos de correos electrónicos (avisos)
+
+##### Cuando se crea una incidencia
+
+![](imagenes_documentacion/aviso_crear_incidencia.png)
+
+##### Cuando se actualiza una incidencia
+
+![](imagenes_documentacion/aviso_actualizar_incidencia.png)
+
+##### Cuando se comenta una incidencia
+
+![](imagenes_documentacion/aviso_comentar_incidencia.png)
+
 ## JavaScript
 
-Contenido de la segunda sección.
+Para el apartado del frontend hemos utilizado el lenguaje JavaScript sin ningún framework.
 
 ### Subsección 2.1
 
@@ -705,6 +729,10 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 * Sincronización de atributos LDAP del usuario ya existentes.
 * Generación de reports por los filtros de búsqueda aplicados.
 
+## Problemas encontrados
+
+* En la red del instituto no ha sido posible utilizar Mailtrap para enviar los correos electrónicos.
+
 ## Bibliografía y Webgrafía
 
 ### Bibliografía
@@ -726,6 +754,7 @@ Se han utilizado los apuntos aportados durante el curso por los profesores y los
 * [Webmin](https://webmin.com/docs/)
 * [phpDocumentor](https://docs.phpdoc.org/3.0/)
 * [JSDoc](https://jsdoc.app/)
+* [Mailtrap](https://mailtrap.io/)
 * [ChatGPT](https://chat.openai.com/auth/login)
 * [Gemini](https://gemini.google.com/?hl=es)
 * [Stack Overflow](https://stackoverflow.com/)
