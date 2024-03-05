@@ -118,6 +118,9 @@ function generarSubtipos() {
         document.getElementById("div-sub-tipo").hidden = false;
     }
 
+    document.getElementById("div-sub-sub-tipo").hidden = true;
+
+
 }
 
 /**
