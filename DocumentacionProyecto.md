@@ -22,7 +22,7 @@
     - [Paleta de colores](#paleta-de-colores)
     - [Diseño](#diseño)
     - [Uso de Bootstrap](#uso-de-bootstrap)
-      - [Componenetes de Bootstrap usados:](#componenetes-de-bootstrap-usados)
+      - [Componentes de Bootstrap usados:](#componentes-de-bootstrap-usados)
         - [Alerts (Alertas)](#alerts-alertas)
         - [Breadcrumb (Migas de pan)](#breadcrumb-migas-de-pan)
         - [Buttons (Botones) y Dropdowns (Botones desplegables)](#buttons-botones-y-dropdowns-botones-desplegables)
@@ -224,7 +224,8 @@ Para tener una estética limpia, se ha optado por un CRUD con el menú principal
 
 Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que concuerde con el diseño que hemos efectuado.
 
-#### Componenetes de Bootstrap usados:
+#### Componentes de Bootstrap usados:
+
 * Alerts (Alertas)
 * Breadcrumb (Migas de pan)
 * Buttons (Botones)
