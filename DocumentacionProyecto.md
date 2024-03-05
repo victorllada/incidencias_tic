@@ -1,4 +1,5 @@
 # Documentación del proyecto
+
 ## Índice
 
 - [Documentación del proyecto](#documentación-del-proyecto)
@@ -217,11 +218,11 @@ Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda l
 
 ### Diseño
 
-Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación, el obejetivo era centrar la información en unico punto para que la experiencia de usuario se simple y amigable.
+Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación, el objetivo era centrar la información más importante para que la experiencia de usuario simple y amigable, las funcionalidades más especificas como filtrado, informes y chat de comentarios, las hemos colocado en las barras desplegables (offcanvas), además con el uso de modales nos aseguramos de que el usuario realice las acciones de manera segura, aplicamos el color rojo para llamar la atención del usuario a la hora de realizar cambios importantes como borrado o actualizado de datos.
 
 ### Uso de Bootstrap
 
-Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que que concuerde con el diseño que hemos hecho.
+Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que concuerde con el diseño que hemos efectuado.
 
 #### Componenetes de Bootstrap usados:
 * Alerts (Alertas)
