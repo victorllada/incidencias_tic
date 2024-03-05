@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Inicio')
 @section('archivosJS')
-    @vite(['resources/js/app.js', 'resources/js/incidencias.js'])
+    @vite(['resources/js/app.js', 'resources/js/incidencias.js', 'resources/js/exportaciones.js'])
 @endsection
 @section('contenido')
 
@@ -156,24 +156,24 @@
                     </button>
                     <ul class="dropdown-menu custom-dropdown-menu">
                         @role('administrador')
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'pdf']) }}">PDF</a>
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'xlsx']) }}">EXCEL</a>
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => 'todas', 'formato' => 'csv']) }}">CSV</a>
                             </li>
                         @endrole
                         @role('profesor')
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => 'profesor', 'formato' => 'pdf']) }}">PDF</a>
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => 'profesor', 'formato' => 'xlsx']) }}">EXCEL</a>
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => 'profesor', 'formato' => 'csv']) }}">CSV</a>
                             </li>
                         @endrole
@@ -542,6 +542,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        {{-- Loader exportaciones --}}
+        <div class="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
     </div>
 @endsection
