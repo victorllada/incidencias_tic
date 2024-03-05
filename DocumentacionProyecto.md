@@ -25,12 +25,13 @@
         - [Cuando se actualiza una incidencia](#cuando-se-actualiza-una-incidencia)
         - [Cuando se comenta una incidencia](#cuando-se-comenta-una-incidencia)
   - [JavaScript](#javascript)
-    - [Incidencia.js](#Incidencia.js)
-    - [ShowIncidencia.js](#ShowIncidencia.js)
-    - [EditIncidencia.js](#EditIncidencia.js)
-    - [CreateIncidencia.js](#CreateIncidencia.js)
-    - [Usuarios.js](#Usuarios.js)
-    - [VariableHost.js](#VariableHost.js)
+    - [Incidencia.js](#incidenciajs)
+    - [ShowIncidencia.js](#showincidenciajs)
+    - [EditIncidencia.js](#editincidenciajs)
+    - [CreateIncidencia.js](#createincidenciajs)
+    - [Usuarios.js](#usuariosjs)
+    - [VariableHost.js](#variablehostjs)
+    - [Exportaciones.js](#exportacionesjs)
   - [Bootstrap y CSS](#bootstrap-y-css)
     - [Paleta de colores](#paleta-de-colores)
     - [Diseño](#diseño)
@@ -48,6 +49,7 @@
     - [Implementación de clases reutilizables](#implementación-de-clases-reutilizables)
     - [Accesibilidad](#accesibilidad)
     - [Animaciones](#animaciones)
+    - [Transiciones](#transiciones)
   - [Despliegue de la aplicación](#despliegue-de-la-aplicación)
     - [Instalación de Apache2](#instalación-de-apache2)
     - [Instalación de MySQL](#instalación-de-mysql)
@@ -285,12 +287,13 @@ Este archivo está creado para poder mostrar los usuarios, recibidos a través d
 
 Este archivo contiene una variable que en un entorno real no existiría, porque se usaría un DNS, pero por tiempo hemos tenido que hacerlo así, pero para poder usar los Ajax y redirecciones es necesaria, en esta variable está la IP origen del servidor, según si está en localhost o fuera del servidor.
 
-## Bootstrap y CSS
+### Exportaciones.js
+Sirve para hacer visible la transición al hacer una exportación PDF, EXCEL y CSV
 
+## Bootstrap y CSS
 Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
 
 ### Paleta de colores
-
 Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda la interfaz de la aplicación, además de colores blancos y negros y un color morado usado en la vista del login y las vista de error 403 y 403.
 
 | Nombre del Color | Código Hexadecimal | Muestra |
@@ -312,15 +315,12 @@ Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda l
 | Negro 50         | #000000            | <div style="width: 20px; height: 20px; background-color: #000000;"></div> |
 
 ### Diseño
-
 Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación, el objetivo era centrar la información más importante para que la experiencia de usuario simple y amigable, las funcionalidades más especificas como filtrado, informes y chat de comentarios, las hemos colocado en las barras desplegables (offcanvas), además con el uso de modales nos aseguramos de que el usuario realice las acciones de manera segura, aplicamos el color rojo para llamar la atención del usuario a la hora de realizar cambios importantes como borrado o actualizado de datos.
 
 ### Uso de Bootstrap
-
 Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que concuerde con el diseño que hemos efectuado.
 
 #### Componentes de Bootstrap usados:
-
 * Alerts (Alertas)
 * Breadcrumb (Migas de pan)
 * Buttons (Botones)
@@ -360,7 +360,6 @@ Sirven para cerrar los modales o las barras laterales desplegables.
 Para navegar en la tabla de incidencias y usuarios.
 
 ### Implementación de clases reutilizables
-
 Adoptando la idea y filosofía de Bootstrap y de frameworks como Tailwind, hemos implementado clases CSS genéricas que sirven para cambiar los colores de fondo de los elementos y botones, de esta manera la podemos crear componentes reutilizables fácilmente y que la estética de la aplicación sea homogénea.
 
 ### Accesibilidad
@@ -368,6 +367,9 @@ Para hacer mas comoda la aplicacion hemos aplicado el usa de tooltips para propo
 
 ### Animaciones
 Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estetica, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animacion o keyframe, se le aplica distintas duraciones a dichas aniaciones.
+
+### Transiciones
+Se usan transiciones al hacer exportaciones en las vistas de las tablas de incidencias y en los detalles de cada incidencia.
 
 ## Despliegue de la aplicación
 
@@ -774,7 +776,6 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 * Añadir un modo oscuro a la aplicación y que cambie dependiendo de la configuración del sistema, además de darle la opción al usuario.
 * Hacer mejoras de UX/UI, para hacer más cómodo y ameno el uso de la aplicación.
 * Mejorar el chat de comentarios.
-* Implementar transiciones en caso de que los tiempos de carga aumentaran considerablemente.
 
 ## Problemas encontrados
 

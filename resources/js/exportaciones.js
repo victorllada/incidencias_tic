@@ -9,7 +9,7 @@ function inicio() {
             loader.style.display = "flex";
             var temp = setTimeout(() => {
                 loader.style.display = 'none';
-            }, 4000);
+            }, 3000);
         });
     });
 }
