@@ -120,7 +120,7 @@ function generarSubtipos()
             subtipos = ["EDUCANTABRIA","GOOGLE CLASSROOM","DOMINIO","YEDRA"];
             break;
         case "EQUIPOS":
-            subtipos=["ALTAVOCES","PC","MONITOR","PROYECTOR","PANTALLA INTERACTIVA","PORTATIL","IMPRESORA"];
+            subtipos=["ALTAVOCES","PC","MONITOR","PROYECTOR","PANTALLA","PANTALLA INTERACTIVA","PORTATIL","IMPRESORA"];
             break;
         case "WIFI":
             subtipos=["IESMIGUELHERRERO","WIECAN"];
@@ -181,7 +181,7 @@ function generarSubSubTipos()
             subsubtipos = ["RATON", "ORDENADOR", "TECLADO"];
             break;
         case "PORTATIL":
-            subsubtipos = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
+            subsubtipos = ["PROPORCIONADO POR CONSEJERIA", "DE AULA", "DE PUESTO"];
             break;
         default:
             document.querySelector("#div-sub-sub-tipo").hidden=true;
