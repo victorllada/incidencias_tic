@@ -84,7 +84,19 @@
 
 ## Introducción
 
-Documento que detalla lo realizado en el proyecto.
+Software para la gestión de incidencias realizadas por el departamento TIC del IES Miguel Herrero, además de un apartado de administración de usuarios y el mantenimiento de tablas maestras.
+
+Para la ejecución de este proyecto se plantea el uso de una arquitectura de tres capas.
+
+![](imagenes_documentacion/arquitectura_3capas.gif)
+
+Y en cuanto al patrón de arquitectura, se utilizará el "Modelo Vista Controlador" de Laravel.
+
+![](imagenes_documentacion/mvc.jpg)
+
+Además en este patrón utilizaremos para el backend PHP (Laravel) y para el frontend JS y Bootstrap.
+
+![](imagenes_documentacion/front-end-vs-back-end-1.png)
 
 ## Entorno de desarrollo
 
@@ -231,6 +243,10 @@ Utilizada para la realización de reports en formatos xlsx y csv. Se han creado 
 
 Utilizada, a través de Laravel Excel, para la realización de reports en formato pdf.
 
+### Disco assets
+
+Para el almacenamieno de archivos adjuntos que suban los usuarios, hemos creado un disco con diferentes carpetas para sus diferentes usos.
+
 ### Traducciones
 
 Se han instalado las traducciones a español y configurado la aplicación en consecuencia.
@@ -257,21 +273,33 @@ Para el envío de correos electrónicos en la aplicación se ha creado una clase
 
 ![](imagenes_documentacion/aviso_comentar_incidencia.png)
 
+### Modelos
+
+Se han creado los modelos que reflejan las tablas de la base de datos.
+
+### Vistas 
+
+Utilizando JS y blade se han construido las vistas pertinentes para representar los datos requeridos de la aplicación.
+
+### Controladores
+
+Para manejar las solicitudes de los usuarios se han configurado rutas hacia los métodos del controlodor correspondiente.
+
 ## JavaScript
 
-JavaScript en esta aplicacion se ha usado para, filtros, paginacion y validaciones
+Para el apartado del frontend, hemos utilizado el lenguaje JavaScript sin ningún framework. Se ha usado para, filtros, paginación y validaciones.
 
 ### Incidencia.js
 
-El archivo de inicio para ambos usuarios, tanto los profesores como los administradores, aquí está una llama de un método async para la llamada de Ajax, también contiene dos métodos para mostrar las incidencias, una para los usuarios con todos los datos relevantes para el administrador, y después otro para el profesor con los datos relevantes para el mismo, también tiene filtros para las incidencias, y demas funciones que tiene, como la paginacion o redireccion o borrado
+El archivo de inicio para ambos usuarios, tanto los profesores como los administradores, aquí está una llamada de un método async de Ajax, también contiene tres métodos, uno para mostrar las incidencias, uno para los usuarios, con todos los datos relevantes para el administrador, y después otro para el profesor con los datos relevantes para el mismo, también tiene filtros para las incidencias, y además funciones, como la paginación, redirección o borrado.
 
 ### ShowIncidencia.js
 
-En este archivo lo único que esta es un método preventDefaut al botón de borrado para que el usuario confirme el borrado de la incidencia, si confirma se borra, si no, el modal desaparece y puede continuar
+En este archivo se encuentra un método preventDefaut al botón de borrado para que el usuario confirme el borrado de la incidencia, si confirma se borra, si no, el modal desaparece y puede continuar.
 
 ### EditIncidencia.js
 
-Este archivo está para mostrar u ocultar select de diferentes aspectos de la incidencia, como los subtipos o sub subtipos si existieran, también para el aula y la etiqueta del equipo si la incidencia es de tipo equipo y subtipo pc o portátil
+Este archivo está para mostrar u ocultar select de diferentes aspectos de la incidencia, como los subtipos o sub subtipos si existieran, también para el aula y la etiqueta del equipo si la incidencia es de tipo equipo y subtipo pc o portátil.
 
 ### CreateIncidencia.js
 
@@ -283,15 +311,15 @@ Este archivo está creado para poder mostrar los usuarios, recibidos a través d
 
 ### VariableHost.js
 
-Este archivo contiene una variable que en un entorno real no existiría, porque se usaría un DNS, pero por tiempo hemos tenido que hacerlo así, pero para poder usar los Ajax y redirecciones es necesaria, en esta variable está la IP origen del servidor, según si está en localhost o fuera del servidor.
+Este archivo contiene una variable que en un entorno real no existiría, porque se usaría un DNS, pero por falta de tiempo hemos tenido que hacerlo así, pero para poder usar los Ajax y redirecciones es necesaria, en esta variable está la IP origen del servidor, según si está en localhost o fuera del servidor.
 
 ## Bootstrap y CSS
 
-Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
+Hemos usado Bootstrap un framework CSS, además de CSS tradicional.
 
 ### Paleta de colores
 
-Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda la interfaz de la aplicación, además de colores blancos y negros y un color morado usado en la vista del login y las vista de error 403 y 403.
+Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda la interfaz de la aplicación, además de colores blancos y negros y un color morado usado en la vista del login y las vista de error 403 y 404.
 
 | Nombre del Color | Código Hexadecimal | Muestra |
 | ---------------- | ------------------ | ------- |
@@ -367,7 +395,7 @@ Adoptando la idea y filosofía de Bootstrap y de frameworks como Tailwind, hemos
 Para hacer mas comoda la aplicacion hemos aplicado el usa de tooltips para proporcionar mas informacion al usuario, ademas de el uso de colores altamente llamativos como el rojo botones que realizan acciones criticas como un borrado y actualizado de datos.
 
 ### Animaciones
-Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estetica, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animacion o keyframe, se le aplica distintas duraciones a dichas aniaciones.
+Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estética, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animación o keyframe, se le aplica distintas duraciones a dichas aniaciones.
 
 ## Despliegue de la aplicación
 
@@ -774,7 +802,6 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 * Añadir un modo oscuro a la aplicación y que cambie dependiendo de la configuración del sistema, además de darle la opción al usuario.
 * Hacer mejoras de UX/UI, para hacer más cómodo y ameno el uso de la aplicación.
 * Mejorar el chat de comentarios.
-* Implementar transiciones en caso de que los tiempos de carga aumentaran considerablemente.
 
 ## Problemas encontrados
 
