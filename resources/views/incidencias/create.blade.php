@@ -34,7 +34,7 @@
                                     value="{{ auth()->user()->nombre_completo }}" readonly>
                             </div>
                         </div>
-                        @empty(auth()->user()->id_departamento || auth()->user()->nombre_departamento)
+                        @if ((empty(auth()->user()->id_departamento)) || (empty(auth()->user()->nombre_departamento)))
                             <div class="col-lg-4">
                                 <div class="input-group">
                                     <label class="input-group-text aquamarine-200 fw-bolder"
@@ -47,8 +47,8 @@
                                     </select>
                                 </div>
                             </div>
-                        @endempty
-                        @empty(auth()->user()->email)
+                        @endif
+                        @if (empty(auth()->user()->email))
                             <div class="col-lg-4">
                                 <div class="input-group">
                                     <label class="input-group-text aquamarine-200 fw-bolder" for="email">Email</label>
@@ -56,7 +56,7 @@
                                         placeholder="Introduce tu email">
                                 </div>
                             </div>
-                        @endempty
+                        @endif
                     </div>
 
                     {{-- Fila 2 tipo sub-tipo y sub-sub-tipo --}}

@@ -809,6 +809,7 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 
 * En la red del instituto no ha sido posible utilizar Mailtrap para enviar los correos electrónicos.
 * El uso de Bootstrap a condicionado el diseño de la aplicación.
+* En los filtros ha de escribirse el nombre del usuario exacto, es decir, con tildes.
 
 ## Bibliografía y Webgrafía
 
