@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Detalles')
 @section('archivosJS')
-    @vite(['resources/js/app.js', 'resources/js/showIncidencia.js'])
+    @vite(['resources/js/app.js', 'resources/js/showIncidencia.js', 'resources/js/exportaciones.js'])
 @endsection
 @section('contenido')
 
@@ -25,13 +25,13 @@
                             Exportar
                         </button>
                         <ul class="dropdown-menu custom-dropdown-menu">
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'pdf']) }}">PDF</a>
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'xlsx']) }}">EXCEL</a>
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a class="dropdown-item export-link"
                                     href="{{ route('incidencias.exportar', ['tipo' => $incidencia->id, 'formato' => 'csv']) }}">CSV</a>
                             </li>
                         </ul>
@@ -219,105 +219,113 @@
                             <span class="fw-bolder">Aula:</span>
                             {{ $incidencia->equipo->aula->codigo }}
                         @endempty
+                        </div>
+                        <div class="col">
+                            @empty($incidencia->equipo)
+                                <span class="fw-bolder">Etiqueta:</span> No hay etiqueta asignadas
+                            @else
+                                <span class="fw-bolder">Etiqueta:</span>
+                                {{ $incidencia->equipo->etiqueta }}
+                            @endempty
+                        </div>
+                        <div class="col">
+                            @empty($incidencia->equipo)
+                                <span class="fw-bolder">Equipo:</span> No hay equipo asignado
+                            @else
+                                <span class="fw-bolder">Equipo:</span>
+                                {{ $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
+                            @endempty
+                        </div>
                     </div>
-                    <div class="col">
-                    @empty($incidencia->equipo)
-                        <span class="fw-bolder">Etiqueta:</span> No hay etiqueta asignadas
-                    @else
-                        <span class="fw-bolder">Etiqueta:</span>
-                        {{ $incidencia->equipo->etiqueta }}
-                    @endempty
+                @endif
+                <hr>
+
+                {{-- Fila descripcion y actuaciones --}}
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <span class="fw-bolder">Descripción:</span>
+                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <span class="fw-bolder">Actuaciones:</span>
+                        <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
+                    </div>
+
                 </div>
-                <div class="col">
-                @empty($incidencia->equipo)
-                    <span class="fw-bolder">Equipo:</span> No hay equipo asignado
-                @else
-                    <span class="fw-bolder">Equipo:</span>
-                    {{ $incidencia->equipo->marca . ' ' . $incidencia->equipo->modelo }}
-                @endempty
+
+                {{-- Fila archivo y responsable --}}
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        @if ($incidencia->adjunto_url != null)
+                            <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
+                                class="btn aquamarine-400 text-white">Descargar Archivo</a>
+                        @else
+                            <span class="fw-bolder">No hay archivo adjunto</span>
+                        @endif
+                    </div>
+
+                    <div class="col-lg-6">
+                        <span class="fw-bolder">Responsable:</span>
+                        <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
+                        @if ($incidencia->responsable == null)
+                            Aún no hay responsables
+                        @else
+                            <span>{{ $incidencia->responsable->nombre_completo }} </span>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Botones actuailizar y borrar incidencia --}}
+                <div class="row mt-5">
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
+                            class="btn aquamarine-400 text-white">Editar</a>
+                        @if (auth()->user()->hasRole('administrador') ||
+                                (auth()->user()->hasRole('profesor') && $incidencia->estado == 'ABIERTA'))
+                            <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="POST"
+                                id="formBorrar">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" id="botonBorrar"
+                                    class="btn btn-danger text-white"data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">Borrar</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
             </div>
-
-        </div>
-    @endif
-
-    <hr>
-
-    {{-- Fila descripcion y actuaciones --}}
-    <div class="row mb-4">
-        <div class="col-lg-6">
-            <span class="fw-bolder">Descripción:</span>
-            <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
-        </div>
-
-        <div class="col-lg-6">
-            <span class="fw-bolder">Actuaciones:</span>
-            <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
-        </div>
-
-    </div>
-
-    {{-- Fila archivo y responsable --}}
-    <div class="row mb-4">
-        <div class="col-lg-6">
-            @if ($incidencia->adjunto_url != null)
-                <a href="{{ route('descargar.archivo', ['id' => $incidencia->id]) }}"
-                    class="btn aquamarine-400 text-white">Descargar Archivo</a>
-            @else
-                <span class="fw-bolder">No hay archivo adjunto</span>
-            @endif
-        </div>
-
-        <div class="col-lg-6">
-            <span class="fw-bolder">Responsable:</span>
-            <!-- Si responsables esta vacio ponemos que aún no hay, en caso contrario los mostramos -->
-            @if ($incidencia->responsable == null)
-                Aún no hay responsables
-            @else
-                <span>{{ $incidencia->responsable->nombre_completo }} </span>
-            @endif
         </div>
     </div>
 
-    {{-- Botones actuailizar y borrar incidencia --}}
-    <div class="row mt-5">
-        <div class="d-flex gap-2">
-            <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
-                class="btn aquamarine-400 text-white">Editar</a>
-            @if (auth()->user()->hasRole('administrador') || (auth()->user()->hasRole('profesor') && $incidencia->estado == 'ABIERTA'))
-                <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="POST"
-                    id="formBorrar">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" id="botonBorrar"
-                        class="btn btn-danger text-white"data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">Borrar</button>
-                </form>
-            @endif
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Petición de borrado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Desea borrar la incidencia?
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
+                    <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
+                        name="activarBorrado" data-idIncidencia="">
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-    <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Petición de borrado</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    {{-- Loader exportaciones --}}
+    <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
-    <div class="modal-body">
-        ¿Desea borrar la incidencia?
-    </div>
-    <div class="modal-footer">
-        <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-        <input type="submit" class="btn btn-danger" value="Borrar" id="activarBorrado"
-            name="activarBorrado" data-idIncidencia="">
-    </div>
-</div>
-</div>
-</div>
 </div>
 @endsection
