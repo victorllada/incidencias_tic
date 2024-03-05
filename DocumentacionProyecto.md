@@ -730,7 +730,9 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 * Generación de reports por los filtros de búsqueda aplicados.
 * Implementar animaciones en las tablas de datos de incidencias y usuarios.
 * Añadir un modo oscuro a la aplicación y que cambie dependiendo de la configuración del sistema, además de darle la opción al usuario.
-* Hacer mejoras de UX/UI, para hacer más cómodo y ameno el uso de la aplicación.
+* Hacer mejoras de UX/UI, para hacer más cómodo y ameno el uso de la aplicación.
+* Mejorar el chat de comentarios.
+* Implementar transiciones en caso de que los tiempos de carga aumentaran considerablemente.
 
 ## Problemas encontrados
 
