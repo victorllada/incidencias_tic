@@ -323,10 +323,10 @@ Para navegar en la tabla de incidencias y usuarios.
 Adoptando la idea y filosofía de Bootstrap y de frameworks como Tailwind, hemos implementado clases CSS genéricas que sirven para cambiar los colores de fondo de los elementos y botones, de esta manera la podemos crear componentes reutilizables fácilmente y que la estética de la aplicación sea homogénea.
 
 ### Accesibilidad
-Para hacer mas comoda la aplicacion hemos aplicado el usa de tooltips para proporcionar mas informacion al usuario, ademas de el uso de colores altamente llamativos como el rojo botones que realizan acciones criticas como un borrado y actualizado de datos
+Para hacer mas comoda la aplicacion hemos aplicado el usa de tooltips para proporcionar mas informacion al usuario, ademas de el uso de colores altamente llamativos como el rojo botones que realizan acciones criticas como un borrado y actualizado de datos.
 
 ### Animaciones
-Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estetica, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animacion o keyframe, se le aplica distintas duraciones a dichas aniaciones
+Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estetica, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animacion o keyframe, se le aplica distintas duraciones a dichas aniaciones.
 
 ## Despliegue de la aplicación
 
@@ -728,10 +728,14 @@ Para la generación de la documentación de PHP se ha utilizado la herramienta '
 
 * Sincronización de atributos LDAP del usuario ya existentes.
 * Generación de reports por los filtros de búsqueda aplicados.
+* Implementar animaciones en las tablas de datos de incidencias y usuarios.
+* Añadir un modo oscuro a la aplicación y que cambie dependiendo de la configuración del sistema, además de darle la opción al usuario.
+* Hacer mejoras de UX/UI, para hacer más cómodo y ameno el uso de la aplicación.
 
 ## Problemas encontrados
 
 * En la red del instituto no ha sido posible utilizar Mailtrap para enviar los correos electrónicos.
+* El uso de Bootstrap a condicionado el diseño de la aplicación.
 
 ## Bibliografía y Webgrafía
 
@@ -759,3 +763,5 @@ Se han utilizado los apuntos aportados durante el curso por los profesores y los
 * [Gemini](https://gemini.google.com/?hl=es)
 * [Stack Overflow](https://stackoverflow.com/)
 * [YouTube](https://www.youtube.com/)
+* [Bootstrap](https://getbootstrap.com/)
+* [UI colors](https://uicolors.app/create)
