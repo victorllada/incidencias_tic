@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Detalles')
 @section('archivosJS')
-    @vite(['resources/js/app.js','resources/js/showIncidencia.js'])
+    @vite(['resources/js/app.js', 'resources/js/showIncidencia.js'])
 @endsection
 @section('contenido')
 
@@ -283,11 +283,13 @@
         <div class="d-flex gap-2">
             <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
                 class="btn aquamarine-400 text-white">Editar</a>
-            @if (auth()->user()->hasRole('profesor') && $incidencia->estado == "ABIERTA")
-                <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="POST" id="formBorrar">
+            @if (auth()->user()->hasRole('administrador') || (auth()->user()->hasRole('profesor') && $incidencia->estado == 'ABIERTA'))
+                <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="POST"
+                    id="formBorrar">
                     @csrf
                     @method('delete')
-                    <button type="submit" id="botonBorrar" class="btn btn-danger text-white"data-bs-toggle="modal"
+                    <button type="submit" id="botonBorrar"
+                        class="btn btn-danger text-white"data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">Borrar</button>
                 </form>
             @endif
