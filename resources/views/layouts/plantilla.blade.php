@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Incidecnias TIC - @yield('titulo')</title>
+    <title>Incidencias TIC - @yield('titulo')</title>
     @vite(['resources/sass/app.scss'])
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     @yield('archivosJS')
