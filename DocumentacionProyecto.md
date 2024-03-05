@@ -9,15 +9,17 @@
     - [Eventos](#eventos)
     - [Triggers](#triggers)
   - [PHP](#php)
+    - [.ENV](#env)
     - [Librerías](#librerías)
       - [Jetstream (laravel/jetstream)](#jetstream-laraveljetstream)
       - [LDAPRecord (directorytree/ldaprecord-laravel)](#ldaprecord-directorytreeldaprecord-laravel)
       - [Laravel Excel (maatwebsite/excel)](#laravel-excel-maatwebsiteexcel)
       - [DOMPDF (dompdf/dompdf)](#dompdf-dompdfdompdf)
-    - [Subsección 2.2](#subsección-22)
+    - [Traducciones](#traducciones)
+    - [Zona horaria](#zona-horaria)
   - [JavaScript](#javascript)
     - [Subsección 2.1](#subsección-21)
-    - [Subsección 2.2](#subsección-22-1)
+    - [Subsección 2.2](#subsección-22)
   - [Bootstrap y CSS](#bootstrap-y-css)
     - [Paleta de colores](#paleta-de-colores)
     - [Diseño](#diseño)
@@ -31,7 +33,7 @@
         - [Modals (Modales)](#modals-modales)
         - [Offcanvas (Barra lateral desplegable)](#offcanvas-barra-lateral-desplegable)
         - [Close button (Botones de cerrado)](#close-button-botones-de-cerrado)
-        - [Pagination (Pagianción)](#pagination-pagianción)
+        - [Pagination (Paginación)](#pagination-paginación)
     - [Implementación de clases reutilizables](#implementación-de-clases-reutilizables)
   - [Despliegue de la aplicación](#despliegue-de-la-aplicación)
     - [Instalación de Apache2](#instalación-de-apache2)
@@ -52,7 +54,13 @@
         - [Habilitar módulo SSL](#habilitar-módulo-ssl)
     - [Crear sitio web](#crear-sitio-web)
     - [Script de despliegue](#script-de-despliegue)
-  - [Conclusión](#conclusión)
+  - [Documentación de código](#documentación-de-código)
+    - [Generación de documentación](#generación-de-documentación)
+  - [Implementaciones faltantes](#implementaciones-faltantes)
+  - [Mejoras o posibles cambios a futuro](#mejoras-o-posibles-cambios-a-futuro)
+  - [Bibliografía y Webgrafía](#bibliografía-y-webgrafía)
+    - [Bibliografía](#bibliografía)
+    - [Webgrafía](#webgrafía)
 
 ## Introducción
 
@@ -154,9 +162,18 @@ END;
 
 Para el apartado del backend hemos utilizado el lenguaje PHP 8.2.4 junto al framework Laravel 10.
 
+### .ENV
+
+En el archivo .env tendremos configuraciones de la aplicación como:
+
+* Nombre de la aplicación.
+* Parámetros de conexión a base de datos.
+* Parámetros de configuración de envío de correo electrónico.
+* Parámetros de conexión al LDAP, así como las unidades organizativas a las que pertenecen los usuarios que pueden autenticarse en la aplicación.
+
 ### Librerías
 
-Para darle ciertas funcionalidades extras, más allá de las que da el propio framework Laravel, hemos utilizado varias librerías.
+Para darle ciertas funcionalidades extras, más allá de las que proporciona el propio framework Laravel, hemos utilizado varias librerías.
 
 #### Jetstream (laravel/jetstream)
 
@@ -164,19 +181,23 @@ Utilizada para la autenticación de los usuarios en la aplicación.
 
 #### LDAPRecord (directorytree/ldaprecord-laravel)
 
-Utilizada para utilizar las credenciales de LDAP en el login a la aplicación.
+Utilizada para validar las credenciales contra el LDAP. Además se han implementado reglas de acceso para permitir el login a aquellos usuarios del LDAP que pertenezcan a unidades organizativas específicas.
 
 #### Laravel Excel (maatwebsite/excel)
 
-Utilizada para la realización de reports en formatos xlsx y csv.
+Utilizada para la realización de reports en formatos xlsx y csv. Se han creado clases y vistas según el contenido de datos a exportar y métodos genéricos para generar los reports en los formatos pdf, xlsx o csv.
 
 #### DOMPDF (dompdf/dompdf)
 
 Utilizada, a través de Laravel Excel, para la realización de reports en formato pdf.
 
-### Subsección 2.2
+### Traducciones
 
-Contenido de la subsección 2.2.
+Se han instalado las traducciones a español y configurado la aplicación en consecuencia.
+
+### Zona horaria
+
+Hemos configurado la aplicación para utilizar la zona horaria 'Europe/Madrid'.
 
 ## JavaScript
 
@@ -235,7 +256,7 @@ Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y ap
 * Modals (Modales)
 * Navbar (Barra de navegación)
 * Offcanvas (Barra lateral desplegable)
-* Pagination (Pagianción)
+* Pagination (Paginación)
 
 ##### Alerts (Alertas)
 Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.
@@ -261,7 +282,7 @@ Usados par contener los filtros de incidencias y usuarios, los informes, y el ch
 ##### Close button (Botones de cerrado)
 Sirven para cerrar los modales o las barras laterales desplegables.
 
-##### Pagination (Pagianción)
+##### Pagination (Paginación)
 Para navegar en la tabla de incidencias y usuarios.
 
 ### Implementación de clases reutilizables
@@ -466,7 +487,7 @@ $ cp default-ssl.conf incidencias-tic.conf
 </IfModule>
 ```
 
-```apache
+```shell
 $ a2ensite incidencias-tic.conf
 ```
 
@@ -646,6 +667,51 @@ Aplicar permisos de ejecución al script creado:
 $ chmod +x despliegueApp.sh
 ```
 
-## Conclusión
+## Documentación de código
 
-Aquí puedes poner tus reflexiones finales.
+Para la documentación del código, clases, atributos o métodos, se han utilizado los estándares correspondientes a cada lenguaje.
+
+### Generación de documentación
+
+Se han generado páginas HTML estáticas con la documentación del código PHP y JS.
+
+Para la generación de la documentación de PHP se ha utilizado la herramienta 'phpDocumentor' y para JS se ha utilizado 'JSDoc'.
+
+## Implementaciones faltantes
+
+* CRUD de algunas tablas maestras como:
+  * Aulas
+  * Departamentos
+  * Equipos
+  * Subtipos (Incidencias)
+
+## Mejoras o posibles cambios a futuro
+
+* Sincronización de atributos LDAP del usuario ya existentes.
+* Generación de reports por los filtros de búsqueda aplicados.
+
+## Bibliografía y Webgrafía
+
+### Bibliografía
+
+Se han utilizado los apuntos aportados durante el curso por los profesores y los que hemos ido generando nosotros mismos en base a los visto durante el curso.
+
+### Webgrafía
+
+* [Manual MySQL](https://dev.mysql.com/doc/refman/8.0/en/)
+* [Manual PHP](https://www.php.net/manual/es/index.php)
+* [Documentación Laravel 10](https://laravel.com/docs/10.x)
+* [LDAPRecord](https://ldaprecord.com/docs/laravel/v3)
+* [Laravel Excel](https://docs.laravel-excel.com/3.1/getting-started/)
+* [DOMPDF](https://github.com/dompdf/dompdf)
+* [Apache2](https://httpd.apache.org/docs/current/)
+* [phpMyAdmin](https://docs.phpmyadmin.net/es/latest/)
+* [Composer](https://getcomposer.org/)
+* [NodeJS](https://nodejs.org/en)
+* [Webmin](https://webmin.com/docs/)
+* [phpDocumentor](https://docs.phpdoc.org/3.0/)
+* [JSDoc](https://jsdoc.app/)
+* [ChatGPT](https://chat.openai.com/auth/login)
+* [Gemini](https://gemini.google.com/?hl=es)
+* [Stack Overflow](https://stackoverflow.com/)
+* [YouTube](https://www.youtube.com/)
