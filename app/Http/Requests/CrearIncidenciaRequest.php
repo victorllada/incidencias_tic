@@ -23,8 +23,8 @@ class CrearIncidenciaRequest extends FormRequest
     {
         $rules = [
             'tipo' => 'required|in:CUENTAS,EQUIPOS,WIFI,INTERNET,SOFTWARE',
-            'sub-tipo' => 'in:EDUCANTABRIA,GOOGLE CLASSROOM,DOMINIO,YEDRA,ALTAVOCES,PC,MONITOR,PROYECTOR,PANTALLA INTERACTIVA,PORTATIL,IMPRESORA,IESMIGUELHERRERO,WIECAN,INSTALACION,ACTUALIZACION',
-            'sub-sub-tipo' => 'in:RATON,ORDENADOR,TECLADO,PORTATIL PROPORCIONADO POR CONSERJERIA,DE AULA,DE PUESTO',
+            'sub-tipo' => 'in:EDUCANTABRIA,GOOGLE CLASSROOM,DOMINIO,YEDRA,ALTAVOCES,PC,MONITOR,PROYECTOR,PANTALLA,PANTALLA INTERACTIVA,PORTATIL,IMPRESORA,IESMIGUELHERRERO,WIECAN,INSTALACION,ACTUALIZACION',
+            'sub-sub-tipo' => 'in:RATON,ORDENADOR,TECLADO,PROPORCIONADO POR CONSEJERIA,DE AULA,DE PUESTO',
             'descripcion' => 'required|min:5',
             'prioridad' => 'required|in:BAJA,MEDIA,ALTA,URGENTE',
             'fichero' => 'mimes:jpeg,jpg,png,gif,pdf,doc,docx,txt,xls,xlsx,ppt,pptx,zip',

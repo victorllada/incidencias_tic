@@ -248,10 +248,12 @@
             <span class="fw-bolder">Descripción:</span>
             <textarea class="form-control" rows="8" readonly>{{ $incidencia->descripcion }}</textarea>
         </div>
+
         <div class="col-lg-6">
             <span class="fw-bolder">Actuaciones:</span>
             <textarea class="form-control" rows="8" readonly>{{ $incidencia->actuaciones }}</textarea>
         </div>
+
     </div>
 
     {{-- Fila archivo y responsable --}}
@@ -281,12 +283,14 @@
         <div class="d-flex gap-2">
             <a href="{{ route('incidencias.edit', $incidencia) }}" type="button"
                 class="btn aquamarine-400 text-white">Editar</a>
-            <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="POST" id="formBorrar">
-                @csrf
-                @method('delete')
-                <button type="submit" id="botonBorrar" class="btn btn-danger text-white"data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">Borrar</button>
-            </form>
+            @if (auth()->user()->hasRole('profesor') && $incidencia->estado == "ABIERTA")
+                <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="POST" id="formBorrar">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" id="botonBorrar" class="btn btn-danger text-white"data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">Borrar</button>
+                </form>
+            @endif
         </div>
     </div>
 </div>

@@ -179,7 +179,7 @@ class IncidenciaController extends Controller
             // Buscar el ID de la subincidencia, segun tipo, subtipo(si hay) y subsubtipo(si hay) elegido, en la tabla incidencias_subtipos
             $incidencia_subtipo_query = IncidenciaSubtipo::where('tipo', $request->tipo);
             if (!is_null($request->input('sub-tipo'))) {
-                $incidencia_subtipo_query->where('subtipo_nombre',  $request->input('sub-tipo'));
+                $incidencia_subtipo_query->where('subtipo_nombre', $request->input('sub-tipo'));
             }
             if (!is_null($request->input('sub-sub-tipo'))) {
                 $incidencia_subtipo_query->where('sub_subtipo', $request->input('sub-sub-tipo'));
@@ -187,10 +187,11 @@ class IncidenciaController extends Controller
 
             //Recogemos el primer registro con esas caracteristicas
             $incidencia_subtipo = $incidencia_subtipo_query->first();
-            // Obtener el ID
-            $idSubincidencia = $incidencia_subtipo->id;
+
+           //dd($incidencia_subtipo_query,  $request->input('sub-tipo'),  $request->input('sub-sub-tipo'));
+
             //Metemos el id de subincidencia en el campo correspondiente
-            $incidencia->subtipo_id = $idSubincidencia;
+            $incidencia->subtipo_id = $incidencia_subtipo->id;
 
             //Fecha de creación la ponemos al momento exacto en el que se cree
             $incidencia->fecha_creacion = now();
@@ -446,7 +447,6 @@ class IncidenciaController extends Controller
             if ($user->hasRole('profesor') && $incidencia->estado !== "ABIERTA") {
                 return redirect()->route('incidencias.index')->with('error', 'No tiene permisos para borrar la incidencia.');
             }
-
         } catch (ModelNotFoundException $mnfe) {
 
             return redirect()->route('incidencias.index')->with('error', 'Error: la incidencia no existe');

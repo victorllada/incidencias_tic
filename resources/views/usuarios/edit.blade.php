@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Usuarios - Editar')
 @section('archivosJS')
-    @vite(['resources/js/app.js', 'resources/js/incidencias.js'])
+    @vite(['resources/js/app.js'])
 @endsection
 @section('contenido')
 
@@ -81,13 +81,19 @@
                                 <label class="input-group-text aquamarine-200 fw-bolder" for="rol">
                                     Rol
                                 </label>
-                                <select class="form-select" name="rol" id="rol" required>
-                                    <option selected disabled value="-1">Selecciona el rol</option>
-                                    @foreach ($rolesDisponibles as $rol)
-                                        <option value="{{ $rol }}"
-                                            {{ $usuario->hasRole($rol) ? 'selected' : '' }}>{{ $rol }}</option>
-                                    @endforeach
-                                </select>
+                                @if ($usuario->id != auth()->user()->id)
+                                    <select class="form-select" name="rol" id="rol" required>
+                                        <option selected disabled value="-1">Selecciona el rol</option>
+                                        @foreach ($rolesDisponibles as $rol)
+                                            <option value="{{ $rol }}"
+                                                {{ $usuario->hasRole($rol) ? 'selected' : '' }}>{{ $rol }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <input type="text" class="form-control"
+                                        value={{auth()->user()->roles->pluck('name')->implode('')}} disabled>
+                                @endif
                             </div>
                         </div>
                     </div>

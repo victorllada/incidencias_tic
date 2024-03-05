@@ -1,19 +1,29 @@
 # Documentación del proyecto
+
 ## Índice
 
 - [Documentación del proyecto](#documentación-del-proyecto)
   - [Índice](#índice)
+  - [Miembros del equipo](#miembros-del-equipo)
   - [Introducción](#introducción)
+  - [Entorno de desarrollo](#entorno-de-desarrollo)
   - [Base de datos](#base-de-datos)
     - [Eventos](#eventos)
     - [Triggers](#triggers)
   - [PHP](#php)
+    - [.ENV](#env)
     - [Librerías](#librerías)
       - [Jetstream (laravel/jetstream)](#jetstream-laraveljetstream)
       - [LDAPRecord (directorytree/ldaprecord-laravel)](#ldaprecord-directorytreeldaprecord-laravel)
       - [Laravel Excel (maatwebsite/excel)](#laravel-excel-maatwebsiteexcel)
       - [DOMPDF (dompdf/dompdf)](#dompdf-dompdfdompdf)
-    - [Subsección 2.2](#subsección-22)
+    - [Traducciones](#traducciones)
+    - [Zona horaria](#zona-horaria)
+    - [Envío de correos electrónicos](#envío-de-correos-electrónicos)
+      - [Tipos de correos electrónicos (avisos)](#tipos-de-correos-electrónicos-avisos)
+        - [Cuando se crea una incidencia](#cuando-se-crea-una-incidencia)
+        - [Cuando se actualiza una incidencia](#cuando-se-actualiza-una-incidencia)
+        - [Cuando se comenta una incidencia](#cuando-se-comenta-una-incidencia)
   - [JavaScript](#javascript)
     - [Incidencia.js](#Incidencia.js)
     - [ShowIncidencia.js](#ShowIncidencia.js)
@@ -25,7 +35,19 @@
     - [Paleta de colores](#paleta-de-colores)
     - [Diseño](#diseño)
     - [Uso de Bootstrap](#uso-de-bootstrap)
+      - [Componentes de Bootstrap usados:](#componentes-de-bootstrap-usados)
+        - [Alerts (Alertas)](#alerts-alertas)
+        - [Breadcrumb (Migas de pan)](#breadcrumb-migas-de-pan)
+        - [Buttons (Botones) y Dropdowns (Botones desplegables)](#buttons-botones-y-dropdowns-botones-desplegables)
+        - [Cards (Tarjetas)](#cards-tarjetas)
+        - [Navbar (Barra de navegación)](#navbar-barra-de-navegación)
+        - [Modals (Modales)](#modals-modales)
+        - [Offcanvas (Barra lateral desplegable)](#offcanvas-barra-lateral-desplegable)
+        - [Close button (Botones de cerrado)](#close-button-botones-de-cerrado)
+        - [Pagination (Paginación)](#pagination-paginación)
     - [Implementación de clases reutilizables](#implementación-de-clases-reutilizables)
+    - [Accesibilidad](#accesibilidad)
+    - [Animaciones](#animaciones)
   - [Despliegue de la aplicación](#despliegue-de-la-aplicación)
     - [Instalación de Apache2](#instalación-de-apache2)
     - [Instalación de MySQL](#instalación-de-mysql)
@@ -45,19 +67,52 @@
         - [Habilitar módulo SSL](#habilitar-módulo-ssl)
     - [Crear sitio web](#crear-sitio-web)
     - [Script de despliegue](#script-de-despliegue)
-  - [Conclusión](#conclusión)
+  - [Documentación de código](#documentación-de-código)
+    - [Generación de documentación](#generación-de-documentación)
+  - [Implementaciones faltantes](#implementaciones-faltantes)
+  - [Mejoras o posibles cambios a futuro](#mejoras-o-posibles-cambios-a-futuro)
+  - [Problemas encontrados](#problemas-encontrados)
+  - [Bibliografía y Webgrafía](#bibliografía-y-webgrafía)
+    - [Bibliografía](#bibliografía)
+    - [Webgrafía](#webgrafía)
+
+## Miembros del equipo
+- [César Torre](https://github.com/cesartg11)
+- [Hugo Cayón](https://github.com/Hugocl01)
+- [Luis Concha](https://github.com/DAW201)
+- [Víctor Sánchez](https://github.com/victorllada)
 
 ## Introducción
 
 Documento que detalla lo realizado en el proyecto.
 
+## Entorno de desarrollo
+
+Para el desarrollo de esta aplicación se ha utilizado como IDE el Visual Studio Code junto a las extensiones necesarias para cada lenguaje a utilizar y XAMPP cómo paquete de desarrollo que nos integra en un mismo software: Apache, MariaDB/MySQL y PHP. Todo ello bajo el sistema operativo Windows 10.
+
+Para trabajar en equipo se ha creado un repositorio en GitHub con los integrantes del grupo y se ha configurado el IDE en consecuencia. Además se ha llevado la estrategia de trabajar con issues y no trabajar directamente con la rama main del repositorio, en la que siempre estaría una versión 'estable' del proyecto.
+
+Se han configurado varias máquinas virtuales:
+* Máquina virtual Windows 10 para el desarrollo que contiene todo lo mencionado anteriormente.
+* Máquina virtual Windows Server 2019 con el rol de Active Directory configurado para así poder trabajar desde casa con un LDAP debido a la integración que vamos a realizar con el mismo.
+* Máquina virtual Ubuntu 22.04.4 LTS para las pruebas de despliegue de la aplicación.
+
+Otras herramientas utilizadas:
+* Notepad++
+* MySQL Workbench
+
+Navegadores:
+* Chrome
+* Edge
+* Mozilla Firefox
+
 ## Base de datos
 
 Tendremos una base de datos llamada 'incidencias_tic' con cotejamiento 'utf8mb4_unicode_ci'.
 
-Almacenará los datos necesarios para gestionar las incidencias TIC que pueden surgir en un instituto. Además de disponer de tablas de roles y permisos para las usuarios de la aplicación.
+Almacenará los datos necesarios para gestionar las incidencias TIC que pueden surgir en un instituto. Además de disponer de tablas de roles y permisos para los usuarios de la aplicación.
 
-Todo lo relacionado con base de datos estará creado mediante migraciones para las tablas y factories y seeders para la inserción de datos. El diagrama de la base de datos de incidencias es el siguiente:
+Todo lo relacionado con base de datos estará creado mediante PHP con migraciones para las tablas y factories y seeders para la inserción de datos. El diagrama de la base de datos de incidencias es el siguiente:
 
 ![](imagenes_documentacion/Diagrama_BD.png)
 
@@ -147,9 +202,18 @@ END;
 
 Para el apartado del backend hemos utilizado el lenguaje PHP 8.2.4 junto al framework Laravel 10.
 
+### .ENV
+
+En el archivo .env tendremos configuraciones de la aplicación como:
+
+* Nombre de la aplicación.
+* Parámetros de conexión a base de datos.
+* Parámetros de configuración de envío de correo electrónico.
+* Parámetros de conexión al LDAP, así como las unidades organizativas a las que pertenecen los usuarios que pueden autenticarse en la aplicación.
+
 ### Librerías
 
-Para darle ciertas funcionalidades extras, más allá de las que da el propio framework Laravel, hemos utilizado varias librerías.
+Para darle ciertas funcionalidades extras, más allá de las que proporciona el propio framework Laravel, hemos utilizado varias librerías.
 
 #### Jetstream (laravel/jetstream)
 
@@ -157,19 +221,41 @@ Utilizada para la autenticación de los usuarios en la aplicación.
 
 #### LDAPRecord (directorytree/ldaprecord-laravel)
 
-Utilizada para utilizar las credenciales de LDAP en el login a la aplicación.
+Utilizada para validar las credenciales contra el LDAP. Además se han implementado reglas de acceso para permitir el login a aquellos usuarios del LDAP que pertenezcan a unidades organizativas específicas.
 
 #### Laravel Excel (maatwebsite/excel)
 
-Utilizada para la realización de reports en formatos xlsx y csv.
+Utilizada para la realización de reports en formatos xlsx y csv. Se han creado clases y vistas según el contenido de datos a exportar y métodos genéricos para generar los reports en los formatos pdf, xlsx o csv.
 
 #### DOMPDF (dompdf/dompdf)
 
 Utilizada, a través de Laravel Excel, para la realización de reports en formato pdf.
 
-### Subsección 2.2
+### Traducciones
 
-Contenido de la subsección 2.2.
+Se han instalado las traducciones a español y configurado la aplicación en consecuencia.
+
+### Zona horaria
+
+Hemos configurado la aplicación para utilizar la zona horaria 'Europe/Madrid'.
+
+### Envío de correos electrónicos
+
+Para el envío de correos electrónicos en la aplicación se ha creado una clase que construye los datos del correo junto a una vista.
+
+#### Tipos de correos electrónicos (avisos)
+
+##### Cuando se crea una incidencia
+
+![](imagenes_documentacion/aviso_crear_incidencia.png)
+
+##### Cuando se actualiza una incidencia
+
+![](imagenes_documentacion/aviso_actualizar_incidencia.png)
+
+##### Cuando se comenta una incidencia
+
+![](imagenes_documentacion/aviso_comentar_incidencia.png)
 
 ## JavaScript
 
@@ -205,7 +291,7 @@ Hemos usado Bootstrap un framework CSS, ademas de CSS tradicional.
 
 ### Paleta de colores
 
-Optamos por la siguente paleta de colores, en tonos azules, ademas de colores blancos y negros y un color morado usado en la vista de el login y las vista de error 403 y 403.
+Optamos por la siguiente paleta de colores, en tonos azules utilizados en toda la interfaz de la aplicación, además de colores blancos y negros y un color morado usado en la vista del login y las vista de error 403 y 403.
 
 | Nombre del Color | Código Hexadecimal | Muestra |
 | ---------------- | ------------------ | ------- |
@@ -227,13 +313,14 @@ Optamos por la siguente paleta de colores, en tonos azules, ademas de colores bl
 
 ### Diseño
 
-Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación, el obejetivo era centrar la información en unico punto para que la experiencia de usuario se simple y amigable.
+Para tener una estética limpia, se ha optado por un CRUD con el menú principal en la parte superior de la pantalla un pie de página con las mismas opciones de navegación, el objetivo era centrar la información más importante para que la experiencia de usuario simple y amigable, las funcionalidades más especificas como filtrado, informes y chat de comentarios, las hemos colocado en las barras desplegables (offcanvas), además con el uso de modales nos aseguramos de que el usuario realice las acciones de manera segura, aplicamos el color rojo para llamar la atención del usuario a la hora de realizar cambios importantes como borrado o actualizado de datos.
 
 ### Uso de Bootstrap
 
-Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que que concuerde con el diseño que hemos hecho.
+Hemos usado Bootstap lo máximo posible, aplicando componentes predefinidos y aplicando estilos para que concuerde con el diseño que hemos efectuado.
 
-Componenetes usados:
+#### Componentes de Bootstrap usados:
+
 * Alerts (Alertas)
 * Breadcrumb (Migas de pan)
 * Buttons (Botones)
@@ -243,38 +330,44 @@ Componenetes usados:
 * Modals (Modales)
 * Navbar (Barra de navegación)
 * Offcanvas (Barra lateral desplegable)
-* Pagination (Pagianción)
+* Pagination (Paginación)
 
-Alerts (Alertas):
-> Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.
+##### Alerts (Alertas)
+Las alertas son usadas cuando hay errores o para informar al usuario de acciones que se han realizado.
 
-Breadcrumb (Migas de pan)
-> También llamadas migas de pan son usadas para informar al usuario en qué parte de la aplicación está situado, además puede usar lo puede usar para navegar por las distintas secciones.
+##### Breadcrumb (Migas de pan)
+También llamadas migas de pan son usadas para informar al usuario en qué parte de la aplicación está situado, además puede usar lo puede usar para navegar por las distintas secciones.
 
-Buttons (Botones) y Dropdowns (Botones desplegables)
-> Son usados para realizar acciones y/o confirmar cambios, además los botones desplegables contienen diferentes acciones.
+##### Buttons (Botones) y Dropdowns (Botones desplegables)
+Son usados para realizar acciones y/o confirmar cambios, además los botones desplegables contienen diferentes acciones.
 
-Cards (Tarjetas)
-> Están presentes en toda la información de las incidencias, usuarios y el chat de comentarios.
+##### Cards (Tarjetas)
+Están presentes en toda la información de las incidencias, usuarios y el chat de comentarios.
 
-Navbar (Barra de navegación)
-> Usado en la cabecera de la página, contiene el logo con los distintos enlaces a las distintas páginas.
+##### Navbar (Barra de navegación)
+Usado en la cabecera de la página, contiene el logo con los distintos enlaces a las distintas páginas.
 
-Modals (Modales)
-> Proporciona información al usuario antes de realizar acciones críticas, como borrado y actualización de incidencias y usuarios.
+##### Modals (Modales)
+Proporciona información al usuario antes de realizar acciones críticas, como borrado y actualización de incidencias y usuarios.
 
-Offcanvas (Barra lateral desplegable)
-> Usados par contener los filtros de incidencias y usuarios, los informes, y el chat de comentarios de cada incidencia.
+##### Offcanvas (Barra lateral desplegable)
+Usados par contener los filtros de incidencias y usuarios, los informes, y el chat de comentarios de cada incidencia.
 
-Close button (Botones de cerrado)
-> Sirven para cerrar los modales o las barras laterales desplegables.
+##### Close button (Botones de cerrado)
+Sirven para cerrar los modales o las barras laterales desplegables.
 
-Pagination (Pagianción)
-> Para navegar en la tabla de incidencias y usuarios.
+##### Pagination (Paginación)
+Para navegar en la tabla de incidencias y usuarios.
 
 ### Implementación de clases reutilizables
 
 Adoptando la idea y filosofía de Bootstrap y de frameworks como Tailwind, hemos implementado clases CSS genéricas que sirven para cambiar los colores de fondo de los elementos y botones, de esta manera la podemos crear componentes reutilizables fácilmente y que la estética de la aplicación sea homogénea.
+
+### Accesibilidad
+Para hacer mas comoda la aplicacion hemos aplicado el usa de tooltips para proporcionar mas informacion al usuario, ademas de el uso de colores altamente llamativos como el rojo botones que realizan acciones criticas como un borrado y actualizado de datos.
+
+### Animaciones
+Las animacines son aplicadas en en el login y las paginas de error 403 y 404, siguiendo todas las misma estetica, dichas animacines tratan de animar unos circulos que rotan 360º mediante una animacion o keyframe, se le aplica distintas duraciones a dichas aniaciones.
 
 ## Despliegue de la aplicación
 
@@ -474,7 +567,7 @@ $ cp default-ssl.conf incidencias-tic.conf
 </IfModule>
 ```
 
-```apache
+```shell
 $ a2ensite incidencias-tic.conf
 ```
 
@@ -654,6 +747,65 @@ Aplicar permisos de ejecución al script creado:
 $ chmod +x despliegueApp.sh
 ```
 
-## Conclusión
+## Documentación de código
 
-Aquí puedes poner tus reflexiones finales.
+Para la documentación del código, clases, atributos o métodos, se han utilizado los estándares correspondientes a cada lenguaje.
+
+### Generación de documentación
+
+Se han generado páginas HTML estáticas con la documentación del código PHP y JS.
+
+Para la generación de la documentación de PHP se ha utilizado la herramienta 'phpDocumentor' y para JS se ha utilizado 'JSDoc'.
+
+## Implementaciones faltantes
+
+* CRUD de algunas tablas maestras como:
+  * Aulas
+  * Departamentos
+  * Equipos
+  * Subtipos (Incidencias)
+
+## Mejoras o posibles cambios a futuro
+
+* Sincronización de atributos LDAP del usuario ya existentes.
+* Indagar en la posibilidad de autenticarse con usuarios del LDAP y/o con usuarios locales creados en base de datos.
+* Generación de reports por los filtros de búsqueda aplicados.
+* Implementar animaciones en las tablas de datos de incidencias y usuarios.
+* Añadir un modo oscuro a la aplicación y que cambie dependiendo de la configuración del sistema, además de darle la opción al usuario.
+* Hacer mejoras de UX/UI, para hacer más cómodo y ameno el uso de la aplicación.
+* Mejorar el chat de comentarios.
+* Implementar transiciones en caso de que los tiempos de carga aumentaran considerablemente.
+
+## Problemas encontrados
+
+* En la red del instituto no ha sido posible utilizar Mailtrap para enviar los correos electrónicos.
+* El uso de Bootstrap a condicionado el diseño de la aplicación.
+
+## Bibliografía y Webgrafía
+
+### Bibliografía
+
+Se han utilizado los apuntos aportados durante el curso por los profesores y los que hemos ido generando nosotros mismos en base a los visto durante el curso.
+
+### Webgrafía
+
+* [Manual MySQL](https://dev.mysql.com/doc/refman/8.0/en/)
+* [Manual PHP](https://www.php.net/manual/es/index.php)
+* [Documentación Laravel 10](https://laravel.com/docs/10.x)
+* [LDAPRecord](https://ldaprecord.com/docs/laravel/v3)
+* [Laravel Excel](https://docs.laravel-excel.com/3.1/getting-started/)
+* [DOMPDF](https://github.com/dompdf/dompdf)
+* [Apache2](https://httpd.apache.org/docs/current/)
+* [phpMyAdmin](https://docs.phpmyadmin.net/es/latest/)
+* [Composer](https://getcomposer.org/)
+* [NodeJS](https://nodejs.org/en)
+* [Webmin](https://webmin.com/docs/)
+* [phpDocumentor](https://docs.phpdoc.org/3.0/)
+* [JSDoc](https://jsdoc.app/)
+* [Mailtrap](https://mailtrap.io/)
+* [ChatGPT](https://chat.openai.com/auth/login)
+* [Gemini](https://gemini.google.com/?hl=es)
+* [Stack Overflow](https://stackoverflow.com/)
+* [YouTube](https://www.youtube.com/)
+* [Bootstrap](https://getbootstrap.com/)
+* [UI colors](https://uicolors.app/create)

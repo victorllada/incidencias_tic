@@ -182,8 +182,10 @@
                             <div class="input-group">
                                 <label class="input-group-text aquamarine-200 fw-bolder"
                                     for="actuaciones">Actuaciones</label>
-                                <textarea class="form-control" placeholder="Deja aqui las actuaciones" name="actuaciones" id="actuaciones"
-                                    rows="8" maxlength="256"
+                                <textarea class="form-control" name="actuaciones" id="actuaciones" rows="8" maxlength="256"
+                                    @role('administrador')
+                                    placeholder="Deja aqui las actuaciones"
+                                    @endrole
                                     @role('profesor')
                                     readonly
                                     @endrole>{{ $incidencia->actuaciones }}</textarea>
