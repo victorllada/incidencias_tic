@@ -5,7 +5,7 @@
  * @param {boolean} useCapture - Especifica si se debe usar la fase de captura (false en este caso).
  * @returns {void}
  */
-addEventListener("load",inicio,false);
+addEventListener("load", inicio, false);
 
 /**
  * Función de inicio que realiza diversas acciones al cargar la página.
@@ -13,8 +13,7 @@ addEventListener("load",inicio,false);
  * - Ejecuta funciones específicas en respuesta a ciertos eventos.
  * @returns {void}
  */
-function inicio()
-{
+function inicio() {
     //Guardamos en una variable el selec de tipo
     var tipo = document.getElementById("tipo");
 
@@ -34,7 +33,7 @@ function inicio()
     subtipo.addEventListener('change', generarSubSubTipos);
 
     //Genera las etiquetas
-    aula.addEventListener("change",cargarEtiquetas,false);
+    aula.addEventListener("change", cargarEtiquetas, false);
 }
 
 /**
@@ -89,7 +88,7 @@ function generarSubtipos() {
             var array = ["EDUCANTABRIA", "GOOGLE CLASSROOM", "DOMINIO", "YEDRA"];
             break;
         case "EQUIPOS":
-            var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANTALLA INTERACTIVA", "PORTATIL",
+            var array = ["ALTAVOCES", "PC", "MONITOR", "PROYECTOR", "PANTALLA", "PANTALLA INTERACTIVA", "PORTATIL",
                 "IMPRESORA"
             ];
             break;
@@ -158,7 +157,7 @@ function generarSubSubTipos() {
             var array = ["RATON", "ORDENADOR", "TECLADO"];
             break;
         case "PORTATIL":
-            var array = ["PORTATIL PROPORCIONADO POR CONSERJERIA", "DE AULA", "DE PUESTO"];
+            var array = ["PROPORCIONADO POR CONSEJERIA", "DE AULA", "DE PUESTO"];
             break;
         default:
             borrarSubSubOpciones();

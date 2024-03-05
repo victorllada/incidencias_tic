@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrearUsuarioRequest;
-use App\Http\Requests\ModificarUsuarioRequest;
 use App\Models\Comentario;
 use App\Models\Departamento;
 use App\Models\Incidencia;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
@@ -144,23 +144,47 @@ class UserController extends Controller
      * @param App\Models\User
      * @return Illuminate\Routing\Redirector::route Redirije a una ruta u otra dependiendo del resultado de la operación
      */
-    public function update(ModificarUsuarioRequest $request, User $usuario)
+    public function update(Request $request, User $usuario)
     {
         try {
-            // Iniciar la transacción
+
             DB::beginTransaction();
 
-            $usuario->nombre_completo = $request->nombre_completo;
+            // Verificar si el usuario está actualizando su propio perfil
+            $esUsuarioPropio = $usuario->id == auth()->user()->id;
 
+            // Validación
+            $rules = [
+                'nombre_completo' => 'required|string',
+                'email' => 'required|email',
+            ];
+
+            $messages = [
+                'nombre_completo.required' => 'El nombre es obligatorio.',
+                'nombre_completo.string' => 'El nombre debe ser una cadena de texto.',
+                'email.required' => 'El email es obligatrio.',
+                'email.email' => 'El email debe ser una dirección de correo electrónico válida.',
+            ];
+
+            // Agregar la regla para 'rol' solo si el usuario no está editando su propio perfil
+            if (!$esUsuarioPropio) {
+                $rules['rol'] = 'required|in:administrador,profesor';
+                $messages['rol.required'] = 'El rol es obligatrio.';
+                $messages['rol.in'] = 'El rol debe ser profesor o administrador.';
+            }
+
+            $this->validate($request, $rules);
+
+            // Actualizar usuario
+            $usuario->nombre_completo = $request->nombre_completo;
             $usuario->email = $request->email;
 
-            $usuario->syncRoles([$request->rol]);
+            // Actualizar roles solo si no es el propio perfil del usuario
+            if (!$esUsuarioPropio) {
+                $usuario->syncRoles([$request->rol]);
+            }
 
-            //Guardamos el usuario
             $usuario->save();
-
-            // Confirmar la transacción
-            DB::commit();
 
             return redirect()->route('usuarios.index')->with('success', 'Usuario modificado correctamente.');
         } catch (Exception $e) {
@@ -168,7 +192,7 @@ class UserController extends Controller
             //Cancelamos la transacion
             DB::rollBack();
 
-            return redirect()->route('usuarios.index')->with('error', 'No se pudo modificar el usuario. Detalles: ' . $e->getMessage());
+            return redirect()->route('usuarios.edit', compact('usuario'))->withErrors($e->getMessage())->withInput();
         }
     }
 

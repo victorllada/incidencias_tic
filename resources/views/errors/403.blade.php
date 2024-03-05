@@ -13,7 +13,7 @@
                     Ups...
                     <span>No tienes permisos para entrar en esta página</span>
                 </h1>
-                <h3 class=" fw-bold ls-tight volver" onclick="history.back(); return false;">
+                <h3 class=" fw-bold ls-tight volver">
                     <a href="{{ route('incidencias.index') }}"> <i class="bi bi-arrow-left"></i>
                         Volver al inicio</a>
                 </h3>
