@@ -16,7 +16,7 @@ addEventListener("load",inicio,false);
  */
 function inicio()
 {
-    console.log("furula");
+    //console.log("furula");
     botonBorrar.addEventListener("click",preguntarBorrado,false);
     activarBorrado.addEventListener("click",confirmarBorrado,false);
 }

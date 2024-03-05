@@ -15,8 +15,12 @@
       - [DOMPDF (dompdf/dompdf)](#dompdf-dompdfdompdf)
     - [Subsección 2.2](#subsección-22)
   - [JavaScript](#javascript)
-    - [Subsección 2.1](#subsección-21)
-    - [Subsección 2.2](#subsección-22-1)
+    - [Incidencia.js](#Incidencia.js)
+    - [ShowIncidencia.js](#ShowIncidencia.js)
+    - [EditIncidencia.js](#EditIncidencia.js)
+    - [CreateIncidencia.js](#CreateIncidencia.js)
+    - [Usuarios.js](#Usuarios.js)
+    - [VariableHost.js](#VariableHost.js)
   - [Bootstrap y CSS](#bootstrap-y-css)
     - [Paleta de colores](#paleta-de-colores)
     - [Diseño](#diseño)
@@ -169,15 +173,31 @@ Contenido de la subsección 2.2.
 
 ## JavaScript
 
-Contenido de la segunda sección.
+JavaScript en esta aplicacion se ha usado para, filtros, paginacion y validaciones
 
-### Subsección 2.1
+### Incidencia.js
 
-Contenido de la subsección 2.1.
+El archivo de inicio para ambos usuarios, tanto los profesores como los administradores, aquí está una llama de un método async para la llamada de Ajax, también contiene dos métodos para mostrar las incidencias, una para los usuarios con todos los datos relevantes para el administrador, y después otro para el profesor con los datos relevantes para el mismo, también tiene filtros para las incidencias, y demas funciones que tiene, como la paginacion o redireccion o borrado
 
-### Subsección 2.2
+### ShowIncidencia.js
 
-Contenido de la subsección 2.2.
+En este archivo lo único que esta es un método preventDefaut al botón de borrado para que el usuario confirme el borrado de la incidencia, si confirma se borra, si no, el modal desaparece y puede continuar
+
+### EditIncidencia.js
+
+Este archivo está para mostrar u ocultar select de diferentes aspectos de la incidencia, como los subtipos o sub subtipos si existieran, también para el aula y la etiqueta del equipo si la incidencia es de tipo equipo y subtipo pc o portátil
+
+### CreateIncidencia.js
+
+Los métodos de este archivo están empleados para los tipos de incidencias, para mostrar los select de los subtipos o sub subtipos, si existieran, u otros aspectos como el aula y la etiqueta del equipo para poder hacer una incendia de tipo equipos, con un subtipo de pc o portátil.
+
+### Usuarios.js
+
+Este archivo está creado para poder mostrar los usuarios, recibidos a través de Ajax en un método async, con sus diferentes funciones, la paginación y los diferentes filtros para los usuarios.
+
+### VariableHost.js
+
+Este archivo contiene una variable que en un entorno real no existiría, porque se usaría un DNS, pero por tiempo hemos tenido que hacerlo así, pero para poder usar los Ajax y redirecciones es necesaria, en esta variable está la IP origen del servidor, según si está en localhost o fuera del servidor.
 
 ## Bootstrap y CSS
 
