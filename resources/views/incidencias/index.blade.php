@@ -73,6 +73,17 @@
                                     </select>
                                 </div>
 
+                                {{-- Filtro fecha desde hasta --}}
+                                <div class="input-group">
+                                    <label class="col-4 input-group-text aquamarine-200"
+                                        for="fechaDesdeFiltro">Fecha</label>
+                                    <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
+                                        aria-label="Desde">
+                                    <label class="" for="fechaHastaFiltro"></label>
+                                    <input class="form-control" type="date" id="fechaHastaFiltro" name="fechaHastaFiltro"
+                                        aria-label="Hasta">
+                                </div>
+
                                 {{-- Filtro prioridad --}}
                                 <div class="input-group">
                                     <label class="col-4 input-group-text aquamarine-200"
@@ -84,17 +95,6 @@
                                         <option value="MEDIA">Media</option>
                                         <option value="ALTA">Alta</option>
                                     </select>
-                                </div>
-
-                                {{-- Filtro fecha desde hasta --}}
-                                <div class="input-group">
-                                    <label class="col-4 input-group-text aquamarine-200"
-                                        for="fechaDesdeFiltro">Fecha</label>
-                                    <input class="form-control" type="date" id="fechaDesdeFiltro" name="fechaDesdeFiltro"
-                                        aria-label="Desde">
-                                    <label class="" for="fechaHastaFiltro"></label>
-                                    <input class="form-control" type="date" id="fechaHastaFiltro" name="fechaHastaFiltro"
-                                        aria-label="Hasta">
                                 </div>
 
                                 {{-- Filtro estado --}}
@@ -111,7 +111,7 @@
                                     </select>
                                 </div>
 
-                                @role("administrador")
+                                @role('administrador')
                                     {{-- Filtro responsable --}}
                                     <div class="input-group">
                                         <label class="col-4 input-group-text aquamarine-200"
