@@ -16,3 +16,7 @@ Software para la gestión de incidencias realizadas por el departamento TIC del 
 - [MANUAL DE USUARIO PROFESOR](https://github.com/victorllada/incidencias_tic/blob/main/ManualDeUsuarioProfesor.pdf)
 - [PHPDOC](docs/php/index.html)
 - [JSDOC](docs/js/index.html)
+
+## Máquina virtual
+
+Se ha subido una OVA en la carpeta del Teams.
