@@ -11,7 +11,7 @@ Software para la gestión de incidencias realizadas por el departamento TIC del 
 ## Contenidos
 
 - [DOCUMENTACIÓN PROYECTO](DocumentacionProyecto.md)
-- [PRESENTACION DEL PROYECTO](https://github.com/victorllada/incidencias_tic/blob/main/Equipo1.pdf)
+- [PRESENTACIÓN DEL PROYECTO](https://github.com/victorllada/incidencias_tic/blob/main/Equipo1.pdf)
 - [MANUAL DE USUARIO ADMINISTRADOR](https://github.com/victorllada/incidencias_tic/blob/main/ManualDeUsuarioAdministrador.pdf)
 - [MANUAL DE USUARIO PROFESOR](https://github.com/victorllada/incidencias_tic/blob/main/ManualDeUsuarioProfesor.pdf)
 - [PHPDOC](docs/php/index.html)
